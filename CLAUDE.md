@@ -179,6 +179,80 @@ Yeni kolon/tablo eklendiginde **3 semaya da** ekle:
 
 ---
 
+## IS TAMAMLAMA VE COMMIT KURALLARI (ZORUNLU)
+
+Her yapilan is tamamlandiginda asagidaki adimlar **sirayla** uygulanir:
+
+### 1. Task Dokumani Olustur
+`smallFactory/tasks/{api|ui}/` altina task dosyasi yaz:
+
+```markdown
+# [TASK-ID] Kisa Baslik
+
+## Tur: BUG | FEATURE | REFACTOR | INFRA
+## Durum: DONE
+## Tarih: YYYY-MM-DD
+## Etki Seviyesi: KRITIK | YUKSEK | ORTA | DUSUK
+
+## Sorun / Ihtiyac
+Ne oldugu, nasil fark edildigi, hangi sayfalar/endpoint'ler etkilendigi.
+
+## Kok Neden
+Sorunun teknik sebebi. (Ornek: API paginated response donuyor, UI array bekliyor)
+
+## Cozum
+Ne yapildi, hangi dosyalar degisti, neden bu yaklasim secildi.
+
+## Etki Analizi
+- Etkilenen sayfalar/moduller
+- Baska bir ozelligi kirma riski var mi?
+- DB degisikligi gerekti mi?
+
+## Degisen Dosyalar
+| Dosya | Degisiklik |
+|-------|-----------|
+| path/to/file | Aciklama |
+
+## Test Sonucu
+- Mevcut testler gecti mi?
+- Yeni test eklendi mi?
+```
+
+### 2. Changelog Girdisi
+`smallFactory/docs/CHANGELOG.md` dosyasina ekle:
+
+```markdown
+## [YYYY-MM-DD]
+### Bug Fixes
+- **TASK-ID:** Kisa aciklama — etkilenen moduller
+
+### Features
+- **TASK-ID:** Kisa aciklama
+
+### Infrastructure
+- **TASK-ID:** Kisa aciklama
+```
+
+### 3. Commit At
+```bash
+git add <ilgili-dosyalar>
+git commit -m "[TASK-ID] Kisa aciklama
+
+- Ne yapildi (bullet points)
+- Etkilenen moduller
+- Test durumu
+
+Co-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>"
+```
+
+### 4. Commit Kurallari
+- Her task **ayri commit** olarak atilir (toplu degil)
+- Commit mesaji task ID ile baslar
+- Commit oncesi build + test gecmeli
+- Birden fazla projeyi etkileyen isler icin her projede ayri commit
+
+---
+
 ## BILINEN ONEMLI DETAYLAR
 
 | Konu | Detay |
