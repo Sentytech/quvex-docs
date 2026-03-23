@@ -9,7 +9,9 @@
 - **BUG-004:** DB CorrectiveActions tablosunda EffectivenessVerified kolonu eksik — CAPA sayfasi 500
 - **BUG-005:** DB Tenants tablosunda IsDemoTenant/DemoExpiresAt/OnboardingCompleted kolonlari eksik — Manage dashboard 500
 - **BUG-006:** DB ChangelogEntries tablosu eksik — Changelog sayfasi 500
-- **BUG-007:** UI 18 dosyada pagination uyumsuzlugu — API paginated response donuyor, UI array bekliyor (Stok, Urun, Depo, Makine, Fatura sayfalarinda "liste yuklenemedi" hatalari)
+- **BUG-007:** UI 22 dosyada pagination uyumsuzlugu — API paginated response donuyor, UI array bekliyor (Stok, Urun, Depo, Makine, Fatura, Ayarlar sayfalarinda "liste yuklenemedi" ve "rawData.some is not a function" hatalari)
+- **BUG-008:** Changelog/latest bos tabloda 404 donuyordu — Ok(null) ile degistirildi
+- **BUG-009:** Dashboard'da /WorkOrder ve /Machine 404 — dogru isimler /WorkOrderLogs ve /Machines
 
 ### Features
 - **FEAT-001:** E2E API endpoint health check test altyapisi (131 GET endpoint, Playwright)
