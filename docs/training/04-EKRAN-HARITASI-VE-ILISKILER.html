@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quvex ERP — Ekran Haritasi &amp; Modul Iliskileri</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+:root{--bg:#0a0b0f;--s1:#11131a;--s2:#181b25;--s3:#1f2330;--brd:#282d3e;--tx:#e0e2ec;--dim:#6b7194;--sales:#10b981;--prod:#f97316;--stock:#06b6d4;--purch:#8b5cf6;--qual:#ec4899;--acct:#14b8a6;--maint:#ef4444;--sett:#64748b;--warn:#f59e0b;--info:#3b82f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;line-height:1.6;overflow-x:hidden}
+.mono{font-family:'IBM Plex Mono',monospace}
+::selection{background:#ec489944;color:#fff}
+.wrap{max-width:1360px;margin:0 auto;padding:24px 20px}
+
+/* Header */
+header{padding:28px 0 20px;border-bottom:1px solid var(--brd);margin-bottom:36px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+header h1{font-size:24px;font-weight:700;letter-spacing:-.5px}
+header h1 span{color:var(--qual);font-weight:300}
+.badge{font-size:10px;padding:3px 10px;border-radius:20px;background:var(--s2);border:1px solid var(--brd);color:var(--dim)}
+.print-btn{padding:6px 14px;border-radius:6px;border:1px solid var(--brd);background:var(--s2);color:var(--dim);cursor:pointer;font-size:12px;transition:.2s}
+.print-btn:hover{border-color:var(--info);color:var(--info)}
+
+/* Section titles */
+.sec{margin-bottom:40px}
+.sec-title{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--dim);margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.sec-title::before{content:'';width:3px;height:16px;border-radius:2px;background:var(--qual)}
+.sec-num{color:var(--qual);font-family:'IBM Plex Mono';font-weight:600}
+
+/* ═══ SECTION 1: Main Flow ═══ */
+.flow-container{position:relative;padding:32px 16px;background:var(--s1);border:1px solid var(--brd);border-radius:14px;overflow-x:auto}
+.flow-row{display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:nowrap;min-width:700px}
+.flow-node{padding:14px 22px;border-radius:10px;border:2px solid var(--brd);background:var(--s2);cursor:pointer;transition:all .3s;text-align:center;min-width:120px;position:relative;z-index:1}
+.flow-node:hover{transform:translateY(-3px);box-shadow:0 8px 30px #00000066}
+.flow-node.active{border-width:2px;transform:translateY(-3px);box-shadow:0 8px 30px #00000066}
+.flow-node .label{font-size:14px;font-weight:600}
+.flow-node .sub{font-size:10px;color:var(--dim);margin-top:2px}
+.flow-arrow{color:var(--dim);font-size:11px;display:flex;flex-direction:column;align-items:center;padding:0 6px;font-family:'IBM Plex Mono'}
+.flow-arrow .line{font-size:20px;line-height:1}
+.flow-arrow .txt{font-size:9px;white-space:nowrap}
+
+.flow-branch{display:flex;justify-content:center;gap:60px;margin-top:20px;flex-wrap:wrap}
+.branch-group{display:flex;flex-direction:column;align-items:center;gap:6px}
+.branch-label{font-size:10px;color:var(--dim);font-style:italic}
+.branch-nodes{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.branch-node{padding:8px 14px;border-radius:8px;border:1px solid var(--brd);background:var(--s2);font-size:11px;cursor:pointer;transition:all .25s}
+.branch-node:hover{transform:translateY(-2px)}
+
+/* Module colors */
+.c-sales{border-color:var(--sales)40;color:var(--sales)}.c-sales.active{border-color:var(--sales);background:var(--sales)15;box-shadow:0 0 20px var(--sales)22}
+.c-prod{border-color:var(--prod)40;color:var(--prod)}.c-prod.active{border-color:var(--prod);background:var(--prod)15;box-shadow:0 0 20px var(--prod)22}
+.c-stock{border-color:var(--stock)40;color:var(--stock)}.c-stock.active{border-color:var(--stock);background:var(--stock)15;box-shadow:0 0 20px var(--stock)22}
+.c-purch{border-color:var(--purch)40;color:var(--purch)}.c-purch.active{border-color:var(--purch);background:var(--purch)15;box-shadow:0 0 20px var(--purch)22}
+.c-qual{border-color:var(--qual)40;color:var(--qual)}.c-qual.active{border-color:var(--qual);background:var(--qual)15;box-shadow:0 0 20px var(--qual)22}
+.c-acct{border-color:var(--acct)40;color:var(--acct)}.c-acct.active{border-color:var(--acct);background:var(--acct)15;box-shadow:0 0 20px var(--acct)22}
+.c-maint{border-color:var(--maint)40;color:var(--maint)}.c-maint.active{border-color:var(--maint);background:var(--maint)15;box-shadow:0 0 20px var(--maint)22}
+.c-sett{border-color:var(--sett)40;color:var(--sett)}.c-sett.active{border-color:var(--sett);background:var(--sett)15;box-shadow:0 0 20px var(--sett)22}
+
+/* ═══ SECTION 2: Module Cards ═══ */
+.mod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+.mod-card{background:var(--s1);border:1px solid var(--brd);border-radius:12px;overflow:hidden;transition:all .3s}
+.mod-card.highlight{border-color:currentColor;box-shadow:0 4px 24px #00000044}
+.mod-card-header{padding:16px 18px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid transparent;transition:.2s}
+.mod-card.open .mod-card-header{border-bottom-color:var(--brd)}
+.mod-card-header h3{font-size:14px;font-weight:600;display:flex;align-items:center;gap:10px}
+.mod-card-header .dot{width:8px;height:8px;border-radius:50%}
+.mod-card-header .count{font-size:11px;color:var(--dim);background:var(--s2);padding:2px 8px;border-radius:10px}
+.mod-card-header .chevron{transition:transform .3s;color:var(--dim);font-size:16px}
+.mod-card.open .mod-card-header .chevron{transform:rotate(180deg)}
+.mod-card-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.mod-card.open .mod-card-body{max-height:800px}
+.mod-card-inner{padding:16px 18px}
+.mod-io{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.mod-io-box{padding:10px 12px;border-radius:8px;background:var(--s2);font-size:11px}
+.mod-io-box .lbl{font-weight:600;margin-bottom:4px;font-size:10px;text-transform:uppercase;letter-spacing:1px}
+.mod-io-box.input .lbl{color:var(--info)}.mod-io-box.output .lbl{color:var(--sales)}
+.screen-list{display:flex;flex-wrap:wrap;gap:6px}
+.screen-tag{padding:4px 10px;border-radius:6px;background:var(--s3);border:1px solid var(--brd);font-size:11px;transition:.15s}
+.screen-tag:hover{border-color:var(--dim)}
+
+/* ═══ SECTION 3: Quality Map ═══ */
+.qual-map{background:var(--s1);border:1px solid var(--brd);border-radius:14px;padding:28px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.qual-flow{padding:16px;background:var(--s2);border-radius:10px;border-left:3px solid var(--qual)}
+.qual-flow h4{font-size:13px;font-weight:600;color:var(--qual);margin-bottom:10px}
+.qual-flow .steps{font-size:12px;color:var(--dim);line-height:2}
+.qual-flow .steps strong{color:var(--tx)}
+
+/* ═══ SECTION 4: Data Matrix ═══ */
+.matrix-wrap{overflow-x:auto}
+.matrix{border-collapse:collapse;width:100%;font-size:12px}
+.matrix th,.matrix td{padding:10px 8px;text-align:center;border:1px solid var(--brd)}
+.matrix th{background:var(--s2);font-weight:600;font-size:11px;white-space:nowrap}
+.matrix td{background:var(--s1);transition:.15s}
+.matrix td:hover{background:var(--s3)}
+.matrix .arrow{font-size:16px}
+.matrix .diag{background:var(--s3);color:var(--dim)}
+
+/* ═══ SECTION 5: Views ═══ */
+.views-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.view-card{background:var(--s1);border:1px solid var(--brd);border-radius:12px;padding:20px;text-align:center}
+.view-card h4{font-size:14px;font-weight:600;margin-bottom:4px}
+.view-card .desc{font-size:11px;color:var(--dim);margin-bottom:14px}
+.view-menu{display:flex;flex-direction:column;gap:4px;text-align:left}
+.view-menu-item{padding:6px 12px;border-radius:6px;background:var(--s2);font-size:11px;display:flex;align-items:center;gap:8px}
+.view-menu-item .icon{width:6px;height:6px;border-radius:50%}
+
+/* ═══ SECTION 6: Timeline ═══ */
+.timeline{position:relative;padding-left:32px}
+.timeline::before{content:'';position:absolute;left:11px;top:0;bottom:0;width:2px;background:var(--brd)}
+.tl-step{position:relative;margin-bottom:16px;padding:14px 18px;background:var(--s1);border:1px solid var(--brd);border-radius:10px;transition:.2s}
+.tl-step:hover{border-color:var(--dim)}
+.tl-step::before{content:attr(data-step);position:absolute;left:-32px;top:14px;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;border:2px solid var(--brd);background:var(--s2);z-index:1}
+.tl-step.done::before{border-color:var(--sales);background:var(--sales);color:#fff}
+.tl-step .tl-title{font-size:13px;font-weight:600}
+.tl-step .tl-screen{font-size:11px;color:var(--dim);font-family:'IBM Plex Mono'}
+.tl-step .tl-desc{font-size:12px;color:var(--dim);margin-top:4px}
+
+/* ═══ SECTION 7: Prerequisites ═══ */
+.prereq-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.prereq-item{padding:14px 18px;background:var(--s1);border:1px solid var(--brd);border-radius:10px;display:flex;align-items:center;gap:14px}
+.prereq-item .module{font-size:13px;font-weight:600;min-width:100px}
+.prereq-item .arrow{color:var(--dim)}
+.prereq-item .deps{display:flex;flex-wrap:wrap;gap:4px}
+.prereq-item .dep{padding:3px 8px;border-radius:4px;font-size:10px;background:var(--s2);border:1px solid var(--brd)}
+
+@media print{body{background:#fff;color:#111}.wrap{max-width:100%}header,.print-btn{display:none}.flow-container,.mod-card,.qual-map,.view-card,.tl-step,.prereq-item{background:#f8f8f8;border-color:#ddd;color:#111}}
+@media(max-width:768px){.views-grid{grid-template-columns:1fr}.qual-map{grid-template-columns:1fr}.mod-grid{grid-template-columns:1fr}.flow-row{min-width:auto;flex-wrap:wrap;gap:8px}.flow-arrow .line{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div>
+    <h1>Quvex ERP <span>Ekran Haritasi</span></h1>
+    <span class="badge mono">Dahili Egitim Dokumani — v1.0</span>
+  </div>
+  <button class="print-btn" onclick="window.print()">Yazdir</button>
+</header>
+
+<!-- ═══════════ SECTION 1: ANA IS AKISI ═══════════ -->
+<div class="sec">
+  <div class="sec-title"><span class="sec-num">01</span> Ana Is Akisi</div>
+  <div class="flow-container">
+    <div class="flow-row">
+      <div class="flow-node c-sales" data-mod="sales" onclick="selectMod('sales')">
+        <div class="label">TEKLIF</div><div class="sub">Offer</div>
+      </div>
+      <div class="flow-arrow"><div class="txt">onay</div><div class="line">→</div></div>
+      <div class="flow-node c-sales" data-mod="sales" onclick="selectMod('sales')">
+        <div class="label">SIPARIS</div><div class="sub">Sales Order</div>
+      </div>
+      <div class="flow-arrow"><div class="txt">uretim emri</div><div class="line">→</div></div>
+      <div class="flow-node c-prod" data-mod="prod" onclick="selectMod('prod')">
+        <div class="label">URETIM</div><div class="sub">Production</div>
+      </div>
+      <div class="flow-arrow"><div class="txt">tamamla</div><div class="line">→</div></div>
+      <div class="flow-node c-acct" data-mod="acct" onclick="selectMod('acct')">
+        <div class="label">FATURA</div><div class="sub">Invoice</div>
+      </div>
+    </div>
+    <div class="flow-branch">
+      <div class="branch-group">
+        <div class="branch-label">Siparis → Malzeme Kontrolu</div>
+        <div class="branch-nodes">
+          <div class="branch-node c-stock" onclick="selectMod('stock')">Stok Kontrol</div>
+          <div class="branch-node c-purch" onclick="selectMod('purch')">Satin Alma</div>
+          <div class="branch-node c-purch" onclick="selectMod('purch')">Tedarikci Siparis</div>
+        </div>
+      </div>
+      <div class="branch-group">
+        <div class="branch-label">Uretim → Kalite Gate</div>
+        <div class="branch-nodes">
+          <div class="branch-node c-qual" onclick="selectMod('qual')">Kalite Kontrol</div>
+          <div class="branch-node c-qual" onclick="selectMod('qual')">NCR / Muayene</div>
+          <div class="branch-node c-qual" onclick="selectMod('qual')">CoC Olustur</div>
+        </div>
+      </div>
+      <div class="branch-group">
+        <div class="branch-label">Destek Moduller</div>
+        <div class="branch-nodes">
+          <div class="branch-node c-maint" onclick="selectMod('maint')">Bakim</div>
+          <div class="branch-node c-sett" onclick="selectMod('sett')">Ayarlar</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ SECTION 2: MODUL DETAY ═══════════ -->
+<div class="sec">
+  <div class="sec-title"><span class="sec-num">02</span> Modul Detay Kartlari <span style="color:var(--dim);font-weight:400;text-transform:none;letter-spacing:0">(tiklayarak ac/kapa)</span></div>
+  <div class="mod-grid" id="modGrid">
+
+    <div class="mod-card" data-mod="sales" style="color:var(--sales)">
+      <div class="mod-card-header" onclick="toggleCard(this)">
+        <h3><span class="dot" style="background:var(--sales)"></span>Satis Modulu</h3>
+        <div><span class="count">5 ekran</span> <span class="chevron">▾</span></div>
+      </div>
+      <div class="mod-card-body"><div class="mod-card-inner">
+        <div class="mod-io">
+          <div class="mod-io-box input"><div class="lbl">← Nereden Gelir</div>Musteri bilgileri, urun katalogu</div>
+          <div class="mod-io-box output"><div class="lbl">→ Nereye Gider</div>Siparis → Uretim emri, Fatura</div>
+        </div>
+        <div class="screen-list">
+          <span class="screen-tag">/customers — Musteri Listesi</span>
+          <span class="screen-tag">/offers — Teklif Listesi</span>
+          <span class="screen-tag">/offers/form — Teklif Form</span>
+          <span class="screen-tag">/sales — Siparis Listesi</span>
+          <span class="screen-tag">/sales/detail/:id — Siparis Detay</span>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="mod-card" data-mod="prod" style="color:var(--prod)">
+      <div class="mod-card-header" onclick="toggleCard(this)">
+        <h3><span class="dot" style="background:var(--prod)"></span>Uretim Modulu</h3>
+        <div><span class="count">8 ekran</span> <span class="chevron">▾</span></div>
+      </div>
+      <div class="mod-card-body"><div class="mod-card-inner">
+        <div class="mod-io">
+          <div class="mod-io-box input"><div class="lbl">← Nereden Gelir</div>Siparis emri, malzeme stok durumu</div>
+          <div class="mod-io-box output"><div class="lbl">→ Nereye Gider</div>Mamul stok, kalite kontrol, CoC, fatura</div>
+        </div>
+        <div class="screen-list">
+          <span class="screen-tag">/production — Uretim Listesi</span>
+          <span class="screen-tag">/production/detail/:id — Uretim Detay</span>
+          <span class="screen-tag">/production/planning — Gantt Planlama</span>
+          <span class="screen-tag">/production/capacity — Kapasite</span>
+          <span class="screen-tag">/shop-floor-terminal — Atolye Terminali</span>
+          <span class="screen-tag">/subcontract-orders — Fason Isler</span>
+          <span class="screen-tag">/serial-numbers — Seri Numaralari</span>
+          <span class="screen-tag">/mrp — MRP / BOM</span>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="mod-card" data-mod="stock" style="color:var(--stock)">
+      <div class="mod-card-header" onclick="toggleCard(this)">
+        <h3><span class="dot" style="background:var(--stock)"></span>Stok &amp; Depo</h3>
+        <div><span class="count">10 ekran</span> <span class="chevron">▾</span></div>
+      </div>
+      <div class="mod-card-body"><div class="mod-card-inner">
+        <div class="mod-io">
+          <div class="mod-io-box input"><div class="lbl">← Nereden Gelir</div>Satin alma (giris), uretim (mamul)</div>
+          <div class="mod-io-box output"><div class="lbl">→ Nereye Gider</div>Uretim (hammadde), satin alma (eksik), muhasebe (maliyet)</div>
+        </div>
+        <div class="screen-list">
+          <span class="screen-tag">/products — Urunler (66 alan)</span>
+          <span class="screen-tag">/stocks — Stok Durumu</span>
+          <span class="screen-tag">/stock-receipts — Giris/Cikis</span>
+          <span class="screen-tag">/warehouses — Depolar</span>
+          <span class="screen-tag">/stock/transfers — Transfer</span>
+          <span class="screen-tag">/stock/count — Sayim</span>
+          <span class="screen-tag">/stock/lots — Lot Takibi</span>
+          <span class="screen-tag">/stock/alerts — Uyarilar</span>
+          <span class="screen-tag">/stock/barcode — Barkod</span>
+          <span class="screen-tag">/warehouse-locations — Lokasyonlar</span>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="mod-card" data-mod="purch" style="color:var(--purch)">
+      <div class="mod-card-header" onclick="toggleCard(this)">
+        <h3><span class="dot" style="background:var(--purch)"></span>Satin Alma</h3>
+        <div><span class="count">5 ekran</span> <span class="chevron">▾</span></div>
+      </div>
+      <div class="mod-card-body"><div class="mod-card-inner">
+        <div class="mod-io">
+          <div class="mod-io-box input"><div class="lbl">← Nereden Gelir</div>Uretim malzeme ihtiyaci, stok min uyari</div>
+          <div class="mod-io-box output"><div class="lbl">→ Nereye Gider</div>Stok giris, giris muayene, fatura</div>
+        </div>
+        <div class="screen-list">
+          <span class="screen-tag">/purchase-request — Talepler</span>
+          <span class="screen-tag">/suppliers — Tedarikciler</span>
+          <span class="screen-tag">/purchase-offers — Teklif Toplama</span>
+          <span class="screen-tag">/purchase-orders — Siparis</span>
+          <span class="screen-tag">/auto-purchase — Otomatik</span>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="mod-card" data-mod="qual" style="color:var(--qual)">
+      <div class="mod-card-header" onclick="toggleCard(this)">
+        <h3><span class="dot" style="background:var(--qual)"></span>Kalite / AS9100</h3>
+        <div><span class="count">26 ekran</span> <span class="chevron">▾</span></div>
+      </div>
+      <div class="mod-card-body"><div class="mod-card-inner">
+        <div class="mod-io">
+          <div class="mod-io-box input"><div class="lbl">← Nereden Gelir</div>Uretim (muayene), stok giris (giris kontrol), tedarikci</div>
+          <div class="mod-io-box output"><div class="lbl">→ Nereye Gider</div>NCR→CAPA, CoC→sevkiyat, FAI→uretim izin</div>
+        </div>
+        <div class="screen-list">
+          <span class="screen-tag">NCR (Uygunsuzluk)</span>
+          <span class="screen-tag">CAPA</span>
+          <span class="screen-tag">Muayeneler</span>
+          <span class="screen-tag">FAI</span>
+          <span class="screen-tag">SPC</span>
+          <span class="screen-tag">Kalibrasyon</span>
+          <span class="screen-tag">FMEA</span>
+          <span class="screen-tag">PPAP</span>
+          <span class="screen-tag">Kontrol Plani</span>
+          <span class="screen-tag">Egitim</span>
+          <span class="screen-tag">Ic Denetim</span>
+          <span class="screen-tag">Tedarikci Deger.</span>
+          <span class="screen-tag">Tasarim</span>
+          <span class="screen-tag">Gage R&R</span>
+          <span class="screen-tag">Proses Yeterlilik</span>
+          <span class="screen-tag">CoC</span>
+          <span class="screen-tag">8D</span>
+          <span class="screen-tag">RMA</span>
+          <span class="screen-tag">COPQ</span>
+          <span class="screen-tag">+7 daha</span>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="mod-card" data-mod="acct" style="color:var(--acct)">
+      <div class="mod-card-header" onclick="toggleCard(this)">
+        <h3><span class="dot" style="background:var(--acct)"></span>Muhasebe</h3>
+        <div><span class="count">7 ekran</span> <span class="chevron">▾</span></div>
+      </div>
+      <div class="mod-card-body"><div class="mod-card-inner">
+        <div class="mod-io">
+          <div class="mod-io-box input"><div class="lbl">← Nereden Gelir</div>Siparis tamamlama, satin alma fatura</div>
+          <div class="mod-io-box output"><div class="lbl">→ Nereye Gider</div>e-Fatura, tahsilat, banka</div>
+        </div>
+        <div class="screen-list">
+          <span class="screen-tag">/invoices — Faturalar</span>
+          <span class="screen-tag">/accounting/shipped — Sevkiyat</span>
+          <span class="screen-tag">/accounting/billed — Faturalanan</span>
+          <span class="screen-tag">/accounting/aging — Vade Analizi</span>
+          <span class="screen-tag">/accounting/negotiable — Cek/Senet</span>
+          <span class="screen-tag">/accounting/exchange — Doviz</span>
+          <span class="screen-tag">/bank-reconciliation — Banka</span>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="mod-card" data-mod="maint" style="color:var(--maint)">
+      <div class="mod-card-header" onclick="toggleCard(this)">
+        <h3><span class="dot" style="background:var(--maint)"></span>Bakim</h3>
+        <div><span class="count">4 ekran</span> <span class="chevron">▾</span></div>
+      </div>
+      <div class="mod-card-body"><div class="mod-card-inner">
+        <div class="mod-io">
+          <div class="mod-io-box input"><div class="lbl">← Nereden Gelir</div>Makine tanimlari, ariza bildirimi</div>
+          <div class="mod-io-box output"><div class="lbl">→ Nereye Gider</div>OEE → uretim verimlilik, bakim plani</div>
+        </div>
+        <div class="screen-list">
+          <span class="screen-tag">/maintenance — Bakim Planlari</span>
+          <span class="screen-tag">/oee — OEE Dashboard</span>
+          <span class="screen-tag">/mtbf-mttr — MTBF/MTTR</span>
+          <span class="screen-tag">/maintenance/calendar — Takvim</span>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="mod-card" data-mod="sett" style="color:var(--sett)">
+      <div class="mod-card-header" onclick="toggleCard(this)">
+        <h3><span class="dot" style="background:var(--sett)"></span>Ayarlar</h3>
+        <div><span class="count">12 ekran</span> <span class="chevron">▾</span></div>
+      </div>
+      <div class="mod-card-body"><div class="mod-card-inner">
+        <div class="mod-io">
+          <div class="mod-io-box input"><div class="lbl">← Nereden Gelir</div>Ilk kurulum, yonetici kararlari</div>
+          <div class="mod-io-box output"><div class="lbl">→ Nereye Gider</div>Tum moduller bu ayarlari kullanir</div>
+        </div>
+        <div class="screen-list">
+          <span class="screen-tag">Kullanicilar</span><span class="screen-tag">Roller</span>
+          <span class="screen-tag">Makineler</span><span class="screen-tag">Birimler</span>
+          <span class="screen-tag">Is Emri Sablonlari</span><span class="screen-tag">Is Emri Adimlari</span>
+          <span class="screen-tag">Malzeme Tipleri</span><span class="screen-tag">KVKK</span>
+          <span class="screen-tag">Audit Trail</span><span class="screen-tag">Modul Yonetimi</span>
+          <span class="screen-tag">Import/Export</span><span class="screen-tag">Siber Guvenlik</span>
+        </div>
+      </div></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ SECTION 3: KALITE ILISKI ═══════════ -->
+<div class="sec">
+  <div class="sec-title"><span class="sec-num">03</span> Kalite Modul Iliskileri (AS9100)</div>
+  <div class="qual-map">
+    <div class="qual-flow">
+      <h4>NCR → CAPA Akisi</h4>
+      <div class="steps">
+        <strong>NCR acildi</strong> (uygunsuzluk tespit)<br>
+        → Ciddiyet belirlendi (Minor/Major/Critical)<br>
+        → <strong>CAPA baslatildi</strong> (duzeltici/onleyici)<br>
+        → Kok neden analizi yapildi<br>
+        → Aksiyon tanimlandi + tamamlandi<br>
+        → Etkinlik dogrulamasi<br>
+        → <strong>NCR kapatildi</strong>
+      </div>
+    </div>
+    <div class="qual-flow">
+      <h4>FAI → Uretime Izin</h4>
+      <div class="steps">
+        Yeni urun / tasarim degisikligi<br>
+        → <strong>FAI baslat</strong> (Ilk Madde Muayenesi)<br>
+        → Karakteristik tanimla + olcum yap<br>
+        → <strong>KABUL</strong> → Uretime onay verilir<br>
+        → <strong>RED</strong> → NCR acilir, uretim baslamaz
+      </div>
+    </div>
+    <div class="qual-flow">
+      <h4>Muayene → NCR / CoC</h4>
+      <div class="steps">
+        Giris/proses/final muayene yapilir<br>
+        → <strong>FAIL</strong> → NCR acilir → CAPA<br>
+        → <strong>PASS</strong> → CoC olusturulur<br>
+        → CoC + urun → sevkiyat
+      </div>
+    </div>
+    <div class="qual-flow">
+      <h4>SPC → Kontrol Grafigi</h4>
+      <div class="steps">
+        Kontrol plani olustur<br>
+        → 25+ olcum verisi gir<br>
+        → X-bar, R chart otomatik cizilir<br>
+        → Cp/Cpk hesaplanir<br>
+        → <strong>Kontrol disi</strong> → Alarm → NCR<br>
+        → <strong>Kontrol ici</strong> → Devam
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ SECTION 4: VERI AKIS MATRISI ═══════════ -->
+<div class="sec">
+  <div class="sec-title"><span class="sec-num">04</span> Veri Akis Matrisi</div>
+  <div class="matrix-wrap">
+    <table class="matrix">
+      <tr><th></th><th style="color:var(--sales)">Teklif</th><th style="color:var(--sales)">Siparis</th><th style="color:var(--prod)">Uretim</th><th style="color:var(--stock)">Stok</th><th style="color:var(--purch)">Satin Al</th><th style="color:var(--acct)">Fatura</th><th style="color:var(--qual)">Kalite</th><th style="color:var(--maint)">Bakim</th></tr>
+      <tr><th style="color:var(--sales)">Teklif</th><td class="diag">—</td><td class="arrow" style="color:var(--sales)">→</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><th style="color:var(--sales)">Siparis</th><td class="arrow" style="color:var(--info)">←</td><td class="diag">—</td><td class="arrow" style="color:var(--sales)">→</td><td class="arrow" style="color:var(--warn)">↔</td><td class="arrow" style="color:var(--sales)">→</td><td class="arrow" style="color:var(--sales)">→</td><td>—</td><td>—</td></tr>
+      <tr><th style="color:var(--prod)">Uretim</th><td>—</td><td class="arrow" style="color:var(--info)">←</td><td class="diag">—</td><td class="arrow" style="color:var(--warn)">↔</td><td class="arrow" style="color:var(--sales)">→</td><td class="arrow" style="color:var(--sales)">→</td><td class="arrow" style="color:var(--warn)">↔</td><td class="arrow" style="color:var(--sales)">→</td></tr>
+      <tr><th style="color:var(--stock)">Stok</th><td>—</td><td>—</td><td class="arrow" style="color:var(--warn)">↔</td><td class="diag">—</td><td class="arrow" style="color:var(--info)">←</td><td class="arrow" style="color:var(--warn)">↔</td><td class="arrow" style="color:var(--info)">←</td><td>—</td></tr>
+      <tr><th style="color:var(--purch)">Satin Al</th><td>—</td><td>—</td><td class="arrow" style="color:var(--info)">←</td><td class="arrow" style="color:var(--sales)">→</td><td class="diag">—</td><td class="arrow" style="color:var(--sales)">→</td><td class="arrow" style="color:var(--info)">←</td><td>—</td></tr>
+      <tr><th style="color:var(--acct)">Fatura</th><td>—</td><td class="arrow" style="color:var(--info)">←</td><td class="arrow" style="color:var(--info)">←</td><td>—</td><td class="arrow" style="color:var(--info)">←</td><td class="diag">—</td><td>—</td><td>—</td></tr>
+      <tr><th style="color:var(--qual)">Kalite</th><td>—</td><td>—</td><td class="arrow" style="color:var(--warn)">↔</td><td class="arrow" style="color:var(--info)">←</td><td class="arrow" style="color:var(--info)">←</td><td>—</td><td class="diag">—</td><td>—</td></tr>
+      <tr><th style="color:var(--maint)">Bakim</th><td>—</td><td>—</td><td class="arrow" style="color:var(--info)">←</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="diag">—</td></tr>
+    </table>
+    <div style="margin-top:10px;font-size:11px;color:var(--dim);text-align:center">
+      <span style="color:var(--sales)">→ veri gonderir</span> &nbsp;|&nbsp;
+      <span style="color:var(--info)">← veri alir</span> &nbsp;|&nbsp;
+      <span style="color:var(--warn)">↔ iki yonlu</span> &nbsp;|&nbsp;
+      — dogrudan iliski yok
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ SECTION 5: 3 FARKLI GORUNUM ═══════════ -->
+<div class="sec">
+  <div class="sec-title"><span class="sec-num">05</span> Kullanici Gorunumleri</div>
+  <div class="views-grid">
+    <div class="view-card" style="border-top:3px solid var(--prod)">
+      <h4 style="color:var(--prod)">Operator</h4>
+      <div class="desc">Tezgah basindaki usta — 4 buton</div>
+      <div class="view-menu">
+        <div class="view-menu-item"><span class="icon" style="background:var(--prod)"></span>Islerim (atanan isler)</div>
+        <div class="view-menu-item"><span class="icon" style="background:var(--maint)"></span>Sorun Bildir (NCR)</div>
+        <div class="view-menu-item"><span class="icon" style="background:var(--sales)"></span>Is Bitir</div>
+        <div class="view-menu-item"><span class="icon" style="background:var(--stock)"></span>Malzeme Talep</div>
+      </div>
+    </div>
+    <div class="view-card" style="border-top:3px solid var(--sales)">
+      <h4 style="color:var(--sales)">Patron (CNC Profili)</h4>
+      <div class="desc">Atolye sahibi — 9 menu</div>
+      <div class="view-menu">
+        <div class="view-menu-item"><span class="icon" style="background:var(--info)"></span>Anasayfa</div>
+        <div class="view-menu-item"><span class="icon" style="background:var(--sales)"></span>Musteriler</div>
+        <div class="view-menu-item"><span class="icon" style="background:var(--sales)"></span>Teklifler</div>
+        <div class="view-menu-item"><span class="icon" style="background:var(--sales)"></span>Siparisler</div>
+        <div class="view-menu-item"><span class="icon" style="background:var(--prod)"></span>Uretim</div>
+        <div class="view-menu-item"><span class="icon" style="background:var(--stock)"></span>Stok</div>
+        <div class="view-menu-item"><span class="icon" style="background:var(--acct)"></span>Faturalar</div>
+        <div class="view-menu-item"><span class="icon" style="background:var(--warn)"></span>Bildirimler</div>
+        <div class="view-menu-item"><span class="icon" style="background:var(--sett)"></span>Ayarlar</div>
+      </div>
+    </div>
+    <div class="view-card" style="border-top:3px solid var(--qual)">
+      <h4 style="color:var(--qual)">Kalite Muduru (Savunma)</h4>
+      <div class="desc">AS9100 tam erisim — 25 menu</div>
+      <div class="view-menu">
+        <div class="view-menu-item"><span class="icon" style="background:var(--info)"></span>Anasayfa + Yonetim Kokpiti</div>
+        <div class="view-menu-item"><span class="icon" style="background:var(--sales)"></span>Satis (Musteri, Teklif, Siparis)</div>
+        <div class="view-menu-item"><span class="icon" style="background:var(--prod)"></span>Uretim (Emri, Terminal, Fason)</div>
+        <div class="view-menu-item"><span class="icon" style="background:var(--stock)"></span>Stok (Urun, Depo, Lot)</div>
+        <div class="view-menu-item"><span class="icon" style="background:var(--purch)"></span>Satin Alma</div>
+        <div class="view-menu-item"><span class="icon" style="background:var(--acct)"></span>Muhasebe (Fatura, Vade)</div>
+        <div class="view-menu-item" style="background:#ec489915;border:1px solid #ec489933"><span class="icon" style="background:var(--qual)"></span><strong>Kalite — 26 alt ekran (NCR, CAPA, FAI, SPC, FMEA...)</strong></div>
+        <div class="view-menu-item"><span class="icon" style="background:var(--maint)"></span>Bakim (OEE, MTBF)</div>
+        <div class="view-menu-item"><span class="icon" style="background:var(--info)"></span>IK, Dokuman, Raporlar, KPI</div>
+        <div class="view-menu-item"><span class="icon" style="background:var(--sett)"></span>Ayarlar (tam)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ SECTION 6: SENARYO ═══════════ -->
+<div class="sec">
+  <div class="sec-title"><span class="sec-num">06</span> Senaryo: TUSAS'tan Siparis Geldi</div>
+  <div class="timeline">
+    <div class="tl-step done" data-step="1">
+      <div class="tl-title" style="color:var(--sales)">Teklif Olustur</div>
+      <div class="tl-screen">/offers/form</div>
+      <div class="tl-desc">Musteri: TUSAS | Urun: Ti-6Al-4V Parca | 50 adet | 1.200 TL/adet</div>
+    </div>
+    <div class="tl-step done" data-step="2">
+      <div class="tl-title" style="color:var(--sales)">Teklif Kabul → Siparis</div>
+      <div class="tl-screen">/offers → durum: KABUL → otomatik /sales olusur</div>
+      <div class="tl-desc">Teklif kabul edildiginde siparis otomatik olusturulur</div>
+    </div>
+    <div class="tl-step done" data-step="3">
+      <div class="tl-title" style="color:var(--prod)">Siparis → Uretim Emri</div>
+      <div class="tl-screen">/sales/detail/:id → "Uretime Gonder" butonu</div>
+      <div class="tl-desc">Is emri olusur, makine atanir, tarihler belirlenir</div>
+    </div>
+    <div class="tl-step" data-step="4">
+      <div class="tl-title" style="color:var(--stock)">Malzeme Kontrol</div>
+      <div class="tl-screen">/production/detail/:id → Malzeme sekmesi</div>
+      <div class="tl-desc">Ti-6Al-4V cubuk stokta var mi? Yoksa → satin alma talebi</div>
+    </div>
+    <div class="tl-step" data-step="5">
+      <div class="tl-title" style="color:var(--prod)">Uretim Baslat (Operator)</div>
+      <div class="tl-screen">/shop-floor-terminal</div>
+      <div class="tl-desc">Operator isi gorur → "Baslat" tiklar → CNC programi calisir</div>
+    </div>
+    <div class="tl-step" data-step="6">
+      <div class="tl-title" style="color:var(--qual)">Olcu Kontrol (SPC)</div>
+      <div class="tl-screen">/quality/spc</div>
+      <div class="tl-desc">Her 5. parcada olcu alinir → X-bar chart → tolerans kontrolu</div>
+    </div>
+    <div class="tl-step" data-step="7">
+      <div class="tl-title" style="color:var(--qual)">NCR (Hata Bulunursa)</div>
+      <div class="tl-screen">/quality/ncr → Yeni NCR</div>
+      <div class="tl-desc">3 parcada tolerans asimi → CAPA → Kok neden: takim asinmasi</div>
+    </div>
+    <div class="tl-step" data-step="8">
+      <div class="tl-title" style="color:var(--prod)">Uretim Tamamla</div>
+      <div class="tl-screen">/production/detail/:id → "Tamamla"</div>
+      <div class="tl-desc">47 adet tamamlandi (3 hurda) → seri numaralari atandi</div>
+    </div>
+    <div class="tl-step" data-step="9">
+      <div class="tl-title" style="color:var(--qual)">Final Muayene + CoC</div>
+      <div class="tl-screen">/production/detail/:id → Final Muayene sekmesi</div>
+      <div class="tl-desc">Muayene: KABUL → CoC otomatik olusturulur → PDF indir</div>
+    </div>
+    <div class="tl-step" data-step="10">
+      <div class="tl-title" style="color:var(--acct)">Fatura Kes</div>
+      <div class="tl-screen">/invoices/form</div>
+      <div class="tl-desc">47 x 1.200 = 56.400 TL + KDV → e-Fatura gonder</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ SECTION 7: ONKOSULLAR ═══════════ -->
+<div class="sec">
+  <div class="sec-title"><span class="sec-num">07</span> Modul Onkosullari</div>
+  <div class="prereq-list">
+    <div class="prereq-item"><div class="module" style="color:var(--sales)">Teklif</div><div class="arrow">→</div><div class="deps"><span class="dep" style="color:var(--sales)">Musteri</span><span class="dep" style="color:var(--stock)">Urun</span></div></div>
+    <div class="prereq-item"><div class="module" style="color:var(--sales)">Siparis</div><div class="arrow">→</div><div class="deps"><span class="dep" style="color:var(--sales)">Teklif</span><span class="dep" style="color:var(--sales)">Musteri</span><span class="dep" style="color:var(--stock)">Urun</span></div></div>
+    <div class="prereq-item"><div class="module" style="color:var(--prod)">Uretim</div><div class="arrow">→</div><div class="deps"><span class="dep" style="color:var(--sales)">Siparis</span><span class="dep" style="color:var(--stock)">Stok</span><span class="dep" style="color:var(--sett)">Makine</span><span class="dep" style="color:var(--sett)">Is Emri Sablonu</span></div></div>
+    <div class="prereq-item"><div class="module" style="color:var(--purch)">Satin Alma</div><div class="arrow">→</div><div class="deps"><span class="dep" style="color:var(--purch)">Tedarikci</span><span class="dep" style="color:var(--stock)">Stok</span><span class="dep" style="color:var(--prod)">Uretim (ihtiyac)</span></div></div>
+    <div class="prereq-item"><div class="module" style="color:var(--qual)">NCR</div><div class="arrow">→</div><div class="deps"><span class="dep" style="color:var(--prod)">Uretim</span><span class="dep" style="color:var(--stock)">Urun</span></div></div>
+    <div class="prereq-item"><div class="module" style="color:var(--qual)">CAPA</div><div class="arrow">→</div><div class="deps"><span class="dep" style="color:var(--qual)">NCR</span></div></div>
+    <div class="prereq-item"><div class="module" style="color:var(--qual)">FAI</div><div class="arrow">→</div><div class="deps"><span class="dep" style="color:var(--stock)">Urun</span><span class="dep" style="color:var(--qual)">Olcu karakteristik</span></div></div>
+    <div class="prereq-item"><div class="module" style="color:var(--qual)">CoC</div><div class="arrow">→</div><div class="deps"><span class="dep" style="color:var(--prod)">Uretim</span><span class="dep" style="color:var(--qual)">Final muayene</span></div></div>
+    <div class="prereq-item"><div class="module" style="color:var(--acct)">Fatura</div><div class="arrow">→</div><div class="deps"><span class="dep" style="color:var(--sales)">Siparis</span><span class="dep" style="color:var(--prod)">Uretim</span><span class="dep" style="color:var(--sales)">Musteri</span></div></div>
+    <div class="prereq-item"><div class="module" style="color:var(--maint)">Bakim</div><div class="arrow">→</div><div class="deps"><span class="dep" style="color:var(--sett)">Makine</span><span class="dep" style="color:var(--prod)">Uretim (OEE)</span></div></div>
+    <div class="prereq-item"><div class="module" style="color:var(--stock)">MRP</div><div class="arrow">→</div><div class="deps"><span class="dep" style="color:var(--stock)">Urun agaci (BOM)</span><span class="dep" style="color:var(--stock)">Stok</span><span class="dep" style="color:var(--purch)">Satin alma</span></div></div>
+    <div class="prereq-item"><div class="module" style="color:var(--qual)">SPC</div><div class="arrow">→</div><div class="deps"><span class="dep" style="color:var(--qual)">Kontrol plani</span><span class="dep" style="color:var(--stock)">Urun</span><span class="dep" style="color:var(--prod)">Uretim</span></div></div>
+  </div>
+</div>
+
+<footer style="text-align:center;padding:32px 0 16px;font-size:11px;color:var(--dim);border-top:1px solid var(--brd)">
+  Quvex ERP — Ekran Haritasi v1.0 — Dahili Egitim — 2026
+</footer>
+
+</div>
+
+<script>
+function toggleCard(header) {
+  header.closest('.mod-card').classList.toggle('open');
+}
+
+function selectMod(mod) {
+  // Highlight flow nodes
+  document.querySelectorAll('.flow-node, .branch-node').forEach(n => n.classList.remove('active'));
+  document.querySelectorAll(`[data-mod="${mod}"], [onclick*="'${mod}'"]`).forEach(n => n.classList.add('active'));
+
+  // Highlight and open module card
+  document.querySelectorAll('.mod-card').forEach(c => c.classList.remove('highlight'));
+  const card = document.querySelector(`.mod-card[data-mod="${mod}"]`);
+  if (card) {
+    card.classList.add('highlight', 'open');
+    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+}
+
+// Staggered reveal animation
+document.addEventListener('DOMContentLoaded', () => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.sec').forEach((el, i) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = `opacity 0.5s ${i * 0.1}s, transform 0.5s ${i * 0.1}s`;
+    observer.observe(el);
+  });
+});
+</script>
+</body>
+</html>
