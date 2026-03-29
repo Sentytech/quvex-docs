@@ -77,6 +77,16 @@ header h1 span{color:var(--qual);font-weight:300}
 .screen-list{display:flex;flex-wrap:wrap;gap:6px}
 .screen-tag{padding:4px 10px;border-radius:6px;background:var(--s3);border:1px solid var(--brd);font-size:11px;transition:.15s}
 .screen-tag:hover{border-color:var(--dim)}
+.mod-detail{margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mod-detail-box{padding:10px 12px;border-radius:8px;background:var(--s2);font-size:12px;line-height:1.7}
+.mod-detail-box .dtitle{font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.mod-detail-box .dtitle.green{color:var(--sales)}.mod-detail-box .dtitle.red{color:var(--maint)}
+.mod-detail-box .dtitle.blue{color:var(--info)}.mod-detail-box .dtitle.yellow{color:var(--warn)}
+.mod-detail-box .dtitle.purple{color:var(--purch)}
+.mod-detail-box ul{padding-left:16px;margin:0;color:var(--dim)}
+.mod-detail-box ul li{margin:2px 0}
+.mod-detail-full{grid-column:1/-1;padding:10px 12px;border-radius:8px;background:var(--s2);font-size:12px;line-height:1.7}
+.mod-detail-full .dtitle{font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;color:var(--warn)}
 
 /* ═══ SECTION 3: Quality Map ═══ */
 .qual-map{background:var(--s1);border:1px solid var(--brd);border-radius:14px;padding:28px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
@@ -202,7 +212,24 @@ header h1 span{color:var(--qual);font-weight:300}
           <div class="mod-io-box input"><div class="lbl">← Nereden Gelir</div>Musteri bilgileri, urun katalogu</div>
           <div class="mod-io-box output"><div class="lbl">→ Nereye Gider</div>Siparis → Uretim emri, Fatura</div>
         </div>
-        <div class="screen-list">
+        <div class="mod-detail">
+          <div class="mod-detail-box"><div class="dtitle green">✓ Nedir</div>Musteriden gelen taleplerin teklif haline getirilip, kabul sonrasi siparise donusturuldugu moduldu. Tum satis sureci buradan baslar: musteri → teklif → siparis → uretime gonder.</div>
+          <div class="mod-detail-box"><div class="dtitle red">✗ Ne Degildir</div>Muhasebe modulu degildir — fatura kesme islemi buradan yapilmaz. Uretim planlama da burada yoktur, sadece "uretime gonder" tetiklenir.</div>
+          <div class="mod-detail-box"><div class="dtitle blue">↻ Nasil Calisir</div><ul>
+            <li>Musteri kaydedilir (VKN, iletisim)</li>
+            <li>Teklif olusturulur (urun + miktar + fiyat)</li>
+            <li>Teklif PDF olarak musteriye gonderilir</li>
+            <li>Musteri kabul ederse → otomatik siparis olusur</li>
+            <li>Siparis detayinda "Uretime Gonder" butonu</li>
+          </ul></div>
+          <div class="mod-detail-box"><div class="dtitle yellow">⚠ Dikkat</div><ul>
+            <li>50.000 TL ustu teklifler yonetici onayi gerektirir</li>
+            <li>Teklif kabul edilmeden siparis olusturulamaz</li>
+            <li>Musteri VKN'si fatura icin zorunludur</li>
+            <li>Siparisi silmek yerine "iptal" durumuna almalisiniz</li>
+          </ul></div>
+        </div>
+        <div class="screen-list" style="margin-top:12px">
           <span class="screen-tag">/customers — Musteri Listesi</span>
           <span class="screen-tag">/offers — Teklif Listesi</span>
           <span class="screen-tag">/offers/form — Teklif Form</span>
@@ -222,7 +249,36 @@ header h1 span{color:var(--qual);font-weight:300}
           <div class="mod-io-box input"><div class="lbl">← Nereden Gelir</div>Siparis emri, malzeme stok durumu</div>
           <div class="mod-io-box output"><div class="lbl">→ Nereye Gider</div>Mamul stok, kalite kontrol, CoC, fatura</div>
         </div>
-        <div class="screen-list">
+        <div class="mod-detail">
+          <div class="mod-detail-box"><div class="dtitle green">✓ Nedir</div>Siparislerin is emrine donusturulup, tezgahlarda islenerek mamul haline getirilmesini yoneten moduldu. Is emri olusturma, makine atama, operator gorevlendirme, uretim takip, seri numarasi atama ve fason is yonetimi burada yapilir.</div>
+          <div class="mod-detail-box"><div class="dtitle red">✗ Ne Degildir</div>Siparis alma modulu degildir (satis'tan gelir). Kalite kontrol burada yapilmaz (kalite modulunde). Stok giris/cikis islemleri de stok modulundedir. Burada sadece "ne kadar uretildi" takip edilir.</div>
+          <div class="mod-detail-box"><div class="dtitle blue">↻ Nasil Calisir</div><ul>
+            <li>Siparis detayindan "Uretime Gonder" ile is emri olusur</li>
+            <li>Is emri sablonu secilir (CNC, torna, montaj...)</li>
+            <li>Adimlar belirlenir (kesim → isleme → olcu → paketleme)</li>
+            <li>Makine ve operator atanir</li>
+            <li>Operator atolye terminalinden isi gorur ve baslatir</li>
+            <li>Her parca seri numarasi alir (izlenebilirlik)</li>
+            <li>Fason isler (kaplama, boya) ayri takip edilir</li>
+            <li>Tamamlaninca mamul stoga girer + faturaya hazir</li>
+          </ul></div>
+          <div class="mod-detail-box"><div class="dtitle yellow">⚠ Dikkat</div><ul>
+            <li>Is emri sablonu olmadan uretim acilamaz (Ayarlar'dan tanimla)</li>
+            <li>Makine tanimli olmali (Ayarlar > Makineler)</li>
+            <li>Malzeme yetersizse satin alma talebi olusturulmali</li>
+            <li>Seri no zorunlu urunlerde her parcaya no atanmali</li>
+            <li>Stat kartlarina tiklayarak filtre yapabilirsiniz</li>
+          </ul></div>
+        </div>
+        <div class="mod-detail-full"><div class="dtitle">Uretim Detay Sekmeleri</div>
+          <strong>Genel:</strong> Siparis, urun, miktar, tarihler, durum &nbsp;|&nbsp;
+          <strong>Is Adimlari:</strong> Sira ile isleme adimlari &nbsp;|&nbsp;
+          <strong>Malzeme:</strong> Gerekli hammadde + stok durumu → eksikse satin alma talebi &nbsp;|&nbsp;
+          <strong>Seri No:</strong> Her parcaya atanan takip numarasi &nbsp;|&nbsp;
+          <strong>Final Muayene:</strong> Kalite sonucu + CoC olusturma &nbsp;|&nbsp;
+          <strong>Sevkiyat:</strong> Gonderim bilgisi → faturaya baglanti
+        </div>
+        <div class="screen-list" style="margin-top:12px">
           <span class="screen-tag">/production — Uretim Listesi</span>
           <span class="screen-tag">/production/detail/:id — Uretim Detay</span>
           <span class="screen-tag">/production/planning — Gantt Planlama</span>
@@ -245,7 +301,27 @@ header h1 span{color:var(--qual);font-weight:300}
           <div class="mod-io-box input"><div class="lbl">← Nereden Gelir</div>Satin alma (giris), uretim (mamul)</div>
           <div class="mod-io-box output"><div class="lbl">→ Nereye Gider</div>Uretim (hammadde), satin alma (eksik), muhasebe (maliyet)</div>
         </div>
-        <div class="screen-list">
+        <div class="mod-detail">
+          <div class="mod-detail-box"><div class="dtitle green">✓ Nedir</div>Fabrikanin tum envanter yonetimidir. Urun tanimlari (BOM/recete dahil), depolar, stok seviyeleri, giris/cikis hareketleri, lot/parti takibi, fiziksel sayim ve barkod islemleri burada yapilir. Sistemin "hafizasi" — ne var, nerede, ne kadar.</div>
+          <div class="mod-detail-box"><div class="dtitle red">✗ Ne Degildir</div>Satin alma modulu degildir — malzeme siparis etme burada yapilmaz. Uretim emri de buradan acilmaz. Fiyatlandirma/fatura muhasebededir. Stok modulu sadece fiziksel envanterin kaydini tutar.</div>
+          <div class="mod-detail-box"><div class="dtitle blue">↻ Nasil Calisir</div><ul>
+            <li>Urun tanimlari yapilir (isim, kod, birim, BOM, min/max stok)</li>
+            <li>Depolar olusturulur (Hammadde Deposu, Mamul Deposu...)</li>
+            <li>Malzeme gelince stok giris fisi kesilir (lot no atanir)</li>
+            <li>Uretimde kullanilinca stok cikis fisi kesilir</li>
+            <li>Depolar arasi transfer yapilir (hammadde → uretim hatti)</li>
+            <li>Min stok altina dusunce otomatik uyari + satin alma talebi</li>
+            <li>Periyodik fiziksel sayim ile sistem stok dogrulanir</li>
+          </ul></div>
+          <div class="mod-detail-box"><div class="dtitle yellow">⚠ Dikkat</div><ul>
+            <li>Urun formu 66 alan — CNC profilinde sadece 8 gorunur</li>
+            <li>BOM (urun agaci) MRP icin sart — dogru tanimlanmali</li>
+            <li>Lot takibi acik urunlerde giris fisinde lot no zorunlu</li>
+            <li>Stok eksi gosteriyorsa: giris fisi kesilmeden cikis yapilmis</li>
+            <li>ABC analizi ile A sinifi urunlere oncelik verin</li>
+          </ul></div>
+        </div>
+        <div class="screen-list" style="margin-top:12px">
           <span class="screen-tag">/products — Urunler (66 alan)</span>
           <span class="screen-tag">/stocks — Stok Durumu</span>
           <span class="screen-tag">/stock-receipts — Giris/Cikis</span>
@@ -270,7 +346,25 @@ header h1 span{color:var(--qual);font-weight:300}
           <div class="mod-io-box input"><div class="lbl">← Nereden Gelir</div>Uretim malzeme ihtiyaci, stok min uyari</div>
           <div class="mod-io-box output"><div class="lbl">→ Nereye Gider</div>Stok giris, giris muayene, fatura</div>
         </div>
-        <div class="screen-list">
+        <div class="mod-detail">
+          <div class="mod-detail-box"><div class="dtitle green">✓ Nedir</div>Hammadde ve yari mamul tedarik surecidir. Uretimin ihtiyac duydugu malzemeleri tedarikcilerden talep etme, fiyat karsilastirma, siparis verme ve teslim alma islemlerini yonetir. Tedarikci performans takibi de burada yapilir.</div>
+          <div class="mod-detail-box"><div class="dtitle red">✗ Ne Degildir</div>Satis teklifi/siparisi degildir — musteriye satis yapma burada yok. Stok giris fisi burada kesilmez (stok modulunde). Fatura da muhasebededir. Burasi sadece "tedarik zinciri" yonetimidir.</div>
+          <div class="mod-detail-box"><div class="dtitle blue">↻ Nasil Calisir</div><ul>
+            <li>Uretim "malzeme ihtiyaci" veya stok "min uyari" → talep olusur</li>
+            <li>Talep icin birden fazla tedarikciden teklif alinir</li>
+            <li>En uygun teklif secilir (fiyat + teslim suresi)</li>
+            <li>Satin alma siparisi olusturulur</li>
+            <li>Malzeme gelince → stok giris + giris muayene</li>
+            <li>Otomatik satin alma: min stok altina dusunce talep olusturur</li>
+          </ul></div>
+          <div class="mod-detail-box"><div class="dtitle yellow">⚠ Dikkat</div><ul>
+            <li>Tedarikci tanimsiz ise siparis olusturulamaz</li>
+            <li>Giris muayene FAIL olursa NCR acilir, malzeme reddedilir</li>
+            <li>Savunma sektorunde sertifikali malzeme zorunlu — lot takibi acik olmali</li>
+            <li>Teslim suresi gecen siparisler icin otomatik uyari gelir</li>
+          </ul></div>
+        </div>
+        <div class="screen-list" style="margin-top:12px">
           <span class="screen-tag">/purchase-request — Talepler</span>
           <span class="screen-tag">/suppliers — Tedarikciler</span>
           <span class="screen-tag">/purchase-offers — Teklif Toplama</span>
@@ -290,27 +384,37 @@ header h1 span{color:var(--qual);font-weight:300}
           <div class="mod-io-box input"><div class="lbl">← Nereden Gelir</div>Uretim (muayene), stok giris (giris kontrol), tedarikci</div>
           <div class="mod-io-box output"><div class="lbl">→ Nereye Gider</div>NCR→CAPA, CoC→sevkiyat, FAI→uretim izin</div>
         </div>
-        <div class="screen-list">
-          <span class="screen-tag">NCR (Uygunsuzluk)</span>
-          <span class="screen-tag">CAPA</span>
-          <span class="screen-tag">Muayeneler</span>
-          <span class="screen-tag">FAI</span>
-          <span class="screen-tag">SPC</span>
-          <span class="screen-tag">Kalibrasyon</span>
-          <span class="screen-tag">FMEA</span>
-          <span class="screen-tag">PPAP</span>
-          <span class="screen-tag">Kontrol Plani</span>
-          <span class="screen-tag">Egitim</span>
-          <span class="screen-tag">Ic Denetim</span>
-          <span class="screen-tag">Tedarikci Deger.</span>
-          <span class="screen-tag">Tasarim</span>
-          <span class="screen-tag">Gage R&R</span>
-          <span class="screen-tag">Proses Yeterlilik</span>
-          <span class="screen-tag">CoC</span>
-          <span class="screen-tag">8D</span>
-          <span class="screen-tag">RMA</span>
-          <span class="screen-tag">COPQ</span>
-          <span class="screen-tag">+7 daha</span>
+        <div class="mod-detail">
+          <div class="mod-detail-box"><div class="dtitle green">✓ Nedir</div>AS9100 / ISO 9001 uyumlu kalite yonetim sistemidir. Uygunsuzluk (NCR), duzeltici aksiyon (CAPA), muayene, ilk madde muayenesi (FAI), istatistiksel proses kontrol (SPC), FMEA, PPAP gibi 26+ alt modulle uretim kalitesini garanti eder. <strong>Savunma sanayi icin zorunludur.</strong></div>
+          <div class="mod-detail-box"><div class="dtitle red">✗ Ne Degildir</div>Uretim planlama degildir — burada is emri acilmaz. Stok yonetimi degildir. Muhasebe/fatura degildir. Kalite modulu sadece "urun/proses standartlara uygun mu?" sorusuna cevap verir. CNC atolyesi profilinde bu modul varsayilan olarak gizlidir — ihtiyac olunca Ayarlar'dan acilir.</div>
+          <div class="mod-detail-box"><div class="dtitle blue">↻ Nasil Calisir</div><ul>
+            <li><strong>NCR:</strong> Hata/uygunsuzluk bulunca acilir → ciddiyet belirlenir</li>
+            <li><strong>CAPA:</strong> NCR'dan tetiklenir → kok neden analizi → duzeltici aksiyon</li>
+            <li><strong>Muayene:</strong> Giris/proses/final → PASS ise devam, FAIL ise NCR</li>
+            <li><strong>FAI:</strong> Yeni urun icin ilk parca testi → onay → uretim izni</li>
+            <li><strong>SPC:</strong> Olcum verileri → kontrol grafigi → Cp/Cpk</li>
+            <li><strong>CoC:</strong> Final muayene gecince otomatik uygunluk sertifikasi</li>
+            <li><strong>Kalibrasyon:</strong> Olcum aletleri periyodik kontrol</li>
+          </ul></div>
+          <div class="mod-detail-box"><div class="dtitle yellow">⚠ Dikkat</div><ul>
+            <li>NCR kapatmak icin CAPA tamamlanmis olmali</li>
+            <li>FAI onaylanmadan yeni urune uretim baslatilmamali</li>
+            <li>SPC icin minimum 25 olcum verisi gerekli</li>
+            <li>Kalibrasyon suresi gecen aletle olcum yapilmamali</li>
+            <li>Denetim oncesi tum kayitlarin guncel oldugunu dogrulayin</li>
+            <li>AS9100'de "kayit yoksa yapilmamistir" — her sey kayit altinda olmali</li>
+          </ul></div>
+        </div>
+        <div class="screen-list" style="margin-top:12px">
+          <span class="screen-tag">NCR</span><span class="screen-tag">CAPA</span><span class="screen-tag">Muayeneler</span>
+          <span class="screen-tag">FAI</span><span class="screen-tag">SPC</span><span class="screen-tag">Kalibrasyon</span>
+          <span class="screen-tag">FMEA</span><span class="screen-tag">PPAP</span><span class="screen-tag">Kontrol Plani</span>
+          <span class="screen-tag">Egitim</span><span class="screen-tag">Ic Denetim</span><span class="screen-tag">Tedarikci Deger.</span>
+          <span class="screen-tag">Tasarim</span><span class="screen-tag">Gage R&R</span><span class="screen-tag">Proses Yeterlilik</span>
+          <span class="screen-tag">CoC</span><span class="screen-tag">8D</span><span class="screen-tag">RMA</span>
+          <span class="screen-tag">COPQ</span><span class="screen-tag">Dokuman Onay</span><span class="screen-tag">FOD</span>
+          <span class="screen-tag">Sahte Parca</span><span class="screen-tag">Konfigur.</span><span class="screen-tag">Ozel Proses</span>
+          <span class="screen-tag">Musteri Mulku</span><span class="screen-tag">Urun Guvenligi</span>
         </div>
       </div></div>
     </div>
@@ -325,7 +429,24 @@ header h1 span{color:var(--qual);font-weight:300}
           <div class="mod-io-box input"><div class="lbl">← Nereden Gelir</div>Siparis tamamlama, satin alma fatura</div>
           <div class="mod-io-box output"><div class="lbl">→ Nereye Gider</div>e-Fatura, tahsilat, banka</div>
         </div>
-        <div class="screen-list">
+        <div class="mod-detail">
+          <div class="mod-detail-box"><div class="dtitle green">✓ Nedir</div>Fatura olusturma, odeme takibi, banka mutabakat, vade analizi ve cek/senet yonetimidir. Satis faturasi (musteriye) ve alis faturasi (tedarikciden) burada kesilir. Doviz kurlari TCMB'den otomatik cekilir.</div>
+          <div class="mod-detail-box"><div class="dtitle red">✗ Ne Degildir</div>Tam muhasebe yazilimi degildir — mizan, bilanço, gelir tablosu burada yoktur. Bu isler icin Logo/Mikro ile entegrasyon planlidir. Quvex muhasebe modulu operasyonel fatura/odeme takibi icindir.</div>
+          <div class="mod-detail-box"><div class="dtitle blue">↻ Nasil Calisir</div><ul>
+            <li>Uretim tamamlaninca → sevkiyat listesinde gorunur</li>
+            <li>Sevkiyat yapilinca → fatura kesilir (siparis bilgileri otomatik)</li>
+            <li>e-Fatura entegrasyonu ile GIB'e gonderilir</li>
+            <li>Odeme kaydedilir → vade analizi guncellenir</li>
+            <li>Banka ekstresi yuklenir → otomatik eslestirme</li>
+          </ul></div>
+          <div class="mod-detail-box"><div class="dtitle yellow">⚠ Dikkat</div><ul>
+            <li>Fatura kesmeden once musteri VKN/unvan dogru olmali</li>
+            <li>Doviz faturalarinda gun kuru otomatik alinir</li>
+            <li>Cek/senet vade takibi yapilmazsa nakit akis bozulur</li>
+            <li>Banka mutabakat aylik yapilmali</li>
+          </ul></div>
+        </div>
+        <div class="screen-list" style="margin-top:12px">
           <span class="screen-tag">/invoices — Faturalar</span>
           <span class="screen-tag">/accounting/shipped — Sevkiyat</span>
           <span class="screen-tag">/accounting/billed — Faturalanan</span>
@@ -347,7 +468,25 @@ header h1 span{color:var(--qual);font-weight:300}
           <div class="mod-io-box input"><div class="lbl">← Nereden Gelir</div>Makine tanimlari, ariza bildirimi</div>
           <div class="mod-io-box output"><div class="lbl">→ Nereye Gider</div>OEE → uretim verimlilik, bakim plani</div>
         </div>
-        <div class="screen-list">
+        <div class="mod-detail">
+          <div class="mod-detail-box"><div class="dtitle green">✓ Nedir</div>Makine ve ekipman bakim yonetimidir. Onleyici bakim planlari, ariza kayitlari, OEE (genel ekipman verimliligi), MTBF/MTTR (arizalar arasi ortalama sure / onarim suresi) hesaplari ve entegre bakim takvimi burada yonetilir.</div>
+          <div class="mod-detail-box"><div class="dtitle red">✗ Ne Degildir</div>Uretim planlama degildir — hangi makine hangi isi yapacak sorusu uretim modulundedir. Yedek parca satin almasi satin alma modulundedir. Bakim modulu sadece "makine ne zaman bakilacak, ne kadar calisir, ne kadar durur" takibi yapar.</div>
+          <div class="mod-detail-box"><div class="dtitle blue">↻ Nasil Calisir</div><ul>
+            <li>Makineler Ayarlar'da tanimlenir (CNC-01, Torna-01...)</li>
+            <li>Her makineye onleyici bakim plani atanir (haftalik/aylik)</li>
+            <li>Bakim zamani gelince bildirim gider</li>
+            <li>Ariza olunca kayit olusturulur → onarim suresi takip edilir</li>
+            <li>OEE = Kullanilabilirlik x Performans x Kalite (%)</li>
+            <li>MTBF/MTTR trend grafikleri ile makine sagligi izlenir</li>
+          </ul></div>
+          <div class="mod-detail-box"><div class="dtitle yellow">⚠ Dikkat</div><ul>
+            <li>Makine tanimsizsa bakim plani olusturulamaz</li>
+            <li>OEE hesabi icin uretim verileri gerekli (uretim modulu)</li>
+            <li>Bakimi gecen makine uretim kalitesini dusurur → NCR artar</li>
+            <li>Kalibrasyon (kalite modulunde) ile bakim farkli seylerdir</li>
+          </ul></div>
+        </div>
+        <div class="screen-list" style="margin-top:12px">
           <span class="screen-tag">/maintenance — Bakim Planlari</span>
           <span class="screen-tag">/oee — OEE Dashboard</span>
           <span class="screen-tag">/mtbf-mttr — MTBF/MTTR</span>
@@ -366,7 +505,27 @@ header h1 span{color:var(--qual);font-weight:300}
           <div class="mod-io-box input"><div class="lbl">← Nereden Gelir</div>Ilk kurulum, yonetici kararlari</div>
           <div class="mod-io-box output"><div class="lbl">→ Nereye Gider</div>Tum moduller bu ayarlari kullanir</div>
         </div>
-        <div class="screen-list">
+        <div class="mod-detail">
+          <div class="mod-detail-box"><div class="dtitle green">✓ Nedir</div>Sistemin temel yapilandirma merkezidir. Kullanicilar, roller (yetki gruplari), makineler, birimler, is emri sablonlari ve guvenlik ayarlari burada yonetilir. <strong>Modul Yonetimi</strong> ile hangi modulun acik/kapali oldugu kontrol edilir (sektor profili).</div>
+          <div class="mod-detail-box"><div class="dtitle red">✗ Ne Degildir</div>Gunluk operasyonel islem yeri degildir — burasi "bir kere kur, sonra nadiren dokunursun" alanidir. Musteri/tedarikci burada yonetilmez. Uretim/satis burada yapilmaz. Sadece sistem yapisi tanimlanir.</div>
+          <div class="mod-detail-box"><div class="dtitle blue">↻ Nasil Calisir</div><ul>
+            <li><strong>Kullanicilar:</strong> Kisi ekle, rol ata (Admin/Operator/Kalite/Muhasebe)</li>
+            <li><strong>Roller:</strong> Hangi modulde goruntuleme/kaydetme/silme yetkisi</li>
+            <li><strong>Makineler:</strong> CNC-01, Torna-01... (uretim + OEE icin sart)</li>
+            <li><strong>Is Emri Sablonlari:</strong> "CNC Isleme", "Montaj" gibi tekrar kullanilan sablonlar</li>
+            <li><strong>Modul Yonetimi:</strong> Sektor profili sec → gereksiz moduller gizlenir</li>
+            <li><strong>KVKK:</strong> Kisisel veri envanteri, silme/anonimlestime</li>
+            <li><strong>Audit Trail:</strong> Kim, ne zaman, ne yapti — tam iz kaydi</li>
+          </ul></div>
+          <div class="mod-detail-box"><div class="dtitle yellow">⚠ Dikkat</div><ul>
+            <li>Ilk kurulumda mutlaka: birimler, depo, makine, is emri sablonu tanimlayin</li>
+            <li>Operator rolu sadece atolye terminalini gormeli — gereksiz yetki vermeyin</li>
+            <li>"Modul Yonetimi" kapatilan modul verisi silinmez, sadece gizlenir</li>
+            <li>Admin sifresi 12+ karakter olmali (guvenlik politikasi)</li>
+            <li>Audit trail'i duzenli kontrol edin — guvenlik olaylari [SECURITY] ile loglanir</li>
+          </ul></div>
+        </div>
+        <div class="screen-list" style="margin-top:12px">
           <span class="screen-tag">Kullanicilar</span><span class="screen-tag">Roller</span>
           <span class="screen-tag">Makineler</span><span class="screen-tag">Birimler</span>
           <span class="screen-tag">Is Emri Sablonlari</span><span class="screen-tag">Is Emri Adimlari</span>
