@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quvex ERP — UX Audit &amp; Iyilestirme Plani</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap');
+:root{--bg:#08090d;--s1:#0f1117;--s2:#161923;--s3:#1d2133;--brd:#252a3a;--tx:#dce0f0;--dim:#5e6484;--ok:#22c55e;--warn:#f59e0b;--bad:#ef4444;--info:#3b82f6;--accent:#a78bfa}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--tx);font-family:'Bricolage Grotesque',sans-serif;line-height:1.7}
+.mono{font-family:'IBM Plex Mono',monospace;font-size:.9em}
+.w{max-width:960px;margin:0 auto;padding:32px 20px}
+
+h1{font-size:28px;font-weight:800;letter-spacing:-.5px;margin-bottom:4px}
+h2{font-size:18px;font-weight:700;margin:36px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--brd);display:flex;align-items:center;gap:10px}
+h2 .num{font-size:13px;color:var(--accent);font-family:'IBM Plex Mono';font-weight:600}
+h3{font-size:14px;font-weight:600;margin:20px 0 8px;color:var(--accent)}
+p{margin-bottom:12px;font-size:14px;color:var(--dim);line-height:1.8}
+
+.subtitle{font-size:14px;color:var(--dim);margin-bottom:24px}
+.hero-stat{display:flex;gap:16px;margin:24px 0;flex-wrap:wrap}
+.hero-stat .s{flex:1;min-width:120px;background:var(--s1);border:1px solid var(--brd);border-radius:10px;padding:16px;text-align:center}
+.hero-stat .s .val{font-size:28px;font-weight:800;font-family:'IBM Plex Mono'}
+.hero-stat .s .lbl{font-size:11px;color:var(--dim);margin-top:2px}
+.vg .val{color:var(--ok)}.vw .val{color:var(--warn)}.vb .val{color:var(--bad)}.vi .val{color:var(--info)}
+
+.finding{background:var(--s1);border:1px solid var(--brd);border-radius:12px;margin-bottom:16px;overflow:hidden}
+.finding-header{padding:16px 20px;display:flex;align-items:flex-start;gap:14px}
+.finding-pri{padding:3px 10px;border-radius:6px;font-size:10px;font-weight:700;white-space:nowrap;margin-top:2px}
+.p0{background:#ef444422;color:var(--bad);border:1px solid #ef444444}
+.p1{background:#f59e0b22;color:var(--warn);border:1px solid #f59e0b44}
+.p2{background:#3b82f622;color:var(--info);border:1px solid #3b82f644}
+.p3{background:#64748b22;color:#94a3b8;border:1px solid #64748b44}
+.finding-title{font-size:14px;font-weight:600}
+.finding-body{padding:0 20px 16px;font-size:13px}
+.finding-body .problem{color:var(--bad);margin-bottom:8px;padding:8px 12px;background:#ef444410;border-radius:6px;border-left:3px solid var(--bad)}
+.finding-body .fix{color:var(--ok);margin-bottom:8px;padding:8px 12px;background:#22c55e10;border-radius:6px;border-left:3px solid var(--ok)}
+.finding-body .code{font-family:'IBM Plex Mono';font-size:11px;background:var(--s2);padding:8px 12px;border-radius:6px;overflow-x:auto;margin:8px 0;color:var(--accent)}
+
+.summary-table{width:100%;border-collapse:collapse;font-size:13px;margin:16px 0}
+.summary-table th,.summary-table td{padding:10px 12px;border:1px solid var(--brd);text-align:left}
+.summary-table th{background:var(--s2);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--dim)}
+.summary-table td{background:var(--s1)}
+.score{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600}
+.score.good{background:#22c55e22;color:var(--ok)}.score.mid{background:#f59e0b22;color:var(--warn)}.score.bad{background:#ef444422;color:var(--bad)}
+
+.before-after{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.ba-box{padding:12px;border-radius:8px;font-size:12px;line-height:1.7}
+.ba-box.before{background:#ef444410;border:1px solid #ef444433}
+.ba-box.after{background:#22c55e10;border:1px solid #22c55e33}
+.ba-box .ba-title{font-weight:700;margin-bottom:4px;font-size:11px;text-transform:uppercase;letter-spacing:1px}
+.ba-box.before .ba-title{color:var(--bad)}.ba-box.after .ba-title{color:var(--ok)}
+
+@media(max-width:600px){.before-after{grid-template-columns:1fr}.hero-stat{flex-direction:column}}
+@media print{body{background:#fff;color:#111}.finding,.hero-stat .s{background:#f8f8f8;border-color:#ddd}}
+</style>
+</head>
+<body>
+<div class="w">
+
+<h1>Quvex ERP — UX Audit</h1>
+<p class="subtitle">Hedef: CNC atolye patronu icin "WhatsApp kadar basit" hissettirmek</p>
+
+<!-- GENEL SKOR -->
+<div class="hero-stat">
+  <div class="s vg"><div class="val">7.5</div><div class="lbl">Genel UX Skoru /10</div></div>
+  <div class="s vg"><div class="val">8</div><div class="lbl">Gorsellik</div></div>
+  <div class="s vw"><div class="val">6</div><div class="lbl">Basitlik</div></div>
+  <div class="s vg"><div class="val">8</div><div class="lbl">Tutarlilik</div></div>
+  <div class="s vw"><div class="val">6.5</div><div class="lbl">Mobil Uyum</div></div>
+</div>
+
+<h2><span class="num">01</span> Mevcut Durum Ozeti</h2>
+
+<table class="summary-table">
+  <tr><th>Alan</th><th>Durum</th><th>Skor</th><th>Not</th></tr>
+  <tr><td>Tipografi</td><td>Inter + JetBrains Mono</td><td><span class="score good">Iyi</span></td><td>Tutarli ve okunakli. Chart'larda hardcoded "Inter" var.</td></tr>
+  <tr><td>Renk Sistemi</td><td>Modul bazli 8 renk + dark/light</td><td><span class="score good">Iyi</span></td><td>Navigation renkleri guclu. Ant Design + Reactstrap karisimi bazen uyumsuz.</td></tr>
+  <tr><td>Layout</td><td>Horizontal + Vertical + responsive</td><td><span class="score good">Iyi</span></td><td>1200px breakpoint, tablet toggle var.</td></tr>
+  <tr><td>Formlar</td><td>66 alan (urun), Ant Design Form</td><td><span class="score mid">Orta</span></td><td>Basit/detay modu eklendi ama tum formlara uygulanmadi.</td></tr>
+  <tr><td>Navigasyon</td><td>79 item, sektor profili ile filtre</td><td><span class="score mid">Orta</span></td><td>Profil secimi yeni eklendi, cok iyi. Ama 79→9 gecisi yumusatmak lazim.</td></tr>
+  <tr><td>Bos Durumlar</td><td>AnimatedEmptyState var</td><td><span class="score good">Iyi</span></td><td>Guzel animasyonlu bos durumlar. Her ekranda kullanilmiyor.</td></tr>
+  <tr><td>Yukleme</td><td>UILoader + Skeleton</td><td><span class="score mid">Orta</span></td><td>UILoader var ama bazen sadece spinner. Skeleton dashboard'da var, listelerde yok.</td></tr>
+  <tr><td>Hata Yonetimi</td><td>Ant notification toast</td><td><span class="score mid">Orta</span></td><td>Tum hatalar toast. Bazi formlar inline validation eksik.</td></tr>
+  <tr><td>Mikro-etkilesim</td><td>Framer Motion + CSS transitions</td><td><span class="score good">Iyi</span></td><td>Dashboard animasyonlari guclu. Liste sayfalarinda eksik.</td></tr>
+  <tr><td>Yardim Sistemi</td><td>HelpDrawer + F1 + %95 kapsam</td><td><span class="score good">Cok Iyi</span></td><td>Her ekranda Turkce yardim. Harika.</td></tr>
+</table>
+
+<h2><span class="num">02</span> Kritik Bulgular</h2>
+
+<!-- BULGU 1 -->
+<div class="finding">
+  <div class="finding-header">
+    <span class="finding-pri p0">P0</span>
+    <div>
+      <div class="finding-title">Form Korkutuculugu — 66 Alan Tek Seferde</div>
+      <p style="margin:4px 0 0;font-size:12px">ProductForm.js: 579 satir, 66+ form alani, tek Collapse panelinde</p>
+    </div>
+  </div>
+  <div class="finding-body">
+    <div class="problem"><strong>Sorun:</strong> CNC patronu urun eklemek istiyor. Form acilinca "Parca No, Urun, Aciklama, Birim, Tedarik Tipi, Min Stok, Max Stok, Yeniden Siparis Noktasi, OEM Parca No, Teknik Resim No, Revizyon, Brut Agirlik, Net Agirlik, En, Boy, Yukseklik, Mense, GTIP, Tedarik Suresi, Varsayilan Tedarikci, Alis Fiyati, Satis Fiyati, Para Birimi, Kritiklik Sinifi, Giris KK, Lot Takibi, Seri Takibi, Raf Omru, Depolama Kosullari, Sertifikalar..." gorunce "ben bunu kullanamam" der ve cikar.</div>
+    <div class="fix"><strong>Cozum:</strong> useFormMode hook'u eklendi ama ProductForm.js'e henuz uygulanmadi. Uygula: ilk 8 alan gorunsun (Parca No, Urun, Birim, Tedarik Tipi, Min Stok, Satis Fiyati, Resim, Not). Alt kisimda "Detayli Bilgi" linki tiklaninca geri kalan 58 alan acilsin.</div>
+    <div class="before-after">
+      <div class="ba-box before"><div class="ba-title">Simdiki hali</div>Tek Collapse panelinde 66 alan alt alta. Patron scroll yapmaktan bikiyor. Cogu alan bos kaliyor.</div>
+      <div class="ba-box after"><div class="ba-title">Olmasi gereken</div>8 temel alan gorunur. "Tum Alanlari Goster ▼" tikla → 4 grup halinde acilir: Teknik Bilgiler, Tedarik, Kalite, Depolama. Her grup kendi Collapse panelinde.</div>
+    </div>
+    <div class="code">// ProductForm.js'e ekle:<br>import useFormMode from '@src/hooks/useFormMode'<br>const { isAdvanced, ToggleButton } = useFormMode('product')<br>// Her Form.Item'a: style={{ display: shouldShow('fieldName') ? 'block' : 'none' }}</div>
+  </div>
+</div>
+
+<!-- BULGU 2 -->
+<div class="finding">
+  <div class="finding-header">
+    <span class="finding-pri p0">P0</span>
+    <div>
+      <div class="finding-title">UI Kutuphanesi Karisikligi — Ant Design + Reactstrap + Bootstrap</div>
+      <p style="margin:4px 0 0;font-size:12px">3 farkli UI framework ayni sayfalarda karisik kullaniliyor</p>
+    </div>
+  </div>
+  <div class="finding-body">
+    <div class="problem"><strong>Sorun:</strong> Ayni sayfada Reactstrap Card + Ant Design Table + Bootstrap Row/Col + Ant Design Form kullaniliyor. Butonlar bazen Ant &lt;Button&gt;, bazen Reactstrap &lt;Button&gt;. Padding, border-radius, shadow tutarsiz. Kullanici "bu buton neden farkli gorunuyor?" diye dusunuyor.</div>
+    <div class="fix"><strong>Cozum (uzun vadeli):</strong> Ant Design'i birincil kutupane olarak kabul et. Reactstrap Card → Ant Card'a gecis yap. Kisa vadede: Reactstrap Card'larin icine Ant Design bilesenleri yerlestirilmeye devam etsin ama stil tutarliligi icin global CSS override ekle.</div>
+    <div class="code">/* Global override — Reactstrap Card'lari Ant Design'a uyumlu hale getir */<br>.card { border-radius: 12px; border: 1px solid var(--border); }<br>.card-header { border-bottom: 1px solid var(--border); padding: 12px 16px; }<br>.card-body { padding: 16px; }</div>
+  </div>
+</div>
+
+<!-- BULGU 3 -->
+<div class="finding">
+  <div class="finding-header">
+    <span class="finding-pri p0">P0</span>
+    <div>
+      <div class="finding-title">Liste Sayfalarinda Skeleton Loading Yok</div>
+      <p style="margin:4px 0 0;font-size:12px">Production.js, Sale.js — UILoader spinner gosteriyor</p>
+    </div>
+  </div>
+  <div class="finding-body">
+    <div class="problem"><strong>Sorun:</strong> Sayfalar yukleniyor ama ekran bembeyaz + ortada donuyor spinner. Patron "bozuldu mu?" diye dusunuyor. Dashboard'da Skeleton var ama liste sayfalarinda yok.</div>
+    <div class="fix"><strong>Cozum:</strong> UILoader yerine Ant Design &lt;Skeleton&gt; ve &lt;Table skeleton&gt; kullan. Tablo yukleniyor → satir yerine gri placeholder kutuculari gorunsun. Kullanici verinin geldigini gorsel olarak anlar.</div>
+    <div class="before-after">
+      <div class="ba-box before"><div class="ba-title">Simdiki</div>Beyaz ekran + mor spinner (UILoader overlay). Kullanici ne kadar bekleyecek bilmiyor.</div>
+      <div class="ba-box after"><div class="ba-title">Olmasi gereken</div>Tablo satirlari gri placeholder (Skeleton) olarak gorunur. Veri gelince animasyonla dolari. Kullanici "tablo geliyor" diye anlar.</div>
+    </div>
+    <div class="code">// Ant Design Table skeleton prop'u:<br>&lt;Table loading={{ spinning: block, indicator: &lt;Skeleton active /&gt; }} ... /&gt;</div>
+  </div>
+</div>
+
+<!-- BULGU 4 -->
+<div class="finding">
+  <div class="finding-header">
+    <span class="finding-pri p1">P1</span>
+    <div>
+      <div class="finding-title">Inline Form Validation Eksik</div>
+      <p style="margin:4px 0 0;font-size:12px">Cogu form sadece submit'te hata gosteriyor</p>
+    </div>
+  </div>
+  <div class="finding-body">
+    <div class="problem"><strong>Sorun:</strong> Patron 10 alani doldurdu, "Kaydet" tikliyor, toast ile "Parca No zorunlu!" diyor. Patron formu scroll edip alani aramak zorunda.</div>
+    <div class="fix"><strong>Cozum:</strong> Ant Design Form.Item rules zaten tanimli. Ama scrollToFirstError ekle ve alan altinda kirmizi mesaj gorunsun (zaten Ant varsaylani — sadece Form'a scrollToFirstError prop'u ekle).</div>
+    <div class="code">&lt;Form ... scrollToFirstError={{ behavior: 'smooth', block: 'center' }}&gt;</div>
+  </div>
+</div>
+
+<!-- BULGU 5 -->
+<div class="finding">
+  <div class="finding-header">
+    <span class="finding-pri p1">P1</span>
+    <div>
+      <div class="finding-title">Mobil/Tablet'te Tablo Yatay Scroll Sorunu</div>
+      <p style="margin:4px 0 0;font-size:12px">Liste sayfalarinda Table'lar responsive degil</p>
+    </div>
+  </div>
+  <div class="finding-body">
+    <div class="problem"><strong>Sorun:</strong> Operator telefonda uretim listesini aciyor. 10 kolonlu tablo ekrana sigmiyor, yatay scroll lazim ama belli olmuyor. Bazi kolonlar gereksiz yere genis.</div>
+    <div class="fix"><strong>Cozum:</strong> Ant Table'a scroll={{ x: 900 }} ekle. Mobilde gereksiz kolonlari gizle (responsive: [{breakpoint: 'md', column: {hidden: true}}]). Onemli bilgileri (urun, durum, miktar) her zaman gorunur birak.</div>
+    <div class="code">&lt;Table scroll={{ x: 900 }} size="middle" ... /&gt;<br>// Kolon: { ..., responsive: ['md'] } // sadece tablet+ gorunur</div>
+  </div>
+</div>
+
+<!-- BULGU 6 -->
+<div class="finding">
+  <div class="finding-header">
+    <span class="finding-pri p1">P1</span>
+    <div>
+      <div class="finding-title">Dashboard Widget Oncelik Sirasi — CNC Patronu Icin</div>
+      <p style="margin:4px 0 0;font-size:12px">Home.js: 1352 satir, 10+ widget, hepsi ayni anda gorunuyor</p>
+    </div>
+  </div>
+  <div class="finding-body">
+    <div class="problem"><strong>Sorun:</strong> Dashboard'da 10+ widget var: uretim, stok, kalite, satis, bakim, makine heatmap... CNC patronuna sadece 3 bilgi lazim: "Bugun kac is var?", "Makineler ne durumda?", "Bu ay kac para?"</div>
+    <div class="fix"><strong>Cozum:</strong> getDashboardMode() fonksiyonu zaten var. "simple" modda sadece 3 widget goster: productionStatus + machineWorkload + monthlyRevenue. "full" modda tumu. Dashboard'a bu kontrolu ekle.</div>
+    <div class="code">import { getDashboardMode } from '@src/utility/uiConfig'<br>const mode = getDashboardMode() // 'simple' or 'full'<br>// simple: sadece 3 kart | full: 10+ kart</div>
+  </div>
+</div>
+
+<!-- BULGU 7 -->
+<div class="finding">
+  <div class="finding-header">
+    <span class="finding-pri p2">P2</span>
+    <div>
+      <div class="finding-title">Buton Hiyerarsisi Belirsiz</div>
+      <p style="margin:4px 0 0;font-size:12px">Bazi sayfalarda 5-6 buton yan yana, hangisi onemli belli degil</p>
+    </div>
+  </div>
+  <div class="finding-body">
+    <div class="problem"><strong>Sorun:</strong> Teklif formunda: Kaydet, PDF, Gonder, Kopyala, Geri, Sil — 6 buton yan yana. Patron hangisine basacagini bilmiyor.</div>
+    <div class="fix"><strong>Cozum:</strong> Birincil aksiyon (Kaydet) buyuk + renklı. İkincil aksiyonlar (PDF, Kopyala) kucuk + gri. Tehlikeli aksiyonlar (Sil) ayri + kirmizi + onay gerekli. Maximum 3 gorunen buton, gerisi "..." dropdown'da.</div>
+    <div class="before-after">
+      <div class="ba-box before"><div class="ba-title">Simdiki</div>[Kaydet] [PDF] [Gonder] [Kopyala] [Geri] [Sil] — 6 buton yan yana, hepsi ayni boyutta</div>
+      <div class="ba-box after"><div class="ba-title">Olmasi gereken</div>[← Geri] &nbsp;&nbsp;&nbsp; [Kaydet ✓] (buyuk, mavi) &nbsp; [••• Diger] dropdown icinde: PDF, Gonder, Kopyala | [Sil] (kirmizi, en sagda)</div>
+    </div>
+  </div>
+</div>
+
+<!-- BULGU 8 -->
+<div class="finding">
+  <div class="finding-header">
+    <span class="finding-pri p2">P2</span>
+    <div>
+      <div class="finding-title">Bos Tablo "Aksiyon Onerisi" Yok</div>
+      <p style="margin:4px 0 0;font-size:12px">AnimatedEmptyState var ama "ne yapmaliyim?" yonlendirmesi yok</p>
+    </div>
+  </div>
+  <div class="finding-body">
+    <div class="problem"><strong>Sorun:</strong> Patron Uretim sayfasini aciyor, bos. "Veri bulunamadi" yaziyor. Patron ne yapacagini bilmiyor.</div>
+    <div class="fix"><strong>Cozum:</strong> Bos durumlara aksiyon butonu ekle: "Ilk uretim emrinizi olusturmak icin once bir siparis ekleyin → [Siparislere Git]". Her moduldeki bos duruma o modulun onkosulunu gosteren mesaj + link ekle.</div>
+    <div class="before-after">
+      <div class="ba-box before"><div class="ba-title">Simdiki</div>Animasyonlu icon + "Veri bulunamadi" yazisi. Baska bir sey yok.</div>
+      <div class="ba-box after"><div class="ba-title">Olmasi gereken</div>Animasyonlu icon + "Henuz uretim emri yok" + "Uretim emri olusturmak icin once siparis ekleyin" + [Siparislere Git →] butonu</div>
+    </div>
+  </div>
+</div>
+
+<!-- BULGU 9 -->
+<div class="finding">
+  <div class="finding-header">
+    <span class="finding-pri p2">P2</span>
+    <div>
+      <div class="finding-title">Tarih/Saat Formatı Tutarsız</div>
+      <p style="margin:4px 0 0;font-size:12px">Bazen DD/MM/YYYY, bazen YYYY-MM-DD, bazen HH:MM:SS</p>
+    </div>
+  </div>
+  <div class="finding-body">
+    <div class="problem"><strong>Sorun:</strong> Farkli ekranlarda farkli tarih formati. Patron kafasi karisiyor.</div>
+    <div class="fix"><strong>Cozum:</strong> Tum tarihler "29 Mart 2026" (insan okunur) veya "29.03.2026" (kisa). Saat lazimsa "29.03.2026 14:30". Constants.js'teki dateFormat'i tum sayfalarda tutarli kullan.</div>
+  </div>
+</div>
+
+<!-- BULGU 10 -->
+<div class="finding">
+  <div class="finding-header">
+    <span class="finding-pri p3">P3</span>
+    <div>
+      <div class="finding-title">Dark Mode Ant Design Uyumsuzlugu</div>
+      <p style="margin:4px 0 0;font-size:12px">Dark mode'da bazi Ant Design bilesenlerinin arka plani beyaz kaliyor</p>
+    </div>
+  </div>
+  <div class="finding-body">
+    <div class="problem"><strong>Sorun:</strong> Dark mode secildiginde bazi dropdown, datepicker, modal'lar beyaz arka planli kaliyor. Goz yoruyor.</div>
+    <div class="fix"><strong>Cozum:</strong> Ant Design'in ConfigProvider theme prop'unu kullanarak dark token'lari global olarak ayarla. Veya ant-design-dark-theme NPM paketi.</div>
+  </div>
+</div>
+
+<h2><span class="num">03</span> Oncelik Matrisi</h2>
+
+<table class="summary-table">
+  <tr><th>#</th><th>Bulgu</th><th>Oncelik</th><th>Efor</th><th>Etki</th></tr>
+  <tr><td>1</td><td>Form basit/detay modu ProductForm'a uygula</td><td><span class="score bad">P0</span></td><td>2 saat</td><td>Cok yuksek — patron gozu korkmaz</td></tr>
+  <tr><td>2</td><td>UI kutuphanesi tutarliligi (CSS override)</td><td><span class="score bad">P0</span></td><td>4 saat</td><td>Yuksek — profesyonel gorunum</td></tr>
+  <tr><td>3</td><td>Skeleton loading tum listelere</td><td><span class="score bad">P0</span></td><td>3 saat</td><td>Yuksek — "bozuldu mu?" hissini yok eder</td></tr>
+  <tr><td>4</td><td>Inline form validation (scrollToFirstError)</td><td><span class="score mid">P1</span></td><td>1 saat</td><td>Orta — form deneyimi iyilesir</td></tr>
+  <tr><td>5</td><td>Mobil tablo responsive</td><td><span class="score mid">P1</span></td><td>3 saat</td><td>Yuksek — operator telefonda kullanir</td></tr>
+  <tr><td>6</td><td>Dashboard basit/tam mod entegrasyonu</td><td><span class="score mid">P1</span></td><td>2 saat</td><td>Orta — CNC patronu 3 widget yeterli</td></tr>
+  <tr><td>7</td><td>Buton hiyerarsisi (birincil/ikincil/tehlikeli)</td><td><span class="score good">P2</span></td><td>4 saat</td><td>Orta — hangi butona basmaliyim karmasasi</td></tr>
+  <tr><td>8</td><td>Bos tablo aksiyon onerisi</td><td><span class="score good">P2</span></td><td>3 saat</td><td>Orta — yeni kullanici yonlendirmesi</td></tr>
+  <tr><td>9</td><td>Tarih formati tutarliligi</td><td><span class="score good">P2</span></td><td>1 saat</td><td>Dusuk — kozmetik ama profesyonel</td></tr>
+  <tr><td>10</td><td>Dark mode Ant Design uyumu</td><td><span class="score good">P3</span></td><td>4 saat</td><td>Dusuk — sadece dark mode kullanicilar</td></tr>
+</table>
+
+<h2><span class="num">04</span> Guclu Yonler (Dokunma!)</h2>
+
+<p>Bu alanlar zaten cok iyi yapilmis — bozmayin:</p>
+<table class="summary-table">
+  <tr><th>Ozellik</th><th>Neden Iyi</th></tr>
+  <tr><td>Dashboard animasyonlari</td><td>Framer Motion ile fade-in-up, staggered reveal, CountUp — profesyonel hissettiriyor</td></tr>
+  <tr><td>AnimatedEmptyState</td><td>Orbit ring + floating dots + bounce — bos sayfa bile guzel gorunuyor</td></tr>
+  <tr><td>Modul renk paleti</td><td>8 modul × farkli renk (sales=#10b981, prod=#f97316...) — gorsel kimlik olusturmus</td></tr>
+  <tr><td>HelpDrawer + F1</td><td>%95 kapsam, Turkce, her ekranda — rakiplerde yok</td></tr>
+  <tr><td>Auto-save formlarda</td><td>Kullanici formu doldururken sayfa kapansa bile veri kaybolmuyor</td></tr>
+  <tr><td>labelWithTooltip pattern</td><td>Her form alaninin yaninda "?" ile aciklama — cok yararli</td></tr>
+  <tr><td>Sektor profili sistemi</td><td>79→9 menu — patentlenebilecek seviyede iyi fikir</td></tr>
+  <tr><td>Operator terminali</td><td>4 buyuk buton — dokunmatik tablet icin mukemmel</td></tr>
+  <tr><td>Undo manager</td><td>Toplu islemlerde geri al — kullanici guveni artirir</td></tr>
+  <tr><td>Tour sistemi (Joyride)</td><td>Adim adim ekran turu — ilk kullanim icin harika</td></tr>
+</table>
+
+<h2><span class="num">05</span> WhatsApp Testi</h2>
+
+<p style="color:var(--tx);font-size:15px;line-height:2">
+  Hedefimiz: <strong>"CNC atolye patronu, daha once hic ERP kullanmamis, 55 yasinda, telefonu WhatsApp icin kullaniyor. Bu adam Quvex'e girdiginde 5 dakikada siparis olusturabilmeli."</strong>
+</p>
+
+<table class="summary-table">
+  <tr><th>WhatsApp Ozelligi</th><th>Quvex Karsiligi</th><th>Durum</th></tr>
+  <tr><td>Mesaj yaz + gonder (tek aksiyon)</td><td>Teklif olustur + PDF gonder</td><td><span class="score mid">4 tik gerekli → 2'ye dustur</span></td></tr>
+  <tr><td>Kimlere yazdim gorurum (son mesajlar)</td><td>Dashboard'da son isler</td><td><span class="score good">Var (basit modda)</span></td></tr>
+  <tr><td>Bildirim gelir, tiklarim, gorurum</td><td>SignalR toast + NotificationBell</td><td><span class="score good">Calisiyor</span></td></tr>
+  <tr><td>Arama yapip kisiyi bulurum</td><td>CommandPalette (Ctrl+K)</td><td><span class="score good">Var ama bilinmiyor</span></td></tr>
+  <tr><td>Sil diyince "emin misin?" sorar</td><td>confirmDangerous modal</td><td><span class="score good">Var</span></td></tr>
+  <tr><td>Karanlık mod bir tikla degisir</td><td>Theme Customizer</td><td><span class="score mid">Var ama gizli</span></td></tr>
+  <tr><td>Hicbir sey bilmeden kullanabilirsin</td><td>Sektor profili + yardim + tour</td><td><span class="score mid">Yaklasiyoruz ama P0'lari cozmeli</span></td></tr>
+</table>
+
+<footer style="text-align:center;padding:32px 0 16px;font-size:11px;color:var(--dim);border-top:1px solid var(--brd)">
+  Quvex ERP — UX Audit v1.0 — Dahili Egitim — 2026
+</footer>
+
+</div>
+</body>
+</html>
