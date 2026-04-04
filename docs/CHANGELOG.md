@@ -1,5 +1,48 @@
 # Quvex ERP — Changelog
 
+## [2026-04-05] — Savunma Sanayi Talaşlı İmalat İyileştirmeleri
+
+### Features (8 geliştirme)
+- **FEAT-003:** Operasyon Routing — WorkOrderSteps'e makine, setup/run süresi, takım, tolerans, beceri seviyesi eklendi
+- **FEAT-004:** Terminal Ölçüm Girişi — Operasyon bitişinde ControlPlan'dan ölçüm noktaları, tablet-optimized modal, otomatik pass/fail
+- **FEAT-005:** Maliyet Hesaplama — PartCostController + CostCalculationService (Malzeme + İşçilik + Makine + Genel Gider)
+- **FEAT-006:** Malzeme Sertifikası — MaterialCertificate entity (MTR, CoC, Isıl İşlem, Kaplama, NDT), lot/muayene bağlantısı
+- **FEAT-007:** Fason İş Akışı — SubcontractProcessType enum (11 tip), AT_SUPPLIER/INSPECTED status, workflow butonları, geri sayım
+- **FEAT-008:** Operasyon-Muayene Bağlantısı — WorkOrderStepInspectionPoint entity, kalite gate enforcement, quality-blocked badge
+- **FEAT-009:** Menü Sadeleştirme — Defense profilde rol bazlı alt profiller (Operator/Kaliteci/Yönetici)
+- **FEAT-010:** Türkçeleştirme — CAPA, SPC, PPAP, FOD, OEE, MRP, ECN, FMEA → açık Türkçe etiketler
+
+### New Entities
+- `MaterialCertificate` — Malzeme sertifikası (MTR, CoC, test raporu, ısıl işlem, kaplama, NDT)
+- `WorkOrderStepInspectionPoint` — Operasyon adımı ↔ kontrol planı muayene noktası bağlantısı
+- `OverheadConfig` — Genel gider yapılandırması (yüzde bazlı)
+- `SubcontractProcessType` — Fason proses tipi enum (11 değer)
+
+### New Controllers & Services
+- `MaterialCertificateController` — CRUD + by-lot + by-inspection
+- `PartCostController` — calculate, estimate, overhead CRUD
+- `CostCalculationService` — Malzeme + İşçilik + Makine + Genel gider hesaplama
+- `ShopFloorController` — measurement-points, submit-measurements, approve-quality endpoints
+
+### New UI Pages & Components
+- `PartCostBreakdown.js` — Maliyet analizi sayfası (kart + pasta grafik + tahmin modu)
+- `materialCertificateService.js` — API service
+- `partCostService.js` — API service
+- ShopFloorTerminal: Ölçüm modal (büyük inputlar, gerçek zamanlı tolerans kontrolü)
+- SubcontractOrderList: Status workflow butonları, ProcessType dropdown, geri sayım badge
+- InspectionList: Sertifika drawer/modal
+- WorkOrderStepsForm: 7 yeni alan (makine, süre, takım, tolerans, beceri)
+- MachinesForm: Saat ücreti alanları
+
+### Migration
+- `DefenseImprovements` (2026-04-04)
+
+### Commits
+- API: `a329129` (25 dosya, +16,008 satır)
+- UI: `8456d26` (17 dosya, +1,781 satır)
+
+---
+
 ## [2026-03-23]
 
 ### Bug Fixes

@@ -1,7 +1,7 @@
 # QUVEX — GÜNCEL DURUM
 
-**Son güncelleme:** 2026-03-21
-**Durum:** TÜM 7 FAZ TAMAMLANDI — 4/4 EKSEN 9/10 HEDEFİNDE
+**Son güncelleme:** 2026-04-05
+**Durum:** TÜM 7 FAZ + SAVUNMA CNC İYİLEŞTİRMELERİ TAMAMLANDI
 
 ---
 
@@ -27,7 +27,8 @@
 | F4 — Finans (e-Fatura) | ✅ | 1 |
 | F5 — Platform | ✅ | 2 |
 | F6 — Olgunlaştırma | ✅ | 2 |
-| **TOPLAM** | **✅** | **23 commit** |
+| F7 — Savunma CNC İyileştirmeleri | ✅ | 2 |
+| **TOPLAM** | **✅** | **25 commit** |
 
 ---
 
@@ -68,6 +69,32 @@
 - K8s manifests, DB migration yönetimi, tenant rate limiting
 - KVKK + güvenlik denetim dokümantasyonu
 - Changelog + WhatsNew modal, SLA dashboard, feedback widget
+
+### F7: Savunma Sanayi Talaşlı İmalat İyileştirmeleri → 2026-04-05
+8 kritik geliştirme — 10-100 personelli CNC/freze/torna atölyeleri için:
+
+**Operatör (Saha):**
+- Operasyon routing: WorkOrderSteps'e makine, setup/run süresi, takım, tolerans, beceri seviyesi
+- Terminal ölçüm girişi: Operasyon bitişinde kontrol planından gelen ölçü noktaları, otomatik pass/fail
+- Kalite gate: Önceki operasyonun muayenesi geçmeden sonraki operasyon başlatılamaz
+
+**Kalite Mühendisi:**
+- Operasyon-muayene bağlantısı: WorkOrderStep ↔ ControlPlanItem linki, otomatik muayene oluşturma
+- Malzeme sertifikası: MaterialCertificate entity (MTR, CoC, Isıl İşlem, Kaplama, NDT), lot/muayene bağlantısı
+
+**Yönetici / Patron:**
+- Maliyet hesaplama: Malzeme + İşçilik (setup+run) + Makine + Genel gider = Parça maliyeti
+- Fason iş akışı: 11 proses tipi, status workflow (DRAFT→SENT→AT_SUPPLIER→COMPLETED→INSPECTED)
+- Menü sadeleştirme: Rol bazlı profiller (Operator 5 menü, Kaliteci 12 menü, Yönetici 18 menü)
+
+**Genel UX:**
+- Türkçeleştirme: CAPA, SPC, PPAP, FOD, OEE, MRP, ECN, FMEA → açık Türkçe etiketler
+
+**Yeni entity'ler:** MaterialCertificate, WorkOrderStepInspectionPoint, OverheadConfig, SubcontractProcessType
+**Yeni controller'lar:** MaterialCertificateController, PartCostController
+**Yeni UI sayfaları:** PartCostBreakdown (maliyet analizi + pasta grafik)
+**Migration:** DefenseImprovements (2026-04-04)
+**Commit:** API `a329129` | UI `8456d26`
 
 ---
 

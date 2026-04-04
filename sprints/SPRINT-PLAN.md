@@ -1,8 +1,8 @@
 # Quvex ERP — Sprint Planı
 
-> **Son Güncelleme:** 2026-03-13
-> **Durum:** Tüm 8 sprint tamamlandı
-> **Toplam Test:** 528 UI + 1122 API test geçiyor
+> **Son Güncelleme:** 2026-04-05
+> **Durum:** 8 temel sprint + 1 savunma sprinti tamamlandı
+> **Toplam Test:** 686 UI + 1223 API test geçiyor
 
 ---
 
@@ -18,6 +18,7 @@
 | Sprint 6 | Kalite & SPC Görselleştirme | ✅ Tamamlandı | 5/5 |
 | Sprint 7 | Raporlama & PDF Çıktı | ✅ Tamamlandı | 5/5 |
 | Sprint 8 | Genel UX & Performans | ✅ Tamamlandı | 4/6 (2 kismi) |
+| Sprint 9 | Savunma CNC İyileştirmeleri | ✅ Tamamlandı | 8/8 |
 
 ---
 
@@ -128,6 +129,23 @@
 | S8-04 | Kolon özelleştirme | Tablo kolonlarını göster/gizle, sıralama kaydetme | ✅ Done | `UI:4fc96ac` |
 | S8-05 | Klavye kısayolları | Power user için hızlı navigasyon (Ctrl+Shift+H/S/P/O/R) | ✅ Done | `UI:4fc96ac` |
 | S8-06 | Mobil responsive iyileştirme | Shop floor terminal ve kritik sayfaların mobil uyumu | ✅ Done | (kismi — Bootstrap responsive) |
+
+---
+
+## Sprint 9: Savunma Sanayi Talaşlı İmalat İyileştirmeleri
+> **Hedef:** 10-100 personelli CNC/freze/torna atölyelerinin AS9100 ihtiyaçlarına cevap vermek
+> **Perspektif:** Saha uzmanı (operatör) + Kalite mühendisi + Firma sahibi/müdür
+
+| ID | Başlık | Açıklama | Durum | Commit |
+|----|--------|----------|-------|--------|
+| S9-01 | Operasyon routing | WorkOrderSteps: makine, setup/run süresi, takım, tolerans, beceri seviyesi | ✅ Done | API:`a329129` UI:`8456d26` |
+| S9-02 | Terminal ölçüm girişi | ShopFloor: ControlPlan'dan ölçüm noktaları, tablet modal, otomatik pass/fail | ✅ Done | API:`a329129` UI:`8456d26` |
+| S9-03 | Maliyet hesaplama | PartCostController: Malzeme+İşçilik+Makine+Genel gider, tahmin modu | ✅ Done | API:`a329129` UI:`8456d26` |
+| S9-04 | Menü sadeleştirme | Rol bazlı profiller: Operator(5), Kaliteci(12), Yönetici(18) menü | ✅ Done | UI:`8456d26` |
+| S9-05 | Türkçeleştirme | CAPA, SPC, PPAP, FOD, OEE, MRP, ECN, FMEA → açık Türkçe | ✅ Done | UI:`8456d26` |
+| S9-06 | Operasyon-muayene bağlantısı | WorkOrderStep ↔ ControlPlanItem, kalite gate, quality-blocked | ✅ Done | API:`a329129` UI:`8456d26` |
+| S9-07 | Malzeme sertifikası | MaterialCertificate: MTR, CoC, NDT, lot/muayene bağlantısı | ✅ Done | API:`a329129` UI:`8456d26` |
+| S9-08 | Fason iş akışı | SubcontractProcessType(11 tip), status workflow, geri sayım | ✅ Done | API:`a329129` UI:`8456d26` |
 
 ---
 
