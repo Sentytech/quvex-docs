@@ -18,7 +18,7 @@
 | Sprint 6 | Kalite & SPC Görselleştirme | ✅ Tamamlandı | 5/5 |
 | Sprint 7 | Raporlama & PDF Çıktı | ✅ Tamamlandı | 5/5 |
 | Sprint 8 | Genel UX & Performans | ✅ Tamamlandı | 4/6 (2 kismi) |
-| Sprint 9 | Savunma CNC İyileştirmeleri | ✅ Tamamlandı | 8/8 |
+| Sprint 9 | Savunma CNC İyileştirmeleri | ✅ Tamamlandı | 10/10 |
 
 ---
 
@@ -146,6 +146,10 @@
 | S9-06 | Operasyon-muayene bağlantısı | WorkOrderStep ↔ ControlPlanItem, kalite gate, quality-blocked | ✅ Done | API:`a329129` UI:`8456d26` |
 | S9-07 | Malzeme sertifikası | MaterialCertificate: MTR, CoC, NDT, lot/muayene bağlantısı | ✅ Done | API:`a329129` UI:`8456d26` |
 | S9-08 | Fason iş akışı | SubcontractProcessType(11 tip), status workflow, geri sayım | ✅ Done | API:`a329129` UI:`8456d26` |
+| S9-09 | E2E otomatik test | 48 API test: uctan uca CNC workflow, 22.7 sn | ✅ Done | UI:`95b70f6` |
+| S9-10 | Test senaryosu dokumani | 1124 satir senaryo + 1417 satir adim adim rehber | ✅ Done | Hub:`7ce6652` `d67ed3f` |
+
+**E2E Test Sonucu:** 48/48 PASSED — 3 API uyumluluk sorunu tespit edildi (OfferProduct, SubcontractOrder FK, Invoice format)
 
 ---
 

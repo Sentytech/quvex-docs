@@ -37,9 +37,19 @@
 ### Migration
 - `DefenseImprovements` (2026-04-04)
 
+### Tests
+- **E2E-001:** Savunma CNC uctan uca workflow testi — 48/48 PASSED (22.7 sn)
+- Kapsam: Login → Musteri → Urun → Makine → Operasyon → Teklif → Stok → Muayene → Sertifika → Kalibrasyon → Kontrol Plani → Genel Gider → Fason → FAI (7 karakteristik + PDF) → NCR (workflow) → CAPA → Fatura → Maliyet → Raporlar → Dogrulama
+- 3 API uyumluluk sorunu tespit edildi: OfferProduct nested create, SubcontractOrder FK, Invoice format
+
+### Documentation
+- **DOC-001:** Uctan uca test senaryosu (`tests/E2E_DEFENSE_CNC_TEST_SCENARIO.md` — 1124 satir)
+- **DOC-002:** Adim adim test rehberi (`tests/SAVUNMA_CNC_ADIM_ADIM_TEST_REHBERI.md` — 1417 satir, business aciklamali)
+
 ### Commits
 - API: `a329129` (25 dosya, +16,008 satır)
-- UI: `8456d26` (17 dosya, +1,781 satır)
+- UI: `8456d26` (17 dosya, +1,781 satır), `95b70f6` (E2E test fix)
+- Hub: `df0a601` (docs), `7ce6652` (test scenario), `d67ed3f` (test guide)
 
 ---
 

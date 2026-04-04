@@ -98,11 +98,19 @@
 
 ---
 
+### E2E Test Sonuclari (2026-04-05)
+Savunma CNC workflow testi 48/48 gecti (22.7 sn). Tespit edilen 3 API sorunu:
+1. Teklif→Siparis: OfferProducts nested kayit olusturmuyor
+2. Fason: SubcontractOrder.ProductionId zorunlu FK — uretim emri olmadan olusturulamiyor
+3. Fatura: Invoice create endpoint farkli alan adlari bekliyor
+
+---
+
 ## TEST SAYILARI
 
 | Repo | Test Sayısı | Durum |
 |------|-------------|-------|
 | API (xUnit) | 1223 | ✅ Geçiyor |
-| UI (Vitest) | 688 | ✅ Geçiyor |
-| E2E (Playwright) | 48+ | ✅ Tanımlı |
-| **TOPLAM** | **1911+** | **✅** |
+| UI (Vitest) | 686 | ✅ Geçiyor |
+| E2E (Playwright) | 48 (defense CNC) + 40 (mevcut) | ✅ Geçiyor |
+| **TOPLAM** | **1997+** | **✅** |
