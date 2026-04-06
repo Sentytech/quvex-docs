@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{display:flex;justify-content:center;align-items:center;min-height:100vh;background:#94a3b8;font-family:'Inter',sans-serif;}
+.slide{width:1920px;height:1080px;background:#fff;position:relative;overflow:hidden;display:flex;}
+
+.left-panel{width:520px;background:linear-gradient(180deg,#4f46e5,#7c3aed);color:#fff;padding:60px 48px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;}
+.left-panel::after{content:'';position:absolute;bottom:-80px;left:-80px;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,0.05);}
+.lp-logo{font-size:48px;font-weight:900;letter-spacing:-1px;}
+.lp-tagline{font-size:16px;font-weight:300;opacity:0.8;line-height:1.6;margin-top:12px;}
+.lp-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:auto;}
+.lp-stat{background:rgba(255,255,255,0.1);border-radius:12px;padding:16px;text-align:center;}
+.lp-stat .n{font-size:32px;font-weight:900;}
+.lp-stat .l{font-size:10px;font-weight:600;opacity:0.7;text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
+.lp-bottom{margin-top:24px;font-size:12px;opacity:0.5;}
+
+.right-panel{flex:1;padding:48px 56px;overflow:hidden;}
+.rp-title{font-size:28px;font-weight:800;color:#1e293b;margin-bottom:4px;}
+.rp-sub{font-size:13px;color:#64748b;margin-bottom:28px;}
+
+.flow-row{display:flex;align-items:center;gap:0;margin-bottom:28px;justify-content:center;}
+.flow-box{background:#f8fafc;border:2px solid #e2e8f0;border-radius:10px;padding:12px 20px;text-align:center;min-width:120px;}
+.flow-box .num{font-size:20px;font-weight:800;color:#4f46e5;}
+.flow-box .txt{font-size:11px;font-weight:600;color:#64748b;}
+.flow-arr{font-size:20px;color:#c7d2fe;margin:0 4px;}
+
+.mod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px;}
+.m-card{border:1px solid #e2e8f0;border-radius:10px;padding:16px;position:relative;}
+.m-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:10px 10px 0 0;}
+.m-card.c1::before{background:#f97316;} .m-card.c2::before{background:#06b6d4;} .m-card.c3::before{background:#ec4899;} .m-card.c4::before{background:#ef4444;}
+.m-card.c5::before{background:#10b981;} .m-card.c6::before{background:#8b5cf6;} .m-card.c7::before{background:#14b8a6;} .m-card.c8::before{background:#a855f7;}
+.m-card .t{font-size:13px;font-weight:700;margin-bottom:6px;color:#1e293b;}
+.m-card ul{list-style:none;padding:0;}
+.m-card li{font-size:10px;color:#64748b;padding:1px 0;padding-left:10px;position:relative;}
+.m-card li::before{content:'';position:absolute;left:0;top:6px;width:4px;height:4px;border-radius:50%;background:#c7d2fe;}
+
+.sector-row{display:flex;gap:10px;margin-bottom:28px;justify-content:center;flex-wrap:wrap;}
+.s-pill{background:#f8fafc;border:1px solid #e2e8f0;border-radius:20px;padding:8px 16px;font-size:11px;font-weight:600;color:#475569;display:flex;align-items:center;gap:6px;}
+.s-pill .e{font-size:16px;}
+
+.bottom-strip{position:absolute;bottom:0;left:520px;right:0;background:#f1f5f9;padding:16px 56px;display:flex;justify-content:space-between;align-items:center;}
+.bs-item{text-align:center;}
+.bs-item .v{font-size:18px;font-weight:800;color:#4f46e5;}
+.bs-item .k{font-size:9px;color:#64748b;font-weight:600;text-transform:uppercase;}
+</style></head><body>
+<div class="slide">
+  <div class="left-panel">
+    <div>
+      <div class="lp-logo">QUVEX</div>
+      <div class="lp-tagline">Kucuk ve Orta Olcekli<br>Uretim Isletmeleri Icin<br>Tumlesik ERP Platformu</div>
+    </div>
+    <div class="lp-stats">
+      <div class="lp-stat"><div class="n">12</div><div class="l">Modul</div></div>
+      <div class="lp-stat"><div class="n">105</div><div class="l">Ekran</div></div>
+      <div class="lp-stat"><div class="n">665</div><div class="l">API</div></div>
+      <div class="lp-stat"><div class="n">23</div><div class="l">Kalite</div></div>
+    </div>
+    <div class="lp-bottom">ERP + MES + QMS + CMMS<br>Tek Platform, Tek Lisans</div>
+  </div>
+
+  <div class="right-panel">
+    <div class="rp-title">Uctan Uca Uretim Yonetimi</div>
+    <div class="rp-sub">Teklif'ten tahsilata, kesintisiz dijital is akisi</div>
+
+    <div class="flow-row">
+      <div class="flow-box"><div class="num">1</div><div class="txt">Teklif</div></div><div class="flow-arr">&#10132;</div>
+      <div class="flow-box"><div class="num">2</div><div class="txt">Siparis</div></div><div class="flow-arr">&#10132;</div>
+      <div class="flow-box"><div class="num">3</div><div class="txt">Uretim</div></div><div class="flow-arr">&#10132;</div>
+      <div class="flow-box"><div class="num">4</div><div class="txt">Kalite</div></div><div class="flow-arr">&#10132;</div>
+      <div class="flow-box"><div class="num">5</div><div class="txt">Sevk</div></div><div class="flow-arr">&#10132;</div>
+      <div class="flow-box"><div class="num">6</div><div class="txt">Fatura</div></div><div class="flow-arr">&#10132;</div>
+      <div class="flow-box"><div class="num">7</div><div class="txt">Tahsilat</div></div>
+    </div>
+
+    <div class="mod-grid">
+      <div class="m-card c1"><div class="t">&#9881; Uretim</div><ul><li>Gantt planlama</li><li>Kapasite</li><li>Atolye terminali</li><li>Seri numara</li></ul></div>
+      <div class="m-card c2"><div class="t">&#128230; Stok</div><ul><li>Coklu depo</li><li>Lot takibi</li><li>Barkod</li><li>ABC analizi</li></ul></div>
+      <div class="m-card c3"><div class="t">&#9989; Kalite</div><ul><li>NCR / CAPA</li><li>SPC / PPAP</li><li>Kalibrasyon</li><li>AS9100</li></ul></div>
+      <div class="m-card c4"><div class="t">&#128295; Bakim</div><ul><li>Koruyucu plan</li><li>OEE dashboard</li><li>MTBF / MTTR</li><li>Ariza kaydi</li></ul></div>
+      <div class="m-card c5"><div class="t">&#128176; Satis</div><ul><li>Teklif / siparis</li><li>Musteri CRM</li><li>Cari ekstre</li><li>Sikayet</li></ul></div>
+      <div class="m-card c6"><div class="t">&#128666; Satinalma</div><ul><li>Talep / teklif</li><li>PO yonetimi</li><li>Mal alim</li><li>Tedarikci</li></ul></div>
+      <div class="m-card c7"><div class="t">&#128181; Muhasebe</div><ul><li>Fatura</li><li>e-Fatura (GIB)</li><li>Odeme / vade</li><li>Kar-zarar</li></ul></div>
+      <div class="m-card c8"><div class="t">&#128202; Raporlar</div><ul><li>13 rapor</li><li>KPI analitik</li><li>Dinamik builder</li><li>Excel export</li></ul></div>
+    </div>
+
+    <div class="sector-row">
+      <div class="s-pill"><span class="e">&#9992;</span>Savunma</div>
+      <div class="s-pill"><span class="e">&#128663;</span>Otomotiv</div>
+      <div class="s-pill"><span class="e">&#128296;</span>Metal</div>
+      <div class="s-pill"><span class="e">&#128268;</span>Elektronik</div>
+      <div class="s-pill"><span class="e">&#127850;</span>Gida</div>
+      <div class="s-pill"><span class="e">&#128137;</span>Medikal</div>
+      <div class="s-pill"><span class="e">&#127981;</span>Plastik</div>
+    </div>
+  </div>
+
+  <div class="bottom-strip">
+    <div class="bs-item"><div class="v">1-4 Hafta</div><div class="k">Kurulum</div></div>
+    <div class="bs-item"><div class="v">1.781</div><div class="k">Otomatik Test</div></div>
+    <div class="bs-item"><div class="v">126</div><div class="k">DB Tablosu</div></div>
+    <div class="bs-item"><div class="v">AS9100</div><div class="k">Uyumlu</div></div>
+    <div class="bs-item"><div class="v">0</div><div class="k">Zafiyet</div></div>
+    <div class="bs-item"><div class="v" style="font-size:14px;">quvex.io</div><div class="k">Web</div></div>
+  </div>
+</div>
+</body></html>

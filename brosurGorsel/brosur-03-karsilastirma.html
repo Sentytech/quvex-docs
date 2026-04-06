@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quvex ERP — Rakip Karsilastirma</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  :root {
+    --indigo: #4f46e5;
+    --violet: #7c3aed;
+    --purple: #a855f7;
+    --cyan: #06b6d4;
+    --fuchsia: #d946ef;
+    --emerald: #10b981;
+    --amber: #f59e0b;
+    --rose: #f43f5e;
+    --slate-900: #0f172a;
+    --slate-800: #1e293b;
+    --slate-700: #334155;
+    --slate-400: #94a3b8;
+    --slate-200: #e2e8f0;
+    --slate-100: #f1f5f9;
+    --slate-50: #f8fafc;
+    --glass-bg: rgba(255,255,255,0.06);
+    --glass-border: rgba(255,255,255,0.1);
+    --shadow-glow: rgba(99,102,241,0.3);
+    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',sans-serif; color:var(--slate-800); background:var(--slate-50); -webkit-font-smoothing:antialiased; }
+  .page { max-width:1200px; margin:0 auto; overflow:hidden; }
+
+  @keyframes gradient-shift { 0%{background-position:0% 50%;} 50%{background-position:100% 50%;} 100%{background-position:0% 50%;} }
+  @keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-12px);} }
+  @keyframes pulse-glow { 0%,100%{opacity:0.5;} 50%{opacity:1;} }
+  @keyframes grow-bar { from{width:0;} to{width:var(--bar-width);} }
+  @keyframes slide-in { from{opacity:0;transform:translateX(-20px);} to{opacity:1;transform:translateX(0);} }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, #064e3b 0%, var(--emerald) 50%, var(--cyan) 100%);
+    background-size:200% 200%;
+    animation:gradient-shift 10s ease infinite;
+    color:#fff; padding:80px 60px; position:relative; overflow:hidden;
+  }
+  .hero::before {
+    content:''; position:absolute; right:-80px; top:-80px;
+    width:400px; height:400px; border-radius:50%;
+    background:radial-gradient(circle, rgba(255,255,255,0.1), transparent 70%);
+    animation: float 8s ease-in-out infinite;
+  }
+  .hero-content { position:relative; z-index:2; }
+  .hero-badge {
+    display:inline-flex; align-items:center; gap:8px;
+    background:rgba(255,255,255,0.15); backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,0.2); border-radius:100px;
+    padding:6px 18px; font-size:12px; font-weight:600; margin-bottom:20px;
+  }
+  .hero h1 { font-size:48px; font-weight:900; letter-spacing:-2px; margin-bottom:8px; text-shadow:0 4px 40px rgba(0,0,0,0.2); }
+  .hero .sub { font-size:17px; font-weight:300; opacity:0.9; max-width:550px; line-height:1.6; }
+
+  /* SECTION */
+  .section { padding:60px; }
+  .section-dark { background:var(--slate-900); color:#fff; }
+  .section-title { font-size:32px; font-weight:900; letter-spacing:-1.5px; margin-bottom:8px; }
+  .section-title .accent { color:var(--indigo); }
+  .section-dark .section-title { color:#fff; }
+  .section-sub { font-size:14px; color:var(--slate-400); margin-bottom:32px; line-height:1.6; max-width:550px; }
+
+  /* COMPARISON TABLE */
+  .table-wrapper { overflow-x:auto; border-radius:20px; box-shadow:0 8px 32px rgba(0,0,0,0.06); }
+  .cmp-table { width:100%; border-collapse:collapse; font-size:13px; background:#fff; }
+  .cmp-table thead th {
+    padding:16px 14px; font-size:12px; font-weight:800;
+    text-transform:uppercase; letter-spacing:1px;
+    border-bottom:2px solid var(--slate-200); text-align:center;
+    background:var(--slate-50); color:var(--slate-400);
+    position:sticky; top:0; z-index:2;
+  }
+  .cmp-table thead th:first-child { text-align:left; width:240px; border-radius:20px 0 0 0; }
+  .cmp-table thead th:last-child { border-radius:0 20px 0 0; }
+  .cmp-table thead th.quvex-col {
+    background: linear-gradient(135deg, var(--indigo), var(--violet));
+    color:#fff; position:relative;
+    box-shadow: 0 4px 20px var(--shadow-glow);
+  }
+  .cmp-table tbody td {
+    padding:14px; text-align:center; border-bottom:1px solid var(--slate-100);
+    transition: var(--transition);
+  }
+  .cmp-table tbody td:first-child {
+    text-align:left; font-weight:600; color:var(--slate-700); padding-left:20px;
+  }
+  .cmp-table tbody td.quvex-col {
+    background: linear-gradient(180deg, rgba(79,70,229,0.04), rgba(168,85,247,0.04));
+    font-weight:700;
+  }
+  .cmp-table tbody tr:hover td { background:rgba(79,70,229,0.03); }
+  .cmp-table tbody tr:hover td.quvex-col { background:rgba(79,70,229,0.08); }
+
+  .cmp-table .group-row td {
+    background:var(--slate-100); font-weight:800; font-size:11px;
+    text-transform:uppercase; letter-spacing:1.5px; color:var(--slate-400);
+    padding:16px 14px; border-bottom:2px solid var(--slate-200);
+  }
+
+  /* STATUS ICONS */
+  .yes { color:var(--emerald); font-weight:900; font-size:16px; }
+  .no { color:var(--rose); font-weight:900; font-size:16px; }
+  .partial { color:var(--amber); font-weight:900; font-size:16px; }
+
+  /* TCO BAR CHART */
+  .tco-chart { margin-top:20px; }
+  .tco-bar-row {
+    display:flex; align-items:center; gap:16px; margin-bottom:16px;
+    animation: slide-in 0.5s ease-out both;
+  }
+  .tco-bar-row:nth-child(1) { animation-delay:0.1s; }
+  .tco-bar-row:nth-child(2) { animation-delay:0.2s; }
+  .tco-bar-row:nth-child(3) { animation-delay:0.3s; }
+  .tco-bar-row:nth-child(4) { animation-delay:0.4s; }
+  .tco-bar-row:nth-child(5) { animation-delay:0.5s; }
+  .tco-label { width:140px; font-size:14px; font-weight:700; color:var(--slate-700); text-align:right; flex-shrink:0; }
+  .tco-track {
+    flex:1; height:40px; background:var(--slate-100); border-radius:12px;
+    overflow:hidden; position:relative;
+  }
+  .tco-fill {
+    height:100%; border-radius:12px; display:flex; align-items:center;
+    padding-left:16px; font-size:13px; font-weight:800; color:#fff;
+    animation: grow-bar 1s ease-out both;
+  }
+  .tco-fill.quvex-bar {
+    background: linear-gradient(90deg, var(--indigo), var(--violet), var(--purple));
+    box-shadow: 0 4px 16px var(--shadow-glow);
+  }
+  .tco-fill.comp-bar { background: linear-gradient(90deg, #64748b, #94a3b8); }
+  .tco-fill.comp-bar-2 { background: linear-gradient(90deg, #475569, #64748b); }
+  .tco-fill.comp-bar-3 { background: linear-gradient(90deg, #334155, #475569); }
+  .tco-fill.comp-bar-4 { background: linear-gradient(90deg, #1e293b, #334155); }
+
+  /* MIGRATION TIMELINE */
+  .timeline { display:flex; gap:0; margin-top:20px; position:relative; }
+  .timeline::before {
+    content:''; position:absolute; top:28px; left:40px; right:40px; height:4px;
+    background: linear-gradient(90deg, var(--indigo), var(--violet), var(--purple), var(--cyan));
+    border-radius:2px;
+  }
+  .timeline-step {
+    flex:1; text-align:center; position:relative; z-index:2;
+  }
+  .timeline-dot {
+    width:56px; height:56px; border-radius:50%; margin:0 auto 12px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:22px; font-weight:900; color:#fff;
+    background: linear-gradient(135deg, var(--indigo), var(--violet));
+    box-shadow: 0 4px 20px var(--shadow-glow);
+    transition: var(--transition);
+  }
+  .timeline-step:hover .timeline-dot {
+    transform:scale(1.15);
+    box-shadow: 0 8px 32px rgba(99,102,241,0.4);
+  }
+  .timeline-title { font-size:13px; font-weight:800; color:var(--slate-800); margin-bottom:2px; }
+  .timeline-desc { font-size:11px; color:var(--slate-400); line-height:1.5; }
+  .timeline-duration {
+    display:inline-block; margin-top:6px;
+    background:var(--slate-100); border-radius:100px;
+    padding:3px 12px; font-size:10px; font-weight:700; color:var(--indigo);
+  }
+
+  /* TESTIMONIALS */
+  .testimonial-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:20px; }
+  .testimonial-card {
+    background: var(--glass-bg); backdrop-filter:blur(20px);
+    border:1px solid var(--glass-border); border-radius:20px;
+    padding:28px; transition:var(--transition);
+  }
+  .testimonial-card:hover {
+    transform:translateY(-4px); border-color:rgba(99,102,241,0.3);
+    box-shadow: 0 12px 40px rgba(99,102,241,0.15);
+  }
+  .testimonial-quote { font-size:14px; color:var(--slate-200); line-height:1.7; font-style:italic; margin-bottom:16px; }
+  .testimonial-quote::before { content:'\201C'; font-size:36px; color:var(--indigo); display:block; margin-bottom:-8px; }
+  .testimonial-author { display:flex; align-items:center; gap:12px; }
+  .testimonial-avatar {
+    width:40px; height:40px; border-radius:50%;
+    background: linear-gradient(135deg, var(--indigo), var(--purple));
+    display:flex; align-items:center; justify-content:center;
+    font-size:16px; font-weight:900; color:#fff;
+  }
+  .testimonial-name { font-size:13px; font-weight:700; color:#fff; }
+  .testimonial-role { font-size:11px; color:var(--slate-400); }
+
+  /* FOOTER */
+  .footer {
+    border-top:3px solid transparent;
+    border-image:linear-gradient(90deg, var(--emerald), var(--cyan), var(--indigo), var(--violet)) 1;
+    padding:32px 60px; text-align:center;
+  }
+  .footer-logo {
+    font-size:24px; font-weight:900;
+    background:linear-gradient(135deg, var(--indigo), var(--purple));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  }
+  .footer-text { font-size:11px; color:var(--slate-400); margin-top:4px; }
+
+  @media (max-width:900px) {
+    .hero { padding:50px 30px; }
+    .hero h1 { font-size:36px; }
+    .section { padding:40px 20px; }
+    .table-wrapper { margin:0 -20px; border-radius:0; }
+    .cmp-table { font-size:11px; }
+    .timeline { flex-direction:column; gap:20px; }
+    .timeline::before { display:none; }
+    .testimonial-grid { grid-template-columns:1fr; }
+    .tco-label { width:100px; font-size:12px; }
+  }
+
+  @media print {
+    * { animation:none!important; transition:none!important; }
+    body { background:#fff; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    .hero { background:#064e3b!important; padding:40px; }
+    .section-dark { background:var(--slate-900)!important; }
+    .table-wrapper { box-shadow:none; border:1px solid #e2e8f0; }
+    .testimonial-card { background:var(--slate-800)!important; border:1px solid var(--slate-700); }
+    .page { max-width:100%; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">&#9876; Rekabet Analizi 2026</div>
+      <h1>Ozellik Karsilastirma</h1>
+      <p class="sub">Quvex ERP'yi piyasadaki diger cozumlerle karsilastirin. Turkiye'nin en kapsamli kucuk fabrika ERP'si.</p>
+    </div>
+  </section>
+
+  <!-- COMPARISON TABLE -->
+  <section class="section">
+    <h2 class="section-title">Detayli <span class="accent">Karsilastirma</span></h2>
+    <p class="section-sub">&#10003; Var &middot; &#10007; Yok &middot; &#9651; Kismi / Ek modul gerekli</p>
+    <div class="table-wrapper">
+      <table class="cmp-table">
+        <thead>
+          <tr>
+            <th>Ozellik</th>
+            <th class="quvex-col">Quvex ERP</th>
+            <th>Logo Tiger</th>
+            <th>Netsis</th>
+            <th>IAS ERP</th>
+            <th>Cimri ERP</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- URETIM -->
+          <tr class="group-row"><td colspan="6">Uretim Yonetimi</td></tr>
+          <tr>
+            <td>Is Emri / BOM / Rota</td>
+            <td class="quvex-col"><span class="yes">&#10003;</span></td>
+            <td><span class="yes">&#10003;</span></td>
+            <td><span class="yes">&#10003;</span></td>
+            <td><span class="yes">&#10003;</span></td>
+            <td><span class="partial">&#9651;</span></td>
+          </tr>
+          <tr>
+            <td>ShopFloor Terminal</td>
+            <td class="quvex-col"><span class="yes">&#10003;</span></td>
+            <td><span class="no">&#10007;</span></td>
+            <td><span class="no">&#10007;</span></td>
+            <td><span class="partial">&#9651;</span></td>
+            <td><span class="no">&#10007;</span></td>
+          </tr>
+          <tr>
+            <td>Kapasite Cizelgeleme</td>
+            <td class="quvex-col"><span class="yes">&#10003;</span></td>
+            <td><span class="partial">&#9651;</span></td>
+            <td><span class="yes">&#10003;</span></td>
+            <td><span class="partial">&#9651;</span></td>
+            <td><span class="no">&#10007;</span></td>
+          </tr>
+          <tr>
+            <td>Fason Siparis Takibi</td>
+            <td class="quvex-col"><span class="yes">&#10003;</span></td>
+            <td><span class="yes">&#10003;</span></td>
+            <td><span class="yes">&#10003;</span></td>
+            <td><span class="partial">&#9651;</span></td>
+            <td><span class="no">&#10007;</span></td>
+          </tr>
+          <!-- KALITE -->
+          <tr class="group-row"><td colspan="6">Kalite (AS9100)</td></tr>
+          <tr>
+            <td>Sozlesme Inceleme</td>
+            <td class="quvex-col"><span class="yes">&#10003;</span></td>
+            <td><span class="no">&#10007;</span></td>
+            <td><span class="no">&#10007;</span></td>
+            <td><span class="no">&#10007;</span></td>
+            <td><span class="no">&#10007;</span></td>
+          </tr>
+          <tr>
+            <td>MRB / NCR / CAPA</td>
+            <td class="quvex-col"><span class="yes">&#10003;</span></td>
+            <td><span class="no">&#10007;</span></td>
+            <td><span class="partial">&#9651;</span></td>
+            <td><span class="no">&#10007;</span></td>
+            <td><span class="no">&#10007;</span></td>
+          </tr>
+          <tr>
+            <td>Certificate of Conformance</td>
+            <td class="quvex-col"><span class="yes">&#10003;</span></td>
+            <td><span class="no">&#10007;</span></td>
+            <td><span class="no">&#10007;</span></td>
+            <td><span class="no">&#10007;</span></td>
+            <td><span class="no">&#10007;</span></td>
+          </tr>
+          <tr>
+            <td>Seri No Soy Agaci</td>
+            <td class="quvex-col"><span class="yes">&#10003;</span></td>
+            <td><span class="no">&#10007;</span></td>
+            <td><span class="no">&#10007;</span></td>
+            <td><span class="partial">&#9651;</span></td>
+            <td><span class="no">&#10007;</span></td>
+          </tr>
+          <!-- FINANS -->
+          <tr class="group-row"><td colspan="6">Finans & Muhasebe</td></tr>
+          <tr>
+            <td>Kasa / Banka Entegrasyonu</td>
+            <td class="quvex-col"><span class="yes">&#10003;</span></td>
+            <td><span class="yes">&#10003;</span></td>
+            <td><span class="yes">&#10003;</span></td>
+            <td><span class="yes">&#10003;</span></td>
+            <td><span class="partial">&#9651;</span></td>
+          </tr>
+          <tr>
+            <td>Otomatik Bakiye Mutabakat</td>
+            <td class="quvex-col"><span class="yes">&#10003;</span></td>
+            <td><span class="partial">&#9651;</span></td>
+            <td><span class="yes">&#10003;</span></td>
+            <td><span class="partial">&#9651;</span></td>
+            <td><span class="no">&#10007;</span></td>
+          </tr>
+          <tr>
+            <td>e-Fatura / e-Irsaliye</td>
+            <td class="quvex-col"><span class="yes">&#10003;</span></td>
+            <td><span class="yes">&#10003;</span></td>
+            <td><span class="yes">&#10003;</span></td>
+            <td><span class="yes">&#10003;</span></td>
+            <td><span class="partial">&#9651;</span></td>
+          </tr>
+          <!-- TEKNOLOJI -->
+          <tr class="group-row"><td colspan="6">Teknoloji & Platform</td></tr>
+          <tr>
+            <td>Multi-Tenancy</td>
+            <td class="quvex-col"><span class="yes">&#10003;</span></td>
+            <td><span class="no">&#10007;</span></td>
+            <td><span class="partial">&#9651;</span></td>
+            <td><span class="no">&#10007;</span></td>
+            <td><span class="no">&#10007;</span></td>
+          </tr>
+          <tr>
+            <td>PWA / Offline</td>
+            <td class="quvex-col"><span class="yes">&#10003;</span></td>
+            <td><span class="no">&#10007;</span></td>
+            <td><span class="no">&#10007;</span></td>
+            <td><span class="no">&#10007;</span></td>
+            <td><span class="no">&#10007;</span></td>
+          </tr>
+          <tr>
+            <td>SignalR Canli Bildirim</td>
+            <td class="quvex-col"><span class="yes">&#10003;</span></td>
+            <td><span class="no">&#10007;</span></td>
+            <td><span class="no">&#10007;</span></td>
+            <td><span class="no">&#10007;</span></td>
+            <td><span class="no">&#10007;</span></td>
+          </tr>
+          <tr>
+            <td>Docker / Cloud-Ready</td>
+            <td class="quvex-col"><span class="yes">&#10003;</span></td>
+            <td><span class="no">&#10007;</span></td>
+            <td><span class="partial">&#9651;</span></td>
+            <td><span class="no">&#10007;</span></td>
+            <td><span class="no">&#10007;</span></td>
+          </tr>
+          <tr>
+            <td>AI Insights</td>
+            <td class="quvex-col"><span class="yes">&#10003;</span></td>
+            <td><span class="no">&#10007;</span></td>
+            <td><span class="no">&#10007;</span></td>
+            <td><span class="no">&#10007;</span></td>
+            <td><span class="no">&#10007;</span></td>
+          </tr>
+          <!-- IK -->
+          <tr class="group-row"><td colspan="6">Insan Kaynaklari</td></tr>
+          <tr>
+            <td>Vardiya / Puantaj / Izin</td>
+            <td class="quvex-col"><span class="yes">&#10003;</span></td>
+            <td><span class="partial">&#9651;</span></td>
+            <td><span class="yes">&#10003;</span></td>
+            <td><span class="no">&#10007;</span></td>
+            <td><span class="no">&#10007;</span></td>
+          </tr>
+          <tr>
+            <td>Yetkinlik / Sertifika</td>
+            <td class="quvex-col"><span class="yes">&#10003;</span></td>
+            <td><span class="no">&#10007;</span></td>
+            <td><span class="partial">&#9651;</span></td>
+            <td><span class="no">&#10007;</span></td>
+            <td><span class="no">&#10007;</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- TCO -->
+  <section class="section" style="background:var(--slate-50);">
+    <h2 class="section-title">3 Yillik TCO <span class="accent">Karsilastirmasi</span></h2>
+    <p class="section-sub">Toplam sahip olma maliyeti (lisans + bakim + danismanlik + altyapi). Quvex, rakiplerin %40-60 altinda maliyet sunar.</p>
+    <div class="tco-chart">
+      <div class="tco-bar-row">
+        <div class="tco-label">Quvex</div>
+        <div class="tco-track">
+          <div class="tco-fill quvex-bar" style="--bar-width:35%;width:35%;">&#8378;180K</div>
+        </div>
+      </div>
+      <div class="tco-bar-row">
+        <div class="tco-label">Cimri ERP</div>
+        <div class="tco-track">
+          <div class="tco-fill comp-bar" style="--bar-width:45%;width:45%;">&#8378;250K</div>
+        </div>
+      </div>
+      <div class="tco-bar-row">
+        <div class="tco-label">IAS ERP</div>
+        <div class="tco-track">
+          <div class="tco-fill comp-bar-2" style="--bar-width:60%;width:60%;">&#8378;350K</div>
+        </div>
+      </div>
+      <div class="tco-bar-row">
+        <div class="tco-label">Logo Tiger</div>
+        <div class="tco-track">
+          <div class="tco-fill comp-bar-3" style="--bar-width:78%;width:78%;">&#8378;480K</div>
+        </div>
+      </div>
+      <div class="tco-bar-row">
+        <div class="tco-label">Netsis</div>
+        <div class="tco-track">
+          <div class="tco-fill comp-bar-4" style="--bar-width:100%;width:100%;">&#8378;650K+</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MIGRATION TIMELINE -->
+  <section class="section">
+    <h2 class="section-title">Gecis <span class="accent">Sureci</span></h2>
+    <p class="section-sub">Mevcut sisteminizden Quvex'e sorunsuz gecis. Ortalama 6 haftada tamamen operasyonel.</p>
+    <div class="timeline">
+      <div class="timeline-step">
+        <div class="timeline-dot">1</div>
+        <div class="timeline-title">Analiz</div>
+        <div class="timeline-desc">Mevcut sistem inceleme,<br>ihtiyac haritasi</div>
+        <span class="timeline-duration">1 Hafta</span>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-dot">2</div>
+        <div class="timeline-title">Veri Aktarimi</div>
+        <div class="timeline-desc">Stok, cari, urun,<br>BOM migrasyon</div>
+        <span class="timeline-duration">1-2 Hafta</span>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-dot">3</div>
+        <div class="timeline-title">Yapilandirma</div>
+        <div class="timeline-desc">Sektor profili,<br>is akislari, roller</div>
+        <span class="timeline-duration">1 Hafta</span>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-dot">4</div>
+        <div class="timeline-title">Egitim</div>
+        <div class="timeline-desc">Kullanici egitimleri,<br>dokumantasyon</div>
+        <span class="timeline-duration">1 Hafta</span>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-dot">5</div>
+        <div class="timeline-title">Go-Live</div>
+        <div class="timeline-desc">Canli gecis,<br>destek & izleme</div>
+        <span class="timeline-duration">1-2 Hafta</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section section-dark">
+    <h2 class="section-title">Musteri <span style="background:linear-gradient(135deg,#c7d2fe,#818cf8,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Deneyimleri</span></h2>
+    <p class="section-sub">Quvex kullanan firmalarin gercek geri bildirimleri.</p>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <p class="testimonial-quote">ShopFloor terminali atolyedeki veri girisini tamamen degistirdi. Artik operatorler kagit kullanmiyor, anlik uretim verisi goruyoruz.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">AK</div>
+          <div>
+            <div class="testimonial-name">Ahmet K.</div>
+            <div class="testimonial-role">Uretim Muduru, Metal Imalat</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-quote">AS9100 modulleri sayesinde havacilik denetimlerimizi sorunsuz gectik. CoC ve veri paketi olusturma tek tiklama.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">SY</div>
+          <div>
+            <div class="testimonial-name">Selin Y.</div>
+            <div class="testimonial-role">Kalite Muduru, Havacilik</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-quote">Logo'dan gecis 4 haftada tamamlandi. Maliyet %60 dustu, kullanici memnuniyeti %90'a cikti. PWA ile sahadan bile erisiyoruz.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">MO</div>
+          <div>
+            <div class="testimonial-name">Mehmet O.</div>
+            <div class="testimonial-role">Genel Mudur, Plastik</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-logo">QUVEX</div>
+    <p class="footer-text">Quvex ERP v1.5 &mdash; Karsilastirma &middot; 2026 &copy; Tum haklari saklidir.</p>
+  </footer>
+
+</div>
+</body>
+</html>

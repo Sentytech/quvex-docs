@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{display:flex;justify-content:center;align-items:center;min-height:100vh;background:#e2e8f0;font-family:'Inter',sans-serif;}
+.card{width:1080px;height:1080px;background:#0f172a;color:#fff;position:relative;overflow:hidden;display:flex;flex-direction:column;}
+
+.top{padding:60px 60px 40px;text-align:center;z-index:2;}
+.logo{font-size:56px;font-weight:900;letter-spacing:-2px;background:linear-gradient(135deg,#818cf8,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.tagline{font-size:18px;font-weight:300;color:#94a3b8;margin-top:8px;}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:0 40px;flex:1;align-content:center;z-index:2;}
+.g-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:24px;text-align:center;transition:all 0.2s;}
+.g-card .emoji{font-size:36px;margin-bottom:10px;}
+.g-card .title{font-size:15px;font-weight:800;margin-bottom:6px;}
+.g-card .items{font-size:11px;color:#94a3b8;line-height:1.7;}
+
+.stats-bar{display:flex;justify-content:center;gap:40px;padding:32px;z-index:2;}
+.sb{text-align:center;}
+.sb .n{font-size:32px;font-weight:900;color:#818cf8;}
+.sb .l{font-size:10px;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
+
+.bottom{background:linear-gradient(90deg,#4f46e5,#7c3aed);padding:20px 60px;display:flex;justify-content:space-between;align-items:center;z-index:2;}
+.bottom .txt{font-size:14px;font-weight:700;}
+.bottom .url{font-size:14px;font-weight:300;opacity:0.8;}
+
+.bg-circle{position:absolute;width:500px;height:500px;border-radius:50%;background:rgba(79,70,229,0.08);top:-150px;right:-150px;}
+.bg-circle2{position:absolute;width:400px;height:400px;border-radius:50%;background:rgba(139,92,246,0.06);bottom:-100px;left:-100px;}
+</style></head><body>
+<div class="card">
+  <div class="bg-circle"></div>
+  <div class="bg-circle2"></div>
+
+  <div class="top">
+    <div class="logo">QUVEX</div>
+    <div class="tagline">Fabrikanizi Tek Ekrandan Yonetin</div>
+  </div>
+
+  <div class="grid">
+    <div class="g-card"><div class="emoji">&#9881;</div><div class="title">Uretim</div><div class="items">Siparis Takibi<br>Gantt Planlama<br>Is Emri<br>Atolye Terminali</div></div>
+    <div class="g-card"><div class="emoji">&#128230;</div><div class="title">Stok</div><div class="items">Coklu Depo<br>Lot Takibi<br>Barkod<br>ABC Analizi</div></div>
+    <div class="g-card"><div class="emoji">&#9989;</div><div class="title">Kalite</div><div class="items">NCR / CAPA<br>SPC / PPAP<br>Kalibrasyon<br>AS9100</div></div>
+    <div class="g-card"><div class="emoji">&#128295;</div><div class="title">Bakim</div><div class="items">Koruyucu Plan<br>OEE Dashboard<br>Ariza Kaydi<br>MTBF / MTTR</div></div>
+    <div class="g-card"><div class="emoji">&#128181;</div><div class="title">Muhasebe</div><div class="items">Fatura<br>e-Fatura<br>Odeme Takibi<br>Kar-Zarar</div></div>
+    <div class="g-card"><div class="emoji">&#128202;</div><div class="title">Raporlar</div><div class="items">13 Rapor<br>KPI Analitik<br>Excel Export<br>Dashboard</div></div>
+    <div class="g-card"><div class="emoji">&#128101;</div><div class="title">IK</div><div class="items">Vardiya<br>Egitim<br>Dokuman<br>Yetkinlik</div></div>
+    <div class="g-card"><div class="emoji">&#128666;</div><div class="title">Satinalma</div><div class="items">Talep<br>Teklif<br>Siparis<br>Tedarikci</div></div>
+    <div class="g-card"><div class="emoji">&#128176;</div><div class="title">Satis</div><div class="items">Teklif<br>Siparis<br>Musteri<br>Ekstre</div></div>
+  </div>
+
+  <div class="stats-bar">
+    <div class="sb"><div class="n">12</div><div class="l">Modul</div></div>
+    <div class="sb"><div class="n">105</div><div class="l">Ekran</div></div>
+    <div class="sb"><div class="n">665</div><div class="l">API</div></div>
+    <div class="sb"><div class="n">1.781</div><div class="l">Test</div></div>
+  </div>
+
+  <div class="bottom">
+    <div class="txt">Kurumsal Ozellikler, KOBI Fiyatiyla</div>
+    <div class="url">quvex.io</div>
+  </div>
+</div>
+</body></html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{display:flex;justify-content:center;align-items:center;min-height:100vh;background:#e2e8f0;font-family:'Inter',sans-serif;}
+.card{width:1200px;height:628px;background:linear-gradient(135deg,#1e1b4b 0%,#312e81 40%,#4338ca 100%);color:#fff;position:relative;overflow:hidden;display:flex;}
+
+.left{flex:1;padding:60px;display:flex;flex-direction:column;justify-content:center;z-index:2;}
+.right{width:420px;position:relative;z-index:1;}
+
+.logo{font-size:42px;font-weight:900;letter-spacing:-1px;margin-bottom:6px;}
+.tagline{font-size:20px;font-weight:300;opacity:0.85;margin-bottom:36px;line-height:1.4;}
+
+.stats{display:flex;gap:24px;margin-bottom:36px;}
+.stat{text-align:center;}
+.stat .n{font-size:36px;font-weight:900;color:#a5b4fc;}
+.stat .l{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;opacity:0.6;margin-top:2px;}
+
+.features{display:flex;flex-wrap:wrap;gap:8px;}
+.feat{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:6px 14px;font-size:11px;font-weight:600;backdrop-filter:blur(4px);}
+
+.right-grid{position:absolute;top:40px;right:30px;display:grid;grid-template-columns:1fr 1fr;gap:10px;width:360px;}
+.mini-card{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:14px;backdrop-filter:blur(8px);}
+.mini-card .icon{font-size:22px;margin-bottom:6px;}
+.mini-card .title{font-size:12px;font-weight:700;margin-bottom:3px;}
+.mini-card .desc{font-size:10px;opacity:0.6;line-height:1.4;}
+
+.circle1{position:absolute;right:-100px;top:-100px;width:400px;height:400px;border-radius:50%;background:rgba(99,102,241,0.15);}
+.circle2{position:absolute;right:100px;bottom:-150px;width:300px;height:300px;border-radius:50%;background:rgba(139,92,246,0.1);}
+
+.bottom-bar{position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.2);padding:12px 60px;display:flex;justify-content:space-between;align-items:center;font-size:11px;z-index:3;}
+.bottom-bar .url{font-weight:700;color:#a5b4fc;}
+</style></head><body>
+<div class="card">
+  <div class="circle1"></div>
+  <div class="circle2"></div>
+  <div class="left">
+    <div class="logo">QUVEX</div>
+    <div class="tagline">Kucuk ve Orta Olcekli Fabrikalar Icin<br>Tumlesik Uretim Yonetim Platformu</div>
+    <div class="stats">
+      <div class="stat"><div class="n">12</div><div class="l">Modul</div></div>
+      <div class="stat"><div class="n">105</div><div class="l">Ekran</div></div>
+      <div class="stat"><div class="n">665</div><div class="l">API</div></div>
+      <div class="stat"><div class="n">23</div><div class="l">Kalite</div></div>
+    </div>
+    <div class="features">
+      <div class="feat">Uretim</div>
+      <div class="feat">Stok</div>
+      <div class="feat">Kalite</div>
+      <div class="feat">Bakim</div>
+      <div class="feat">Muhasebe</div>
+      <div class="feat">MRP</div>
+      <div class="feat">AS9100</div>
+      <div class="feat">OEE</div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="right-grid">
+      <div class="mini-card"><div class="icon">&#9881;</div><div class="title">Uretim</div><div class="desc">Gantt, kapasite, is emri, atolye terminali</div></div>
+      <div class="mini-card"><div class="icon">&#128230;</div><div class="title">Stok</div><div class="desc">Coklu depo, lot, barkod, ABC analizi</div></div>
+      <div class="mini-card"><div class="icon">&#9989;</div><div class="title">Kalite</div><div class="desc">NCR, CAPA, SPC, PPAP, FAI, CoC</div></div>
+      <div class="mini-card"><div class="icon">&#128295;</div><div class="title">Bakim</div><div class="desc">CMMS, OEE, MTBF, koruyucu plan</div></div>
+      <div class="mini-card"><div class="icon">&#128181;</div><div class="title">Muhasebe</div><div class="desc">Fatura, odeme, e-fatura, kar-zarar</div></div>
+      <div class="mini-card"><div class="icon">&#128202;</div><div class="title">Raporlar</div><div class="desc">13 rapor, KPI, dinamik builder</div></div>
+    </div>
+  </div>
+  <div class="bottom-bar">
+    <span>ERP + MES + QMS + CMMS — Tek Platform, Tek Lisans</span>
+    <span class="url">quvex.io</span>
+  </div>
+</div>
+</body></html>

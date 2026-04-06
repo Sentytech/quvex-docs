@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{display:flex;flex-direction:column;align-items:center;gap:40px;min-height:100vh;background:#94a3b8;font-family:'Inter',sans-serif;padding:40px;}
+h2{color:#fff;font-size:14px;font-weight:600;opacity:0.8;letter-spacing:2px;text-transform:uppercase;}
+
+/* BANNER 1584x396 - Twitter/X Header */
+.banner{width:1584px;height:396px;background:linear-gradient(135deg,#0f172a,#1e293b 60%,#312e81);color:#fff;display:flex;align-items:center;padding:0 80px;position:relative;overflow:hidden;}
+.banner::after{content:'';position:absolute;right:0;top:0;bottom:0;width:300px;background:linear-gradient(135deg,transparent,rgba(79,70,229,0.2));}
+.b-left{flex:1;z-index:1;}
+.b-logo{font-size:64px;font-weight:900;letter-spacing:-2px;}
+.b-tag{font-size:18px;font-weight:300;opacity:0.7;margin-top:4px;}
+.b-pills{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap;}
+.b-pill{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:6px 14px;font-size:12px;font-weight:600;}
+.b-right{display:flex;gap:24px;z-index:1;}
+.b-stat{text-align:center;}
+.b-stat .n{font-size:40px;font-weight:900;color:#818cf8;}
+.b-stat .l{font-size:10px;font-weight:600;opacity:0.5;text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
+.b-url{position:absolute;bottom:16px;right:80px;font-size:14px;font-weight:700;color:#818cf8;z-index:1;}
+
+/* KARTVIZIT 1050x600 (3.5x2 inch @300dpi) */
+.bizcard{width:1050px;height:600px;display:flex;border-radius:16px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.2);}
+.bc-left{width:380px;background:linear-gradient(180deg,#4f46e5,#7c3aed);color:#fff;padding:48px 36px;display:flex;flex-direction:column;justify-content:space-between;}
+.bc-logo{font-size:40px;font-weight:900;}
+.bc-tag{font-size:12px;opacity:0.6;margin-top:4px;line-height:1.5;}
+.bc-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.bc-s{background:rgba(255,255,255,0.1);border-radius:6px;padding:8px;text-align:center;}
+.bc-s .n{font-size:20px;font-weight:800;}
+.bc-s .l{font-size:8px;opacity:0.6;text-transform:uppercase;}
+.bc-url{font-size:11px;opacity:0.5;margin-top:12px;}
+
+.bc-right{flex:1;background:#fff;padding:48px 40px;display:flex;flex-direction:column;justify-content:center;}
+.bc-name{font-size:24px;font-weight:800;color:#1e293b;}
+.bc-title{font-size:13px;color:#64748b;margin-top:2px;margin-bottom:20px;}
+.bc-info{font-size:12px;color:#475569;line-height:2.2;}
+.bc-info strong{color:#1e293b;display:inline-block;width:60px;}
+.bc-modules{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px;}
+.bc-mod{background:#f1f5f9;border-radius:10px;padding:4px 10px;font-size:9px;font-weight:600;color:#64748b;}
+
+/* EMAIL SIG 600x200 */
+.email-sig{width:600px;height:200px;background:#fff;border-left:4px solid #4f46e5;display:flex;align-items:center;padding:0 24px;gap:20px;box-shadow:0 2px 8px rgba(0,0,0,0.08);border-radius:4px;}
+.es-left{text-align:center;padding-right:20px;border-right:1px solid #e2e8f0;}
+.es-logo{font-size:28px;font-weight:900;color:#4f46e5;}
+.es-tag{font-size:8px;color:#94a3b8;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-top:2px;}
+.es-stats{display:flex;gap:10px;margin-top:8px;}
+.es-s{text-align:center;}
+.es-s .n{font-size:14px;font-weight:800;color:#4f46e5;}
+.es-s .l{font-size:7px;color:#94a3b8;text-transform:uppercase;}
+.es-right{flex:1;}
+.es-name{font-size:16px;font-weight:700;color:#1e293b;}
+.es-title{font-size:10px;color:#64748b;margin-bottom:8px;}
+.es-info{font-size:10px;color:#475569;line-height:1.8;}
+.es-mods{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap;}
+.es-mod{background:#f1f5f9;border-radius:8px;padding:2px 8px;font-size:8px;font-weight:600;color:#64748b;}
+</style></head><body>
+
+<h2>Twitter / X Header (1584 x 396)</h2>
+<div class="banner">
+  <div class="b-left">
+    <div class="b-logo">QUVEX</div>
+    <div class="b-tag">Kucuk Fabrikalar Icin Buyuk ERP</div>
+    <div class="b-pills">
+      <div class="b-pill">Uretim</div>
+      <div class="b-pill">Stok</div>
+      <div class="b-pill">Kalite</div>
+      <div class="b-pill">Bakim</div>
+      <div class="b-pill">Muhasebe</div>
+      <div class="b-pill">MRP</div>
+      <div class="b-pill">AS9100</div>
+    </div>
+  </div>
+  <div class="b-right">
+    <div class="b-stat"><div class="n">12</div><div class="l">Modul</div></div>
+    <div class="b-stat"><div class="n">105</div><div class="l">Ekran</div></div>
+    <div class="b-stat"><div class="n">665</div><div class="l">API</div></div>
+  </div>
+  <div class="b-url">quvex.io</div>
+</div>
+
+<h2>Kartvizit On Yuz (1050 x 600)</h2>
+<div class="bizcard">
+  <div class="bc-left">
+    <div>
+      <div class="bc-logo">QUVEX</div>
+      <div class="bc-tag">Tumlesik Uretim<br>Yonetim Platformu</div>
+    </div>
+    <div class="bc-stats">
+      <div class="bc-s"><div class="n">12</div><div class="l">Modul</div></div>
+      <div class="bc-s"><div class="n">105</div><div class="l">Ekran</div></div>
+      <div class="bc-s"><div class="n">665</div><div class="l">API</div></div>
+      <div class="bc-s"><div class="n">23</div><div class="l">Kalite</div></div>
+    </div>
+    <div class="bc-url">quvex.io</div>
+  </div>
+  <div class="bc-right">
+    <div class="bc-name">Ad Soyad</div>
+    <div class="bc-title">Satis ve Is Gelistirme Uzmani</div>
+    <div class="bc-info">
+      <strong>Tel:</strong> +90 (___) ___ __ __<br>
+      <strong>E-posta:</strong> ad.soyad@quvex.io<br>
+      <strong>Web:</strong> quvex.io
+    </div>
+    <div class="bc-modules">
+      <div class="bc-mod">Uretim</div>
+      <div class="bc-mod">Stok</div>
+      <div class="bc-mod">Kalite</div>
+      <div class="bc-mod">Bakim</div>
+      <div class="bc-mod">Muhasebe</div>
+      <div class="bc-mod">AS9100</div>
+      <div class="bc-mod">MRP</div>
+      <div class="bc-mod">OEE</div>
+    </div>
+  </div>
+</div>
+
+<h2>E-posta Imzasi (600 x 200)</h2>
+<div class="email-sig">
+  <div class="es-left">
+    <div class="es-logo">QUVEX</div>
+    <div class="es-tag">Uretim ERP</div>
+    <div class="es-stats">
+      <div class="es-s"><div class="n">12</div><div class="l">Modul</div></div>
+      <div class="es-s"><div class="n">105</div><div class="l">Ekran</div></div>
+    </div>
+  </div>
+  <div class="es-right">
+    <div class="es-name">Ad Soyad</div>
+    <div class="es-title">Satis ve Is Gelistirme | Quvex ERP</div>
+    <div class="es-info">
+      +90 (___) ___ __ __ | ad.soyad@quvex.io | quvex.io
+    </div>
+    <div class="es-mods">
+      <div class="es-mod">Uretim</div>
+      <div class="es-mod">Stok</div>
+      <div class="es-mod">Kalite</div>
+      <div class="es-mod">Bakim</div>
+      <div class="es-mod">Muhasebe</div>
+      <div class="es-mod">AS9100</div>
+    </div>
+  </div>
+</div>
+
+</body></html>

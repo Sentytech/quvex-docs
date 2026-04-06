@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quvex ERP — Teknik Veri Sayfasi</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  :root {
+    --indigo: #4f46e5;
+    --violet: #7c3aed;
+    --purple: #a855f7;
+    --cyan: #06b6d4;
+    --fuchsia: #d946ef;
+    --emerald: #10b981;
+    --amber: #f59e0b;
+    --rose: #f43f5e;
+    --slate-900: #0f172a;
+    --slate-800: #1e293b;
+    --slate-700: #334155;
+    --slate-600: #475569;
+    --slate-400: #94a3b8;
+    --slate-300: #cbd5e1;
+    --slate-200: #e2e8f0;
+    --slate-100: #f1f5f9;
+    --slate-50: #f8fafc;
+    --glass-bg: rgba(255,255,255,0.06);
+    --glass-border: rgba(255,255,255,0.1);
+    --shadow-glow: rgba(99,102,241,0.3);
+    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',sans-serif; color:#e2e8f0; background:var(--slate-900); -webkit-font-smoothing:antialiased; }
+  .page { max-width:1200px; margin:0 auto; overflow:hidden; }
+
+  @keyframes gradient-shift { 0%{background-position:0% 50%;} 50%{background-position:100% 50%;} 100%{background-position:0% 50%;} }
+  @keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-10px);} }
+  @keyframes pulse-glow { 0%,100%{box-shadow:0 0 0 0 rgba(99,102,241,0);} 50%{box-shadow:0 0 20px 4px rgba(99,102,241,0.3);} }
+  @keyframes grow-width { from{width:0;} to{width:var(--fill);} }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--slate-900) 0%, #111827 50%, var(--slate-800) 100%);
+    padding:70px 60px; border-bottom:1px solid var(--slate-700);
+    position:relative; overflow:hidden;
+  }
+  .hero::before {
+    content:''; position:absolute; right:-80px; top:-80px;
+    width:400px; height:400px; border-radius:50%;
+    background:radial-gradient(circle, rgba(79,70,229,0.15), transparent 70%);
+    animation:float 8s ease-in-out infinite;
+  }
+  .hero-content { position:relative; z-index:2; display:flex; justify-content:space-between; align-items:flex-end; }
+  .hero h1 { font-size:44px; font-weight:900; color:#fff; letter-spacing:-2px; }
+  .hero h1 span {
+    background:linear-gradient(135deg, #818cf8, var(--cyan));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  }
+  .hero .sub { font-size:14px; color:var(--slate-400); margin-top:4px; }
+  .build-badge {
+    background:var(--glass-bg); backdrop-filter:blur(20px);
+    border:1px solid var(--glass-border); border-radius:12px;
+    padding:12px 20px; text-align:right;
+    font-family:'JetBrains Mono',monospace;
+  }
+  .build-badge .version { font-size:18px; font-weight:600; color:#fff; }
+  .build-badge .date { font-size:12px; color:var(--slate-400); }
+
+  /* SECTION */
+  .section { padding:50px 60px; }
+  .section-alt { background:rgba(255,255,255,0.02); }
+  .section-title { font-size:28px; font-weight:900; color:#fff; letter-spacing:-1px; margin-bottom:4px; }
+  .section-sub { font-size:12px; color:var(--slate-400); margin-bottom:24px; }
+
+  /* ARCHITECTURE DIAGRAM */
+  .arch-container {
+    background:var(--slate-800); border:1px solid var(--slate-700);
+    border-radius:20px; padding:32px; position:relative; overflow:hidden;
+  }
+  .arch-container::before {
+    content:''; position:absolute; inset:0;
+    background:radial-gradient(ellipse at center, rgba(79,70,229,0.05), transparent 70%);
+  }
+  .arch-layers { display:flex; flex-direction:column; gap:12px; position:relative; z-index:2; }
+  .arch-layer {
+    border-radius:16px; padding:20px 24px; text-align:center;
+    font-family:'JetBrains Mono',monospace; font-size:13px;
+    position:relative; transition:var(--transition);
+  }
+  .arch-layer:hover { transform:scale(1.02); }
+  .arch-layer .layer-title { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:2px; margin-bottom:6px; }
+  .arch-layer .layer-items { font-size:12px; opacity:0.8; }
+
+  .layer-client {
+    background:linear-gradient(135deg, rgba(6,182,212,0.15), rgba(6,182,212,0.05));
+    border:1px solid rgba(6,182,212,0.3); color:var(--cyan);
+  }
+  .layer-api {
+    background:linear-gradient(135deg, rgba(79,70,229,0.15), rgba(79,70,229,0.05));
+    border:1px solid rgba(79,70,229,0.3); color:#818cf8;
+  }
+  .layer-app {
+    background:linear-gradient(135deg, rgba(124,58,237,0.15), rgba(124,58,237,0.05));
+    border:1px solid rgba(124,58,237,0.3); color:#a78bfa;
+  }
+  .layer-domain {
+    background:linear-gradient(135deg, rgba(168,85,247,0.15), rgba(168,85,247,0.05));
+    border:1px solid rgba(168,85,247,0.3); color:var(--purple);
+  }
+  .layer-infra {
+    background:linear-gradient(135deg, rgba(217,70,239,0.15), rgba(217,70,239,0.05));
+    border:1px solid rgba(217,70,239,0.3); color:var(--fuchsia);
+  }
+  .layer-data {
+    background:linear-gradient(135deg, rgba(244,63,94,0.15), rgba(244,63,94,0.05));
+    border:1px solid rgba(244,63,94,0.3); color:var(--rose);
+  }
+
+  .arch-arrow {
+    text-align:center; font-size:18px; color:var(--slate-600); line-height:1;
+  }
+
+  /* SPEC TABLES */
+  .spec-table {
+    width:100%; border-collapse:collapse; font-size:13px;
+    background:var(--slate-800); border-radius:16px; overflow:hidden;
+    box-shadow:0 4px 16px rgba(0,0,0,0.2);
+  }
+  .spec-table thead th {
+    background:linear-gradient(135deg, var(--indigo), var(--violet));
+    color:#fff; padding:14px 16px; text-align:left;
+    font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:1.5px;
+  }
+  .spec-table tbody td {
+    padding:12px 16px; border-bottom:1px solid var(--slate-700);
+    color:var(--slate-300);
+  }
+  .spec-table tbody tr:nth-child(even) td { background:rgba(255,255,255,0.02); }
+  .spec-table tbody tr:hover td { background:rgba(79,70,229,0.08); }
+  .spec-table tbody td:first-child { font-weight:700; color:#fff; }
+  .spec-table tbody td .mono { font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--cyan); }
+
+  /* TEST COVERAGE BAR */
+  .coverage-container { margin-top:16px; }
+  .coverage-row {
+    display:flex; align-items:center; gap:12px; margin-bottom:12px;
+  }
+  .coverage-label { width:120px; font-size:13px; font-weight:700; color:var(--slate-300); text-align:right; flex-shrink:0; }
+  .coverage-track {
+    flex:1; height:32px; background:var(--slate-800); border-radius:10px;
+    overflow:hidden; border:1px solid var(--slate-700); position:relative;
+  }
+  .coverage-fill {
+    height:100%; border-radius:10px; display:flex; align-items:center;
+    padding-left:12px; font-size:12px; font-weight:800; color:#fff;
+    animation: grow-width 1.2s ease-out both;
+  }
+  .fill-api { background:linear-gradient(90deg, var(--indigo), var(--violet)); }
+  .fill-security { background:linear-gradient(90deg, var(--rose), var(--fuchsia)); }
+  .fill-ui { background:linear-gradient(90deg, var(--cyan), var(--sky)); }
+  .fill-total {
+    background:linear-gradient(90deg, var(--indigo), var(--violet), var(--purple), var(--cyan));
+    box-shadow:0 0 20px var(--shadow-glow);
+  }
+  .coverage-count { font-size:12px; color:var(--slate-400); font-weight:600; width:80px; flex-shrink:0; }
+
+  /* ENDPOINT BREAKDOWN */
+  .endpoint-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  .endpoint-card {
+    background:var(--slate-800); border:1px solid var(--slate-700);
+    border-radius:16px; padding:20px; transition:var(--transition);
+  }
+  .endpoint-card:hover { border-color:var(--indigo); transform:translateY(-2px); box-shadow:0 8px 24px rgba(99,102,241,0.15); }
+  .endpoint-card .ep-module { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:4px; }
+  .endpoint-card .ep-count { font-size:28px; font-weight:900; color:#fff; }
+  .endpoint-card .ep-label { font-size:11px; color:var(--slate-400); }
+
+  .ep-production .ep-module { color:var(--indigo); }
+  .ep-inventory .ep-module { color:var(--sky); }
+  .ep-sales .ep-module { color:var(--emerald); }
+  .ep-purchasing .ep-module { color:var(--amber); }
+  .ep-finance .ep-module { color:var(--rose); }
+  .ep-quality .ep-module { color:var(--violet); }
+  .ep-maintenance .ep-module { color:var(--slate-400); }
+  .ep-hr .ep-module { color:var(--fuchsia); }
+  .ep-security .ep-module { color:var(--rose); }
+  .ep-integration .ep-module { color:var(--indigo); }
+  .ep-reporting .ep-module { color:var(--cyan); }
+  .ep-admin .ep-module { color:var(--purple); }
+
+  /* SECURITY LAYERS */
+  .security-stack { display:flex; flex-direction:column; gap:8px; }
+  .sec-layer {
+    display:flex; align-items:center; gap:16px;
+    background:var(--slate-800); border:1px solid var(--slate-700);
+    border-radius:16px; padding:16px 24px;
+    transition:var(--transition);
+  }
+  .sec-layer:hover { border-color:var(--indigo); background:rgba(79,70,229,0.05); }
+  .sec-layer .sec-num {
+    width:36px; height:36px; border-radius:50%; flex-shrink:0;
+    background:linear-gradient(135deg, var(--indigo), var(--violet));
+    display:flex; align-items:center; justify-content:center;
+    font-size:14px; font-weight:900; color:#fff;
+  }
+  .sec-layer .sec-title { font-size:14px; font-weight:800; color:#fff; }
+  .sec-layer .sec-desc { font-size:12px; color:var(--slate-400); margin-top:2px; }
+
+  /* TECH GRID */
+  .tech-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  .tech-card {
+    background:var(--slate-800); border:1px solid var(--slate-700);
+    border-radius:16px; padding:20px; transition:var(--transition);
+  }
+  .tech-card:hover { border-color:var(--indigo); }
+  .tech-card .tc-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:#818cf8; margin-bottom:4px; }
+  .tech-card .tc-value { font-size:15px; font-weight:700; color:var(--slate-100); }
+  .tech-card .tc-detail { font-size:11px; color:var(--slate-400); margin-top:2px; }
+
+  /* FOOTER */
+  .footer {
+    border-top:3px solid transparent;
+    border-image:linear-gradient(90deg, var(--indigo), var(--violet), var(--purple), var(--fuchsia), var(--cyan)) 1;
+    padding:32px 60px; text-align:center;
+  }
+  .footer-logo {
+    font-size:24px; font-weight:900;
+    background:linear-gradient(135deg, var(--indigo), var(--purple));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  }
+  .footer-text { font-size:11px; color:var(--slate-400); margin-top:4px; }
+
+  @media (max-width:900px) {
+    .hero { padding:40px 24px; }
+    .hero-content { flex-direction:column; align-items:flex-start; gap:16px; }
+    .hero h1 { font-size:32px; }
+    .section { padding:36px 24px; }
+    .endpoint-grid { grid-template-columns:repeat(2,1fr); }
+    .tech-grid { grid-template-columns:repeat(2,1fr); }
+    .coverage-label { width:80px; font-size:11px; }
+  }
+  @media (max-width:600px) {
+    .endpoint-grid { grid-template-columns:1fr; }
+    .tech-grid { grid-template-columns:1fr; }
+  }
+
+  @media print {
+    * { animation:none!important; transition:none!important; }
+    body { background:#fff; color:var(--slate-800); -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    .hero { background:var(--slate-900)!important; }
+    .arch-container { background:var(--slate-100)!important; border-color:var(--slate-200)!important; }
+    .arch-layer { color:var(--slate-800)!important; }
+    .spec-table { background:var(--slate-50)!important; }
+    .spec-table tbody td { color:var(--slate-700)!important; border-color:var(--slate-200)!important; }
+    .endpoint-card, .sec-layer, .tech-card { background:var(--slate-50)!important; border-color:var(--slate-200)!important; }
+    .endpoint-card .ep-count, .sec-layer .sec-title, .tech-card .tc-value { color:var(--slate-800)!important; }
+    .page { max-width:100%; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div>
+        <h1>Teknik <span>Veri Sayfasi</span></h1>
+        <p class="sub">Quvex ERP &mdash; Mimari, teknoloji yigini, test kapsami ve guvenlik katmanlari</p>
+      </div>
+      <div class="build-badge">
+        <div class="version">v1.5</div>
+        <div class="date">Build 2026.03.31</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARCHITECTURE -->
+  <section class="section">
+    <h2 class="section-title">Clean Architecture</h2>
+    <p class="section-sub">Katmanli mimari ile bagimliliklarin yonu iceriden disariya dogru akar.</p>
+    <div class="arch-container">
+      <div class="arch-layers">
+        <div class="arch-layer layer-client">
+          <div class="layer-title">&#127760; Client Layer</div>
+          <div class="layer-items">React 18 &middot; Ant Design &middot; Redux Toolkit &middot; Vite 6 &middot; PWA &middot; SignalR Client</div>
+        </div>
+        <div class="arch-arrow">&#9660;</div>
+        <div class="arch-layer layer-api">
+          <div class="layer-title">&#128640; API Layer (Quvex.API)</div>
+          <div class="layer-items">Controllers (120+) &middot; Middleware &middot; Filters &middot; SignalR Hub &middot; Versioning &middot; Swagger</div>
+        </div>
+        <div class="arch-arrow">&#9660;</div>
+        <div class="arch-layer layer-app">
+          <div class="layer-title">&#128736; Application Layer (Quvex.Application)</div>
+          <div class="layer-items">Services &middot; DTOs &middot; Validators (FluentValidation) &middot; Interfaces &middot; Mappings</div>
+        </div>
+        <div class="arch-arrow">&#9660;</div>
+        <div class="arch-layer layer-domain">
+          <div class="layer-title">&#128142; Domain Layer (Quvex.Domain)</div>
+          <div class="layer-items">Entities (150+) &middot; Enums &middot; Value Objects &middot; Base Models &middot; Permissions</div>
+        </div>
+        <div class="arch-arrow">&#9660;</div>
+        <div class="arch-layer layer-infra">
+          <div class="layer-title">&#9881; Infrastructure Layer (Quvex.Infrastructure)</div>
+          <div class="layer-items">EF Core &middot; Repositories &middot; Migrations &middot; Identity &middot; Redis &middot; Sentry &middot; File Storage</div>
+        </div>
+        <div class="arch-arrow">&#9660;</div>
+        <div class="arch-layer layer-data">
+          <div class="layer-title">&#128451; Data Layer</div>
+          <div class="layer-items">PostgreSQL &middot; Redis Cache &middot; Docker &middot; Nginx &middot; Schema-per-Tenant</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECH STACK SPECS -->
+  <section class="section section-alt">
+    <h2 class="section-title">Teknoloji Yigini</h2>
+    <p class="section-sub">Enterprise-grade acik kaynak teknolojiler.</p>
+    <div class="tech-grid">
+      <div class="tech-card">
+        <div class="tc-label">Backend</div>
+        <div class="tc-value">.NET 8 / C# 12</div>
+        <div class="tc-detail">ASP.NET Core, Clean Architecture</div>
+      </div>
+      <div class="tech-card">
+        <div class="tc-label">Frontend</div>
+        <div class="tc-value">React 18.3</div>
+        <div class="tc-detail">Vite 6, Ant Design 5, Redux Toolkit</div>
+      </div>
+      <div class="tech-card">
+        <div class="tc-label">Database</div>
+        <div class="tc-value">PostgreSQL 16</div>
+        <div class="tc-detail">EF Core 8, Schema-per-Tenant</div>
+      </div>
+      <div class="tech-card">
+        <div class="tc-label">Cache</div>
+        <div class="tc-value">Redis 7</div>
+        <div class="tc-detail">Session, tenant cache, rate limit</div>
+      </div>
+      <div class="tech-card">
+        <div class="tc-label">Realtime</div>
+        <div class="tc-value">SignalR</div>
+        <div class="tc-detail">WebSocket, tenant-aware hub</div>
+      </div>
+      <div class="tech-card">
+        <div class="tc-label">Containerization</div>
+        <div class="tc-value">Docker</div>
+        <div class="tc-detail">Multi-stage build, non-root, healthcheck</div>
+      </div>
+      <div class="tech-card">
+        <div class="tc-label">Reverse Proxy</div>
+        <div class="tc-value">Nginx</div>
+        <div class="tc-detail">Gzip, headers, caching, SSL</div>
+      </div>
+      <div class="tech-card">
+        <div class="tc-label">Monitoring</div>
+        <div class="tc-value">Sentry</div>
+        <div class="tc-detail">Error tracking, PII stripped</div>
+      </div>
+      <div class="tech-card">
+        <div class="tc-label">Testing</div>
+        <div class="tc-value">xUnit + Vitest</div>
+        <div class="tc-detail">Moq, FluentAssertions, Testing Library</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPEC TABLE -->
+  <section class="section">
+    <h2 class="section-title">Platform Istatistikleri</h2>
+    <p class="section-sub">Guncel rakamlar ile platform kapsamini gorun.</p>
+    <table class="spec-table">
+      <thead>
+        <tr><th>Metrik</th><th>Deger</th><th>Detay</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Modul Sayisi</td><td><span class="mono">15</span></td><td>Uretim, Stok, Satis, Satin Alma, Finans, Kalite, Bakim, IK, Raporlama, Proje, Entegrasyon, Guvenlik, AI, Kasa/Banka, ShopFloor</td></tr>
+        <tr><td>Ekran Sayisi</td><td><span class="mono">130+</span></td><td>CRUD, dashboard, wizard, terminal ekranlari</td></tr>
+        <tr><td>API Endpoint</td><td><span class="mono">780+</span></td><td>RESTful, versioned (v1.0), Swagger documented</td></tr>
+        <tr><td>Veritabani Tablosu</td><td><span class="mono">150+</span></td><td>EF Core migrations, HasQueryFilter (tenant)</td></tr>
+        <tr><td>Controller</td><td><span class="mono">120+</span></td><td>YetkiDenetimi filter, role-based</td></tr>
+        <tr><td>Toplam Test</td><td><span class="mono">1850+</span></td><td>1128 API + 57 Security + 691 UI (Vitest)</td></tr>
+        <tr><td>Sektor Profili</td><td><span class="mono">11</span></td><td>Metal, Elektrik, Gida, Tekstil, Havacilik, Kimya, Otomotiv, Ambalaj, Mobilya, Kaucuk, Savunma</td></tr>
+        <tr><td>IK Alt Modulleri</td><td><span class="mono">10</span></td><td>Vardiya, Devam, Izin, Puantaj, Yetkinlik, Sertifika, Performans, vb.</td></tr>
+        <tr><td>Kalite Alt Modulleri</td><td><span class="mono">23</span></td><td>AS9100 tam uyumlu: CoC, MRB, NCR, CAPA, Denetim, vb.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- TEST COVERAGE -->
+  <section class="section section-alt">
+    <h2 class="section-title">Test Kapsami</h2>
+    <p class="section-sub">Surekli entegrasyon ile her commit'te calisan otomatik testler.</p>
+    <div class="coverage-container">
+      <div class="coverage-row">
+        <div class="coverage-label">API Tests</div>
+        <div class="coverage-track">
+          <div class="coverage-fill fill-api" style="--fill:61%;width:61%;">1128</div>
+        </div>
+        <div class="coverage-count">xUnit</div>
+      </div>
+      <div class="coverage-row">
+        <div class="coverage-label">Security Tests</div>
+        <div class="coverage-track">
+          <div class="coverage-fill fill-security" style="--fill:3%;width:8%;">57</div>
+        </div>
+        <div class="coverage-count">xUnit</div>
+      </div>
+      <div class="coverage-row">
+        <div class="coverage-label">UI Tests</div>
+        <div class="coverage-track">
+          <div class="coverage-fill fill-ui" style="--fill:37%;width:37%;">691</div>
+        </div>
+        <div class="coverage-count">Vitest</div>
+      </div>
+      <div class="coverage-row" style="margin-top:8px; padding-top:8px; border-top:1px solid var(--slate-700);">
+        <div class="coverage-label" style="font-weight:900; color:#fff;">TOPLAM</div>
+        <div class="coverage-track">
+          <div class="coverage-fill fill-total" style="--fill:100%;width:100%;">1,876</div>
+        </div>
+        <div class="coverage-count" style="font-weight:900; color:#fff;">Tumu</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENDPOINT BREAKDOWN -->
+  <section class="section">
+    <h2 class="section-title">Modul Bazli Endpoint Dagilimi</h2>
+    <p class="section-sub">780+ endpoint'in modul bazli dagilimi.</p>
+    <div class="endpoint-grid">
+      <div class="endpoint-card ep-production">
+        <div class="ep-module">Uretim</div>
+        <div class="ep-count">120+</div>
+        <div class="ep-label">Is emri, BOM, rota, planlama</div>
+      </div>
+      <div class="endpoint-card ep-inventory">
+        <div class="ep-module">Stok / Depo</div>
+        <div class="ep-count">85+</div>
+        <div class="ep-label">Depo, lokasyon, hareket, sayim</div>
+      </div>
+      <div class="endpoint-card ep-sales">
+        <div class="ep-module">Satis</div>
+        <div class="ep-count">75+</div>
+        <div class="ep-label">Teklif, siparis, fatura, cari</div>
+      </div>
+      <div class="endpoint-card ep-purchasing">
+        <div class="ep-module">Satin Alma</div>
+        <div class="ep-count">65+</div>
+        <div class="ep-label">Talep, siparis, tedarikci</div>
+      </div>
+      <div class="endpoint-card ep-finance">
+        <div class="ep-module">Finans & Kasa</div>
+        <div class="ep-count">90+</div>
+        <div class="ep-label">Odeme, tahsilat, kasa, banka</div>
+      </div>
+      <div class="endpoint-card ep-quality">
+        <div class="ep-module">Kalite (AS9100)</div>
+        <div class="ep-count">110+</div>
+        <div class="ep-label">CoC, MRB, NCR, CAPA, denetim</div>
+      </div>
+      <div class="endpoint-card ep-maintenance">
+        <div class="ep-module">Bakim</div>
+        <div class="ep-count">40+</div>
+        <div class="ep-label">Periyodik, ariza, yedek parca</div>
+      </div>
+      <div class="endpoint-card ep-hr">
+        <div class="ep-module">Insan Kaynaklari</div>
+        <div class="ep-count">27</div>
+        <div class="ep-label">Vardiya, izin, puantaj, yetkinlik</div>
+      </div>
+      <div class="endpoint-card ep-security">
+        <div class="ep-module">Guvenlik</div>
+        <div class="ep-count">45+</div>
+        <div class="ep-label">Auth, RBAC, audit, tenant</div>
+      </div>
+      <div class="endpoint-card ep-integration">
+        <div class="ep-module">Entegrasyon</div>
+        <div class="ep-count">35+</div>
+        <div class="ep-label">e-Fatura, webhook, SignalR</div>
+      </div>
+      <div class="endpoint-card ep-reporting">
+        <div class="ep-module">Raporlama</div>
+        <div class="ep-count">50+</div>
+        <div class="ep-label">Dashboard, KPI, export</div>
+      </div>
+      <div class="endpoint-card ep-admin">
+        <div class="ep-module">Admin & Diger</div>
+        <div class="ep-count">38+</div>
+        <div class="ep-label">Proje, AI, sistem, autocomplete</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECURITY LAYERS -->
+  <section class="section section-alt">
+    <h2 class="section-title">Guvenlik Katmanlari</h2>
+    <p class="section-sub">Defense-in-depth: 7 katmanli guvenlik mimarisi.</p>
+    <div class="security-stack">
+      <div class="sec-layer">
+        <div class="sec-num">1</div>
+        <div>
+          <div class="sec-title">Network & Transport</div>
+          <div class="sec-desc">HTTPS/TLS 1.3, HSTS, Nginx reverse proxy, CORS restricted origins</div>
+        </div>
+      </div>
+      <div class="sec-layer">
+        <div class="sec-num">2</div>
+        <div>
+          <div class="sec-title">Security Headers</div>
+          <div class="sec-desc">CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy</div>
+        </div>
+      </div>
+      <div class="sec-layer">
+        <div class="sec-num">3</div>
+        <div>
+          <div class="sec-title">Authentication</div>
+          <div class="sec-desc">JWT + Opaque Refresh Token, 12+ char password policy, account lockout (5 attempts / 15min)</div>
+        </div>
+      </div>
+      <div class="sec-layer">
+        <div class="sec-num">4</div>
+        <div>
+          <div class="sec-title">Authorization</div>
+          <div class="sec-desc">YetkiDenetimi filter, RBAC (Goruntule/Kaydet/Sil), CASL frontend ACL, route guards</div>
+        </div>
+      </div>
+      <div class="sec-layer">
+        <div class="sec-num">5</div>
+        <div>
+          <div class="sec-title">Input Validation</div>
+          <div class="sec-desc">FluentValidation, parameterized SQL, file upload whitelist (10MB), MIME check, path traversal protection</div>
+        </div>
+      </div>
+      <div class="sec-layer">
+        <div class="sec-num">6</div>
+        <div>
+          <div class="sec-title">CSRF & Rate Limiting</div>
+          <div class="sec-desc">X-Requested-With / Authorization header required, per-endpoint rate limits, Redis-backed</div>
+        </div>
+      </div>
+      <div class="sec-layer">
+        <div class="sec-num">7</div>
+        <div>
+          <div class="sec-title">Audit & Monitoring</div>
+          <div class="sec-desc">SecurityAuditService [SECURITY] logs, Correlation IDs (X-Correlation-Id), Sentry error tracking (PII stripped)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-logo">QUVEX</div>
+    <p class="footer-text">Quvex ERP v1.5 &mdash; Teknik Veri Sayfasi &middot; Build 2026.03.31 &middot; 2026 &copy; Tum haklari saklidir.</p>
+  </footer>
+
+</div>
+</body>
+</html>

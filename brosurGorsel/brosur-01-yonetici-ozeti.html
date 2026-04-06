@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quvex ERP — Yonetici Ozeti</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  :root {
+    --indigo: #4f46e5;
+    --violet: #7c3aed;
+    --purple: #a855f7;
+    --cyan: #06b6d4;
+    --fuchsia: #d946ef;
+    --emerald: #10b981;
+    --amber: #f59e0b;
+    --rose: #f43f5e;
+    --slate-900: #0f172a;
+    --slate-800: #1e293b;
+    --slate-700: #334155;
+    --slate-600: #475569;
+    --slate-400: #94a3b8;
+    --slate-200: #e2e8f0;
+    --slate-50: #f8fafc;
+    --glass-bg: rgba(255,255,255,0.08);
+    --glass-border: rgba(255,255,255,0.12);
+    --shadow-glow: rgba(99,102,241,0.3);
+    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',sans-serif; color:var(--slate-800); background:var(--slate-50); -webkit-font-smoothing:antialiased; }
+  .page { max-width:1200px; margin:0 auto; overflow:hidden; }
+
+  /* ANIMATIONS */
+  @keyframes float {
+    0%,100% { transform: translateY(0) rotate(0deg); }
+    33% { transform: translateY(-20px) rotate(1deg); }
+    66% { transform: translateY(10px) rotate(-1deg); }
+  }
+  @keyframes pulse-glow {
+    0%,100% { opacity:0.4; transform:scale(1); }
+    50% { opacity:0.7; transform:scale(1.05); }
+  }
+  @keyframes gradient-shift {
+    0% { background-position:0% 50%; }
+    50% { background-position:100% 50%; }
+    100% { background-position:0% 50%; }
+  }
+  @keyframes slide-up {
+    from { opacity:0; transform:translateY(40px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+  @keyframes count-up {
+    from { opacity:0; transform:scale(0.5); }
+    to { opacity:1; transform:scale(1); }
+  }
+  @keyframes shimmer {
+    0% { background-position:-200% 0; }
+    100% { background-position:200% 0; }
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--slate-900) 0%, #1a1145 30%, #2d1b69 50%, var(--indigo) 75%, var(--cyan) 100%);
+    background-size: 300% 300%;
+    animation: gradient-shift 12s ease infinite;
+    color:#fff;
+    padding:100px 80px 140px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-shapes {
+    position:absolute; inset:0; pointer-events:none; overflow:hidden;
+  }
+  .hero-shape {
+    position:absolute;
+    border-radius:50%;
+    background: radial-gradient(circle, rgba(124,58,237,0.3), transparent 70%);
+  }
+  .hero-shape:nth-child(1) { width:600px; height:600px; right:-150px; top:-200px; animation: float 8s ease-in-out infinite; }
+  .hero-shape:nth-child(2) { width:400px; height:400px; left:-100px; bottom:-150px; background: radial-gradient(circle, rgba(6,182,212,0.25), transparent 70%); animation: float 10s ease-in-out infinite reverse; }
+  .hero-shape:nth-child(3) { width:200px; height:200px; right:30%; top:20%; background: radial-gradient(circle, rgba(168,85,247,0.2), transparent 70%); animation: pulse-glow 5s ease-in-out infinite; }
+  .hero-shape:nth-child(4) { width:150px; height:150px; left:20%; top:60%; background: radial-gradient(circle, rgba(217,70,239,0.15), transparent 70%); animation: float 7s ease-in-out infinite; }
+
+  .hero-content { position:relative; z-index:2; }
+  .hero-badge {
+    display:inline-flex; align-items:center; gap:8px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius:100px; padding:8px 20px;
+    font-size:13px; font-weight:600; color:rgba(255,255,255,0.9);
+    margin-bottom:28px;
+  }
+  .hero-badge .dot { width:8px; height:8px; border-radius:50%; background:var(--emerald); animation:pulse-glow 2s infinite; }
+  .hero h1 {
+    font-size:64px; font-weight:900; letter-spacing:-3px; line-height:1.05;
+    margin-bottom:16px;
+    text-shadow: 0 4px 60px rgba(99,102,241,0.5);
+  }
+  .hero h1 .gradient-text {
+    background: linear-gradient(135deg, #c7d2fe, #818cf8, var(--cyan));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    background-clip:text;
+  }
+  .hero .tagline {
+    font-size:20px; font-weight:300; opacity:0.85; max-width:600px;
+    line-height:1.6; margin-bottom:32px;
+  }
+  .hero .subtitle {
+    font-size:14px; opacity:0.5; border-top:1px solid rgba(255,255,255,0.1);
+    padding-top:20px; max-width:500px; line-height:1.7;
+  }
+
+  /* STATS BAR */
+  .stats-bar {
+    display:grid; grid-template-columns:repeat(6,1fr); gap:16px;
+    margin:-70px 40px 0; position:relative; z-index:10;
+  }
+  .stat-card {
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.9);
+    border-radius:20px; padding:28px 16px; text-align:center;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08), 0 2px 8px rgba(99,102,241,0.08);
+    transition: var(--transition);
+    animation: slide-up 0.6s ease-out both;
+  }
+  .stat-card:nth-child(1) { animation-delay:0.1s; }
+  .stat-card:nth-child(2) { animation-delay:0.15s; }
+  .stat-card:nth-child(3) { animation-delay:0.2s; }
+  .stat-card:nth-child(4) { animation-delay:0.25s; }
+  .stat-card:nth-child(5) { animation-delay:0.3s; }
+  .stat-card:nth-child(6) { animation-delay:0.35s; }
+  .stat-card:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 20px 60px rgba(99,102,241,0.2), 0 4px 16px rgba(0,0,0,0.08);
+  }
+  .stat-num {
+    font-size:40px; font-weight:900; letter-spacing:-2px;
+    background: linear-gradient(135deg, var(--indigo), var(--violet), var(--purple));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    background-clip:text;
+    animation: count-up 0.8s ease-out both;
+  }
+  .stat-label {
+    font-size:11px; font-weight:700; color:var(--slate-400);
+    text-transform:uppercase; letter-spacing:1.5px; margin-top:6px;
+  }
+
+  /* SECTIONS */
+  .section { padding:80px 60px; }
+  .section-dark { background: var(--slate-900); color:#fff; }
+  .section-title {
+    font-size:36px; font-weight:900; letter-spacing:-1.5px;
+    margin-bottom:8px;
+  }
+  .section-title .accent { color:var(--indigo); }
+  .section-dark .section-title { color:#fff; }
+  .section-sub {
+    font-size:15px; color:var(--slate-400); margin-bottom:40px;
+    max-width:550px; line-height:1.6;
+  }
+
+  /* MODULE GRID */
+  .module-grid {
+    display:grid; grid-template-columns:repeat(3,1fr); gap:16px;
+  }
+  .module-card {
+    background:#fff;
+    border-radius:20px;
+    padding:24px;
+    border-left:5px solid var(--indigo);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    transition: var(--transition);
+    position:relative;
+    overflow:hidden;
+  }
+  .module-card::after {
+    content:'';
+    position:absolute; inset:0;
+    border-radius:20px;
+    opacity:0;
+    transition: var(--transition);
+    background: linear-gradient(135deg, rgba(79,70,229,0.03), rgba(168,85,247,0.03));
+  }
+  .module-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 40px var(--shadow-glow);
+  }
+  .module-card:hover::after { opacity:1; }
+  .module-card .icon { font-size:28px; margin-bottom:8px; }
+  .module-card .name { font-size:15px; font-weight:800; color:var(--slate-800); }
+  .module-card .desc { font-size:12px; color:var(--slate-400); margin-top:4px; line-height:1.5; }
+  .module-card .new-badge {
+    position:absolute; top:16px; right:16px;
+    background: linear-gradient(135deg, var(--fuchsia), var(--rose));
+    color:#fff; font-size:10px; font-weight:800;
+    padding:3px 10px; border-radius:100px;
+    letter-spacing:1px; text-transform:uppercase;
+    animation: pulse-glow 2s infinite;
+  }
+
+  /* COLOR ACCENTS PER MODULE */
+  .module-card.c-production { border-left-color:#4f46e5; }
+  .module-card.c-inventory { border-left-color:#0ea5e9; }
+  .module-card.c-sales { border-left-color:#10b981; }
+  .module-card.c-purchasing { border-left-color:#f59e0b; }
+  .module-card.c-finance { border-left-color:#ef4444; }
+  .module-card.c-quality { border-left-color:#8b5cf6; }
+  .module-card.c-maintenance { border-left-color:#64748b; }
+  .module-card.c-hr { border-left-color:#ec4899; }
+  .module-card.c-reporting { border-left-color:#06b6d4; }
+  .module-card.c-projects { border-left-color:#14b8a6; }
+  .module-card.c-integration { border-left-color:#6366f1; }
+  .module-card.c-security { border-left-color:#dc2626; }
+  .module-card.c-ai { border-left-color:#d946ef; }
+  .module-card.c-kasa { border-left-color:#f97316; }
+  .module-card.c-shopfloor { border-left-color:#22d3ee; }
+
+  /* DIFFERENTIATORS */
+  .diff-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
+  .diff-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius:24px; padding:36px;
+    transition: var(--transition);
+  }
+  .diff-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px rgba(99,102,241,0.25);
+    border-color: rgba(99,102,241,0.3);
+  }
+  .diff-card .emoji { font-size:40px; margin-bottom:12px; }
+  .diff-card h3 { font-size:20px; font-weight:800; color:#fff; margin-bottom:8px; }
+  .diff-card p { font-size:14px; color:var(--slate-400); line-height:1.7; }
+
+  /* SECTOR STRIP */
+  .sector-strip {
+    display:flex; flex-wrap:wrap; gap:10px; justify-content:center;
+  }
+  .sector-pill {
+    display:inline-flex; align-items:center; gap:6px;
+    padding:10px 20px; border-radius:100px;
+    font-size:13px; font-weight:700;
+    color:#fff;
+    background: linear-gradient(135deg, var(--indigo), var(--violet));
+    box-shadow: 0 4px 16px rgba(99,102,241,0.2);
+    transition: var(--transition);
+  }
+  .sector-pill:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 24px rgba(99,102,241,0.35);
+  }
+  .sector-pill:nth-child(2n) { background: linear-gradient(135deg, var(--violet), var(--purple)); }
+  .sector-pill:nth-child(3n) { background: linear-gradient(135deg, var(--purple), var(--fuchsia)); }
+  .sector-pill:nth-child(4n) { background: linear-gradient(135deg, var(--cyan), var(--indigo)); }
+  .sector-pill:nth-child(5n) { background: linear-gradient(135deg, var(--emerald), var(--cyan)); }
+
+  /* TECH STACK */
+  .tech-badges {
+    display:flex; flex-wrap:wrap; gap:12px; justify-content:center;
+  }
+  .tech-badge {
+    display:inline-flex; align-items:center; gap:8px;
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:12px; padding:10px 20px;
+    font-size:13px; font-weight:600; color:var(--slate-200);
+    transition: var(--transition);
+  }
+  .tech-badge:hover {
+    background:rgba(255,255,255,0.12);
+    border-color:var(--indigo);
+    transform:translateY(-2px);
+  }
+  .tech-badge .dot { width:8px; height:8px; border-radius:50%; }
+
+  /* FOOTER */
+  .footer {
+    border-top: 3px solid transparent;
+    border-image: linear-gradient(90deg, var(--indigo), var(--violet), var(--purple), var(--cyan)) 1;
+    padding:40px 60px;
+    text-align:center;
+  }
+  .footer-logo {
+    font-size:28px; font-weight:900; letter-spacing:-1px;
+    background: linear-gradient(135deg, var(--indigo), var(--purple));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    background-clip:text;
+    margin-bottom:8px;
+  }
+  .footer-text { font-size:12px; color:var(--slate-400); }
+  .footer-text a { color:var(--indigo); text-decoration:none; }
+
+  /* RESPONSIVE */
+  @media (max-width:900px) {
+    .hero { padding:60px 30px 100px; }
+    .hero h1 { font-size:40px; letter-spacing:-2px; }
+    .stats-bar { grid-template-columns:repeat(3,1fr); margin:--50px 20px 0; gap:10px; }
+    .module-grid { grid-template-columns:repeat(2,1fr); }
+    .diff-grid { grid-template-columns:1fr; }
+    .section { padding:50px 30px; }
+  }
+  @media (max-width:600px) {
+    .hero h1 { font-size:32px; }
+    .stats-bar { grid-template-columns:repeat(2,1fr); }
+    .module-grid { grid-template-columns:1fr; }
+    .stat-num { font-size:32px; }
+  }
+
+  /* PRINT */
+  @media print {
+    * { animation:none!important; transition:none!important; }
+    body { background:#fff; color:#1e293b; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    .hero { background:#1e293b!important; padding:40px; }
+    .hero-shapes { display:none; }
+    .stat-card { box-shadow:0 1px 3px rgba(0,0,0,0.1); border:1px solid #e2e8f0; }
+    .module-card { box-shadow:none; border:1px solid #e2e8f0; }
+    .section-dark { background:#1e293b!important; }
+    .diff-card { background:#1e293b!important; border:1px solid #475569; }
+    .sector-pill { box-shadow:none; }
+    .page { max-width:100%; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-shapes">
+      <div class="hero-shape"></div>
+      <div class="hero-shape"></div>
+      <div class="hero-shape"></div>
+      <div class="hero-shape"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge"><span class="dot"></span> Uretim Yonetim Platformu v1.5</div>
+      <h1>QUVEX <span class="gradient-text">ERP</span></h1>
+      <p class="tagline">Kucuk ve orta olcekli uretim isletmeleri icin tasarlanmis,<br>AS9100 uyumlu, tam entegre uretim yonetim platformu.</p>
+      <p class="subtitle">15 modul, 130+ ekran, 780+ API endpoint ve 1850+ otomatik test ile Turkiye'nin en kapsamli kucuk fabrika ERP cozumu.</p>
+    </div>
+  </section>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat-card">
+      <div class="stat-num">15</div>
+      <div class="stat-label">Modul</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">130+</div>
+      <div class="stat-label">Ekran</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">780+</div>
+      <div class="stat-label">API Endpoint</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">1850+</div>
+      <div class="stat-label">Test</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">11</div>
+      <div class="stat-label">Sektor</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">&infin;</div>
+      <div class="stat-label">Multi-Tenant</div>
+    </div>
+  </div>
+
+  <!-- MODULE GRID -->
+  <section class="section">
+    <h2 class="section-title">Modul <span class="accent">Haritasi</span></h2>
+    <p class="section-sub">Her biri bagimsiz calisabilen, birbirleriyle tam entegre 15 modul. Isletmenizin tum degerini tek platformda yonetin.</p>
+    <div class="module-grid">
+      <div class="module-card c-production">
+        <div class="icon">&#9881;</div>
+        <div class="name">Uretim Yonetimi</div>
+        <div class="desc">Is emri, rota, BOM, uretim planlama, ShopFloor terminal</div>
+      </div>
+      <div class="module-card c-inventory">
+        <div class="icon">&#128230;</div>
+        <div class="name">Stok / Depo</div>
+        <div class="desc">Coklu depo, lokasyon, lot/seri takibi, barkod, min/max</div>
+      </div>
+      <div class="module-card c-sales">
+        <div class="icon">&#128200;</div>
+        <div class="name">Satis</div>
+        <div class="desc">Teklif, siparis, irsaliye, fatura, cari hesap, vade takibi</div>
+      </div>
+      <div class="module-card c-purchasing">
+        <div class="icon">&#128722;</div>
+        <div class="name">Satin Alma</div>
+        <div class="desc">Talep, siparis, tedarikci degerlendirme, fason takibi</div>
+      </div>
+      <div class="module-card c-finance">
+        <div class="icon">&#128176;</div>
+        <div class="name">Finans</div>
+        <div class="desc">Odeme, tahsilat, vade, maliyet, kar/zarar analizi</div>
+      </div>
+      <div class="module-card c-quality">
+        <div class="icon">&#9989;</div>
+        <div class="name">Kalite (AS9100)</div>
+        <div class="desc">23 alt modul: Sozlesme inceleme, NCR, MRB, CAPA, CoC, denetim</div>
+      </div>
+      <div class="module-card c-maintenance">
+        <div class="icon">&#128295;</div>
+        <div name="name" class="name">Bakim</div>
+        <div class="desc">Periyodik bakim, arizalar, yedek parca, makine durum</div>
+      </div>
+      <div class="module-card c-hr">
+        <div class="icon">&#128101;</div>
+        <div class="name">IK Dashboard</div>
+        <div class="desc">Vardiya, devam, izin, puantaj, yetkinlik, sertifika, performans</div>
+        <span class="new-badge">NEW</span>
+      </div>
+      <div class="module-card c-reporting">
+        <div class="icon">&#128202;</div>
+        <div class="name">Raporlama</div>
+        <div class="desc">Dashboard, KPI, grafik, Excel export, filtre, pivot</div>
+      </div>
+      <div class="module-card c-projects">
+        <div class="icon">&#128197;</div>
+        <div class="name">Proje</div>
+        <div class="desc">Proje bazli maliyet, zaman, kaynak takibi</div>
+      </div>
+      <div class="module-card c-integration">
+        <div class="icon">&#128279;</div>
+        <div class="name">Entegrasyon</div>
+        <div class="desc">e-Fatura, e-Irsaliye, SignalR bildirim, webhook</div>
+      </div>
+      <div class="module-card c-security">
+        <div class="icon">&#128274;</div>
+        <div class="name">Guvenlik</div>
+        <div class="desc">RBAC, CSRF, rate limiting, audit log, hesap kilitleme</div>
+      </div>
+      <div class="module-card c-ai">
+        <div class="icon">&#129302;</div>
+        <div class="name">AI Insights</div>
+        <div class="desc">Yapay zeka destekli anomali tespiti, tahminleme, oneri motoru</div>
+        <span class="new-badge">NEW</span>
+      </div>
+      <div class="module-card c-kasa">
+        <div class="icon">&#127974;</div>
+        <div class="name">Kasa / Banka</div>
+        <div class="desc">Kasa, banka, cari otomatik bakiye entegrasyonu, mutabakat</div>
+        <span class="new-badge">NEW</span>
+      </div>
+      <div class="module-card c-shopfloor">
+        <div class="icon">&#128421;</div>
+        <div class="name">ShopFloor Terminal</div>
+        <div class="desc">Atbye terminali, barkod/RFID giris, operasyon baslat/bitir</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIFFERENTIATORS -->
+  <section class="section section-dark">
+    <h2 class="section-title">Neden <span class="gradient-text" style="background:linear-gradient(135deg,#c7d2fe,#818cf8,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Quvex?</span></h2>
+    <p class="section-sub">Sizi rakiplerden ayiran 4 temel farklilik.</p>
+    <div class="diff-grid">
+      <div class="diff-card">
+        <div class="emoji">&#128421;</div>
+        <h3>ShopFloor Terminal</h3>
+        <p>Atolye calisanlari icin ozel dokunmatik arayuz. Barkod/RFID ile giris, operasyon baslat/bitir, kalite kaydi. Bilgisayar bilmeye gerek yok.</p>
+      </div>
+      <div class="diff-card">
+        <div class="emoji">&#127968;</div>
+        <h3>Multi-Tenancy</h3>
+        <p>Schema-per-tenant mimarisiyle 50+ firmaya ayni sunucudan hizmet. Savunma sanayi icin dedicated DB/server secenegi.</p>
+      </div>
+      <div class="diff-card">
+        <div class="emoji">&#128640;</div>
+        <h3>Onboarding Wizard</h3>
+        <p>10 dakikada sistemi kullanmaya baslayin. Sihirbaz adimlariyla firma, depo, makine, personel ve urun tanimlari otomatik.</p>
+      </div>
+      <div class="diff-card">
+        <div class="emoji">&#128247;</div>
+        <h3>PWA / Offline</h3>
+        <p>Mobil cihazda uygulama gibi calisin. Internet kesilse bile veri girisi yapilabilir, baglanti geldiginde otomatik senkron.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTOR STRIP -->
+  <section class="section" style="text-align:center;">
+    <h2 class="section-title" style="text-align:center;">11 Sektor <span class="accent">Profili</span></h2>
+    <p class="section-sub" style="text-align:center;margin-left:auto;margin-right:auto;">Tek tiklama ile sektorunuze ozel yapilandirma. Her sektor icin ozel KPI, rapor ve is akislari.</p>
+    <div class="sector-strip">
+      <span class="sector-pill">&#9881; Makine & Metal</span>
+      <span class="sector-pill">&#128171; Elektrik / Elektronik</span>
+      <span class="sector-pill">&#128137; Gida & Icecek</span>
+      <span class="sector-pill">&#128084; Tekstil & Konfeksiyon</span>
+      <span class="sector-pill">&#9992; Havacilik (AS9100)</span>
+      <span class="sector-pill">&#128137; Kimya / Plastik</span>
+      <span class="sector-pill">&#128663; Otomotiv Yan Sanayi</span>
+      <span class="sector-pill">&#127981; Ambalaj / Matbaa</span>
+      <span class="sector-pill">&#127968; Mobilya / Ahsap</span>
+      <span class="sector-pill">&#128296; Kaucuk / Conta</span>
+      <span class="sector-pill">&#128300; Savunma Sanayi</span>
+    </div>
+  </section>
+
+  <!-- TECH STACK -->
+  <section class="section section-dark" style="text-align:center;">
+    <h2 class="section-title" style="text-align:center;">Teknoloji <span class="gradient-text" style="background:linear-gradient(135deg,#c7d2fe,#818cf8,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Yigini</span></h2>
+    <p class="section-sub" style="text-align:center;margin-left:auto;margin-right:auto;">Enterprise-grade teknolojiler ile insa edildi.</p>
+    <div class="tech-badges">
+      <span class="tech-badge"><span class="dot" style="background:#512bd4;"></span> .NET 8</span>
+      <span class="tech-badge"><span class="dot" style="background:#61dafb;"></span> React 18</span>
+      <span class="tech-badge"><span class="dot" style="background:#336791;"></span> PostgreSQL</span>
+      <span class="tech-badge"><span class="dot" style="background:#dc382d;"></span> Redis</span>
+      <span class="tech-badge"><span class="dot" style="background:#2496ed;"></span> Docker</span>
+      <span class="tech-badge"><span class="dot" style="background:#646cff;"></span> Vite 6</span>
+      <span class="tech-badge"><span class="dot" style="background:#f59e0b;"></span> SignalR</span>
+      <span class="tech-badge"><span class="dot" style="background:#10b981;"></span> Ant Design</span>
+      <span class="tech-badge"><span class="dot" style="background:#764abc;"></span> Redux Toolkit</span>
+      <span class="tech-badge"><span class="dot" style="background:#e535ab;"></span> Clean Architecture</span>
+      <span class="tech-badge"><span class="dot" style="background:#06b6d4;"></span> Sentry</span>
+      <span class="tech-badge"><span class="dot" style="background:#f43f5e;"></span> Nginx</span>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-logo">QUVEX</div>
+    <p class="footer-text">
+      Quvex ERP v1.5 &mdash; 2026 &copy; Tum haklari saklidir.<br>
+      <a href="mailto:info@quvex.com">info@quvex.com</a> &middot; Build 2026.03.31
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -177,6 +177,33 @@ Yeni kolon/tablo eklendiginde **3 semaya da** ekle:
 
 `BaseFullModel` miras alan entity'lerde `TenantId` kolonu olmali.
 
+## TENANT İZOLASYON KURALLARI (ZORUNLU)
+
+### HasQueryFilter — Yeni entity eklediğinde:
+Her `BaseFullModel<Guid>` miras alan entity için QuvexDBContext.OnModelCreating'e filter ekle:
+```csharp
+modelBuilder.Entity<YeniEntity>().HasQueryFilter(e => !IsTenantResolved || e.TenantId == CurrentTenantId);
+```
+**Eksik filter = cross-tenant veri sızıntısı. ASLA atlanmamalı.**
+
+Toplam filtrelenen entity sayısı: **143** (2026-03-29 itibariyle)
+
+### Dedicated DB (Tier 2) Desteği:
+- TenantTier enum: Shared (0), DedicatedDb (1), DedicatedServer (2)
+- TenantConnectionFactory: AES-256-GCM ile şifreli connection string
+- Tier 2 tenant'lar farklı host/port/database'de çalışabilir
+- Savunma sanayi firmaları için Tier 2 zorunlu
+
+### Frontend Güvenlik:
+- Login'de `accessToken` ve `refreshToken` ayrı ayrı atanmalı (asla birbirine eşitlenmemeli)
+- Logout'ta `clearTenantInfo()` + trial session data temizlenmeli
+- SignalR bağlantısında `JoinTenantGroup(tenantId)` çağrılmalı
+- API response'larda tenant validation (api.js interceptor) aktif
+
+### Redis Connection Limit:
+- Redis çöktüğünde **fail-closed** (in-memory fallback), fail-open DEĞİL
+- Per-tenant max connection: 20 (default)
+
 ---
 
 ## IS TAMAMLAMA VE COMMIT KURALLARI (ZORUNLU)

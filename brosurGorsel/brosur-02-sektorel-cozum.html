@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quvex ERP — Sektorel Cozum Haritasi</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  :root {
+    --indigo: #4f46e5;
+    --violet: #7c3aed;
+    --purple: #a855f7;
+    --cyan: #06b6d4;
+    --fuchsia: #d946ef;
+    --emerald: #10b981;
+    --amber: #f59e0b;
+    --rose: #f43f5e;
+    --orange: #f97316;
+    --sky: #0ea5e9;
+    --teal: #14b8a6;
+    --lime: #84cc16;
+    --slate-900: #0f172a;
+    --slate-800: #1e293b;
+    --slate-700: #334155;
+    --slate-400: #94a3b8;
+    --slate-200: #e2e8f0;
+    --slate-50: #f8fafc;
+    --glass-bg: rgba(255,255,255,0.06);
+    --glass-border: rgba(255,255,255,0.1);
+    --shadow-glow: rgba(99,102,241,0.3);
+    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',sans-serif; color:var(--slate-800); background:var(--slate-50); -webkit-font-smoothing:antialiased; }
+  .page { max-width:1200px; margin:0 auto; overflow:hidden; }
+
+  @keyframes gradient-shift {
+    0% { background-position:0% 50%; }
+    50% { background-position:100% 50%; }
+    100% { background-position:0% 50%; }
+  }
+  @keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-12px);} }
+  @keyframes pulse-glow { 0%,100%{opacity:0.5;} 50%{opacity:1;} }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--slate-900) 0%, #1a1145 40%, #2d1b69 70%, var(--violet) 100%);
+    background-size: 200% 200%;
+    animation: gradient-shift 10s ease infinite;
+    color:#fff; padding:80px 60px; position:relative; overflow:hidden;
+  }
+  .hero::before {
+    content:''; position:absolute; right:-100px; top:-100px;
+    width:500px; height:500px; border-radius:50%;
+    background: radial-gradient(circle, rgba(124,58,237,0.25), transparent 70%);
+    animation: float 8s ease-in-out infinite;
+  }
+  .hero::after {
+    content:''; position:absolute; left:-60px; bottom:-80px;
+    width:300px; height:300px; border-radius:50%;
+    background: radial-gradient(circle, rgba(6,182,212,0.2), transparent 70%);
+    animation: float 10s ease-in-out infinite reverse;
+  }
+  .hero-content { position:relative; z-index:2; }
+  .hero-badge {
+    display:inline-flex; align-items:center; gap:8px;
+    background:rgba(255,255,255,0.1); backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,0.15); border-radius:100px;
+    padding:6px 18px; font-size:12px; font-weight:600; margin-bottom:20px;
+  }
+  .hero-badge .dot { width:7px; height:7px; border-radius:50%; background:var(--emerald); animation:pulse-glow 2s infinite; }
+  .hero h1 { font-size:52px; font-weight:900; letter-spacing:-2.5px; margin-bottom:12px; text-shadow:0 4px 40px rgba(99,102,241,0.4); }
+  .hero h1 span {
+    background:linear-gradient(135deg, #c7d2fe, #818cf8, var(--cyan));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  }
+  .hero .sub { font-size:17px; font-weight:300; opacity:0.8; max-width:600px; line-height:1.6; }
+
+  /* SECTOR CARD */
+  .sector-card {
+    margin:0 40px; padding:0;
+    border-radius:24px; overflow:hidden;
+    background:#fff;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    margin-bottom:24px;
+    transition: var(--transition);
+  }
+  .sector-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.1);
+  }
+  .sector-header {
+    padding:32px 36px; color:#fff; position:relative; overflow:hidden;
+  }
+  .sector-header::after {
+    content:''; position:absolute; right:-30px; top:-30px;
+    width:150px; height:150px; border-radius:50%;
+    background:rgba(255,255,255,0.08);
+  }
+  .sector-header .emoji { font-size:36px; margin-bottom:8px; display:block; }
+  .sector-header h2 { font-size:26px; font-weight:900; letter-spacing:-1px; position:relative; z-index:1; }
+  .sector-header .desc { font-size:13px; opacity:0.85; margin-top:4px; position:relative; z-index:1; }
+
+  .sector-body { padding:28px 36px; }
+  .feature-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:8px 24px; }
+  .feature-item {
+    display:flex; align-items:flex-start; gap:10px;
+    padding:8px 0; font-size:14px; color:var(--slate-700);
+  }
+  .feature-item .check {
+    flex-shrink:0; width:22px; height:22px; border-radius:50%;
+    background:linear-gradient(135deg, #d1fae5, #6ee7b7);
+    color:#059669; font-size:13px; font-weight:900;
+    display:flex; align-items:center; justify-content:center;
+    margin-top:1px;
+  }
+  .feature-item.highlight {
+    font-weight:700; color:var(--indigo);
+  }
+  .feature-item.highlight .check {
+    background:linear-gradient(135deg, var(--indigo), var(--violet));
+    color:#fff;
+  }
+  .highlight-tag {
+    display:inline-block;
+    background: linear-gradient(135deg, var(--fuchsia), var(--rose));
+    color:#fff; font-size:9px; font-weight:800;
+    padding:2px 8px; border-radius:100px;
+    letter-spacing:0.5px; text-transform:uppercase;
+    margin-left:6px; vertical-align:middle;
+  }
+
+  /* GRADIENT HEADERS PER SECTOR */
+  .g-metal { background:linear-gradient(135deg, #475569, #64748b); }
+  .g-electric { background:linear-gradient(135deg, #1d4ed8, #3b82f6); }
+  .g-food { background:linear-gradient(135deg, #059669, #34d399); }
+  .g-textile { background:linear-gradient(135deg, #be185d, #ec4899); }
+  .g-aero { background:linear-gradient(135deg, #4f46e5, #818cf8); }
+  .g-chem { background:linear-gradient(135deg, #7c3aed, #a78bfa); }
+  .g-auto { background:linear-gradient(135deg, #b45309, #f59e0b); }
+  .g-pack { background:linear-gradient(135deg, #0e7490, #22d3ee); }
+  .g-wood { background:linear-gradient(135deg, #92400e, #d97706); }
+  .g-rubber { background:linear-gradient(135deg, #374151, #6b7280); }
+  .g-defense { background:linear-gradient(135deg, #0f172a, #1e40af); }
+
+  /* COMMON ADVANTAGES BANNER */
+  .advantage-banner {
+    margin:0 40px 40px;
+    background: linear-gradient(135deg, var(--slate-900), #1a1145, var(--indigo));
+    background-size:200% 200%;
+    animation:gradient-shift 8s ease infinite;
+    border-radius:24px; padding:48px 40px; color:#fff;
+  }
+  .advantage-banner h2 {
+    font-size:30px; font-weight:900; letter-spacing:-1px; margin-bottom:24px; text-align:center;
+  }
+  .adv-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .adv-item {
+    background:rgba(255,255,255,0.08); backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:16px; padding:24px; text-align:center;
+    transition:var(--transition);
+  }
+  .adv-item:hover { background:rgba(255,255,255,0.15); transform:translateY(-4px); }
+  .adv-item .emoji { font-size:32px; margin-bottom:8px; }
+  .adv-item h4 { font-size:14px; font-weight:800; margin-bottom:4px; }
+  .adv-item p { font-size:12px; color:var(--slate-400); line-height:1.5; }
+
+  /* FOOTER */
+  .footer {
+    border-top:3px solid transparent;
+    border-image:linear-gradient(90deg, var(--indigo), var(--violet), var(--purple), var(--cyan)) 1;
+    padding:32px 60px; text-align:center;
+  }
+  .footer-logo {
+    font-size:24px; font-weight:900; letter-spacing:-1px;
+    background:linear-gradient(135deg, var(--indigo), var(--purple));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  }
+  .footer-text { font-size:11px; color:var(--slate-400); margin-top:4px; }
+
+  /* SPACING */
+  .section-gap { height:40px; }
+
+  @media (max-width:900px) {
+    .hero { padding:50px 30px; }
+    .hero h1 { font-size:36px; }
+    .sector-card { margin:0 16px; margin-bottom:20px; }
+    .feature-grid { grid-template-columns:1fr; }
+    .adv-grid { grid-template-columns:repeat(2,1fr); }
+    .advantage-banner { margin:0 16px 30px; padding:30px 20px; }
+  }
+  @media (max-width:600px) {
+    .adv-grid { grid-template-columns:1fr; }
+    .sector-header h2 { font-size:22px; }
+  }
+
+  @media print {
+    * { animation:none!important; transition:none!important; }
+    body { background:#fff; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    .hero { background:var(--slate-900)!important; padding:40px; }
+    .sector-card { box-shadow:none; border:1px solid #e2e8f0; page-break-inside:avoid; margin:0 20px 16px; }
+    .advantage-banner { background:var(--slate-900)!important; }
+    .page { max-width:100%; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge"><span class="dot"></span> 11 Sektor Profili</div>
+      <h1>Sektorel <span>Cozum Haritasi</span></h1>
+      <p class="sub">Her sektor icin ozel yapilandirma, KPI ve is akislari. Tek tiklama ile sektorunuze hazir ERP deneyimi.</p>
+    </div>
+  </section>
+
+  <div class="section-gap"></div>
+
+  <!-- SECTOR 1: Metal -->
+  <div class="sector-card">
+    <div class="sector-header g-metal">
+      <span class="emoji">&#9881;</span>
+      <h2>Makine & Metal Imalat</h2>
+      <p class="desc">CNC, torna, freze ve montaj hatlari icin optimize edilmis uretim yonetimi</p>
+    </div>
+    <div class="sector-body">
+      <div class="feature-grid">
+        <div class="feature-item"><span class="check">&#10003;</span> CNC makine entegrasyonu ve OEE takibi</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Rota bazli is emri yonetimi</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Kesim/form optimizasyonu</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Fason operasyon takibi</div>
+        <div class="feature-item highlight"><span class="check">&#10003;</span> Operator Terminali <span class="highlight-tag">SHOPFLOOR</span></div>
+        <div class="feature-item highlight"><span class="check">&#10003;</span> Kasa / Banka Entegrasyonu <span class="highlight-tag">NEW</span></div>
+        <div class="feature-item"><span class="check">&#10003;</span> Kalite kontrol (olcum formlari)</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Lot/seri bazli izlenebilirlik</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTOR 2: Elektrik -->
+  <div class="sector-card">
+    <div class="sector-header g-electric">
+      <span class="emoji">&#128171;</span>
+      <h2>Elektrik / Elektronik</h2>
+      <p class="desc">PCB montaj, kablo tesisati ve elektronik uretim sureclerini yonetin</p>
+    </div>
+    <div class="sector-body">
+      <div class="feature-grid">
+        <div class="feature-item"><span class="check">&#10003;</span> PCB montaj is emirleri</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Komponent lot takibi</div>
+        <div class="feature-item"><span class="check">&#10003;</span> ESD alani ve ortam izleme</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Seri numara yonetimi</div>
+        <div class="feature-item highlight"><span class="check">&#10003;</span> Operator Terminali <span class="highlight-tag">SHOPFLOOR</span></div>
+        <div class="feature-item highlight"><span class="check">&#10003;</span> Kasa / Banka Entegrasyonu <span class="highlight-tag">NEW</span></div>
+        <div class="feature-item"><span class="check">&#10003;</span> Test sonuc kaydi</div>
+        <div class="feature-item"><span class="check">&#10003;</span> RoHS uyumluluk takibi</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTOR 3: Gida -->
+  <div class="sector-card">
+    <div class="sector-header g-food">
+      <span class="emoji">&#127860;</span>
+      <h2>Gida & Icecek</h2>
+      <p class="desc">HACCP uyumlu uretim, parti takibi ve raf omru yonetimi</p>
+    </div>
+    <div class="sector-body">
+      <div class="feature-grid">
+        <div class="feature-item"><span class="check">&#10003;</span> Recete/formul yonetimi</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Parti/lot izlenebilirlik</div>
+        <div class="feature-item"><span class="check">&#10003;</span> FIFO stok yonetimi</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Raf omru / SKT takibi</div>
+        <div class="feature-item highlight"><span class="check">&#10003;</span> Operator Terminali <span class="highlight-tag">SHOPFLOOR</span></div>
+        <div class="feature-item highlight"><span class="check">&#10003;</span> Kasa / Banka Entegrasyonu <span class="highlight-tag">NEW</span></div>
+        <div class="feature-item"><span class="check">&#10003;</span> HACCP kontrol noktalari</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Allerjen yonetimi</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTOR 4: Tekstil -->
+  <div class="sector-card">
+    <div class="sector-header g-textile">
+      <span class="emoji">&#128084;</span>
+      <h2>Tekstil & Konfeksiyon</h2>
+      <p class="desc">Siparis bazli uretim, beden-renk matrisi ve fason takibi</p>
+    </div>
+    <div class="sector-body">
+      <div class="feature-grid">
+        <div class="feature-item"><span class="check">&#10003;</span> Beden-renk varyant matrisi</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Kumas/aksesuar stok takibi</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Siparis bazli uretim planlama</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Fason dikim takibi</div>
+        <div class="feature-item highlight"><span class="check">&#10003;</span> Operator Terminali <span class="highlight-tag">SHOPFLOOR</span></div>
+        <div class="feature-item highlight"><span class="check">&#10003;</span> Kasa / Banka Entegrasyonu <span class="highlight-tag">NEW</span></div>
+        <div class="feature-item"><span class="check">&#10003;</span> Kalite AQL denetimi</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Ihracat dokumantasyonu</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTOR 5: Havacilik -->
+  <div class="sector-card">
+    <div class="sector-header g-aero">
+      <span class="emoji">&#9992;</span>
+      <h2>Havacilik (AS9100)</h2>
+      <p class="desc">AS9100 tam uyumlu: sozlesme inceleme, CoC, MRB, CAPA, veri paketi</p>
+    </div>
+    <div class="sector-body">
+      <div class="feature-grid">
+        <div class="feature-item"><span class="check">&#10003;</span> Sozlesme inceleme sureci</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Certificate of Conformance (CoC)</div>
+        <div class="feature-item"><span class="check">&#10003;</span> MRB (Material Review Board)</div>
+        <div class="feature-item"><span class="check">&#10003;</span> CAPA / NCR yonetimi</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Veri paketi (Data Pack)</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Soy agaci (Genealogy)</div>
+        <div class="feature-item highlight"><span class="check">&#10003;</span> Operator Terminali <span class="highlight-tag">SHOPFLOOR</span></div>
+        <div class="feature-item highlight"><span class="check">&#10003;</span> Kasa / Banka Entegrasyonu <span class="highlight-tag">NEW</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTOR 6: Kimya -->
+  <div class="sector-card">
+    <div class="sector-header g-chem">
+      <span class="emoji">&#128137;</span>
+      <h2>Kimya / Plastik</h2>
+      <p class="desc">Formul yonetimi, enjeksiyon/ekstruzyon parametreleri ve MSDS takibi</p>
+    </div>
+    <div class="sector-body">
+      <div class="feature-grid">
+        <div class="feature-item"><span class="check">&#10003;</span> Formul/recete yonetimi</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Kalip/macar takibi</div>
+        <div class="feature-item"><span class="check">&#10003;</span> MSDS dokuman yonetimi</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Parti bazli izlenebilirlik</div>
+        <div class="feature-item highlight"><span class="check">&#10003;</span> Operator Terminali <span class="highlight-tag">SHOPFLOOR</span></div>
+        <div class="feature-item highlight"><span class="check">&#10003;</span> Kasa / Banka Entegrasyonu <span class="highlight-tag">NEW</span></div>
+        <div class="feature-item"><span class="check">&#10003;</span> Makine parametre kaydi</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Fire/hurda analizi</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTOR 7: Otomotiv -->
+  <div class="sector-card">
+    <div class="sector-header g-auto">
+      <span class="emoji">&#128663;</span>
+      <h2>Otomotiv Yan Sanayi</h2>
+      <p class="desc">IATF 16949 uyumlu kalite, PPAP ve seri uretim izleme</p>
+    </div>
+    <div class="sector-body">
+      <div class="feature-grid">
+        <div class="feature-item"><span class="check">&#10003;</span> PPAP dokumantasyonu</div>
+        <div class="feature-item"><span class="check">&#10003;</span> SPC / istatistiksel kontrol</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Seri uretim hat takibi</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Musteri ozel etiket/ambalaj</div>
+        <div class="feature-item highlight"><span class="check">&#10003;</span> Operator Terminali <span class="highlight-tag">SHOPFLOOR</span></div>
+        <div class="feature-item highlight"><span class="check">&#10003;</span> Kasa / Banka Entegrasyonu <span class="highlight-tag">NEW</span></div>
+        <div class="feature-item"><span class="check">&#10003;</span> FIFO / kanban desteji</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Tedarikci skorlama</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTOR 8: Ambalaj -->
+  <div class="sector-card">
+    <div class="sector-header g-pack">
+      <span class="emoji">&#127981;</span>
+      <h2>Ambalaj / Matbaa</h2>
+      <p class="desc">Baski makinesi planlama, kalip yonetimi ve malzeme optimizasyonu</p>
+    </div>
+    <div class="sector-body">
+      <div class="feature-grid">
+        <div class="feature-item"><span class="check">&#10003;</span> Baski makinesi planlama</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Kalip/klise yonetimi</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Renk/pantone takibi</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Malzeme kesim optimizasyonu</div>
+        <div class="feature-item highlight"><span class="check">&#10003;</span> Operator Terminali <span class="highlight-tag">SHOPFLOOR</span></div>
+        <div class="feature-item highlight"><span class="check">&#10003;</span> Kasa / Banka Entegrasyonu <span class="highlight-tag">NEW</span></div>
+        <div class="feature-item"><span class="check">&#10003;</span> Fire analizi</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Musteri prova onay sureci</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTOR 9: Mobilya -->
+  <div class="sector-card">
+    <div class="sector-header g-wood">
+      <span class="emoji">&#127968;</span>
+      <h2>Mobilya / Ahsap</h2>
+      <p class="desc">Siparis bazli ozel uretim, panel optimizasyon ve montaj takibi</p>
+    </div>
+    <div class="sector-body">
+      <div class="feature-grid">
+        <div class="feature-item"><span class="check">&#10003;</span> Siparis bazli ozel uretim</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Panel kesim optimizasyonu</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Kenar bandi / aksesuar BOM</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Montaj is emirleri</div>
+        <div class="feature-item highlight"><span class="check">&#10003;</span> Operator Terminali <span class="highlight-tag">SHOPFLOOR</span></div>
+        <div class="feature-item highlight"><span class="check">&#10003;</span> Kasa / Banka Entegrasyonu <span class="highlight-tag">NEW</span></div>
+        <div class="feature-item"><span class="check">&#10003;</span> Proje bazli maliyet</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Sevkiyat / kurulum takibi</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTOR 10: Kaucuk -->
+  <div class="sector-card">
+    <div class="sector-header g-rubber">
+      <span class="emoji">&#128296;</span>
+      <h2>Kaucuk / Conta</h2>
+      <p class="desc">Vulkanizasyon parametreleri, kalip yonetimi ve hammadde formulleri</p>
+    </div>
+    <div class="sector-body">
+      <div class="feature-grid">
+        <div class="feature-item"><span class="check">&#10003;</span> Vulkanizasyon parametre kaydi</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Kalip/macar envanter takibi</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Hammadde formul yonetimi</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Olcum ve test kayitlari</div>
+        <div class="feature-item highlight"><span class="check">&#10003;</span> Operator Terminali <span class="highlight-tag">SHOPFLOOR</span></div>
+        <div class="feature-item highlight"><span class="check">&#10003;</span> Kasa / Banka Entegrasyonu <span class="highlight-tag">NEW</span></div>
+        <div class="feature-item"><span class="check">&#10003;</span> Fire/hurda analizi</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Parti izlenebilirlik</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTOR 11: Savunma -->
+  <div class="sector-card">
+    <div class="sector-header g-defense">
+      <span class="emoji">&#128300;</span>
+      <h2>Savunma Sanayi</h2>
+      <p class="desc">Dedicated tenant, AS9100 + AQAP, tam izlenebilirlik ve guvenlik katmanlari</p>
+    </div>
+    <div class="sector-body">
+      <div class="feature-grid">
+        <div class="feature-item"><span class="check">&#10003;</span> Dedicated DB / Server tenant</div>
+        <div class="feature-item"><span class="check">&#10003;</span> AS9100 + AQAP uyumluluk</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Seri numara soy agaci</div>
+        <div class="feature-item"><span class="check">&#10003;</span> CoC / veri paketi olusturma</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Dokuman onay is akisi</div>
+        <div class="feature-item"><span class="check">&#10003;</span> Guvenlik denetim loglari</div>
+        <div class="feature-item highlight"><span class="check">&#10003;</span> Operator Terminali <span class="highlight-tag">SHOPFLOOR</span></div>
+        <div class="feature-item highlight"><span class="check">&#10003;</span> Kasa / Banka Entegrasyonu <span class="highlight-tag">NEW</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-gap"></div>
+
+  <!-- COMMON ADVANTAGES -->
+  <div class="advantage-banner">
+    <h2>&#127775; Tum Sektorlerde Ortak Avantajlar</h2>
+    <div class="adv-grid">
+      <div class="adv-item">
+        <div class="emoji">&#128640;</div>
+        <h4>10 dk Kurulum</h4>
+        <p>Onboarding wizard ile hizli baslangic</p>
+      </div>
+      <div class="adv-item">
+        <div class="emoji">&#128247;</div>
+        <h4>PWA / Offline</h4>
+        <p>Internetsiz veri girisi, otomatik senkron</p>
+      </div>
+      <div class="adv-item">
+        <div class="emoji">&#128202;</div>
+        <h4>Canli Dashboard</h4>
+        <p>SignalR ile anlik KPI ve uyarilar</p>
+      </div>
+      <div class="adv-item">
+        <div class="emoji">&#128274;</div>
+        <h4>Kurumsal Guvenlik</h4>
+        <p>RBAC, CSRF, audit log, sifreleme</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-logo">QUVEX</div>
+    <p class="footer-text">Quvex ERP v1.5 &mdash; 11 Sektor Profili &middot; 2026 &copy; Tum haklari saklidir.</p>
+  </footer>
+
+</div>
+</body>
+</html>
