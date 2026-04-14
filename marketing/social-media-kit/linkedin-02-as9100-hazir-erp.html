@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<title>Quvex LinkedIn — AS9100 Hazir ERP</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{display:flex;justify-content:center;align-items:center;min-height:100vh;background:#e2e8f0;font-family:'Inter',sans-serif;}
+.card{width:1200px;height:628px;background:linear-gradient(135deg,#134e4a 0%,#0f172a 60%,#1e1b4b 100%);color:#fff;position:relative;overflow:hidden;display:flex;}
+.left{flex:1.3;padding:70px 50px 70px 70px;z-index:2;display:flex;flex-direction:column;justify-content:center;}
+.right{flex:1;position:relative;z-index:1;display:flex;align-items:center;justify-content:center;}
+.badge{background:rgba(244,63,94,0.18);border:1px solid rgba(244,63,94,0.5);border-radius:30px;padding:8px 20px;font-size:12px;font-weight:700;color:#fda4af;letter-spacing:1px;text-transform:uppercase;width:fit-content;margin-bottom:22px;}
+.headline{font-size:56px;font-weight:900;line-height:1.08;letter-spacing:-1.5px;margin-bottom:20px;}
+.headline .h{color:#fbbf24;}
+.sub{font-size:18px;opacity:0.85;line-height:1.5;margin-bottom:32px;max-width:520px;}
+.checks{display:flex;flex-direction:column;gap:10px;}
+.chk{font-size:14px;font-weight:600;display:flex;align-items:center;gap:10px;}
+.chk::before{content:"✓";color:#6ee7b7;font-size:18px;font-weight:900;}
+.shield{width:340px;height:340px;background:radial-gradient(circle,rgba(251,191,36,0.3) 0%,transparent 70%);border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.shield-text{font-size:72px;font-weight:900;color:#fbbf24;text-align:center;line-height:0.95;letter-spacing:-2px;}
+.shield-text .s{font-size:20px;display:block;color:#fff;opacity:0.7;font-weight:600;letter-spacing:3px;margin-top:6px;}
+.logo{position:absolute;top:30px;right:50px;font-size:26px;font-weight:900;letter-spacing:-1px;z-index:3;}
+.url{position:absolute;bottom:25px;right:50px;font-size:13px;color:#a5b4fc;font-weight:700;z-index:3;}
+</style></head><body>
+<div class="card">
+  <div class="logo">QUVEX</div>
+  <div class="left">
+    <div class="badge">🛡️ SAVUNMA & HAVACILIK</div>
+    <div class="headline">AS9100 Denetimi<br><span class="h">2 Haftada Hazir</span></div>
+    <div class="sub">FAI, PPAP, CoC, NCR, CAPA, Lot Traceability — hepsi tek platformda. Turk savunma tier-2/3 tedarikcileri icin hazir sablonlar.</div>
+    <div class="checks">
+      <div class="chk">FAI / PPAP belge sablonlari</div>
+      <div class="chk">Lot bazli traceability</div>
+      <div class="chk">NCR → CAPA otomatik workflow</div>
+      <div class="chk">CE Technical File modulu</div>
+      <div class="chk">Roketsan & Aselsan tier-2 test edildi</div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="shield">
+      <div class="shield-text">AS9100<span class="s">READY</span></div>
+    </div>
+  </div>
+  <div class="url">quvex.io · demo@quvex.io</div>
+</div>
+</body></html>

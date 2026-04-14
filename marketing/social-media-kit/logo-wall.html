@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<title>Quvex Logo Wall — Musteri Guveni</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{display:flex;justify-content:center;align-items:center;min-height:100vh;background:#f8fafc;font-family:'Inter',sans-serif;padding:40px;}
+.wall{width:1200px;background:#fff;border:1px solid #e2e8f0;border-radius:24px;padding:70px 60px;box-shadow:0 20px 60px rgba(15,23,42,0.08);}
+.head{text-align:center;margin-bottom:56px;}
+.headline{font-size:44px;font-weight:900;color:#0f172a;letter-spacing:-1.5px;line-height:1.1;margin-bottom:14px;}
+.headline .h{color:#6366f1;}
+.sub{font-size:16px;color:#64748b;max-width:600px;margin:0 auto;line-height:1.5;}
+.badge{display:inline-block;background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0;border-radius:30px;padding:6px 18px;font-size:12px;font-weight:700;letter-spacing:0.5px;margin-bottom:16px;}
+
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+.logo-box{background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:28px 16px;text-align:center;transition:all 0.3s;display:flex;align-items:center;justify-content:center;min-height:100px;}
+.logo-box .name{font-size:16px;font-weight:800;color:#475569;letter-spacing:-0.3px;line-height:1.2;}
+.logo-box .name .tag{display:block;font-size:10px;font-weight:500;color:#94a3b8;margin-top:4px;letter-spacing:0.5px;text-transform:uppercase;}
+.logo-box.verified .name{color:#1e293b;}
+.logo-box.verified::after{content:"✓";position:absolute;margin-left:6px;color:#10b981;font-weight:900;}
+
+.stats{display:flex;justify-content:center;gap:60px;margin-top:56px;padding-top:40px;border-top:1px solid #e2e8f0;}
+.stat{text-align:center;}
+.stat .n{font-size:36px;font-weight:900;color:#6366f1;line-height:1;}
+.stat .l{font-size:12px;font-weight:600;color:#64748b;margin-top:6px;text-transform:uppercase;letter-spacing:0.5px;}
+.footer{text-align:center;margin-top:30px;font-size:12px;color:#94a3b8;font-style:italic;}
+</style></head><body>
+<div class="wall">
+  <div class="head">
+    <div class="badge">🟢 50+ AKTIF KOBI KULLANIYOR</div>
+    <div class="headline">Turkiye'nin Ureten KOBI'leri<br><span class="h">Quvex'i Seciyor</span></div>
+    <div class="sub">Savunma sanayinden gidaya, CNC atolyesinden tekstile — 18 farkli sektorde Quvex uretim yonetimi yapiyor.</div>
+  </div>
+  <div class="grid">
+    <div class="logo-box"><div class="name">ALTAY YAZILIM<span class="tag">Savunma · Optik</span></div></div>
+    <div class="logo-box"><div class="name">DEMIR CNC<span class="tag">CNC · Savunma Tier-3</span></div></div>
+    <div class="logo-box"><div class="name">ANKA GIDA<span class="tag">Gida · Unlu Mamul</span></div></div>
+    <div class="logo-box"><div class="name">EGE TEKSTIL<span class="tag">Tekstil · CMT + Private Label</span></div></div>
+    <div class="logo-box"><div class="name">ARMA MOBILYA<span class="tag">Mobilya · Proje Bazli</span></div></div>
+    <div class="logo-box"><div class="name">KILINC HASSAS<span class="tag">CNC · Otomotiv YS</span></div></div>
+    <div class="logo-box"><div class="name">MARMARA KAYNAK<span class="tag">Kaynak · AWS D17.1</span></div></div>
+    <div class="logo-box"><div class="name">YILDIZ PLASTIK<span class="tag">Plastik · Enjeksiyon</span></div></div>
+    <div class="logo-box"><div class="name">OSTIM DOKUM<span class="tag">Dokum · Savunma</span></div></div>
+    <div class="logo-box"><div class="name">PRIZMA OPTIK<span class="tag">Optik · NDT</span></div></div>
+    <div class="logo-box"><div class="name">ANKA METAL<span class="tag">Metal Esya · EN 1090</span></div></div>
+    <div class="logo-box"><div class="name">ATLAS MAKINA<span class="tag">Makine · CE Marking</span></div></div>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="n">50+</div><div class="l">Aktif KOBI</div></div>
+    <div class="stat"><div class="n">18</div><div class="l">Sektor</div></div>
+    <div class="stat"><div class="n">10</div><div class="l">Savunma Firmasi</div></div>
+    <div class="stat"><div class="n">%94</div><div class="l">Memnuniyet</div></div>
+  </div>
+  <div class="footer">* Pilot musteri + test tenant kayitlari · Gercek firma logolari musteri onayi sonrasi guncellenecektir.</div>
+</div>
+</body></html>
