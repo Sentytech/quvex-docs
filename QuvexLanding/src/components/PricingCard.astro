@@ -1,0 +1,66 @@
+---
+interface Props {
+  name: string;
+  priceUsd: number;
+  priceTl: string;
+  users: string;
+  features: string[];
+  popular?: boolean;
+  ctaLabel?: string;
+  ctaHref?: string;
+  yearly?: boolean;
+}
+const {
+  name,
+  priceUsd,
+  priceTl,
+  users,
+  features,
+  popular = false,
+  ctaLabel = 'Hemen Basla',
+  ctaHref = 'https://app.quvex.io/register',
+  yearly = false,
+} = Astro.props;
+
+const yearlyUsd = Math.round(priceUsd * 12 * 0.8);
+const displayPrice = yearly ? Math.round(priceUsd * 0.8) : priceUsd;
+---
+<div class={`price-card ${popular ? 'popular' : ''}`}>
+  {popular && <div class="price-badge">En Populer</div>}
+  <div class="price-name">{name}</div>
+  <div class="price-amount">
+    <span class="price-currency">$</span>{displayPrice}
+    <span class="price-period">/ay</span>
+  </div>
+  <div class="price-tl">~{priceTl} TL/ay</div>
+  {yearly && <div class="price-yearly">Yillik ${yearlyUsd} (%20 indirim)</div>}
+  <div class="price-users">{users}</div>
+  <ul class="price-features">
+    {features.map(f => <li>{f}</li>)}
+  </ul>
+  <a href={ctaHref} class={`price-btn ${popular ? 'price-btn-primary' : 'price-btn-outline'}`}>
+    {ctaLabel}
+  </a>
+</div>
+
+<style>
+  .price-card { background: #fff; border-radius: 18px; padding: 36px 30px; border: 1px solid #e5e7eb; position: relative; transition: all 0.2s; }
+  .price-card:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(0,0,0,0.08); }
+  .price-card.popular { border-color: #6366f1; border-width: 2px; box-shadow: 0 12px 40px rgba(99,102,241,0.15); }
+  .price-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; padding: 6px 18px; border-radius: 14px; font-size: 12px; font-weight: 700; letter-spacing: 0.4px; }
+  .price-name { font-size: 20px; font-weight: 700; margin-bottom: 12px; color: #1a1d3b; }
+  .price-amount { font-size: 44px; font-weight: 900; color: #1a1d3b; line-height: 1; }
+  .price-currency { font-size: 22px; font-weight: 700; vertical-align: top; }
+  .price-period { font-size: 16px; font-weight: 500; color: #9ca3af; }
+  .price-tl { color: #6b7280; font-size: 13px; margin-top: 6px; }
+  .price-yearly { color: #16a34a; font-size: 12px; font-weight: 600; margin-top: 4px; }
+  .price-users { font-size: 14px; color: #6b7280; margin: 14px 0 18px; padding: 8px 12px; background: #f9fafb; border-radius: 8px; }
+  .price-features { list-style: none; margin-bottom: 26px; }
+  .price-features li { padding: 7px 0; font-size: 14px; color: #374151; }
+  .price-features li::before { content: '✓ '; color: #22c55e; font-weight: 800; margin-right: 4px; }
+  .price-btn { display: block; width: 100%; padding: 14px; border-radius: 10px; text-align: center; font-weight: 700; text-decoration: none; font-size: 14px; transition: all 0.2s; }
+  .price-btn-primary { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; }
+  .price-btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(99,102,241,0.3); }
+  .price-btn-outline { background: transparent; color: #6366f1; border: 1.5px solid #6366f1; }
+  .price-btn-outline:hover { background: #eef2ff; }
+</style>

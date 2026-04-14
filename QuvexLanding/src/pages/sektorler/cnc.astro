@@ -1,0 +1,52 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SectorPage from '../../components/SectorPage.astro';
+import CTASection from '../../components/CTASection.astro';
+
+const pains = [
+  'CNC operatoru kagit uzerinde is takip ediyor, veri kaybi yuksek',
+  'AS9100 / NADCAP auditlerinde FAI / PPAP dosyasi hazirlamak saatlerce suruyor',
+  'Tezgah OEE ve duraklama nedeni kayit disi, verimsizlik goremiyoruz',
+  'Savunma tedarikcisine satis yaparken izlenebilirlik (traceability) yetersiz',
+  'Takim omur ve takim seti takibi Excel\'de, kaybolan takim maliyeti yuksek',
+];
+
+const solutions = [
+  'ShopFloor Terminal (Android tablet) tezgah basinda is emri basla/bitir',
+  'FAI / PPAP sablonu hazir, 15 dakikada tamamlaniyor — PDF + istatistik',
+  'OEE hesabi + duraklama nedeni + makine durumu real-time panoda',
+  'Seri/Lot traceability — hammadde lot\'tan bitmis urune tam zincir',
+  'Takim yonetimi + omur takibi + kalibrasyon hatirlatma',
+];
+
+const features = [
+  { icon: '🔧', title: 'CNC Shop Floor', desc: 'Tezgah basinda tablet, barkod tarama, is emri takibi' },
+  { icon: '📋', title: 'FAI Raporu', desc: 'AS9102 Form 1/2/3 otomatik — olcu sonuclari + fotograf' },
+  { icon: '🎯', title: 'PPAP Paketi', desc: 'Level 1-5, Control Plan, FMEA, PSW — otomatik derleme' },
+  { icon: '⚙️', title: 'Takim Yonetimi', desc: 'Takim omur, kalibrasyon, set takibi, uyarilar' },
+  { icon: '📊', title: 'OEE Panosu', desc: 'Availability x Performance x Quality — real-time' },
+  { icon: '🔗', title: 'Savunma Tedarik', desc: 'Roketsan, Aselsan tedarikci profili + audit trail' },
+];
+
+const caseStudy = {
+  company: 'ALTAY YAZILIM',
+  quote: 'CNC atolyemizde 8 tezgah var, daha once Excel ile takip ediyorduk. Quvex sayesinde FAI raporu hazirlama suremiz 2 saatten 15 dakikaya dustu. Aselsan ilk tedarikci auditinden ilk denemede gectik.',
+  author: 'Mehmet Yilmaz, Kalite Muduru',
+  result: 'Audit %100 basari',
+};
+---
+<Layout
+  title="CNC Talasli Imalat icin ERP - Quvex"
+  description="CNC atolyeniz icin AS9100 + FAI/PPAP + ShopFloor Terminal + Traceability. Savunma sanayi tedarikcisi olmak icin gereken tum araclar."
+>
+  <SectorPage
+    sector="CNC Talasli Imalat"
+    hero="CNC Atolyeniz Icin Tasarlanmis ERP"
+    heroSub="AS9100, NADCAP, FAI, PPAP — havacilik ve savunma tedarikcisi olmak icin gereken tum araclar Quvex'te hazir."
+    pains={pains}
+    solutions={solutions}
+    features={features}
+    caseStudy={caseStudy}
+  />
+  <CTASection />
+</Layout>

@@ -1,0 +1,208 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CTASection from '../components/CTASection.astro';
+
+const modules = [
+  {
+    icon: '🏭',
+    title: 'Uretim Yonetimi',
+    desc: 'Siparisten sevkiyata kadar tum uretim surecini yonetin.',
+    items: [
+      'Is emirleri + rota + operasyon takibi',
+      'Gantt diyagrami + kapasite planlama',
+      'Seri/Lot numarasi + traceability',
+      'Fason is yonetimi + subcontract order',
+      'Real-time uretim panosu (TV-ready)',
+    ],
+  },
+  {
+    icon: '📦',
+    title: 'Stok & Depo',
+    desc: 'Coklu depo, lot takip, barkod, ABC analizi.',
+    items: [
+      'Coklu depo + transfer + lokasyon',
+      'Lot/Seri/FIFO/FEFO yonetimi',
+      'Barkod tarama + etiket basim',
+      'Min/max + yeniden siparis uyarisi',
+      'ABC analizi + dead stock raporu',
+    ],
+  },
+  {
+    icon: '✅',
+    title: 'Kalite & Uyumluluk',
+    desc: 'AS9100, IATF 16949, HACCP, ISO 13485 standartlarina hazir.',
+    items: [
+      'NCR / CAPA / 8D Report',
+      'FAI (First Article) + PPAP',
+      'SPC + FMEA + MSA',
+      'Gelen/Cikan/Proses kalite kontrol',
+      'Document control + audit trail',
+    ],
+  },
+  {
+    icon: '💰',
+    title: 'Satis & Finans',
+    desc: 'Teklif, siparis, fatura, tahsilat — entegre.',
+    items: [
+      'CRM + teklif + siparis yonetimi',
+      'E-Fatura / E-Irsaliye entegrasyonu',
+      'PayTR odeme altyapisi',
+      'Cari hesap + vade takip',
+      'Kar zarar + nakit akis raporu',
+    ],
+  },
+  {
+    icon: '📊',
+    title: 'MRP & Planlama',
+    desc: 'Net ihtiyac hesaplama, kapasite ve talep tahmini.',
+    items: [
+      'MRP Level-by-Level hesaplama',
+      'Kapasite planlama + yuk dengeleme',
+      'Talep tahmini + sezgisel algoritma',
+      'Makine/insan kaynagi atamasi',
+      'Whatif senaryo analizi',
+    ],
+  },
+  {
+    icon: '📱',
+    title: 'Mobil & Terminal',
+    desc: 'Sahada barkod, is emri ve kalite — cebinizden.',
+    items: [
+      'iOS + Android native uygulama',
+      'Barkod tarama + NCR olusturma',
+      'Shop floor terminal (Android tablet)',
+      'Offline mod + otomatik sync',
+      'WhatsApp bildirim (8 sablon)',
+    ],
+  },
+];
+
+const niche = [
+  { icon: '👕', title: 'ProductVariant', desc: 'Tekstil icin beden x renk matrisi, 30K KOBI pazari' },
+  { icon: '🥘', title: 'HACCP & Recall', desc: 'Gida icin kritik kontrol noktalari + recall simulasyonu' },
+  { icon: '⚙️', title: 'MoldInventory', desc: 'Plastik enjeksiyon kalip envanteri + shot count' },
+  { icon: '📋', title: 'CE Technical File', desc: 'Makine imalat icin CE dosyasi + Declaration of Conformity' },
+  { icon: '🔥', title: 'WPS / WPQR', desc: 'Kaynak islemleri + AWS D17.1 uyumlulugu' },
+];
+
+const compliance = ['AS9100', 'IATF 16949', 'ISO 22000', 'ISO 13485', 'HACCP', 'CE', 'AWS D17.1', 'NADCAP'];
+---
+<Layout
+  title="Ozellikler - Quvex ERP | 6 Modul, 18 Sektor, AS9100 Hazir"
+  description="Quvex ERP modulleri: Uretim, Stok, Kalite, Satis, MRP, Mobil. AS9100, IATF, HACCP, CE uyumluluk. 5 nis modul Sprint 11 ile geldi."
+>
+  <section class="page-hero">
+    <h1>Her Sey Tek Platformda</h1>
+    <p>6 ana modul, 18 sektor sablonu, 5 nis modul. Fabrikanizi dijitallestirmek icin ihtiyaciniz olan tum araclar.</p>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="modules-list">
+        {modules.map((m, i) => (
+          <div class={`module-row ${i % 2 === 1 ? 'reverse' : ''}`}>
+            <div class="module-content">
+              <div class="module-icon">{m.icon}</div>
+              <h3>{m.title}</h3>
+              <p class="module-desc">{m.desc}</p>
+              <ul>
+                {m.items.map(it => <li>{it}</li>)}
+              </ul>
+            </div>
+            <div class="module-mock">
+              <div class="mock-window">
+                <div class="mock-bar">
+                  <span></span><span></span><span></span>
+                </div>
+                <div class="mock-body">
+                  <div class="mock-line" style="width: 60%;"></div>
+                  <div class="mock-line" style="width: 85%;"></div>
+                  <div class="mock-line" style="width: 40%;"></div>
+                  <div class="mock-grid">
+                    <div></div><div></div><div></div><div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Niche modules -->
+  <section class="section" style="background: linear-gradient(135deg, #f9fafb 0%, #eef2ff 100%);">
+    <div class="container">
+      <div class="section-title">
+        <div class="eyebrow">Sprint 11 — 5 Nis Modul</div>
+        <h2>Sektore Ozel Ozellikler</h2>
+        <p>Tekstilden gidaya, plastikten kaynaga — her sektorun kendine ozel modulu</p>
+      </div>
+      <div class="niche-grid">
+        {niche.map(n => (
+          <div class="niche-card">
+            <div class="niche-icon">{n.icon}</div>
+            <h4>{n.title}</h4>
+            <p>{n.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Compliance -->
+  <section class="section">
+    <div class="container">
+      <div class="section-title">
+        <div class="eyebrow">Standartlar</div>
+        <h2>Uyumluluk & Sertifikalar</h2>
+        <p>Havacilik, otomotiv, gida, medikal — 8 uluslararasi standart</p>
+      </div>
+      <div class="compliance-grid">
+        {compliance.map(c => <div class="compliance-badge">{c}</div>)}
+      </div>
+    </div>
+  </section>
+
+  <CTASection />
+</Layout>
+
+<style>
+  .modules-list { display: flex; flex-direction: column; gap: 80px; }
+  .module-row { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+  .module-row.reverse { direction: rtl; }
+  .module-row.reverse > * { direction: ltr; }
+  .module-icon { font-size: 44px; margin-bottom: 14px; }
+  .module-content h3 { font-size: 28px; font-weight: 800; margin-bottom: 10px; letter-spacing: -0.5px; }
+  .module-desc { color: #6b7280; font-size: 16px; margin-bottom: 20px; }
+  .module-content ul { list-style: none; padding: 0; }
+  .module-content li { padding: 8px 0 8px 28px; color: #374151; font-size: 15px; position: relative; }
+  .module-content li::before { content: '✓'; position: absolute; left: 0; color: #22c55e; font-weight: 900; }
+
+  .module-mock { background: linear-gradient(135deg, #eef2ff, #f5f3ff); padding: 30px; border-radius: 18px; border: 1px solid #e0e7ff; }
+  .mock-window { background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 10px 32px rgba(0,0,0,0.08); }
+  .mock-bar { display: flex; gap: 6px; padding: 10px 14px; background: #f3f4f6; }
+  .mock-bar span { width: 10px; height: 10px; border-radius: 50%; background: #d1d5db; }
+  .mock-bar span:first-child { background: #ef4444; }
+  .mock-bar span:nth-child(2) { background: #f59e0b; }
+  .mock-bar span:nth-child(3) { background: #10b981; }
+  .mock-body { padding: 24px; }
+  .mock-line { height: 12px; background: linear-gradient(90deg, #e0e7ff, #f3f4f6); border-radius: 6px; margin-bottom: 10px; }
+  .mock-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 18px; }
+  .mock-grid div { height: 60px; background: linear-gradient(135deg, #eef2ff, #f5f3ff); border-radius: 8px; }
+
+  .niche-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+  .niche-card { background: #fff; padding: 26px; border-radius: 14px; border: 1px solid #e5e7eb; text-align: center; transition: all 0.2s; }
+  .niche-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(99,102,241,0.10); }
+  .niche-icon { font-size: 40px; margin-bottom: 10px; }
+  .niche-card h4 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+  .niche-card p { font-size: 13px; color: #6b7280; line-height: 1.6; }
+
+  .compliance-grid { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+  .compliance-badge { padding: 14px 28px; background: #fff; border: 2px solid #6366f1; color: #4338ca; border-radius: 12px; font-weight: 800; font-size: 14px; letter-spacing: 0.4px; }
+
+  @media (max-width: 820px) {
+    .module-row { grid-template-columns: 1fr; gap: 28px; }
+    .module-row.reverse { direction: ltr; }
+  }
+</style>

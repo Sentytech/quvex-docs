@@ -1,0 +1,140 @@
+---
+interface Props {
+  compact?: boolean;
+}
+const { compact = false } = Astro.props;
+---
+<section class={`roi ${compact ? 'roi-compact' : ''}`}>
+  <div class="roi-inner">
+    <div class="roi-header">
+      <div class="eyebrow">ROI Hesaplayici</div>
+      <h2>Quvex Size Ne Kadar Kazandirir?</h2>
+      <p>Fabrikanizin buyuklugune gore yillik tasarrufunuzu gorun. Varsayim: Quvex kayit/takip kaybini %40 azaltir.</p>
+    </div>
+
+    <div class="roi-grid">
+      <div class="roi-inputs">
+        <div class="roi-field">
+          <label for="roi-emp">Calisan sayisi: <strong id="roi-emp-val">25</strong></label>
+          <input type="range" id="roi-emp" min="5" max="200" value="25" step="1" />
+        </div>
+        <div class="roi-field">
+          <label for="roi-rev">Aylik ciro (TL): <strong id="roi-rev-val">500.000</strong></label>
+          <input type="range" id="roi-rev" min="100000" max="5000000" value="500000" step="50000" />
+        </div>
+        <div class="roi-field">
+          <label for="roi-sector">Sektor</label>
+          <select id="roi-sector">
+            <option value="cnc">CNC Talasli Imalat</option>
+            <option value="savunma">Savunma Sanayi</option>
+            <option value="gida">Gida Uretim</option>
+            <option value="tekstil">Tekstil</option>
+            <option value="otomotiv">Otomotiv</option>
+            <option value="makine">Makine Imalat</option>
+            <option value="diger">Diger</option>
+          </select>
+        </div>
+        <div class="roi-field">
+          <label for="roi-plan">Plan</label>
+          <select id="roi-plan">
+            <option value="99">Baslangic ($99/ay)</option>
+            <option value="199" selected>Pro ($199/ay)</option>
+            <option value="399">Enterprise ($399/ay)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="roi-output">
+        <div class="roi-stat">
+          <div class="roi-stat-label">Yillik Tasarruf</div>
+          <div class="roi-stat-big" id="roi-save">₺2.112.000</div>
+        </div>
+        <div class="roi-split">
+          <div>
+            <div class="roi-sub-label">Quvex Yillik Maliyet</div>
+            <div class="roi-sub" id="roi-cost">₺71.640</div>
+          </div>
+          <div>
+            <div class="roi-sub-label">Net ROI</div>
+            <div class="roi-sub roi-pos" id="roi-roi">%2.848</div>
+          </div>
+        </div>
+        <div class="roi-payback">
+          Kendini <strong id="roi-payback">1 ayda</strong> amorti eder
+        </div>
+        <a href="/demo" class="btn btn-primary" style="margin-top: 20px;">Bu sonuclari demo ile dogrulayalim →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .roi { padding: 80px 24px; background: #f9fafb; }
+  .roi.roi-compact { padding: 60px 24px; }
+  .roi-inner { max-width: 1080px; margin: 0 auto; }
+  .roi-header { text-align: center; margin-bottom: 40px; }
+  .eyebrow { display: inline-block; padding: 4px 14px; border-radius: 14px; background: #eef2ff; color: #6366f1; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+  .roi-header h2 { font-size: clamp(26px, 4vw, 36px); font-weight: 800; margin-bottom: 10px; letter-spacing: -0.5px; }
+  .roi-header p { color: #6b7280; max-width: 620px; margin: 0 auto; font-size: 15px; }
+
+  .roi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; background: #fff; border-radius: 20px; padding: 36px; border: 1px solid #e5e7eb; box-shadow: 0 12px 36px rgba(0,0,0,0.04); }
+  .roi-inputs { display: flex; flex-direction: column; gap: 22px; }
+  .roi-field label { display: block; font-size: 14px; font-weight: 600; color: #374151; margin-bottom: 10px; }
+  .roi-field label strong { color: #6366f1; }
+  .roi-field input[type=range] { width: 100%; accent-color: #6366f1; }
+  .roi-field select { width: 100%; padding: 12px 14px; border: 1px solid #d1d5db; border-radius: 10px; font-size: 14px; font-family: inherit; background: #fff; color: #1a1d3b; }
+  .roi-field select:focus { outline: none; border-color: #6366f1; }
+
+  .roi-output { background: linear-gradient(135deg, #0f172a, #312e81); color: #fff; border-radius: 16px; padding: 32px 28px; display: flex; flex-direction: column; justify-content: center; }
+  .roi-stat-label { font-size: 13px; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.6px; }
+  .roi-stat-big { font-size: 42px; font-weight: 900; margin-top: 6px; background: linear-gradient(135deg, #a5b4fc, #c4b5fd); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .roi-split { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 22px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.08); }
+  .roi-sub-label { font-size: 11px; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.5px; }
+  .roi-sub { font-size: 22px; font-weight: 800; margin-top: 4px; }
+  .roi-pos { color: #86efac; }
+  .roi-payback { margin-top: 22px; padding: 12px; background: rgba(255,255,255,0.06); border-radius: 10px; font-size: 14px; text-align: center; color: rgba(255,255,255,0.85); }
+
+  @media (max-width: 820px) {
+    .roi-grid { grid-template-columns: 1fr; padding: 24px; }
+  }
+</style>
+
+<script>
+  const fmt = (n: number) => '₺' + Math.round(n).toLocaleString('tr-TR');
+  const elEmp = document.getElementById('roi-emp') as HTMLInputElement | null;
+  const elRev = document.getElementById('roi-rev') as HTMLInputElement | null;
+  const elPlan = document.getElementById('roi-plan') as HTMLSelectElement | null;
+  const elEmpVal = document.getElementById('roi-emp-val');
+  const elRevVal = document.getElementById('roi-rev-val');
+  const elSave = document.getElementById('roi-save');
+  const elCost = document.getElementById('roi-cost');
+  const elRoi = document.getElementById('roi-roi');
+  const elPay = document.getElementById('roi-payback');
+
+  function calc() {
+    if (!elEmp || !elRev || !elPlan) return;
+    const emp = parseInt(elEmp.value);
+    const rev = parseInt(elRev.value);
+    const planUsd = parseInt(elPlan.value);
+    // Mevcut kayip: calisan x 2 saat/gun x 22 gun x 100 TL
+    const monthlyLoss = emp * 2 * 22 * 100;
+    // Quvex %40 azaltir
+    const monthlySave = monthlyLoss * 0.4;
+    const yearlySave = monthlySave * 12;
+    // Quvex maliyet (30 TL/USD varsayim)
+    const yearlyCost = planUsd * 12 * 30;
+    const netGain = yearlySave - yearlyCost;
+    const roi = yearlyCost > 0 ? Math.round((netGain / yearlyCost) * 100) : 0;
+    const paybackMonths = monthlySave > 0 ? Math.max(1, Math.ceil(yearlyCost / (monthlySave * 12 / 12))) : 0;
+
+    if (elEmpVal) elEmpVal.textContent = emp.toString();
+    if (elRevVal) elRevVal.textContent = rev.toLocaleString('tr-TR');
+    if (elSave) elSave.textContent = fmt(yearlySave);
+    if (elCost) elCost.textContent = fmt(yearlyCost);
+    if (elRoi) elRoi.textContent = '%' + roi.toLocaleString('tr-TR');
+    if (elPay) elPay.textContent = paybackMonths + ' ayda';
+  }
+
+  [elEmp, elRev, elPlan].forEach(el => el?.addEventListener('input', calc));
+  calc();
+</script>

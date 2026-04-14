@@ -1,0 +1,52 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SectorPage from '../../components/SectorPage.astro';
+import CTASection from '../../components/CTASection.astro';
+
+const pains = [
+  'Roketsan / Aselsan / TAI tedarikcisi olmak icin AS9100, ITAR, export control sart',
+  'Audit trail ve dokuman kontrolu Excel\'de — audit oncesi panik',
+  'Traceability zinciri eksik — hammadde lot\'tan urune kadar takip yok',
+  'ITAR / gizli proje icin veri izolasyonu ve sifreleme yetersiz',
+  'Tedarikci puanlama (supplier scorecard) manuel, objektif degil',
+];
+
+const solutions = [
+  'AS9100 Rev D uyumlu — FAI, PPAP, FMEA, 8D, MRB hazir modul',
+  'Audit trail otomatik — her degisiklik kullanici/zaman/once-sonra kayitli',
+  'Full traceability — hammadde lot → is emri → seri/lot → sevkiyat',
+  'AES-256-GCM sifreleme, schema-per-tenant izolasyon, on-premise secenek',
+  'Supplier scorecard — delivery, quality, price, responsiveness metrikleri',
+];
+
+const features = [
+  { icon: '🛡️', title: 'AS9100 Rev D', desc: 'Tam uyumluluk — FAI/PPAP/FMEA/8D hazir sablonlar' },
+  { icon: '🔐', title: 'Veri Izolasyonu', desc: 'Schema-per-tenant, AES-256-GCM, on-premise secenegi' },
+  { icon: '📜', title: 'Audit Trail', desc: 'Tum islemler loglu, auditora hazir export' },
+  { icon: '🔗', title: 'Traceability', desc: 'Hammadde → bitmis urune tam izlenebilirlik zinciri' },
+  { icon: '⭐', title: 'Supplier Scorecard', desc: 'Tedarikci performans puanlama — 4 boyut' },
+  { icon: '🌐', title: 'ITAR / Export', desc: 'Export control flag, ITAR uyari sistemi' },
+];
+
+const caseStudy = {
+  company: 'ANKA SAVUNMA',
+  quote: 'Roketsan tedarikcisi olabilmek icin AS9100 Rev D sart kosuldu. Quvex 2 hafta icinde sistemi kurdu, ilk auditten gectik. Artik 3 yeni prime tedarikciyle gorusmeye bile cagriliyoruz.',
+  author: 'Dr. Kemal Ozdemir, Genel Mudur',
+  result: 'AS9100 sertifikasyonu',
+};
+---
+<Layout
+  title="Savunma Sanayi icin ERP - Quvex | AS9100, ITAR, NADCAP"
+  description="Roketsan, Aselsan, TAI tedarikcisi olmak icin gereken AS9100 + traceability + audit trail + veri guvenligi. Quvex ile 2 hafta."
+>
+  <SectorPage
+    sector="Savunma Sanayi"
+    hero="Savunma Sanayi Tedarikcisi Olmak Icin"
+    heroSub="AS9100 Rev D, ITAR, export control, audit trail — Roketsan, Aselsan, TAI'ye satis yapmak icin gereken tum sart Quvex'te hazir."
+    pains={pains}
+    solutions={solutions}
+    features={features}
+    caseStudy={caseStudy}
+  />
+  <CTASection />
+</Layout>

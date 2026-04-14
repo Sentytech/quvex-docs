@@ -1,0 +1,52 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SectorPage from '../../components/SectorPage.astro';
+import CTASection from '../../components/CTASection.astro';
+
+const pains = [
+  'Her bir urun icin beden x renk kombinasyonu ayri ayri aciliyor, urun listesi patliyor',
+  'AQL kalite ornekleme Excel\'de yapiliyor, standart yok',
+  'Kumas rulosu, dikis operasyonlari, boyahane arasi takip kopuk',
+  'Sezonluk uretim planlamasi — kapasiteyi bilmeden fason atiliyor',
+  'Dis ticaret (export) faturasi, GTIP kodu, origin belgesi manuel',
+];
+
+const solutions = [
+  'ProductVariant — beden x renk matrisi otomatik olusturulur, stok tek yerden',
+  'AQL Inspection — ISO 2859-1 tablosu hazir, ornekleme otomatik hesap',
+  'Kumas + dikim + boyahane entegre — her asama barkodla takip',
+  'Kapasite planlama + fason yonetimi — hangi atolyeye kac parca, ne zaman',
+  'E-Fatura + Export + GTIP + menei sehadetnamesi — otomatik',
+];
+
+const features = [
+  { icon: '👕', title: 'Product Variant', desc: 'Beden (XS-XXL) x renk matrisi, bulk olusturma, stok birlesik' },
+  { icon: '🎯', title: 'AQL Inspection', desc: 'ISO 2859-1, AQL level, ornekleme otomatik, red/kabul karari' },
+  { icon: '🧵', title: 'Kumas Takibi', desc: 'Rulo no, gramaj, fire, tup/katlama, kullanim kayit' },
+  { icon: '🏭', title: 'Fason Yonetimi', desc: 'Atolye secimi, kapasite, sure, kalite, odeme takibi' },
+  { icon: '🌍', title: 'Export', desc: 'GTIP, origin, e-fatura, packing list — otomatik' },
+  { icon: '📏', title: 'Beden Matrisi', desc: 'Size chart, beden seti, toplu uretim emri' },
+];
+
+const caseStudy = {
+  company: 'BAHA TEKSTIL',
+  quote: 'Bir gomlek modelimizin 8 beden x 5 renk kombinasyonu var. Eski sistemde 40 ayri urun aciyorduk, kaos. Quvex ProductVariant ile tek urun altinda yonetiyoruz. Stok dogrulugu %65\'ten %98\'e cikti.',
+  author: 'Ayse Sahin, Uretim Muduru',
+  result: '+%33 stok dogrulugu',
+};
+---
+<Layout
+  title="Tekstil & Konfeksiyon icin ERP - Quvex | ProductVariant, AQL"
+  description="Tekstil isletmeniz icin beden x renk matrisi (ProductVariant), AQL kalite ornekleme, kumas/boyahane/fason takibi, export altyapisi."
+>
+  <SectorPage
+    sector="Tekstil & Konfeksiyon"
+    hero="Tekstil Icin ProductVariant Destekli ERP"
+    heroSub="Beden x renk matrisi, AQL kalite ornekleme, fason atolye yonetimi, export faturasi — tekstil KOBI'si icin ozel tasarlandi."
+    pains={pains}
+    solutions={solutions}
+    features={features}
+    caseStudy={caseStudy}
+  />
+  <CTASection />
+</Layout>

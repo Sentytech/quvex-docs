@@ -1,0 +1,87 @@
+---
+const navLinks = [
+  { href: '/', label: 'Ana Sayfa' },
+  { href: '/features', label: 'Ozellikler' },
+  { href: '/pricing', label: 'Fiyatlar' },
+  { href: '/comparison', label: 'Karsilastir' },
+  { href: '/demo', label: 'Demo' },
+];
+const sectors = [
+  { href: '/sektorler/cnc', label: 'CNC Talasli Imalat' },
+  { href: '/sektorler/savunma', label: 'Savunma Sanayi' },
+  { href: '/sektorler/gida', label: 'Gida Uretim' },
+  { href: '/sektorler/tekstil', label: 'Tekstil & Konfeksiyon' },
+];
+---
+<header class="qx-header">
+  <div class="qx-header-inner">
+    <a href="/" class="qx-logo">
+      <span class="qx-logo-mark">Q</span>
+      <span class="qx-logo-text">Quvex</span>
+    </a>
+    <nav class="qx-nav" id="qx-nav">
+      <a href="/">Ana Sayfa</a>
+      <a href="/features">Ozellikler</a>
+      <a href="/pricing">Fiyatlar</a>
+      <div class="qx-nav-dropdown">
+        <button class="qx-nav-dropdown-btn">Sektorler ▾</button>
+        <div class="qx-nav-dropdown-menu">
+          {sectors.map(s => <a href={s.href}>{s.label}</a>)}
+        </div>
+      </div>
+      <a href="/comparison">Karsilastir</a>
+      <a href="/demo">Demo</a>
+    </nav>
+    <div class="qx-header-cta">
+      <a href="https://app.quvex.io/login" class="qx-link">Giris</a>
+      <a href="/demo" class="qx-btn-mini">Demo Iste</a>
+    </div>
+    <button class="qx-burger" id="qx-burger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<style>
+  .qx-header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.92); backdrop-filter: saturate(180%) blur(12px); border-bottom: 1px solid #e5e7eb; }
+  .qx-header-inner { max-width: 1180px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .qx-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #1a1d3b; font-weight: 800; }
+  .qx-logo-mark { width: 32px; height: 32px; border-radius: 8px; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; display: grid; place-items: center; font-weight: 900; font-size: 16px; }
+  .qx-logo-text { font-size: 18px; letter-spacing: -0.3px; }
+  .qx-nav { display: flex; align-items: center; gap: 26px; }
+  .qx-nav > a, .qx-nav-dropdown-btn { color: #4b5563; text-decoration: none; font-size: 14px; font-weight: 600; background: none; border: none; cursor: pointer; font-family: inherit; padding: 0; }
+  .qx-nav > a:hover, .qx-nav-dropdown-btn:hover { color: #6366f1; }
+  .qx-nav-dropdown { position: relative; }
+  .qx-nav-dropdown-menu { position: absolute; top: 100%; left: -16px; padding-top: 12px; opacity: 0; visibility: hidden; transform: translateY(-4px); transition: all 0.18s; min-width: 220px; }
+  .qx-nav-dropdown:hover .qx-nav-dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+  .qx-nav-dropdown-menu a { display: block; padding: 10px 16px; background: #fff; color: #374151; text-decoration: none; font-size: 14px; border: 1px solid #e5e7eb; border-bottom: none; }
+  .qx-nav-dropdown-menu a:first-child { border-radius: 10px 10px 0 0; }
+  .qx-nav-dropdown-menu a:last-child { border-bottom: 1px solid #e5e7eb; border-radius: 0 0 10px 10px; }
+  .qx-nav-dropdown-menu a:hover { background: #eef2ff; color: #6366f1; }
+
+  .qx-header-cta { display: flex; align-items: center; gap: 14px; }
+  .qx-link { color: #4b5563; text-decoration: none; font-size: 14px; font-weight: 600; }
+  .qx-link:hover { color: #6366f1; }
+  .qx-btn-mini { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; padding: 9px 18px; border-radius: 9px; font-size: 13px; font-weight: 700; text-decoration: none; }
+  .qx-btn-mini:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(99,102,241,0.3); }
+
+  .qx-burger { display: none; flex-direction: column; gap: 4px; background: none; border: none; cursor: pointer; padding: 6px; }
+  .qx-burger span { width: 24px; height: 2px; background: #1a1d3b; border-radius: 2px; }
+
+  @media (max-width: 980px) {
+    .qx-nav { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch; padding: 16px 24px; background: #fff; border-bottom: 1px solid #e5e7eb; gap: 4px; }
+    .qx-nav.open { display: flex; }
+    .qx-nav > a, .qx-nav-dropdown-btn { padding: 12px 0; border-bottom: 1px solid #f3f4f6; width: 100%; text-align: left; }
+    .qx-nav-dropdown-menu { position: static; padding-top: 0; opacity: 1; visibility: visible; transform: none; padding-left: 16px; }
+    .qx-nav-dropdown-menu a { border: none; padding: 8px 0; background: transparent; }
+    .qx-nav-dropdown-menu a:first-child, .qx-nav-dropdown-menu a:last-child { border: none; }
+    .qx-burger { display: flex; }
+    .qx-header-cta .qx-link { display: none; }
+  }
+</style>
+
+<script>
+  const burger = document.getElementById('qx-burger');
+  const nav = document.getElementById('qx-nav');
+  burger?.addEventListener('click', () => nav?.classList.toggle('open'));
+</script>

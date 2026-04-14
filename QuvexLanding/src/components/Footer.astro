@@ -1,0 +1,100 @@
+---
+const cols = [
+  {
+    title: 'Urun',
+    links: [
+      { href: '/features', label: 'Ozellikler' },
+      { href: '/pricing', label: 'Fiyatlar' },
+      { href: '/comparison', label: 'Karsilastirma' },
+      { href: '/demo', label: 'Demo Iste' },
+      { href: 'https://app.quvex.io/register', label: 'Ucretsiz Dene' },
+    ],
+  },
+  {
+    title: 'Sektorler',
+    links: [
+      { href: '/sektorler/cnc', label: 'CNC Imalat' },
+      { href: '/sektorler/savunma', label: 'Savunma Sanayi' },
+      { href: '/sektorler/gida', label: 'Gida Uretim' },
+      { href: '/sektorler/tekstil', label: 'Tekstil' },
+    ],
+  },
+  {
+    title: 'Sirket',
+    links: [
+      { href: '/#hakkimizda', label: 'Hakkimizda' },
+      { href: 'mailto:destek@quvex.io', label: 'Iletisim' },
+      { href: '/privacy', label: 'Gizlilik' },
+      { href: '/terms', label: 'Sartlar' },
+    ],
+  },
+  {
+    title: 'Iletisim',
+    links: [
+      { href: 'mailto:destek@quvex.io', label: 'destek@quvex.io' },
+      { href: 'tel:+908502000000', label: '+90 850 200 00 00' },
+      { href: '#', label: 'Istanbul, Turkiye' },
+    ],
+  },
+];
+---
+<footer class="qx-footer">
+  <div class="qx-footer-inner">
+    <div class="qx-footer-brand">
+      <a href="/" class="qx-footer-logo">
+        <span class="qx-footer-mark">Q</span>
+        <span>Quvex</span>
+      </a>
+      <p class="qx-footer-tag">Kucuk fabrikalar icin AS9100-hazir uretim ERP'si. 18 sektor, 5 dakikada kurulum, Turkce destek.</p>
+      <div class="qx-social">
+        <a href="https://linkedin.com/company/quvex" aria-label="LinkedIn">in</a>
+        <a href="https://x.com/quvexapp" aria-label="X (Twitter)">𝕏</a>
+        <a href="https://instagram.com/quvexapp" aria-label="Instagram">◉</a>
+        <a href="https://youtube.com/@quvex" aria-label="YouTube">▶</a>
+      </div>
+    </div>
+    <div class="qx-footer-cols">
+      {cols.map(col => (
+        <div class="qx-footer-col">
+          <div class="qx-footer-col-title">{col.title}</div>
+          <ul>
+            {col.links.map(l => <li><a href={l.href}>{l.label}</a></li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+  <div class="qx-footer-bottom">
+    <div>&copy; 2026 Quvex. Tum haklari saklidir.</div>
+    <div>Made with ♥ in Istanbul</div>
+  </div>
+</footer>
+
+<style>
+  .qx-footer { background: #0f172a; color: #cbd5e1; padding: 60px 24px 24px; }
+  .qx-footer-inner { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 3fr; gap: 60px; }
+  .qx-footer-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #fff; font-weight: 800; font-size: 20px; margin-bottom: 14px; }
+  .qx-footer-mark { width: 32px; height: 32px; border-radius: 8px; background: linear-gradient(135deg, #6366f1, #8b5cf6); display: grid; place-items: center; font-size: 16px; }
+  .qx-footer-tag { color: #94a3b8; font-size: 14px; line-height: 1.6; max-width: 320px; }
+  .qx-social { display: flex; gap: 10px; margin-top: 20px; }
+  .qx-social a { width: 36px; height: 36px; border-radius: 8px; background: rgba(255,255,255,0.06); display: grid; place-items: center; color: #cbd5e1; text-decoration: none; font-weight: 700; transition: all 0.2s; }
+  .qx-social a:hover { background: #6366f1; color: #fff; }
+
+  .qx-footer-cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+  .qx-footer-col-title { color: #fff; font-weight: 700; font-size: 14px; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.6px; }
+  .qx-footer-col ul { list-style: none; }
+  .qx-footer-col li { margin-bottom: 8px; }
+  .qx-footer-col a { color: #94a3b8; text-decoration: none; font-size: 14px; transition: color 0.15s; }
+  .qx-footer-col a:hover { color: #fff; }
+
+  .qx-footer-bottom { max-width: 1180px; margin: 40px auto 0; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; color: #64748b; font-size: 13px; }
+
+  @media (max-width: 900px) {
+    .qx-footer-inner { grid-template-columns: 1fr; gap: 40px; }
+    .qx-footer-cols { grid-template-columns: repeat(2, 1fr); gap: 28px; }
+  }
+  @media (max-width: 500px) {
+    .qx-footer-cols { grid-template-columns: 1fr; }
+    .qx-footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>

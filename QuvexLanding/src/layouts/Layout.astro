@@ -1,0 +1,93 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogTitle?: string;
+  ogImage?: string;
+  canonical?: string;
+  schema?: string;
+}
+
+const {
+  title = 'Quvex ERP - Uretim Yonetim Platformu',
+  description = 'Kucuk ve orta olcekli fabrikalar icin AS9100-hazir, kullanici dostu uretim yonetim platformu. Uretim, stok, kalite ve finans tek platformda.',
+  ogTitle,
+  ogImage = '/og-image.png',
+  canonical,
+  schema,
+} = Astro.props;
+
+const siteUrl = 'https://quvex.io';
+const fullCanonical = canonical || siteUrl + Astro.url.pathname;
+---
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content={description} />
+  <meta name="theme-color" content="#6366f1" />
+  <link rel="canonical" href={fullCanonical} />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={ogTitle || title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={fullCanonical} />
+  <meta property="og:image" content={siteUrl + ogImage} />
+  <meta property="og:site_name" content="Quvex" />
+  <meta property="og:locale" content="tr_TR" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={ogTitle || title} />
+  <meta name="twitter:description" content={description} />
+
+  <title>{title}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  {schema && <script type="application/ld+json" set:html={schema} />}
+
+  <style is:global>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; color: #1a1d3b; line-height: 1.6; background: #fff; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* Shared utilities */
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+    .btn { padding: 14px 28px; border-radius: 12px; font-weight: 700; font-size: 15px; text-decoration: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; border: none; }
+    .btn-primary { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(99,102,241,0.3); }
+    .btn-outline { background: transparent; color: #1a1d3b; border: 1.5px solid #d1d5db; }
+    .btn-outline:hover { border-color: #6366f1; color: #6366f1; }
+    .btn-outline-light { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.2); }
+    .btn-outline-light:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.05); }
+
+    .section { padding: 80px 24px; }
+    .section-title { text-align: center; margin-bottom: 48px; }
+    .section-title .eyebrow { display: inline-block; padding: 4px 14px; border-radius: 14px; background: #eef2ff; color: #6366f1; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+    .section-title h2 { font-size: clamp(28px, 4vw, 38px); font-weight: 800; margin-bottom: 12px; letter-spacing: -0.5px; }
+    .section-title p { color: #6b7280; font-size: 16px; max-width: 600px; margin: 0 auto; }
+
+    .page-hero { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%); color: #fff; padding: 100px 24px 80px; text-align: center; }
+    .page-hero h1 { font-size: clamp(32px, 5vw, 48px); font-weight: 900; margin-bottom: 16px; letter-spacing: -1px; }
+    .page-hero p { font-size: 18px; color: rgba(255,255,255,0.7); max-width: 700px; margin: 0 auto; }
+
+    @media (max-width: 768px) {
+      .section { padding: 60px 20px; }
+      .page-hero { padding: 80px 20px 60px; }
+    }
+  </style>
+</head>
+<body>
+  <Header />
+  <main>
+    <slot />
+  </main>
+  <Footer />
+</body>
+</html>

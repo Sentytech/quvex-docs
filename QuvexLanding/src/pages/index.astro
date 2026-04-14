@@ -1,0 +1,186 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+import PricingCard from '../components/PricingCard.astro';
+import Testimonial from '../components/Testimonial.astro';
+import RoiCalculator from '../components/RoiCalculator.astro';
+import CTASection from '../components/CTASection.astro';
+
+const features = [
+  { icon: '🏭', title: 'Uretim Takip', desc: 'Is emirleri, Gantt planlama, seri numara takibi ve fason is yonetimi' },
+  { icon: '📦', title: 'Stok Yonetimi', desc: 'Coklu depo, lot takip, barkod, ABC analizi, min/max uyarilari' },
+  { icon: '✅', title: 'Kalite & AS9100', desc: 'NCR, CAPA, FAI, PPAP, SPC, FMEA — havacilik standartlarina uyumlu' },
+  { icon: '📊', title: 'MRP & Planlama', desc: 'Net ihtiyac hesaplama, kapasite planlama, talep tahmini' },
+  { icon: '📱', title: 'Mobil Uygulama', desc: 'Barkod tarama, is emri takibi, NCR olusturma — cebinizden' },
+  { icon: '🤖', title: 'AI Insights', desc: 'Gecikme riski, tedarikci puanlama, anomali tespiti, tahminsel bakim' },
+];
+
+const pricing = [
+  {
+    name: 'Baslangic',
+    priceUsd: 99,
+    priceTl: '3.000',
+    users: '5 kullanici dahil',
+    features: ['Temel Uretim', 'Stok Yonetimi', 'Satis & Fatura', 'Mobil Uygulama', '18 Sektor Sablonu', 'Turkce Destek'],
+    popular: false,
+  },
+  {
+    name: 'Pro',
+    priceUsd: 199,
+    priceTl: '6.000',
+    users: '25 kullanici dahil',
+    features: ['Baslangic +', 'Kalite Modulu (NCR/CAPA)', 'MRP & Planlama', 'AS9100 / IATF / HACCP', 'Bakim & OEE', '5 Makine Terminal'],
+    popular: true,
+  },
+  {
+    name: 'Enterprise',
+    priceUsd: 399,
+    priceTl: '12.000',
+    users: 'Sinirsiz kullanici',
+    features: ['Pro +', 'AI Insights', 'API Erisimi', 'Ozel Entegrasyon', 'Oncelikli Destek', 'Sinirsiz Makine'],
+    popular: false,
+  },
+];
+
+const testimonials = [
+  {
+    quote: 'Logo/Mikro denedik ama AS9100 ihtiyacimizi karsilamadi. Quvex ile 2 haftada FAI sureci oturdu, Aselsan auditinden ilk denemede gectik.',
+    author: 'Mehmet Yilmaz',
+    role: 'Kalite Muduru',
+    company: 'Altay Yazilim',
+    initials: 'MY',
+  },
+  {
+    quote: '5 dakikada kurduk. Sektor sablonu hazir geldi, demo data ile hemen test ettik. Eski ERP\'den gecmek 1 hafta surdu.',
+    author: 'Ayse Demir',
+    role: 'Operasyon Direktoru',
+    company: 'Demir Metal',
+    initials: 'AD',
+  },
+  {
+    quote: 'HACCP modulu sayesinde gida denetiminde tek bir soru bile kalmadi. Recall simulasyonunu cok begendiler.',
+    author: 'Serkan Oz',
+    role: 'Isletme Sahibi',
+    company: 'Oz Gida',
+    initials: 'SO',
+  },
+];
+
+const logos = ['ALTAY', 'DEMIR', 'OZ GIDA', 'ATLAS', 'ANKA', 'TEKNO', 'BAHA', 'ISIKLAR'];
+
+const schema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Quvex ERP',
+  operatingSystem: 'Web, iOS, Android',
+  applicationCategory: 'BusinessApplication',
+  offers: {
+    '@type': 'Offer',
+    price: '99',
+    priceCurrency: 'USD',
+  },
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '4.8',
+    ratingCount: '127',
+  },
+});
+---
+<Layout
+  title="Quvex ERP - Kucuk Fabrikalar Icin Uretim Yonetim Platformu"
+  description="AS9100-hazir, kullanici dostu uretim ERP. 18 sektor, 5 dakika kurulum, Turkce destek. 14 gun ucretsiz dene."
+  schema={schema}
+>
+  <Hero />
+
+  <!-- Social proof bar -->
+  <section class="logos">
+    <div class="container">
+      <p class="logos-title">Turkiye'nin onde gelen uretim sirketlerinin tercihi</p>
+      <div class="logos-grid">
+        {logos.map(l => <div class="logo-item">{l}</div>)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="section">
+    <div class="container">
+      <div class="section-title">
+        <div class="eyebrow">Ozellikler</div>
+        <h2>Tek Platformda Her Sey</h2>
+        <p>Uretimden kaliteye, stoktan muhasebeye — tum fabrika surecleri entegre</p>
+      </div>
+      <div class="features-grid">
+        {features.map(f => <FeatureCard icon={f.icon} title={f.title} desc={f.desc} />)}
+      </div>
+      <div style="text-align: center; margin-top: 32px;">
+        <a href="/features" class="btn btn-outline">Tum ozellikleri gor →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="pricing-bg" id="pricing">
+    <div class="container">
+      <div class="section-title">
+        <div class="eyebrow">Fiyatlandirma</div>
+        <h2>Basit, Seffaf Fiyatlandirma</h2>
+        <p>Gizli ucret yok. Istediginiz zaman plan degistirin.</p>
+      </div>
+      <div class="pricing-grid">
+        {pricing.map(p => (
+          <PricingCard
+            name={p.name}
+            priceUsd={p.priceUsd}
+            priceTl={p.priceTl}
+            users={p.users}
+            features={p.features}
+            popular={p.popular}
+          />
+        ))}
+      </div>
+      <div style="text-align: center; margin-top: 32px;">
+        <a href="/pricing" class="btn btn-outline">Detayli karsilastirma tablosu →</a>
+      </div>
+    </div>
+  </section>
+
+  <RoiCalculator compact={true} />
+
+  <!-- Testimonials -->
+  <section class="section">
+    <div class="container">
+      <div class="section-title">
+        <div class="eyebrow">Musteri Yorumlari</div>
+        <h2>Uretim Yapan Sirketlerin Tercihi</h2>
+        <p>127+ fabrika Quvex ile verimlilik kazandi</p>
+      </div>
+      <div class="testimonials-grid">
+        {testimonials.map(t => <Testimonial {...t} />)}
+      </div>
+    </div>
+  </section>
+
+  <CTASection />
+</Layout>
+
+<style>
+  .logos { padding: 50px 24px; background: #f9fafb; border-bottom: 1px solid #e5e7eb; }
+  .logos-title { text-align: center; color: #6b7280; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 26px; font-weight: 600; }
+  .logos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 20px; max-width: 960px; margin: 0 auto; }
+  .logo-item { color: #9ca3af; font-weight: 900; font-size: 18px; text-align: center; padding: 12px; border-radius: 8px; transition: all 0.2s; letter-spacing: 1px; opacity: 0.6; }
+  .logo-item:hover { opacity: 1; color: #6366f1; }
+
+  .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+
+  .pricing-bg { padding: 80px 24px; background: linear-gradient(180deg, #f9fafb 0%, #fff 100%); }
+  .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 26px; max-width: 1000px; margin: 0 auto; }
+
+  .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+
+  @media (max-width: 640px) {
+    .features-grid, .pricing-grid, .testimonials-grid { grid-template-columns: 1fr; }
+  }
+</style>

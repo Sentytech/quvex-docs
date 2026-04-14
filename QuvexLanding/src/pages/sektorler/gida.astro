@@ -1,0 +1,52 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SectorPage from '../../components/SectorPage.astro';
+import CTASection from '../../components/CTASection.astro';
+
+const pains = [
+  'HACCP kritik kontrol noktalari Excel\'de takip ediliyor, audit oncesi panik',
+  'Lot/expire tarihi takip yetersiz — son kullanma tarihi kacan urun kaybi',
+  'Recall (geri cagirma) simulasyonu yok — tehlikeli durumda panik',
+  'ISO 22000 dokumantasyonu el yordami ile hazirlaniyor',
+  'Tedarikci sertifika takibi (halal, organic) manuel',
+];
+
+const solutions = [
+  'HACCP Modulu — 7 prensip, kritik kontrol noktalari, izleme kayitlari',
+  'Lot/Expire FEFO takibi — first expired first out, otomatik uyari',
+  'Recall Simulasyonu — 1 tiklamayla etkilenen lot/musteri/miktar',
+  'ISO 22000 audit dosyasi otomatik — 1 tiklamayla PDF export',
+  'Tedarikci sertifika yonetimi — bitis tarihi uyarisi, dosya arsivi',
+];
+
+const features = [
+  { icon: '🦠', title: 'HACCP Kontrol', desc: '7 prensip, CCP, monitoring, corrective action' },
+  { icon: '📅', title: 'Lot & Expire', desc: 'FEFO, SKT takibi, otomatik uyari, blok urun' },
+  { icon: '⚠️', title: 'Recall Event', desc: 'Geri cagirma simulasyonu + gerceklestirme + rapor' },
+  { icon: '📋', title: 'ISO 22000', desc: 'Tam uyumluluk, audit dosyasi hazir export' },
+  { icon: '🏷️', title: 'Tedarikci Sertifika', desc: 'Halal, organic, kosher — bitis uyarisi' },
+  { icon: '🌡️', title: 'Sicaklik Kaydi', desc: 'Depo / tasima sicaklik izleme, sapma uyarisi' },
+];
+
+const caseStudy = {
+  company: 'OZ GIDA',
+  quote: 'Migros tedarikcisiyiz, HACCP auditleri bizi yoruyordu. Quvex\'in recall simulasyonunu denetci cok begendi. Artik audit gunu bile rahatiz.',
+  author: 'Serkan Oz, Isletme Sahibi',
+  result: 'HACCP audit %100',
+};
+---
+<Layout
+  title="Gida Uretim icin ERP - Quvex | HACCP, ISO 22000, Recall"
+  description="Gida isletmeniz icin HACCP, ISO 22000, lot/expire takibi, recall simulasyonu. Migros, BIM, A101 tedarikcisi olmak icin gereken her sey."
+>
+  <SectorPage
+    sector="Gida Uretim"
+    hero="Gida Isletmeniz Icin HACCP-Hazir ERP"
+    heroSub="HACCP 7 prensip, ISO 22000, recall simulasyonu, lot/expire FEFO takibi. Audit gunu stresi olmadan uretim."
+    pains={pains}
+    solutions={solutions}
+    features={features}
+    caseStudy={caseStudy}
+  />
+  <CTASection />
+</Layout>

@@ -1,0 +1,154 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CTASection from '../components/CTASection.astro';
+
+type V = string | true | false;
+interface Row {
+  feature: string;
+  quvex: V;
+  logo: V;
+  mikro: V;
+  netsis: V;
+  sapB1: V;
+}
+
+const rows: Row[] = [
+  { feature: 'Baslangic fiyati (aylik)', quvex: '$99', logo: '$250+', mikro: '$300+', netsis: '$400+', sapB1: '$1.500+' },
+  { feature: 'Kullanici basi fiyatlandirma', quvex: 'Yok (firma bazli)', logo: 'Evet', mikro: 'Evet', netsis: 'Evet', sapB1: 'Evet' },
+  { feature: 'Kurulum suresi', quvex: '5 dakika', logo: '2-4 hafta', mikro: '2-4 hafta', netsis: '3-6 hafta', sapB1: '3-6 ay' },
+  { feature: 'Sektor sablonu hazir', quvex: '18 sektor', logo: false, mikro: false, netsis: 'Sinirli', sapB1: false },
+  { feature: 'Turkce dil + destek', quvex: true, logo: true, mikro: true, netsis: true, sapB1: 'Sinirli' },
+  { feature: 'Mobil uygulama (native)', quvex: true, logo: 'Sinirli', mikro: 'Sinirli', netsis: 'Sinirli', sapB1: true },
+  { feature: 'Bulut (SaaS)', quvex: true, logo: 'Hibrit', mikro: 'Hibrit', netsis: 'Hibrit', sapB1: 'Hibrit' },
+  { feature: 'On-premise secenegi', quvex: true, logo: true, mikro: true, netsis: true, sapB1: true },
+  { feature: 'AS9100 uyumluluk', quvex: true, logo: false, mikro: false, netsis: false, sapB1: 'Ek modul' },
+  { feature: 'IATF 16949 (Otomotiv)', quvex: true, logo: false, mikro: false, netsis: false, sapB1: 'Ek modul' },
+  { feature: 'HACCP / ISO 22000 (Gida)', quvex: true, logo: false, mikro: false, netsis: false, sapB1: 'Ek modul' },
+  { feature: 'ISO 13485 (Medikal)', quvex: true, logo: false, mikro: false, netsis: false, sapB1: 'Ek modul' },
+  { feature: 'CE Technical File', quvex: true, logo: false, mikro: false, netsis: false, sapB1: false },
+  { feature: 'WPS / WPQR (Kaynak)', quvex: true, logo: false, mikro: false, netsis: false, sapB1: false },
+  { feature: 'FAI / PPAP', quvex: true, logo: false, mikro: false, netsis: false, sapB1: 'Ek modul' },
+  { feature: 'NCR / CAPA', quvex: true, logo: 'Temel', mikro: 'Temel', netsis: 'Temel', sapB1: true },
+  { feature: 'MRP & Kapasite planlama', quvex: true, logo: true, mikro: true, netsis: true, sapB1: true },
+  { feature: 'OEE & Bakim (CMMS)', quvex: true, logo: 'Ek modul', mikro: 'Ek modul', netsis: 'Ek modul', sapB1: true },
+  { feature: 'Real-time uretim panosu', quvex: true, logo: false, mikro: false, netsis: false, sapB1: 'Ek modul' },
+  { feature: 'AI gecikme riski', quvex: true, logo: false, mikro: false, netsis: false, sapB1: 'Ek modul' },
+  { feature: 'AI anomali tespiti', quvex: true, logo: false, mikro: false, netsis: false, sapB1: 'Ek modul' },
+  { feature: 'ProductVariant (Tekstil)', quvex: true, logo: false, mikro: 'Sinirli', netsis: false, sapB1: false },
+  { feature: 'MoldInventory (Plastik)', quvex: true, logo: false, mikro: false, netsis: false, sapB1: false },
+  { feature: 'Recall simulasyonu', quvex: true, logo: false, mikro: false, netsis: false, sapB1: 'Ek modul' },
+  { feature: 'WhatsApp bildirim', quvex: true, logo: false, mikro: false, netsis: false, sapB1: false },
+  { feature: 'Barkod + ShopFloor', quvex: true, logo: 'Sinirli', mikro: 'Sinirli', netsis: 'Sinirli', sapB1: true },
+  { feature: 'E-Fatura entegrasyonu', quvex: true, logo: true, mikro: true, netsis: true, sapB1: 'Partner' },
+  { feature: 'Turkce KOBI destek SLA', quvex: '4-24 saat', logo: '1-2 gun', mikro: '1-2 gun', netsis: '1-2 gun', sapB1: 'Partner' },
+  { feature: '14 gun ucretsiz deneme', quvex: true, logo: false, mikro: false, netsis: false, sapB1: false },
+  { feature: 'API + Webhook erisim', quvex: true, logo: 'Sinirli', mikro: 'Sinirli', netsis: 'Sinirli', sapB1: true },
+];
+
+function renderVal(v: V, isQuvex = false) {
+  if (v === true) return { html: '✓', cls: isQuvex ? 'yes yes-q' : 'yes' };
+  if (v === false) return { html: '—', cls: 'no' };
+  return { html: v, cls: isQuvex ? 'val val-q' : 'val' };
+}
+---
+<Layout
+  title="Karsilastirma - Quvex vs Logo, Mikro, Netsis, SAP B1"
+  description="Quvex ERP'yi Logo, Mikro, Netsis ve SAP Business One ile karsilastirin. Fiyat, sektor hazirligi, AS9100, AI, kurulum suresi — 30+ kriter."
+>
+  <section class="page-hero">
+    <h1>Quvex vs Rakipler</h1>
+    <p>Logo, Mikro, Netsis ve SAP Business One ile 30+ kriterde detayli karsilastirma. Karar vermeden once karsilastirin.</p>
+  </section>
+
+  <section class="section">
+    <div class="container" style="max-width: 1200px;">
+      <div class="compare-wrap">
+        <table class="compare">
+          <thead>
+            <tr>
+              <th>Ozellik</th>
+              <th class="quvex-col">
+                <div class="qx-head">
+                  <span class="qx-mark">Q</span>
+                  Quvex
+                </div>
+              </th>
+              <th>Logo</th>
+              <th>Mikro</th>
+              <th>Netsis</th>
+              <th>SAP B1</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map(row => {
+              const q = renderVal(row.quvex, true);
+              const l = renderVal(row.logo);
+              const m = renderVal(row.mikro);
+              const n = renderVal(row.netsis);
+              const s = renderVal(row.sapB1);
+              return (
+                <tr>
+                  <td class="feat">{row.feature}</td>
+                  <td class={`quvex-col ${q.cls}`}>{q.html}</td>
+                  <td class={l.cls}>{l.html}</td>
+                  <td class={m.cls}>{m.html}</td>
+                  <td class={n.cls}>{n.html}</td>
+                  <td class={s.cls}>{s.html}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="highlights">
+        <div class="highlight-card">
+          <div class="highlight-icon">⚡</div>
+          <h3>5 Dakika Kurulum</h3>
+          <p>Rakiplerde 2-6 hafta suren kurulum Quvex'te 5 dakikada. Sektor sablonu + demo data hazir.</p>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-icon">🎯</div>
+          <h3>Sektore Ozel</h3>
+          <p>18 sektor sablonu. Logo/Mikro generic, Quvex CNC'den gida'ya her sektorun ihtiyacina ozel.</p>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-icon">💰</div>
+          <h3>Firma Bazli Fiyat</h3>
+          <p>Rakipler kullanici basi fiyatlandirirken Quvex firma bazli. 25 kisilik ekip $199/ay.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTASection title="Rakiplerden farkini kendi gozunuzle gorun" subtitle="14 gun ucretsiz Quvex deneyin, karari siz verin." />
+</Layout>
+
+<style>
+  .compare-wrap { overflow-x: auto; background: #fff; border-radius: 18px; border: 1px solid #e5e7eb; box-shadow: 0 10px 36px rgba(0,0,0,0.05); margin-bottom: 40px; }
+  .compare { width: 100%; border-collapse: collapse; min-width: 860px; }
+  .compare th, .compare td { padding: 14px 16px; font-size: 14px; border-bottom: 1px solid #f3f4f6; text-align: center; }
+  .compare th { background: #f9fafb; font-weight: 700; color: #1a1d3b; position: sticky; top: 0; }
+  .compare th:first-child, .compare td:first-child { text-align: left; }
+  .compare td.feat { font-weight: 500; color: #374151; }
+
+  .compare .quvex-col { background: #eef2ff; }
+  .compare th.quvex-col { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; }
+  .qx-head { display: flex; align-items: center; gap: 8px; justify-content: center; }
+  .qx-mark { width: 24px; height: 24px; border-radius: 6px; background: rgba(255,255,255,0.2); display: grid; place-items: center; font-weight: 900; font-size: 13px; }
+
+  .compare .yes { color: #22c55e; font-weight: 800; font-size: 18px; }
+  .compare .yes-q { color: #4338ca; }
+  .compare .no { color: #d1d5db; font-weight: 700; }
+  .compare .val { color: #6b7280; }
+  .compare .val-q { color: #4338ca; font-weight: 700; }
+
+  .compare tbody tr:hover { background: #fafafa; }
+  .compare tbody tr:hover .quvex-col { background: #e0e7ff; }
+
+  .highlights { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; }
+  .highlight-card { background: #fff; padding: 30px; border-radius: 16px; border: 1px solid #e5e7eb; text-align: center; }
+  .highlight-icon { font-size: 40px; margin-bottom: 12px; }
+  .highlight-card h3 { font-size: 18px; font-weight: 800; margin-bottom: 8px; }
+  .highlight-card p { color: #6b7280; font-size: 14px; line-height: 1.6; }
+</style>

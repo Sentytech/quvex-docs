@@ -1,0 +1,193 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout
+  title="Demo Iste - Quvex ERP"
+  description="Quvex ERP demo randevusu alin. 30 dakikada sektore ozel canli demo. 24 saat icinde donus."
+>
+  <section class="page-hero">
+    <h1>Canli Demo Randevusu</h1>
+    <p>30 dakikada sektorunuze ozel canli demo. Kredi karti gerekmez. Size en uygun zamani secin.</p>
+  </section>
+
+  <section class="section">
+    <div class="container demo-layout">
+      <div class="demo-form">
+        <div class="eyebrow">Adim 1</div>
+        <h2>Bilgilerinizi Paylasin</h2>
+        <p class="form-sub">Formu doldurun, 24 saat icinde size doneriz.</p>
+
+        <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" id="demo-form">
+          <div class="row">
+            <div class="field">
+              <label>Ad Soyad *</label>
+              <input type="text" name="name" required />
+            </div>
+            <div class="field">
+              <label>Sirket *</label>
+              <input type="text" name="company" required />
+            </div>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label>Email *</label>
+              <input type="email" name="email" required />
+            </div>
+            <div class="field">
+              <label>Telefon *</label>
+              <input type="tel" name="phone" required />
+            </div>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label>Sektor *</label>
+              <select name="sector" required>
+                <option value="">Sectiniz</option>
+                <option>CNC Talasli Imalat</option>
+                <option>Savunma Sanayi</option>
+                <option>Otomotiv</option>
+                <option>Gida Uretim</option>
+                <option>Tekstil & Konfeksiyon</option>
+                <option>Plastik Enjeksiyon</option>
+                <option>Makine Imalat</option>
+                <option>Metal Esya</option>
+                <option>Medikal</option>
+                <option>Mobilya</option>
+                <option>Kaynak & Metal Isleme</option>
+                <option>Diger</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Calisan Sayisi *</label>
+              <select name="employees" required>
+                <option value="">Seciniz</option>
+                <option>1-10</option>
+                <option>11-25</option>
+                <option>26-50</option>
+                <option>51-100</option>
+                <option>101-250</option>
+                <option>250+</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label>Hangi ihtiyaclariniz var? (opsiyonel)</label>
+            <textarea name="message" rows="4" placeholder="Orn: AS9100 sertifika surecimiz icin kalite modulu ariyoruz..."></textarea>
+          </div>
+          <label class="check">
+            <input type="checkbox" required />
+            <span><a href="/privacy">Gizlilik politikasini</a> okudum ve kabul ediyorum.</span>
+          </label>
+          <button type="submit" class="btn btn-primary submit">Demo Randevusu Al →</button>
+        </form>
+      </div>
+
+      <div class="demo-info">
+        <div class="info-card">
+          <div class="eyebrow">Adim 2</div>
+          <h3>Randevu Secin</h3>
+          <p class="form-sub">Formu gonderdikten sonra Calendly uzerinden size uygun zamani secebilirsiniz.</p>
+          <div class="calendly-mock">
+            <div class="cal-header">📅 Calendly</div>
+            <div class="cal-body">
+              <div class="cal-day">Pazartesi</div>
+              <div class="cal-slots">
+                <div class="cal-slot">10:00</div>
+                <div class="cal-slot">14:00</div>
+                <div class="cal-slot">16:30</div>
+              </div>
+              <div class="cal-day">Sali</div>
+              <div class="cal-slots">
+                <div class="cal-slot">11:00</div>
+                <div class="cal-slot">15:00</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <h3>Demo'da Ne Gorurusunuz?</h3>
+          <ul>
+            <li>✓ Sektorunuze ozel sablon + demo data</li>
+            <li>✓ Uretim panosu, is emri, kalite modulu</li>
+            <li>✓ Mobil uygulama + shop floor terminal</li>
+            <li>✓ ROI hesabi + fiyatlandirma</li>
+            <li>✓ Sorulariniza gercek zamanli cevap</li>
+          </ul>
+        </div>
+
+        <div class="info-card contact">
+          <h3>Hemen Ulasin</h3>
+          <p>📧 <a href="mailto:demo@quvex.io">demo@quvex.io</a></p>
+          <p>📞 <a href="tel:+908502000000">+90 850 200 00 00</a></p>
+          <p>💬 WhatsApp: <a href="https://wa.me/908502000000">+90 850 200 00 00</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Thanks modal (hidden) -->
+  <div id="thanks" class="thanks" style="display:none;">
+    <div class="thanks-card">
+      <div class="thanks-icon">✓</div>
+      <h2>Tesekkurler!</h2>
+      <p>Formunuz alindi. 24 saat icinde size doneriz. Aradigimizda Quvex icin hazir olun!</p>
+      <a href="/" class="btn btn-primary">Anasayfaya Don</a>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .demo-layout { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: start; }
+  .demo-form { background: #fff; padding: 40px; border-radius: 18px; border: 1px solid #e5e7eb; box-shadow: 0 12px 36px rgba(0,0,0,0.04); }
+  .eyebrow { display: inline-block; padding: 4px 14px; border-radius: 14px; background: #eef2ff; color: #6366f1; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+  .demo-form h2 { font-size: 26px; font-weight: 800; margin-bottom: 6px; }
+  .form-sub { color: #6b7280; font-size: 14px; margin-bottom: 24px; }
+
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .field { display: flex; flex-direction: column; margin-bottom: 14px; }
+  .field label { font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px; }
+  .field input, .field select, .field textarea { padding: 12px 14px; border: 1px solid #d1d5db; border-radius: 10px; font-size: 14px; font-family: inherit; color: #1a1d3b; background: #fff; }
+  .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99,102,241,0.12); }
+
+  .check { display: flex; align-items: flex-start; gap: 10px; margin: 10px 0 22px; font-size: 13px; color: #6b7280; }
+  .check input { margin-top: 3px; }
+  .check a { color: #6366f1; text-decoration: underline; }
+  .submit { width: 100%; justify-content: center; padding: 16px; font-size: 15px; }
+
+  .demo-info { display: flex; flex-direction: column; gap: 20px; }
+  .info-card { background: #fff; padding: 26px; border-radius: 16px; border: 1px solid #e5e7eb; }
+  .info-card h3 { font-size: 18px; font-weight: 800; margin-bottom: 10px; }
+  .info-card ul { list-style: none; padding: 0; }
+  .info-card li { padding: 6px 0; color: #374151; font-size: 14px; }
+  .info-card.contact p { margin: 6px 0; font-size: 14px; color: #374151; }
+  .info-card.contact a { color: #6366f1; text-decoration: none; font-weight: 600; }
+
+  .calendly-mock { border: 1px dashed #c7d2fe; border-radius: 12px; padding: 16px; background: #fafbff; }
+  .cal-header { font-weight: 700; margin-bottom: 12px; color: #4338ca; font-size: 14px; }
+  .cal-day { font-size: 13px; font-weight: 700; color: #374151; margin: 10px 0 6px; }
+  .cal-slots { display: flex; gap: 8px; flex-wrap: wrap; }
+  .cal-slot { padding: 8px 14px; background: #eef2ff; color: #6366f1; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .cal-slot:hover { background: #6366f1; color: #fff; }
+
+  .thanks { position: fixed; inset: 0; background: rgba(15,23,42,0.85); z-index: 1000; display: grid; place-items: center; padding: 20px; }
+  .thanks-card { background: #fff; border-radius: 20px; padding: 50px 40px; max-width: 500px; text-align: center; }
+  .thanks-icon { width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, #22c55e, #16a34a); color: #fff; font-size: 36px; display: grid; place-items: center; margin: 0 auto 20px; font-weight: 900; }
+  .thanks-card h2 { font-size: 28px; font-weight: 800; margin-bottom: 10px; }
+  .thanks-card p { color: #6b7280; margin-bottom: 24px; }
+
+  @media (max-width: 900px) {
+    .demo-layout { grid-template-columns: 1fr; }
+    .row { grid-template-columns: 1fr; }
+    .demo-form { padding: 28px 22px; }
+  }
+</style>
+
+<script>
+  const form = document.getElementById('demo-form') as HTMLFormElement | null;
+  const thanks = document.getElementById('thanks');
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (thanks) thanks.style.display = 'grid';
+  });
+</script>
