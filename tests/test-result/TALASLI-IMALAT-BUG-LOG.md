@@ -1,16 +1,16 @@
 # Talaşlı İmalat E2E Test — Bug Log
 
 > **Başlangıç:** 2026-04-15
-> **Son Güncelleme:** 2026-04-16 (2. tur kapanış)
+> **Son Güncelleme:** 2026-04-16 (3. tur — tüm buglar kapatıldı)
 > **Plan:** `sprints/plans/2026-04-15-talasli-imalat-e2e-test.md`
 
 ## Aktif Buglar
 
+Tüm buglar kapatıldı ✅
+
 | ID | Tenant | Görev | Sorun | Tür | Öncelik | Durum |
 |----|--------|-------|-------|-----|---------|-------|
-| B03 | T1 | G1 | Provisioning `ProvisioningStatus: "PENDING"` olarak kaydediliyor — Hangfire background job status polling gerektirir, provisioning tamamlanma bildirimi yok | UX | P1 | AÇIK |
 | B04 | T1 | G2 | `Machines.Year` alanı domain entity'de `string?` olarak tanımlanmış, `int` bekleniyor — Swagger'dan `year: 2021` integer gönderilince 400 hatası | BUG | P3 | KAPATILDI |
-| B07 | T1 | G2-3 | POST /Product alanları dokümantasyonda yanlış: `name`→`productName`, `code`→`productNumber` vb. — API doğru, dokümantasyon güncellenmeli | DOC | P3 | AÇIK |
 | B11 | T1/T2 | G8 | PUT /ShopFloor/complete-work/{logId} 404 döndürüyor. Kök neden: ShopFloorController INSERT sorgusunda TenantId eksik → HasQueryFilter log'u bulamıyor | BUG | P1 | KAPATILDI |
 | B13 | T1 | G8 | POST /Production/completion/{id} rowNo=-1 ile: productionCompleteQuantity artar, status DONE olur — "üretim başlatma" gibi davranmamalı | BUG | P1 | KAPATILDI |
 | B16 | T1/T2 | G11 | POST /SubcontractOrder `orderNumber` zorunlu validation — controller override ediyor ama model binder önce devreye giriyor | BUG | P2 | KAPATILDI |
@@ -42,6 +42,13 @@
 | B22 | T2 | G21 | PUT /Invoice/{id}/status query param çalışmıyor | Query param VE JSON body her ikisi de kabul ediliyor (B21 FAI ile simetrik) | 2026-04-16 |
 | B25 | T2 | G21 | /MaintenancePlan 404 | `MaintenanceController`'a `[Route("MaintenancePlan")]` alias eklendi | 2026-04-16 |
 | B26 | T2 | G21 | /Shipping, /Shipment 404 | `ShippingDetailsController`'a `[Route("Shipping")]` ve `[Route("Shipment")]` alias eklendi | 2026-04-16 |
+
+## 3. Tur Kapanış (2026-04-16)
+
+| ID | Fix | Kapatılma |
+|----|-----|-----------|
+| B03 | Provisioning SignalR push: `ProvisioningUpdate` event → `tenant_{id}` grubu. Self-register response'a `ProvisioningStatusUrl` ve `SignalRGroup` eklendi | 2026-04-16 |
+| B07 | ProductController ve WorkOrderTemplatesController Swagger'a açıldı (`[ApiExplorerSettings(IgnoreApi=true)]` kaldırıldı) — doğru alan adları artık görünür | 2026-04-16 |
 | B04 | T1 | G2 | Machines.Year string?→int 400 | `IntOrStringConverter` JsonConverter eklendi, JSON'da 2021 ve "2021" her ikisi de kabul edilir | 2026-04-16 |
 | B11 | T1/T2 | G8 | ShopFloor INSERT WorkOrderLogs TenantId eksik | TenantContext inject edildi, INSERT sorgusuna `"TenantId"` kolonu eklendi (start-work ve start-tracking) | 2026-04-16 |
 | B13 | T1 | G8 | `rowNo=-1` completion sonrası workOrderNext=null → productionComplete artar | `rowNo=-1` branch'ine erken `return Ok(...)` eklendi, iş emri mantığı çalışmaz | 2026-04-16 |
