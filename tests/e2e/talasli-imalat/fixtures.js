@@ -1,0 +1,28 @@
+/**
+ * Talaşlı İmalat E2E — Custom test fixture
+ * https://quvex.io üzerindeki testler için session enjeksiyonu
+ */
+const base = require('@playwright/test')
+const fs = require('fs')
+const path = require('path')
+
+const sessionFile = path.join(__dirname, '../../playwright/.auth/talasli-session.json')
+const authFile    = path.join(__dirname, '../../playwright/.auth/talasli-user.json')
+
+const test = base.test.extend({
+  storageState: authFile,
+
+  page: async ({ page }, use) => {
+    if (fs.existsSync(sessionFile)) {
+      const sessionData = JSON.parse(fs.readFileSync(sessionFile, 'utf-8'))
+      await page.addInitScript((data) => {
+        for (const [key, value] of Object.entries(data)) {
+          if (value != null) window.sessionStorage.setItem(key, value)
+        }
+      }, sessionData)
+    }
+    await use(page)
+  },
+})
+
+module.exports = { test, expect: base.expect }
