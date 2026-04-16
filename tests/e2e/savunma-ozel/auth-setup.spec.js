@@ -1,0 +1,94 @@
+/**
+ * Savunma Özel Prosesler E2E — Auth Setup
+ * NDT, Optik, Hassas Döküm, Kalıp/Takım 4 alt senaryo için ortak tenant
+ */
+const { test: setup, expect } = require('@playwright/test')
+const path = require('path')
+const fs   = require('fs')
+
+const authDir     = path.join(__dirname, '../../playwright/.auth')
+const authFile    = path.join(authDir, 'savunma-ozel-user.json')
+const sessionFile = path.join(authDir, 'savunma-ozel-session.json')
+const tenantFile  = path.join(authDir, 'savunma-ozel-tenant.json')
+
+const API = process.env.API_URL || 'https://api.quvex.io'
+const TS  = Date.now().toString().slice(-6)
+
+const TEST_TENANT = {
+  companyName: `Savunma Ozel Proses Test ${TS}`,
+  subdomain:   `savunmaozel${TS}`,
+  fullName:    'Test Admin',
+  email:       process.env.QUVEX_TEST_EMAIL || `savunmaozel${TS}@savunmatest.com`,
+  phone:       '5321234567',
+  password:    process.env.QUVEX_TEST_PASSWORD || 'Test1234!@#$',
+  sector:      'cnc',
+  plan:        'Basic',
+}
+
+setup('quvex.io — savunma-ozel tenant olustur ve login ol', async ({ page, request }) => {
+  if (!fs.existsSync(authDir)) fs.mkdirSync(authDir, { recursive: true })
+
+  if (process.env.QUVEX_TEST_EMAIL && process.env.QUVEX_TEST_PASSWORD) {
+    TEST_TENANT.email    = process.env.QUVEX_TEST_EMAIL
+    TEST_TENANT.password = process.env.QUVEX_TEST_PASSWORD
+  } else {
+    console.log(`[auth-setup] Yeni tenant: ${TEST_TENANT.email}`)
+    const registerRes = await request.post(`${API}/register`, {
+      headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+      data: TEST_TENANT,
+    })
+    if (registerRes.ok()) {
+      const body = await registerRes.json().catch(() => ({}))
+      fs.writeFileSync(tenantFile, JSON.stringify({
+        email: TEST_TENANT.email, password: TEST_TENANT.password,
+        tenantId: body.tenantId, createdAt: new Date().toISOString(),
+      }, null, 2))
+      console.log(`[auth-setup] Tenant olusturuldu: tenantId=${body.tenantId}`)
+    } else {
+      const err = await registerRes.text().catch(() => '')
+      console.warn(`[auth-setup] Register basarisiz (${registerRes.status()}): ${err.slice(0, 200)}`)
+      TEST_TENANT.email    = 'admin@quvex.com'
+      TEST_TENANT.password = 'Admin123!@#$'
+    }
+    await page.waitForTimeout(2000)
+  }
+
+  await page.goto('/login')
+  await page.waitForLoadState('networkidle', { timeout: 15_000 }).catch(() => {})
+  const emailInput = page.locator('input[name="loginEmail"]')
+  await expect(emailInput).toBeVisible({ timeout: 15_000 })
+  await emailInput.fill(TEST_TENANT.email)
+  await page.locator('input[name="password"]').fill(TEST_TENANT.password)
+  await page.locator('button.qx-login-btn').click()
+  await expect(page).toHaveURL(/home|dashboard/, { timeout: 30_000 })
+  await page.waitForLoadState('networkidle', { timeout: 15_000 }).catch(() => {})
+
+  const sessionData = await page.evaluate(() => {
+    const d = {}
+    for (let i = 0; i < sessionStorage.length; i++) {
+      const k = sessionStorage.key(i); d[k] = sessionStorage.getItem(k)
+    }
+    return d
+  })
+  fs.writeFileSync(sessionFile, JSON.stringify(sessionData, null, 2))
+  await page.context().storageState({ path: authFile })
+
+  const standardUnits = ['ADET', 'KG', 'METRE', 'LİTRE', 'M²', 'M³', 'PAKET', 'KUTU', 'SET', 'TON', 'CM', 'MM', 'GR']
+  const token = sessionData['accessToken']
+  if (token) {
+    let seeded = 0
+    for (const unitName of standardUnits) {
+      const status = await page.evaluate(async ({ api, name, tok }) => {
+        const r = await fetch(`${api}/Units`, {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${tok}`, 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+          body: JSON.stringify({ name }),
+        })
+        return r.status
+      }, { api: API, name: unitName, tok: token })
+      if (status === 200 || status === 201) seeded++
+    }
+    console.log(`[auth-setup] Birimler seed: ${seeded}/${standardUnits.length}`)
+  }
+  console.log('[auth-setup] Savunma Ozel Prosesler — session kaydedildi.')
+})
