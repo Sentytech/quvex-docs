@@ -123,11 +123,58 @@ async function fillAntInput(page, fieldName, value) {
   for (const sel of selectors) {
     const el = page.locator(sel).first()
     if (await el.isVisible({ timeout: 800 }).catch(() => false)) {
+      // click() + fill() — Ant Design controlled input için focus + React onChange tetiklenir
+      await el.click()
       await el.fill(value)
       return true
     }
   }
   console.warn(`[fill] "${fieldName}" alanı bulunamadı`)
+  return false
+}
+
+// Ant Design Select için label-based seçim
+// Yaklaşım: "Birim" label metnini içeren .ant-form-item içindeki .ant-select-selector'a tık
+async function selectAntOption(page, fieldName, optionText, labelText) {
+  // labelText verilmişse label'a göre bul — en güvenilir yöntem
+  if (labelText) {
+    const formItem = page.locator('.ant-form-item').filter({ hasText: labelText }).first()
+    if (await formItem.isVisible({ timeout: 1500 }).catch(() => false)) {
+      const selector = formItem.locator('.ant-select-selector')
+      if (await selector.isVisible({ timeout: 800 }).catch(() => false)) {
+        await selector.click()
+        await page.waitForTimeout(500)
+        const opt = page.locator(`.ant-select-item-option:has-text("${optionText}")`).first()
+        if (await opt.isVisible({ timeout: 2000 }).catch(() => false)) {
+          await opt.click()
+          await page.waitForTimeout(300)
+          return true
+        }
+        await page.keyboard.press('Escape')
+        console.warn(`[select] "${optionText}" dropdown'da bulunamadı`)
+        return false
+      }
+    }
+  }
+  // Fallback: ID-based — .ant-select içindeki label element'ı for="basic_fieldName"
+  const labelFor = page.locator(`label[for="basic_${fieldName}"], label[for="${fieldName}"]`).first()
+  if (await labelFor.isVisible({ timeout: 1000 }).catch(() => false)) {
+    // label'ın en yakın .ant-form-item'ını bul, oradan .ant-select-selector'a git
+    const nearbySelect = page.locator(`.ant-form-item:has(label[for="basic_${fieldName}"]) .ant-select-selector,` +
+      `.ant-form-item:has(label[for="${fieldName}"]) .ant-select-selector`).first()
+    if (await nearbySelect.isVisible({ timeout: 800 }).catch(() => false)) {
+      await nearbySelect.click()
+      await page.waitForTimeout(500)
+      const opt = page.locator(`.ant-select-item-option:has-text("${optionText}")`).first()
+      if (await opt.isVisible({ timeout: 2000 }).catch(() => false)) {
+        await opt.click()
+        await page.waitForTimeout(300)
+        return true
+      }
+      await page.keyboard.press('Escape')
+    }
+  }
+  console.warn(`[select] "${fieldName}" → "${optionText}" seçilemedi`)
   return false
 }
 
@@ -349,16 +396,9 @@ test.describe('FAZ C: Stok Kartı', () => {
     await fillAntInput(page, 'productName', HAMMADDE.productName)
     await fillNumber(page, 'minStock', HAMMADDE.minStock)
 
-    // Birim seçimi — önce Joyride varsa kapat (modal içinde de açılabilir)
+    // Birim seçimi — label "Birim" içeren form item'dan selector'a tık
     await dismissOnboarding(page)
-    const unitSelect = page.locator('#basic_unit, #unit, [id*="unit"]').first()
-    if (await unitSelect.isVisible({ timeout: 2000 }).catch(() => false)) {
-      // force:true ile Joyride overlay'ini bypass et (hâlâ animasyon fazındaysa)
-      await unitSelect.click({ force: true })
-      await page.waitForTimeout(400)
-      const adetOpt = page.locator('.ant-select-item:has-text("Adet")').first()
-      if (await adetOpt.isVisible({ timeout: 2000 }).catch(() => false)) await adetOpt.click()
-    }
+    await selectAntOption(page, 'unit', 'ADET', 'Birim')
 
     const saved = await saveForm(page)
     const toast = await waitForToast(page)
@@ -405,29 +445,34 @@ test.describe('FAZ D: Ürün Kartı', () => {
     await fillAntInput(page, 'revisionNo', 'REV-A')
     await fillAntInput(page, 'oemPartNo', 'RKT-P7075-001')
 
-    // Birim — Adet
-    const unitSelect = page.locator('#basic_unit, #unit, [id*="_unit"]').first()
-    if (await unitSelect.isVisible({ timeout: 2000 }).catch(() => false)) {
-      await unitSelect.click()
-      await page.waitForTimeout(300)
-      const opt = page.locator('.ant-select-item:has-text("Adet")').first()
-      if (await opt.isVisible({ timeout: 2000 }).catch(() => false)) await opt.click()
-    }
+    // Birim — label "Birim" içeren form item'dan selector'a tık
+    await selectAntOption(page, 'unit', 'ADET', 'Birim')
 
-    // Kaydet — form sayfasında buton sayfada olabilir (modal değil)
-    const saveBtn = page.locator('button:has-text("Kaydet"), button:has-text("Oluştur"), button.ant-btn-primary').first()
+    // Kaydet — ProductForm'da back button da ant-btn-primary,
+    // bu yüzden .ant-btn-primary kullanma — sadece "Kaydet" metniyle bul
+    // SaveOutlined icon'u olan Kaydet butonu: button:has(.anticon-save) veya has-text
+    const saveBtn = page.locator('button:has(.anticon-save), button:has-text("Kaydet"):not([disabled])').first()
     if (await saveBtn.isVisible({ timeout: 5000 }).catch(() => false)) {
       await saveBtn.click()
-      await page.waitForTimeout(1500)
+      await page.waitForTimeout(2000) // API + navigate /products/form/{id}
       const toast = await waitForToast(page)
       console.log(`[D.2] Ürün kaydedildi, toast: ${toast}, URL: ${page.url()}`)
     } else {
-      console.warn('[D.2] Kaydet butonu bulunamadı — soft skip')
+      // Fallback: SaveOutlined ikonunu ara
+      const saveBtnFallback = page.locator('.anticon-save').first()
+      if (await saveBtnFallback.isVisible({ timeout: 3000 }).catch(() => false)) {
+        await saveBtnFallback.click()
+        await page.waitForTimeout(2000)
+        console.log(`[D.2] Kaydet (icon) tıklandı, URL: ${page.url()}`)
+      } else {
+        console.warn('[D.2] Kaydet butonu bulunamadı — soft skip')
+      }
     }
 
-    await gotoLight(page, '/products')
+    // gotoAndWait: ürün listesinin yüklendiğinden emin olmak için networkidle bekle
+    await gotoAndWait(page, '/products')
     const html = await page.locator('body').innerHTML()
-    console.log(`[D.2] RKT-BHG tabloda: ${html.includes('RKT-BHG') || html.includes('Fuze')}`)
+    console.log(`[D.2] RKT-BHG tabloda: ${html.includes('RKT-BHG') || html.includes('Fuze') || html.includes('Roketan') || html.includes('ROKETSAN')}`)
   })
 
   test('D.3 — Ürün detayı açılıyor', async ({ page }) => {

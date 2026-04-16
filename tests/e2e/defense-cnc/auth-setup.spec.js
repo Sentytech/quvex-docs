@@ -106,4 +106,31 @@ setup('quvex.io — tenant olustur ve login ol', async ({ page, request }) => {
   // ── Adim 5: localStorage + cookies kaydet ──
   await page.context().storageState({ path: authFile })
   console.log('[auth-setup] Session kaydedildi.')
+
+  // ── Adim 6: Birim (Units) seed — yeni tenant'ta Units tablosu bos geliyor ──
+  // Units.HasQueryFilter(TenantId) → her tenant'in kendi birimi var
+  // TenantRegistrationController birimi seed etmiyor → biz burada ekleriz
+  const standardUnits = ['ADET', 'KG', 'METRE', 'LİTRE', 'M²', 'M³', 'PAKET', 'KUTU', 'SET', 'TON', 'CM', 'MM', 'GR']
+  const token = sessionData['accessToken']
+  if (token) {
+    let seeded = 0
+    for (const unitName of standardUnits) {
+      const result = await page.evaluate(async ({ api, name, tok }) => {
+        const r = await fetch(`${api}/Units`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${tok}`,
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest',
+          },
+          body: JSON.stringify({ name }),
+        })
+        return r.status
+      }, { api: API, name: unitName, tok: token })
+      if (result === 200 || result === 201) seeded++
+    }
+    console.log(`[auth-setup] Birimler seed edildi: ${seeded}/${standardUnits.length}`)
+  } else {
+    console.warn('[auth-setup] Token bulunamadı — birimler seed edilemedi')
+  }
 })

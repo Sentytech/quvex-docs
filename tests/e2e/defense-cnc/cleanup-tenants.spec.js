@@ -14,7 +14,8 @@ const TEST_TENANT_IDS = [
   '47e3639e-aeb4-4b0e-82a2-4bc3994c86e5', // cncadmin918827
   '4858abad-8b9a-4828-922e-7b08dd2579c0', // cncadmin940052
   'feac7d95-cf55-4d7a-a09b-c6bdb230389c', // cncadmin400628
-  '7e0b6c57-2fc4-4972-96a4-fd33c5d6047a', // cncadmin422057 (son koşum)
+  '7e0b6c57-2fc4-4972-96a4-fd33c5d6047a', // cncadmin422057
+  'b82cee63-96a8-4bd7-a1d2-363bcee32545', // cncadmin452787 (2026-04-16 son koşum)
 ]
 
 const API = 'https://api.quvex.io'
