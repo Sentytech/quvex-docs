@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quvex ERP — Talaşlı İmalat E2E Test Planı v2.0</title>
+<title>Quvex ERP — Talaşlı İmalat E2E Test Planı v3.0</title>
 <style>
 /* ══════════════════════════════════════════════════════
    TEMEL
@@ -242,10 +242,37 @@ body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #1a1a
 .sign-box .sl2 { border-top: 1px solid #333; padding-top: 4px; font-size: 10px; color: #888; }
 
 /* ══════════════════════════════════════════════════════
+   KNOW-HOW ACCORDION
+══════════════════════════════════════════════════════ */
+.kh-toggle {
+  background: #fef9c3; border: 1px solid #fde047; border-radius: 6px;
+  padding: 9px 14px; cursor: pointer; display: flex; align-items: center;
+  gap: 8px; margin: 10px 0 0; font-size: 12px; font-weight: 600; color: #854d0e;
+  user-select: none;
+}
+.kh-toggle:hover { background: #fef08a; }
+.kh-arr { margin-left: auto; transition: transform .25s; display: inline-block; }
+.kh-toggle.open .kh-arr { transform: rotate(180deg); }
+.kh-body { display: none; background: #fffef0; border: 1px solid #fde047;
+  border-top: none; border-radius: 0 0 6px 6px; padding: 12px 14px; }
+.kh-body.open { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.kh-item { padding: 10px 12px; border-radius: 6px; font-size: 12px; line-height: 1.5; }
+.kh-what   { background: #eff6ff; border-left: 3px solid #3b82f6; }
+.kh-why    { background: #f0fdf4; border-left: 3px solid #16a34a; }
+.kh-impact { background: #faf5ff; border-left: 3px solid #7c3aed; }
+.kh-error  { background: #fff7ed; border-left: 3px solid #ea580c; }
+.kh-label  { font-weight: 700; font-size: 10px; text-transform: uppercase;
+  letter-spacing: 1px; margin-bottom: 5px; }
+.kh-what .kh-label   { color: #1d4ed8; }
+.kh-why .kh-label    { color: #15803d; }
+.kh-impact .kh-label { color: #6d28d9; }
+.kh-error .kh-label  { color: #c2410c; }
+
+/* ══════════════════════════════════════════════════════
    BASKIYA ÖZGÜ
 ══════════════════════════════════════════════════════ */
 @media print {
-  .sticky-bar, .btn-result, .result-note, .screenshot-box, .btn-print, .btn-reset { display: none !important; }
+  .sticky-bar, .btn-result, .result-note, .screenshot-box, .btn-print, .btn-reset, .kh-toggle, .kh-body { display: none !important; }
   .faz-body.collapsed { display: block !important; }
   body { background: #fff; font-size: 11px; }
   .page-wrap { max-width: 100%; padding: 0; }
@@ -267,7 +294,7 @@ body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #1a1a
 <!-- ════ YAPISTIRILMIŞ BAR ════ -->
 <div class="sticky-bar no-print">
   <div class="sticky-logo">QUVEX<span>.</span></div>
-  <div class="sticky-title">Talaşlı İmalat — E2E Test Planı v2.0</div>
+  <div class="sticky-title">Talaşlı İmalat — E2E Test Planı v3.0 · Know-How</div>
   <div class="sticky-stats">
     <div class="sticky-stat stat-pass"><div class="n" id="hdr-pass">0</div><div class="l">GEÇTİ</div></div>
     <div class="sticky-stat stat-fail"><div class="n" id="hdr-fail">0</div><div class="l">BAŞARISIZ</div></div>
@@ -288,12 +315,12 @@ body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #1a1a
 <div class="cover">
   <div class="cover-logo">QUVEX<span>.</span></div>
   <div class="cover-sub">ERP Platform · Test Planı &amp; Sonuç Raporu</div>
-  <div class="cover-title">Talaşlı İmalat — Uçtan Uca Veri Giriş Testi</div>
+  <div class="cover-title">Talaşlı İmalat — Uçtan Uca Veri Giriş Testi <span style="font-size:14px;background:#fef9c3;color:#854d0e;padding:3px 10px;border-radius:12px;vertical-align:middle;font-weight:600">v3 · Know-How</span></div>
   <div class="cover-scenario">Karadağ Hassas İşleme A.Ş. &nbsp;→&nbsp; ASELSAN Gyro Sensör Gövdesi<br>
   AS9100D · 50 Adet · AL 7075-T6 · Teklif 230.000₺</div>
   <div class="cover-grid">
     <div class="cover-card"><div class="k">Doküman No</div><div class="v">TI-TEST-2026-002</div></div>
-    <div class="cover-card"><div class="k">Versiyon</div><div class="v">v2.0 — İnteraktif</div></div>
+    <div class="cover-card"><div class="k">Versiyon</div><div class="v">v3.0 — Know-How Accordion</div></div>
     <div class="cover-card"><div class="k">Test Ortamı</div><div class="v">https://quvex.io</div></div>
     <div class="cover-card"><div class="k">Tarayıcı</div><div class="v">Chrome / Edge (güncel)</div></div>
     <div class="cover-card"><div class="k">Toplam Adım</div><div class="v" id="cv-total">—</div></div>
@@ -391,6 +418,13 @@ body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #1a1a
           </ul>
         </div>
         <div class="box-warn">Giriş başarısız olursa: şifrenizi kontrol edin. 5 başarısız deneme sonrası hesap 15 dakika kilitlenir.</div>
+        <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+        <div class="kh-body">
+          <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Sistemin kimlik doğrulama (authentication) sürecidir. Şifrenizle kimliğinizi kanıtlar, sisteme erişim tokenı alırsınız.</div>
+          <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Her kayıt "kim oluşturdu / kim değiştirdi" bilgisini taşır. AS9100D denetimlerinde kayıt sahipliği sorgulanır.</div>
+          <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Tüm kayıtlar (ürün, sipariş, NCR, fatura) girişi yapan kullanıcıya atanır. Denetim izleri (audit trail) bu bilgiye dayanır.</div>
+          <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Yanlış kullanıcıyla girerseniz kayıtlar o adına oluşur. 5 hatalı deneme = 15 dk kilit. Koordinatörü bilgilendirin.</div>
+        </div>
         <div class="result-bar">
           <span class="result-label">Sonuç:</span>
           <button class="btn-result btn-pass" onclick="setResult('A1','pass')">✔ GEÇTİ</button>
@@ -437,6 +471,13 @@ body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #1a1a
         <div class="expected">
           <div class="exp-title">✅ Beklenen Sonuç</div>
           <ul><li>Birimler listesinde 13 kayıt göründü</li><li>Her birim büyük harfle listelendi</li></ul>
+        </div>
+        <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+        <div class="kh-body">
+          <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Ölçü birimleri; stok, BOM ve faturadaki tüm miktar ifadelerinin dayandığı referans tablodur (ADET, KG, METRE…).</div>
+          <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Birim tutarsızlığı BOM hesaplamalarını bozar: "0.85 KG" yerine "0.85 ADET" seçilirse maliyet tamamen hatalı çıkar.</div>
+          <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Stok kartları, BOM kalemleri, satın alma siparişleri, fatura kalemleri — hepsi bu tablodaki birimlere bağlanır.</div>
+          <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Küçük harfle ("kg") girilirse ürün formunda bulunamaz. Sonradan birim silmek bağlı kayıtları bozar — dikkatli olun.</div>
         </div>
         <div class="result-bar">
           <span class="result-label">Sonuç:</span>
@@ -494,6 +535,13 @@ body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #1a1a
             <li>ASELSAN, müşteri listesinde göründü</li>
           </ul>
         </div>
+        <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+        <div class="kh-body">
+          <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>ASELSAN gibi kurumsal alıcıların sisteme kaydıdır. Vergi numarası, yetkili kişi ve tür (Müşteri/Tedarikçi) burada tutulur.</div>
+          <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Teklif, sipariş ve fatura oluşturmak için mutlaka bir müşteri kaydı gerekir. Kayıt olmadan bu belgelerin hiçbiri açılamaz.</div>
+          <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Teklifler, satış siparişleri, faturalar, e-posta bildirimleri ve teslimat belgeleri bu kayda bağlanır.</div>
+          <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Yanlış vergi numarası e-Fatura sisteminde redde yol açar. "Müşteri" yerine "Tedarikçi" seçilirse sipariş modülünde firma görünmez.</div>
+        </div>
         <div class="result-bar">
           <span class="result-label">Sonuç:</span>
           <button class="btn-result btn-pass" onclick="setResult('B1','pass')">✔ GEÇTİ</button>
@@ -529,6 +577,13 @@ body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #1a1a
         <div class="expected">
           <div class="exp-title">✅ Beklenen Sonuç</div>
           <ul><li>Yeşil başarı mesajı göründü</li><li>Tedarikçi listesinde göründü</li></ul>
+        </div>
+        <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+        <div class="kh-body">
+          <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Hammadde tedarik ettiğiniz firmaların (Çelik Çelik A.Ş.) sistem kaydıdır. Satın alma siparişleri bu kayda bağlanır.</div>
+          <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>AS9100D maddesi 8.4 — onaylı tedarikçi listesi (ASL) zorunludur. Denetçi tedarikçi yönetimi kayıtlarını ister.</div>
+          <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Satın alma siparişleri, giriş muayene kayıtları, tedarikçi performans raporları bu kayda bağlanır.</div>
+          <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div">"Tedarikçi" yerine "Müşteri" seçilirse satın alma modülünde firma görünmez. NCR tedarikçiye bağlanamaz.</div>
         </div>
         <div class="result-bar">
           <span class="result-label">Sonuç:</span>
@@ -580,6 +635,13 @@ body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #1a1a
           <div class="exp-title">✅ Beklenen Sonuç</div>
           <ul><li>3 makine listede göründü</li><li>Her makine "Aktif" durumunda</li></ul>
         </div>
+        <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+        <div class="kh-body">
+          <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Fabrikadaki fiziksel CNC tezgahlarının dijital kartıdır. Kod, ad, marka ve saatlik maliyet buraya girilir.</div>
+          <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Operasyon bazlı maliyet hesabının temelidir. Saatlik ücret yanlışsa tüm üretim maliyet raporu gerçeği yansıtmaz.</div>
+          <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Üretim emirleri, ShopFloor operasyon atamaları, makine bazlı süre/maliyet analizi ve kapasite planlama.</div>
+          <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Makine kodu yanlışsa operasyon ataması yapılamaz. Saatlik ücret 0 bırakılırsa üretim maliyeti gerçekçi hesaplanamaz.</div>
+        </div>
         <div class="result-bar">
           <span class="result-label">Sonuç:</span>
           <button class="btn-result btn-pass" onclick="setResult('C1','pass')">✔ GEÇTİ</button>
@@ -615,6 +677,13 @@ body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #1a1a
         <div class="expected">
           <div class="exp-title">✅ Beklenen Sonuç</div>
           <ul><li>3 hammadde stok listesinde göründü</li><li>Kategori: Hammadde, Birim doğru seçildi</li></ul>
+        </div>
+        <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+        <div class="kh-body">
+          <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Depodaki fiziksel hammaddelerin (AL çubuk, kesme yağı, freze takımı) sistemdeki stok kartıdır.</div>
+          <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>BOM hesaplamaları, satın alma önerileri ve üretim maliyeti bu kartlara bağlıdır. Kart yoksa sistem stok takibi yapamaz.</div>
+          <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>BOM kalemleri, satın alma önerileri, giriş muayenesi, depo hareketleri ve maliyet hesabı.</div>
+          <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Birim yanlış (KG yerine ADET) seçilirse maliyet anlamsızlaşır. Kategori "Mamul" seçilirse BOM'a hammadde olarak eklenemez.</div>
         </div>
         <div class="result-bar">
           <span class="result-label">Sonuç:</span>
@@ -658,6 +727,13 @@ body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #1a1a
           </ul>
         </div>
         <div class="box-info">📝 Not: URL'den ürün ID'sini not edin. Örnek: <code>/products/form/<strong>xxxxxxxx-xxxx…</strong></code></div>
+        <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+        <div class="kh-body">
+          <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Üretip satacağınız nihai ürünün (Gyro Sensör Gövdesi) kimlik kartıdır. Kod, ad, fiyat ve minimum stok burada tanımlanır.</div>
+          <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Teklif → Sipariş → Üretim Emri → Fatura zincirindeki "ürün" referansı bu karttır. BOM ve kontrol planı bu ürüne bağlanır.</div>
+          <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>BOM, kontrol planları, teklifler, üretim emirleri, faturalar ve tüm stok hareketleri bu karta referans verir.</div>
+          <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Ürün kodu yanlış girilirse BOM bu ürüne bağlanamaz. Satış fiyatı hatalıysa teklif tutarı yanlış hesaplanır.</div>
+        </div>
         <div class="result-bar">
           <span class="result-label">Sonuç:</span>
           <button class="btn-result btn-pass" onclick="setResult('C3','pass')">✔ GEÇTİ</button>
@@ -708,6 +784,13 @@ body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #1a1a
           <div class="exp-title">✅ Beklenen Sonuç</div>
           <ul><li>3 BOM kalemi listede göründü</li><li>Miktar ve birimler doğru kaydedildi</li></ul>
         </div>
+        <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+        <div class="kh-body">
+          <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Bill of Materials (BOM) — bir mamul üretmek için gereken tüm hammadde ve yarı mamullerin listesidir: malzeme + miktar + birim.</div>
+          <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Malzeme ihtiyaç planlamasının (MRP) temelidir. Üretim emri açıldığında sistem BOM'dan ihtiyacı hesaplar ve stoktan rezerve eder.</div>
+          <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Üretim emirleri (hammadde rezervasyonu), satın alma önerileri, maliyet hesabı ve stok tüketim raporları.</div>
+          <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Miktar hatalıysa üretimde malzeme eksilir veya fazla satın alınır. Yanlış hammadde kodu seçilirse yanlış stok kalemi tüketilir.</div>
+        </div>
         <div class="result-bar">
           <span class="result-label">Sonuç:</span>
           <button class="btn-result btn-pass" onclick="setResult('D1','pass')">✔ GEÇTİ</button>
@@ -743,6 +826,13 @@ body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #1a1a
         <div class="expected">
           <div class="exp-title">✅ Beklenen Sonuç</div>
           <ul><li>Kontrol planı kaydedildi</li><li>5 kalem listede göründü</li></ul>
+        </div>
+        <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+        <div class="kh-body">
+          <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Ürünün hangi özelliklerinin (çap, yüzey, ağırlık), nasıl ve hangi aletle ölçüleceğini belgeleyen kalite kontrol dokümanıdır.</div>
+          <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>AS9100D'de zorunludur. ASELSAN teslimat öncesi kontrol planı ister. Denetçi bu belgeyi olmadan süreci onaylamaz.</div>
+          <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Üretim sürecindeki muayene kararları, NCR oluşturma kriterleri ve müşteriye sunulan kalite paketleri bu plana dayanır.</div>
+          <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Tolerans yanlış (∅60±0.5 yerine ∅60±5) girilirse operatör hatalı parçayı kabul eder. Ölçüm aleti eksikse kalite körleşir.</div>
         </div>
         <div class="result-bar">
           <span class="result-label">Sonuç:</span>
@@ -802,6 +892,13 @@ body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #1a1a
             <li>Toplam tutar 230.000₺ göründü</li>
           </ul>
         </div>
+        <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+        <div class="kh-body">
+          <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Müşteriye sunulan fiyat teklifinin sistemdeki kaydıdır. Ürün, miktar, birim fiyat ve toplam tutarı içerir.</div>
+          <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Teklif → Sipariş → Üretim → Fatura zincirinin ilk halkasıdır. Kabul edildiğinde bir tıkla siparişe dönüşür, süreç hızlanır.</div>
+          <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Satış siparişleri, gelir tahmin raporları, müşteri bazlı satış analizi ve CRM geçmişi.</div>
+          <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Fiyat yanlış girilip müşteri kabul ederse düzeltme süreci başlar ve güven sarsılır. Müşteri seçilmezse teklif oluşturulamaz.</div>
+        </div>
         <div class="result-bar">
           <span class="result-label">Sonuç:</span>
           <button class="btn-result btn-pass" onclick="setResult('E1','pass')">✔ GEÇTİ</button>
@@ -833,6 +930,13 @@ body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #1a1a
             <li>Satış siparişleri listesinde yeni kayıt göründü</li>
             <li>Sipariş tutarı 230.000₺</li>
           </ul>
+        </div>
+        <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+        <div class="kh-body">
+          <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Müşterinin kabul ettiği teklifi resmi Satış Siparişi'ne (Sales Order) dönüştürme işlemidir. Veriler tekrarsız aktarılır.</div>
+          <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Satış siparişi, üretim planlamanın tetikleyicisidir. Üretim emri siparişe bağlanarak teslimat takibi otomatik yapılır.</div>
+          <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Üretim emirleri (sipariş bağlantısı), sevkiyat planlaması ve müşteri teslim tarihi takibi bu siparişe bağlanır.</div>
+          <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>"Onayla" adımı atlanırsa "Siparişe Dönüştür" butonu aktif olmayabilir. Sipariş oluşmazsa üretim emri bağlantısız kalır.</div>
         </div>
         <div class="result-bar">
           <span class="result-label">Sonuç:</span>
@@ -879,6 +983,13 @@ body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #1a1a
           <div class="exp-title">✅ Beklenen Sonuç</div>
           <ul><li>Üretim emri oluştu — durum: <strong>DEVAM EDİYOR</strong></li><li>50 adet üretim hedefi göründü</li></ul>
         </div>
+        <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+        <div class="kh-body">
+          <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Fabrikaya "50 adet Gyro Gövdesi üret" diyen resmi belgedir. Hangi ürün, kaç adet, hangi siparişe — bu bilgileri içerir.</div>
+          <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Üretim emri olmadan ShopFloor operasyonları başlatılamaz. BOM'a göre hammadde rezervasyonu bu emirle tetiklenir.</div>
+          <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Hammadde stok rezervasyonu, atölye iş emri ataması, WIP (yarı mamul) stoku ve kapasite planlaması.</div>
+          <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Miktar yanlış girilirse fazla/eksik üretilir. Sipariş bağlantısı yapılmazsa fatura ile üretim ilişkilendirilemez.</div>
+        </div>
         <div class="result-bar">
           <span class="result-label">Sonuç:</span>
           <button class="btn-result btn-pass" onclick="setResult('F1','pass')">✔ GEÇTİ</button>
@@ -913,6 +1024,13 @@ body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #1a1a
         <div class="expected">
           <div class="exp-title">✅ Beklenen Sonuç</div>
           <ul><li>OP10-OP40 tamamlandı olarak işaretlendi</li><li>Üretim emri durumu güncellendi</li></ul>
+        </div>
+        <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+        <div class="kh-body">
+          <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Her işlem adımının (OP10 kaba talaş → OP40 yüzey honlama) teker teker kaydedilip "tamamlandı" işaretlendiği süreçtir.</div>
+          <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>AS9100D izlenebilirlik (traceability) gerektirir: hangi parça, hangi makinede, ne zaman işlendi? ShopFloor bu kaydı tutar.</div>
+          <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Üretim emri tamamlanma durumu, makine bazlı süre/maliyet, kalite kaydı bağlantısı ve NCR oluşturma tetikleyicisi.</div>
+          <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Operasyon tamamlanmadan üretim emri kapatılamaz. Yanlış makine seçilirse maliyet yanlış makinede hesaplanır.</div>
         </div>
         <div class="result-bar">
           <span class="result-label">Sonuç:</span>
@@ -963,6 +1081,13 @@ body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #1a1a
           <div class="exp-title">✅ Beklenen Sonuç</div>
           <ul><li>Giriş muayenesi kaydı oluştu</li><li>Stok miktarı güncellendi</li></ul>
         </div>
+        <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+        <div class="kh-body">
+          <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Tedarikçiden gelen hammaddenin depoya alınmadan yapılan kalite kontrolüdür. Sonuç: Kabul / Red / Şartlı Kabul.</div>
+          <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>AS9100D madde 8.4 — gelen malzeme doğrulanmadan üretime alınamaz. Lot numarası kaydı izlenebilirliği sağlar.</div>
+          <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Stok miktarı (kabul edilen miktar depoya girer), tedarikçi performans skoru, lot bazlı izlenebilirlik zinciri.</div>
+          <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>"Kabul" yerine "Red" seçilirse stok güncellenmez ve üretim malzeme bulamaz. Lot numarası eksik = izlenebilirlik boşluğu.</div>
+        </div>
         <div class="result-bar">
           <span class="result-label">Sonuç:</span>
           <button class="btn-result btn-pass" onclick="setResult('G1','pass')">✔ GEÇTİ</button>
@@ -995,6 +1120,13 @@ body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #1a1a
         <div class="expected">
           <div class="exp-title">✅ Beklenen Sonuç</div>
           <ul><li>NCR kaydı oluştu</li><li>NCR listesinde "AÇIK" durumda göründü</li></ul>
+        </div>
+        <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+        <div class="kh-body">
+          <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Non-Conformance Record (NCR) — standarda uymayan durumun resmi kaydıdır. "Ra 1.2μm ölçüldü, spec 0.8μm" gibi somut bulgudur.</div>
+          <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>AS9100D madde 8.7 — uygunsuz ürünler belgelenmeli ve kontrol altına alınmalıdır. NCR olmadan CAPA açılamaz.</div>
+          <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>CAPA tetiklemesi, etkilenen ürün miktarı/lot takibi, müşteri bildirimi kararı ve ıskarta maliyet analizi.</div>
+          <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Ciddiyet "MINOR" yerine "MAJOR" girilirse gereksiz eskalasyon olur. Etkilenen miktar yanlışsa ıskarta raporu hatalı çıkar.</div>
         </div>
         <div class="result-bar">
           <span class="result-label">Sonuç:</span>
@@ -1034,6 +1166,13 @@ body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #1a1a
             <li>NCR kaydına bağlandı</li>
             <li>NCR durumu da güncellendi</li>
           </ul>
+        </div>
+        <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+        <div class="kh-body">
+          <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Corrective &amp; Preventive Action — sorunun kök nedenini bulup kalıcı çözüme bağlayan ve belgeleme yapılan resmi süreçtir.</div>
+          <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>AS9100D madde 10.2 — kök neden analizi kayıt altına alınmalıdır. CAPA kapatılmadan NCR "açık" kalır; bu denetimde büyük bulgudur.</div>
+          <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>NCR durumu güncellenir, tedarikçi/süreç değerlendirme skoru etkilenir, kalite trend raporları bu veriden beslenir.</div>
+          <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>"ROOT_CAUSE" yazmak sistem hatası verir (Bug B-05) — mutlaka <strong>ROOT_CAUSE_ANALYSIS</strong> seçin. CAPA kapatılmazsa NCR sonsuza açık kalır.</div>
         </div>
         <div class="result-bar">
           <span class="result-label">Sonuç:</span>
@@ -1086,6 +1225,13 @@ body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #1a1a
           <div class="exp-title">✅ Beklenen Sonuç</div>
           <ul><li>Sertifika kaydedildi</li><li>Sertifika listesinde göründü</li></ul>
         </div>
+        <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+        <div class="kh-body">
+          <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Üretilen parçanın AS9100D standardına uygunluğunu belgeleyen Uygunluk Belgesidir (CoC — Certificate of Conformance).</div>
+          <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Hava savunma tedarik zincirinde CoC olmadan teslimat kabul edilmez. ASELSAN her sevkiyatla birlikte CoC ister.</div>
+          <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Sevkiyat paketi belgeleri, müşteri kabul süreci ve AS9100D kayıt gereksinimleri (madde 9.1) bu sertifikaya dayanır.</div>
+          <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Geçerlilik tarihi geçmişse CoC geçersizdir. Standart yanlış yazılırsa müşteri denetçisi reddeder, sevkiyat durabilir.</div>
+        </div>
         <div class="result-bar">
           <span class="result-label">Sonuç:</span>
           <button class="btn-result btn-pass" onclick="setResult('H1','pass')">✔ GEÇTİ</button>
@@ -1126,6 +1272,13 @@ body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #1a1a
             <li>Toplam tutar 220.800₺ göründü</li>
             <li>Fatura listesinde ASELSAN adına kayıt göründü</li>
           </ul>
+        </div>
+        <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+        <div class="kh-body">
+          <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Müşteriye kesilen resmi satış faturasıdır. Ürün, miktar (NCR nedeniyle 48 adet), birim fiyat ve toplam tutarı içerir.</div>
+          <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Fatura, hukuki ve mali kaydın en kritik belgesidir. Muhasebe, gelir takibi ve vergi beyanının temelidir.</div>
+          <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Muhasebe defteri (gelir kaydı), müşteri alacakları (AR), mal çıkış stoku, KDV beyanı ve nakit akış raporu.</div>
+          <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>50 yerine 48 girilmezse fazla fatura kesilir — müşteri itiraz eder. Müşteri yanlış seçilirse başka firmaya fatura gider, hukuki sorun doğar.</div>
         </div>
         <div class="result-bar">
           <span class="result-label">Sonuç:</span>
@@ -1284,6 +1437,12 @@ function updateStats() {
     const el = document.getElementById('pct-' + faz);
     if (el) el.textContent = Math.round(p / ids.length * 100) + '%';
   });
+}
+
+function toggleKH(el) {
+  el.classList.toggle('open');
+  const body = el.nextElementSibling;
+  if (body) body.classList.toggle('open');
 }
 
 function toggleFaz(header) {
