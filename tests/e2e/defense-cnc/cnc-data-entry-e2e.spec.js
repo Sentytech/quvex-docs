@@ -349,10 +349,12 @@ test.describe('FAZ C: Stok Kartı', () => {
     await fillAntInput(page, 'productName', HAMMADDE.productName)
     await fillNumber(page, 'minStock', HAMMADDE.minStock)
 
-    // Birim seçimi
+    // Birim seçimi — önce Joyride varsa kapat (modal içinde de açılabilir)
+    await dismissOnboarding(page)
     const unitSelect = page.locator('#basic_unit, #unit, [id*="unit"]').first()
     if (await unitSelect.isVisible({ timeout: 2000 }).catch(() => false)) {
-      await unitSelect.click()
+      // force:true ile Joyride overlay'ini bypass et (hâlâ animasyon fazındaysa)
+      await unitSelect.click({ force: true })
       await page.waitForTimeout(400)
       const adetOpt = page.locator('.ant-select-item:has-text("Adet")').first()
       if (await adetOpt.isVisible({ timeout: 2000 }).catch(() => false)) await adetOpt.click()
