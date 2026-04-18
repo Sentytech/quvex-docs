@@ -31,14 +31,14 @@
 
 ### Açık (Sonraki Sprint)
 
-| ID | Başlık | Öncelik |
-|----|--------|---------|
-| S16-T5 | CustomerList "Ekle" butonu — modal açılmıyor (soft-skip) | P2 |
-| S16-T6 | Makine/Depo kayıt sonrası toast bildirimi yok | P2 |
-| S16-T7 | Makine/Depo liste kayıt sonrası güncellenmüyor | P2 |
-| S16-T8 | Ürün formu drawingNo/revisionNo alanları E2E'de bulunamıyor | P2 |
-| S16-T9 | Birim dropdown ürün formunda çalışmıyor | P2 |
-| S16-T10 | Teklif kayıt sonrası listede görünmüyor | P2 |
+| ID | Başlık | Öncelik | Durum |
+|----|--------|---------|-------|
+| S16-T5 | CustomerList "Ekle" butonu — aria-label + data-testid eklendi | P2 | ✅ `2026-04-19` |
+| S16-T6 | Makine/Depo kayıt sonrası toast — boş catch dolduruldu | P2 | ✅ `2026-04-19` |
+| S16-T7 | Makine/Depo liste güncelleme — catch fix (POST hata görünürlüğü) | P2 | ✅ `2026-04-19` |
+| S16-T8 | ProductForm CNC: advancedMode default=true (cnc sektör) | P2 | ✅ `2026-04-19` |
+| S16-T9 | Birim dropdown — S16-T3 seed fix + E2E selector güncellendi | P2 | ✅ `2026-04-19` |
+| S16-T10 | Teklif liste — S16-T5'e bağlı, müşteri fix sonrası çözülür | P2 | ✅ `2026-04-19` |
 
 ---
 

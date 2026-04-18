@@ -128,7 +128,10 @@ async function openAddModal(page) {
   await dismissOnboarding(page)
   // Ant Design: circle icon button (shape="circle") veya text butonlar
   // anticon-plus span Ant Design PlusOutlined iconunu render eder
+  // data-testid="btn-add-*" veya aria-label="Ekle" önce dene (en güvenilir)
   const btn = page.locator([
+    '[data-testid^="btn-add"]',
+    'button[aria-label="Ekle"]',
     'button:has(.anticon-plus)',
     'button:has-text("Ekle")',
     'button:has-text("Yeni")',
@@ -503,6 +506,15 @@ test.describe('FAZ D: Ürün Kartı', () => {
     // Form name="basic" olduğundan ID'ler: basic_productNumber vb.
     await fillAntInput(page, 'productNumber', MAMUL.productNumber)
     await fillAntInput(page, 'productName', MAMUL.productName)
+
+    // CNC teknik alanlar (technicalDrawingNo, revisionNo, oemPartNo) advancedMode altında
+    // CNC sektöründe default açık ama kapalıysa "Detaylı Bilgiler" toggle'a tık
+    const advancedBtn = page.locator('button:has-text("Detaylı Bilgiler"), button:has-text("detaylı")')
+    if (await advancedBtn.first().isVisible({ timeout: 2000 }).catch(() => false)) {
+      await advancedBtn.first().click()
+      await page.waitForTimeout(300)
+    }
+
     await fillAntInput(page, 'technicalDrawingNo', 'TRS-RKT-BHG-7075-A')
     await fillAntInput(page, 'revisionNo', 'REV-A')
     await fillAntInput(page, 'oemPartNo', 'RKT-P7075-001')
