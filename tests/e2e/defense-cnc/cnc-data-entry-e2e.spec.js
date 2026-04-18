@@ -68,18 +68,40 @@ const MAMUL = {
 // ─── Yardımcı ───────────────────────────────────────────────
 
 // Yeni tenant'ta React Joyride onboarding turu açılır — tüm tıklamaları engeller
-// Her sayfa geçişinden sonra "Atla" butonunu kapat
+// Her sayfa geçişinden önce/sonra Joyride overlay + onboarding modal'ı kapat
 async function dismissOnboarding(page) {
-  const skipBtn = page.locator('[data-test-id="button-skip"], [data-action="skip"], button[title="Atla"]')
-  if (await skipBtn.first().isVisible({ timeout: 1000 }).catch(() => false)) {
-    await skipBtn.first().click({ force: true })
-    await page.waitForTimeout(400)
-    console.log('[onboarding] Joyride turu atlandı')
-    // İkinci adım olabilir, tekrar dene
-    if (await skipBtn.first().isVisible({ timeout: 800 }).catch(() => false)) {
-      await skipBtn.first().click({ force: true })
-      await page.waitForTimeout(300)
+  // React Joyride: data-action="skip" (v2), aria-label içeren skip butonu, veya metinle
+  const skipSelectors = [
+    '[data-action="skip"]',
+    '[data-test-id="button-skip"]',
+    'button[aria-label*="skip" i]',
+    'button[aria-label*="atla" i]',
+    'button:has-text("Atla")',
+    'button:has-text("Skip")',
+    'button[title="Atla"]',
+    // Ant Design Modal "Atla" butonu (onboarding modal)
+    '.ant-modal-footer button:has-text("Atla")',
+    '.ant-modal-footer button:has-text("Daha Sonra")',
+  ]
+  for (let attempt = 0; attempt < 3; attempt++) {
+    let dismissed = false
+    for (const sel of skipSelectors) {
+      const btn = page.locator(sel).first()
+      if (await btn.isVisible({ timeout: 500 }).catch(() => false)) {
+        await btn.click({ force: true })
+        await page.waitForTimeout(300)
+        console.log(`[onboarding] Kapatıldı: ${sel}`)
+        dismissed = true
+        break
+      }
     }
+    if (!dismissed) break
+  }
+  // Also close any blocking overlay by pressing Escape
+  const overlay = page.locator('.__floater__open, .react-joyride__overlay')
+  if (await overlay.first().isVisible({ timeout: 300 }).catch(() => false)) {
+    await page.keyboard.press('Escape')
+    await page.waitForTimeout(200)
   }
 }
 
@@ -87,9 +109,9 @@ async function gotoAndWait(page, path) {
   await page.goto(path)
   await page.waitForLoadState('domcontentloaded')
   // networkidle: React componentleri render etsin, butonlar DOM'a girsin
-  await page.waitForLoadState('networkidle', { timeout: 8000 }).catch(() => {})
+  await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {})
   await dismissOnboarding(page)
-  await page.waitForTimeout(300)
+  await page.waitForTimeout(500)
 }
 
 // Form kayıt sonrası liste sayfasına dönüş — networkidle beklenmez
@@ -104,12 +126,32 @@ async function gotoLight(page, path) {
 async function openAddModal(page) {
   // Joyride overlay varsa önce onu kapat
   await dismissOnboarding(page)
-  const btn = page.locator('button:has(.anticon-plus), button:has-text("Ekle"), button:has-text("Yeni")')
-  const visible = await btn.first().isVisible({ timeout: 6000 }).catch(() => false)
-  if (visible) { await btn.first().click(); await page.waitForTimeout(600) }
-  // Modal açıldıktan sonra da joyride açılabilir
-  await dismissOnboarding(page)
-  return visible
+  // Ant Design: circle icon button (shape="circle") veya text butonlar
+  // anticon-plus span Ant Design PlusOutlined iconunu render eder
+  const btn = page.locator([
+    'button:has(.anticon-plus)',
+    'button:has-text("Ekle")',
+    'button:has-text("Yeni")',
+    'button:has-text("Yeni Ekle")',
+    '.ant-card-extra button',      // Card header'daki ekle butonu
+    'button[type="button"].ant-btn-primary:has(.anticon)',
+  ].join(', '))
+  // En kısa scroll'la görünür olan butonu bul
+  const count = await btn.count()
+  for (let i = 0; i < Math.min(count, 5); i++) {
+    const el = btn.nth(i)
+    try {
+      await el.scrollIntoViewIfNeeded({ timeout: 1000 })
+      if (await el.isVisible({ timeout: 2000 })) {
+        await el.click({ force: true })
+        await page.waitForTimeout(700)
+        await dismissOnboarding(page)
+        return true
+      }
+    } catch { /* devam */ }
+  }
+  console.warn('[openAddModal] Ekle/Plus butonu bulunamadı')
+  return false
 }
 
 async function fillAntInput(page, fieldName, value) {
@@ -196,21 +238,34 @@ async function fillNumber(page, fieldName, value) {
 }
 
 async function saveForm(page) {
-  const saveBtn = page.locator(
-    'button:has-text("Kaydet"), button:has-text("Oluştur"), button:has-text("Onayla"), .ant-modal-footer button.ant-btn-primary'
-  )
+  // Modal footer OK butonu veya form içindeki Kaydet butonu
+  const saveBtn = page.locator([
+    '.ant-modal-footer button.ant-btn-primary',
+    '.ant-modal-footer button:has-text("Kaydet")',
+    'button:has-text("Kaydet"):not([disabled])',
+    'button:has-text("Oluştur"):not([disabled])',
+    'button:has-text("Onayla"):not([disabled])',
+    'button:has(.anticon-save)',
+  ].join(', '))
   const visible = await saveBtn.first().isVisible({ timeout: 5000 }).catch(() => false)
   if (visible) {
     await saveBtn.first().click()
-    await page.waitForTimeout(1200)
+    // API çağrısı + React state update için bekle
+    await page.waitForTimeout(2000)
   }
   return visible
 }
 
-async function waitForToast(page, timeout = 6000) {
-  const toast = page.locator(
-    '.ant-message-notice, .ant-notification-notice, [class*="toast"], [class*="Toastify"]'
-  )
+async function waitForToast(page, timeout = 8000) {
+  // Ant Design notification veya message component'leri
+  const toast = page.locator([
+    '.ant-notification-notice',
+    '.ant-message-notice',
+    '.ant-notification',
+    '[class*="notification"]',
+    '[class*="toast"]',
+    '[class*="Toastify"]',
+  ].join(', '))
   return await toast.first().isVisible({ timeout }).catch(() => false)
 }
 
@@ -331,6 +386,8 @@ test.describe('FAZ B: Makine ve Depo', () => {
     const opened = await openAddModal(page)
     if (!opened) { console.warn('[B.2] Soft skip'); return }
 
+    // Modal açıldıktan sonra kısa bekleme (Ant Design animasyon)
+    await page.waitForSelector('.ant-modal-body, .ant-drawer-body', { timeout: 5000 }).catch(() => {})
     await fillAntInput(page, 'code', MAKINE.code)
     await fillAntInput(page, 'name', MAKINE.name)
     await fillAntInput(page, 'brand', MAKINE.brand)
@@ -340,7 +397,9 @@ test.describe('FAZ B: Makine ve Depo', () => {
     const toast = await waitForToast(page)
     console.log(`[B.2] Makine kaydedildi: ${saved}, toast: ${toast}`)
 
-    await gotoLight(page, '/settings/machines')
+    // Modal kapandıktan sonra list reload için bekle
+    await page.waitForSelector('.ant-modal', { state: 'hidden', timeout: 5000 }).catch(() => {})
+    await page.waitForTimeout(500)
     const html = await page.locator('body').innerHTML()
     console.log(`[B.2] CNC-T1 tabloda: ${html.includes('CNC-T1')}`)
   })
@@ -358,6 +417,7 @@ test.describe('FAZ B: Makine ve Depo', () => {
     const opened = await openAddModal(page)
     if (!opened) { console.warn('[B.4] Soft skip'); return }
 
+    await page.waitForSelector('.ant-modal-body, .ant-drawer-body', { timeout: 5000 }).catch(() => {})
     await fillAntInput(page, 'code', DEPO.code)
     await fillAntInput(page, 'name', DEPO.name)
 
@@ -365,7 +425,9 @@ test.describe('FAZ B: Makine ve Depo', () => {
     const toast = await waitForToast(page)
     console.log(`[B.4] Depo kaydedildi: ${saved}, toast: ${toast}`)
 
-    await gotoLight(page, '/warehouses')
+    // Modal kapandıktan sonra list reload için bekle
+    await page.waitForSelector('.ant-modal', { state: 'hidden', timeout: 5000 }).catch(() => {})
+    await page.waitForTimeout(500)
     const html = await page.locator('body').innerHTML()
     console.log(`[B.4] DEPO-HAM tabloda: ${html.includes('DEPO-HAM')}`)
   })
@@ -629,11 +691,14 @@ test.describe('FAZ G: Üretim Emri', () => {
 
   test('G.3 — Üretim istatistik kartları görünüyor', async ({ page }) => {
     await gotoAndWait(page, '/production')
-    // Ant Design Statistic veya card bileşenleri
-    const stats = page.locator('.ant-statistic, .ant-card, [class*="stat-card"], [class*="summary"]')
+    // Production.js: initialLoading=true → TableSkeleton gösterilir, sonra qx-stat-card render edilir
+    // networkidle'dan sonra React state update için ek bekleme gerekebilir
+    await page.waitForSelector('.qx-stat-card, .ant-statistic, [class*="stat-card"]', { timeout: 8000 }).catch(() => {})
+    // qx-stat-card: Production.js'de 5 adet kart (Total/Waiting/InProcess/Completed/Delayed)
+    const stats = page.locator('.qx-stat-card, .ant-statistic, .ant-card, [class*="stat-card"]')
     const count = await stats.count()
     console.log(`[G.3] İstatistik kart sayısı: ${count}`)
-    // Sayfa yüklendi mi kontrol et
+    expect(count).toBeGreaterThan(0)
     const body = await page.locator('body').innerHTML()
     expect(body.length).toBeGreaterThan(200)
   })
