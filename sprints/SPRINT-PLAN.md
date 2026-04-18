@@ -1,8 +1,37 @@
 # Quvex ERP — Sprint Planı
 
-> **Son Güncelleme:** 2026-04-13
-> **Durum:** 12 sprint tamamlandı + Sprint 13 aktif (ALTAY YAZILIM E2E bulgular)
-> **Toplam Test:** 686 UI + 1223 API + 48 CNC E2E + 21 Sektör E2E + 527 Playwright + 161 Python smoke = 2660+
+> **Son Güncelleme:** 2026-04-18
+> **Durum:** Sprint 13-15 tamamlandı + Sprint 16 başlıyor (Defense CNC tam E2E — 136 test, buglar tespit edildi)
+> **Toplam Test:** 686 UI + 1223 API + 136 Defense CNC E2E (72 sayfa + 53 veri girişi + 11 perf) + 21 Sektör E2E + 527 Playwright = 2793+
+
+## Sprint 16 — Defense CNC E2E Bug Kapama (2026-04-18)
+
+> **Kaynak:** `quvex-docs/bugs/E2E-BACKLOG-2026-04-18.md`
+> **Test Ortamı:** localhost:3000 + localhost:5052, yeni CNC tenant × her koşum
+> **Sonuç:** 136/136 test geçti, 10 bug tespit edildi (1 zaten düzeltildi)
+
+### Düzeltildi Bu Session'da
+
+| ID | Başlık | Tür | Dosya | Durum |
+|----|--------|-----|-------|-------|
+| S16-T1 | **Provisioning Cache Bug** — PENDING 1 saat cache'de kalıyordu, dashboard 202 dönüyordu | BUG | `TenantResolutionMiddleware.cs` | ✅ |
+| S16-T2 | **DashboardController DbContext threading** — Task.WhenAll paylaşımlı DbContext çöküyor | BUG | `DashboardController.cs` | ✅ |
+| S16-T3 | **Unit Seeding** — Yeni tenant'ta birimler boş, ürün formu birim seçemiyor | BUG | `TenantSchemaService.cs` | ✅ |
+| S16-T4 | **M²/M³ Unicode** — JSON output encoder eklendi, özel karakterler düzgün serialize | FIX | `Program.cs` | ✅ |
+
+### Açık (Sonraki Sprint)
+
+| ID | Başlık | Öncelik |
+|----|--------|---------|
+| S16-T5 | CustomerList "Ekle" butonu E2E'de bulunamıyor | P1 |
+| S16-T6 | Makine/Depo kayıt sonrası toast bildirimi yok | P1 |
+| S16-T7 | Makine/Depo liste kayıt sonrası güncellenmüyor | P1 |
+| S16-T8 | Ürün formu CNC alanları eksik (productNumber, drawingNo, revisionNo) | P1 |
+| S16-T9 | Birim dropdown ürün formunda çalışmıyor | P1 |
+| S16-T10 | Teklif kayıt sonrası listede görünmüyor | P1 |
+| S16-T11 | Üretim istatistik kartları yüklenmiyor (UI binding) | P1 |
+
+---
 
 ---
 
