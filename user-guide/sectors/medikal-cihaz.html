@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Medikal Cihaz Sektörü - Quvex ERP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="container">
+
+  <a href="../index.html" class="nav-back">&#8592; Ana Sayfa</a>
+
+  <div class="doc-header">
+    <span class="version-badge">v1.5</span>
+    <div class="breadcrumb"><a href="../index.html">Kullanıcı Kılavuzu</a> / <a href="../index.html">Sektör Rehberleri</a> / Medikal Cihaz</div>
+    <h1>Medikal Cihaz Sektörü Rehberi</h1>
+    <p>ISO 13485, MDR 2017/745, UDI izlenebilirlik, lot bazlı tam zincir takibi, CAPA/NCR yönetimi ve recall (geri çağırma). Medikal cihaz üretiminizi Quvex ile tam uyumlu yönetin.</p>
+  </div>
+
+  <div class="two-col">
+
+    <aside>
+      <nav class="nav-sidebar">
+        <a href="#zorunluluklar">Sektör Gereksinimleri</a>
+        <a href="#modüller">Quvex Modül Eşleşmesi</a>
+        <a href="#onboarding">Onboarding Adımları</a>
+        <a href="#senaryo">Örnek Senaryo</a>
+        <a href="#kurulum">Tipik Tesis Kurulumu</a>
+        <a href="#başlangıç">Başlangıç Adımları</a>
+      </nav>
+    </aside>
+
+    <main>
+
+      <section id="zorunluluklar">
+        <h2>Sektör Gereksinimleri</h2>
+        <p>Medikal cihaz üreticileri için kritik gereksinimler: ISO 13485 kalite yönetimi, MDR 2017/745 CE uyumu, UDI (Unique Device Identification), ISO 14971 risk yönetimi, ISO 10993 biyouyumluluk, tam lot izlenebilirlik (hammadde → hasta) ve yaşam tehdit eden durumlarda hızlı recall kapasitesidir.</p>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Gereksinim</th><th>Öncelik</th><th>Açıklama</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Lot İzlenebilirlik (Tam Zincir)</td><td><span class="badge badge-new">KRİTİK</span></td><td>Hammadde tedarikçisinden son hastaya kadar izleme</td></tr>
+            <tr><td>UDI (Unique Device ID)</td><td><span class="badge badge-new">KRİTİK</span></td><td>Her cihaz için benzersiz tanımlayıcı, lazer markalama</td></tr>
+            <tr><td>Recall (Geri Çağırma)</td><td><span class="badge badge-new">KRİTİK</span></td><td>Yaşam tehdit eden durumda saatler içinde tam müşteri listesi</td></tr>
+            <tr><td>NCR / CAPA</td><td><span class="badge badge-new">KRİTİK</span></td><td>Uygunsuzluk + düzeltici/önleyici faaliyet, kapatma kaydı</td></tr>
+            <tr><td>Hammadde Sertifikası</td><td><span class="badge badge-new">KRİTİK</span></td><td>ASTM F136 Ti-6Al-4V gibi, her lot için sertifika</td></tr>
+            <tr><td>Temiz Oda Kayıtları</td><td>Yüksek</td><td>Sınıf 8 temiz oda sıcaklık/nem/partikül kayıtları</td></tr>
+            <tr><td>Sterilizasyon İzleme</td><td>Yüksek</td><td>EtO (fason) sterilizasyon lot izleme, kalıcı sertifika</td></tr>
+            <tr><td>Risk Dosyası (ISO 14971)</td><td>Yüksek</td><td>Risk analizi ve yönetim planı</td></tr>
+            <tr><td>Biyouyumluluk (ISO 10993)</td><td>Yüksek</td><td>Sitotoksisite, irritasyon, implantasyon testleri</td></tr>
+            <tr><td>Dosya Arşiv (15 yıl)</td><td>Orta</td><td>DHR (Device History Record) uzun süreli arşiv</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="modüller">
+        <h2>Quvex Modül Eşleşmesi</h2>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Gereksinim</th><th>Quvex Modülü</th><th>Ekran</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Lot İzlenebilirlik</td><td>Stok + İzlenebilirlik</td><td>Stok &gt; Lot &gt; Genealogy</td></tr>
+            <tr><td>UDI Tanımlama</td><td>Stok</td><td>Stok &gt; Ürünler &gt; UDI</td></tr>
+            <tr><td>Recall</td><td>Kalite</td><td>Kalite &gt; <a href="../modules/haccp-recall.html">Recall</a></td></tr>
+            <tr><td>NCR / CAPA</td><td>Kalite</td><td>Kalite &gt; NCR, CAPA</td></tr>
+            <tr><td>Hammadde Sertifikası</td><td>Stok</td><td>Stok &gt; Lot &gt; Sertifikalar</td></tr>
+            <tr><td>Temiz Oda Kayıtları</td><td>Kalite</td><td>Kalite &gt; Çevre Kayıtları</td></tr>
+            <tr><td>Sterilizasyon Fason</td><td>Üretim</td><td>Üretim &gt; Fason İş Emirleri</td></tr>
+            <tr><td>Risk Dosyası</td><td>Kalite</td><td>Kalite &gt; Risk Analizi</td></tr>
+            <tr><td>CE Teknik Dosya</td><td>Belgeler</td><td>Belgeler &gt; MDR Teknik Dosya</td></tr>
+            <tr><td>DHR Arşivi</td><td>Belgeler</td><td>Belgeler &gt; Cihaz Geçmişi</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="onboarding">
+        <h2>Onboarding: Otomatik Yapılandırma</h2>
+        <p>"Medikal Cihaz" sektör profilini seçtiğinizde:</p>
+
+        <div class="card-grid">
+          <div class="card">
+            <h4>Tam Lot Zorunlu</h4>
+            <p>Tüm hammadde, ara ürün ve son ürünlerde lot zorunlu hale gelir. Lot olmadan hareket yapılamaz.</p>
+          </div>
+          <div class="card">
+            <h4>UDI Alanı</h4>
+            <p>Ürünlerde UDI-DI ve UDI-PI alanları açılır. Lazer markalama formatı tanımlanır.</p>
+          </div>
+          <div class="card">
+            <h4>NCR/CAPA Modülü</h4>
+            <p>Uygunsuzluk ve düzeltici faaliyet süreçleri aktif, kapanış zorunlu.</p>
+          </div>
+          <div class="card">
+            <h4>Recall Modülü</h4>
+            <p>Yaşam tehdit eden durumlar için hızlı recall workflow'u hazır.</p>
+          </div>
+          <div class="card">
+            <h4>ISO 14971 Şablonu</h4>
+            <p>Risk analizi şablonu sisteme yüklenir.</p>
+          </div>
+          <div class="card">
+            <h4>MDR Teknik Dosya</h4>
+            <p>MDR 2017/745 için dosya şablonu kurulur.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="senaryo">
+        <h2>Örnek Senaryo: MedTek Bey'in Ortopedik Vida Üretimi</h2>
+        <p>MedTek Bey, ortopedik pedikül vida üreten bir medikal cihaz firmasında yönetici. Sınıf IIb cihaz, ISO 13485 belgeli, MDR uyumlu.</p>
+
+        <h3>Tedarik ve Hammadde</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Tedarikçi Değerlendirme</h4>
+              <p>Satınalma &gt; Tedarikçiler'den "TiSupplier GmbH" eklenir. ISO 13485 sertifikası, ASTM F136 malzeme belgesi yüklenir. Tedarikçi onay listesine alınır.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Hammadde Girişi</h4>
+              <p>25kg Ti-6Al-4V ELI çubuk malzeme gelir. Stok &gt; Mal Kabul'den LOT-TI-2026-001 açılır. Döküm numarası, ASTM F136 sertifikası, kimyasal analiz sisteme yüklenir. Karantinaya alınır.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Giriş Kalite Kontrol</h4>
+              <p>Kalite &gt; Giriş Kontrol'den malzeme boyut, yüzey ve belge kontrolü yapılır. Uygun → karantinadan çıkar, üretime hazır.</p>
+            </div>
+          </div>
+        </div>
+
+        <h3>Ürün ve Üretim</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>Ürün Tanımı ve UDI</h4>
+              <p>"Pedikül Vida 6.5×45mm" ürünü Stok &gt; Ürünler'den açılır. UDI-DI (cihaz kimliği) ve UDI-PI (üretim lot+son kullanma) formatı tanımlanır. GS1 barkod standardı.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <h4>Swiss CNC Üretim</h4>
+              <p>Üretim &gt; İş Emirleri'nden 500 adetlik iş emri açılır. Swiss CNC'de titanyum çubuktan vidalar işlenir. LOT-TI-2026-001 hammaddeden kullanılıyor (sistem otomatik bağlar).</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">6</div>
+            <div class="step-content">
+              <h4>Pasivizasyon</h4>
+              <p>İşlenen vidalar asit pasivizasyonuna gider (nitrik asit banyosu). İşlem kayıtları sisteme girilir: konsantrasyon, süre, sıcaklık.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">7</div>
+            <div class="step-content">
+              <h4>Temiz Oda ve Lazer Markalama</h4>
+              <p>Sınıf 8 temiz odaya alınır. Oda sıcaklık/nem/partikül kayıtları otomatik. Lazer markalama ile her vidaya UDI (DataMatrix) işlenir.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">8</div>
+            <div class="step-content">
+              <h4>Ambalaj ve Etiket</h4>
+              <p>Her vida bireysel steril ambalaja konur, UDI etiket basılır. Kutu etiketinde lot, son kullanma, Rx gereksinimi.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">9</div>
+            <div class="step-content">
+              <h4>Fason Sterilizasyon (EtO)</h4>
+              <p>Üretim &gt; Fason İş Emirleri'nden EtO sterilizatör firmasına gönderim. Dönen lot ile birlikte sterilizasyon sertifikası (chamber number, siklus, BI testi) sisteme kaydedilir.</p>
+            </div>
+          </div>
+        </div>
+
+        <h3>Son Kontrol ve DHR</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">10</div>
+            <div class="step-content">
+              <h4>Son Kontrol</h4>
+              <p>Kalite &gt; Son Kontrol'den steril ambalaj bütünlüğü, UDI okunabilirlik, belge tamamlığı kontrol edilir. Son ürün LOT-PV-2026-0042 etiketi ile stoğa alınır.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">11</div>
+            <div class="step-content">
+              <h4>DHR Oluşturma</h4>
+              <p>Belgeler &gt; Cihaz Geçmişi'nden bu lota ait DHR (Device History Record) otomatik oluşturulur: hammadde sertifikası, üretim kayıtları, pasivizasyon, temiz oda, lazer, sterilizasyon, son kontrol. 15 yıl saklanır.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">12</div>
+            <div class="step-content">
+              <h4>Sevkiyat ve Hastane Eşleştirme</h4>
+              <p>Sevkiyat &gt; Yeni'den hastanelere gönderilir. Her hastanede hangi lot'un kullanıldığı takip edilir (hasta-lot eşleşmesi mümkün olur).</p>
+            </div>
+          </div>
+        </div>
+
+        <h3>Kriz: Recall</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">13</div>
+            <div class="step-content">
+              <h4>Şikayet ve NCR</h4>
+              <p>Bir hastaneden LOT-PV-2026-0042'nin belirli bir lotunda kırılma riski şikayeti geldi. Kalite &gt; NCR açılır. CAPA başlatılır.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">14</div>
+            <div class="step-content">
+              <h4>Recall Başlatma</h4>
+              <p>Yaşam tehdit edici potansiyel → Kalite &gt; Recall'dan sınıf I recall başlatılır. Sistem saatler içinde bu lotu alan tüm hastaneleri listeler. Her birine resmi tebligat.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">15</div>
+            <div class="step-content">
+              <h4>Yetkili Otorite Bildirimi</h4>
+              <p>TİTCK (Türkiye) ve ilgili Avrupa yetkili otoritelerine bildirim. DHR ve risk dosyası ile kök neden analizi. CAPA etkinliği izlenir.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="kurulum">
+        <h2>Tipik Medikal Cihaz Tesisi Kurulumu</h2>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Tanımlanacak Veri</th><th>Ekran</th><th>Örnek</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Onaylı Tedarikçiler</td><td>Satınalma</td><td>Ti malzeme, paslanmaz, ambalaj, EtO firması</td></tr>
+            <tr><td>Hammaddeler</td><td>Stok &gt; Ürünler</td><td>Ti-6Al-4V ELI, 316L paslanmaz, PEEK</td></tr>
+            <tr><td>Ürünler</td><td>Stok &gt; Ürünler</td><td>Pedikül vida, plak, kafes implant</td></tr>
+            <tr><td>UDI Formatları</td><td>Ayarlar &gt; UDI</td><td>GS1 DataMatrix, HIBCC formatları</td></tr>
+            <tr><td>Makineler</td><td>Ayarlar &gt; Makineler</td><td>Swiss CNC, pasivizasyon, lazer marker</td></tr>
+            <tr><td>Temiz Odalar</td><td>Ayarlar &gt; Tesis</td><td>Sınıf 8 montaj, sınıf 7 ambalaj</td></tr>
+            <tr><td>Risk Dosyaları</td><td>Kalite &gt; Risk</td><td>Her ürün için ISO 14971 dosyası</td></tr>
+            <tr><td>CE Teknik Dosyalar</td><td>Belgeler</td><td>MDR 2017/745 dosyası</td></tr>
+            <tr><td>Müşteriler</td><td>Satış &gt; Müşteriler</td><td>Hastaneler, distribütörler</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="başlangıç">
+        <h2>Önerilen Başlangıç Adımları</h2>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Sektör Profilini Seçin</h4>
+              <p>Onboarding wizard'da "Medikal Cihaz" profilini seçin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Onaylı Tedarikçi Listesi</h4>
+              <p>Tüm onaylı tedarikçilerinizin ISO 13485 ve malzeme sertifikalarını yükleyin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>UDI Formatınızı Tanımlayın</h4>
+              <p>GS1 veya HIBCC formatını seçin, UDI-DI üretim kurallarını sisteme girin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>Risk Dosyalarınızı Yükleyin</h4>
+              <p>Mevcut ürünler için ISO 14971 risk dosyalarınızı Kalite modülüne aktarın.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <h4>MDR Teknik Dosyaları</h4>
+              <p>MDR 2017/745 uyumlu CE teknik dosyalarınızı Belgeler modülüne yükleyin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">6</div>
+            <div class="step-content">
+              <h4>Recall Tatbikatı</h4>
+              <p>Test lot üzerinden bir recall simülasyonu yapın. Lot bazlı tam hastane/distribütör listesini çıkarabildiğinizden emin olun.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> Medikal cihaz izlenebilirliği iş değil, hukuki ve etik zorunluluktur. Bir lot eksikliği bile denetimde büyük bulgu açar ve CE belgenizin askıya alınmasına yol açabilir.
+        </div>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> DHR (Device History Record) dosyalarını 15 yıl saklamanız gerekir. Quvex'te dijital saklama MDR'nin kabul ettiği formattadır, kağıt arşiv gereksizdir.
+        </div>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> EtO sterilizasyon sonrası karantina süresi (aeration) kritik. Sistemin bu süreyi otomatik uyguladığından emin olun, erken sevkiyat hastaya zarar verebilir.
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="doc-footer">
+    <p>Quvex ERP &mdash; Medikal Cihaz Sektörü Rehberi &middot; v1.5 &middot; Nisan 2026</p>
+  </div>
+
+</div>
+<script src="../js/guide-enhancements.js"></script>
+</body>
+</html>

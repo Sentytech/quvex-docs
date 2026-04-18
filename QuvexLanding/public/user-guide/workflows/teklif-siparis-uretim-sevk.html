@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teklif &rarr; Sipariş &rarr; Üretim &rarr; Sevkiyat - Quvex ERP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="container">
+
+  <a href="../index.html" class="nav-back">&#8592; Ana Sayfa</a>
+
+  <div class="doc-header">
+    <span class="version-badge">v2.0</span>
+    <div class="breadcrumb"><a href="../index.html">Kullanıcı Kılavuzu</a> / <a href="../satis.html">Satış</a> / Uctan Uca Is Akisi</div>
+    <h1>Uctan Uca Is Akisi: Teklif &rarr; Sevkiyat &rarr; Fatura</h1>
+    <p>Müşteri talebi alındi&mdash;ürün teslim edildi. Tam süreç haritasi, karar noktalari ve örnek senaryo.</p>
+  </div>
+
+  <!-- Stats Bar -->
+  <div class="stats-bar">
+    <div class="stat-item"><div class="stat-value">7</div><div class="stat-label">Ana Adim</div></div>
+    <div class="stat-item"><div class="stat-value">5</div><div class="stat-label">Karar Noktasi</div></div>
+    <div class="stat-item"><div class="stat-value">2-4 Hafta</div><div class="stat-label">Tipik Süre</div></div>
+    <div class="stat-item"><div class="stat-value">6</div><div class="stat-label">Modül</div></div>
+  </div>
+
+  <div class="two-col">
+
+    <aside>
+      <nav class="nav-sidebar">
+        <a href="#tam-akis">Tam Akis Diyagrami</a>
+        <a href="#adim1">1. Teklif Hazirlama</a>
+        <a href="#adim2">2. Sipariş Oluşturma</a>
+        <a href="#adim3">3. Üretim Planlama</a>
+        <a href="#adim4">4. Üretim Yapma</a>
+        <a href="#adim5">5. Kalite Kontrol</a>
+        <a href="#adim6">6. Sevkiyat</a>
+        <a href="#adim7">7. Fatura &amp; Tahsilat</a>
+        <a href="#karar-noktalari">Karar Noktalari</a>
+        <a href="#örnek-senaryo">Örnek Senaryo</a>
+        <a href="#süre-tahmini">Süre Tahmini</a>
+      </nav>
+    </aside>
+
+    <main>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- TAM AKIS DIYAGRAMI -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="tam-akis">
+        <h2>Tam Akis Diyagrami</h2>
+        <p>Aşağıdaki akis, müşteri talebinin alınmasindan fatura tahsilatina kadar tüm süreçi gösterir:</p>
+
+        <div class="flow">
+          <div class="flow-step">Müşteri Talebi</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step active">Teklif</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Sipariş</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Üretim Planlama</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Üretim</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Kalite Kontrol</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Sevkiyat</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Fatura</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Tahsilat</div>
+        </div>
+
+        <h3>Hangi Modül, Hangi Adimda?</h3>
+        <table>
+          <thead><tr><th>Adim</th><th>Modül</th><th>Sayfa</th><th>Sorumlu</th></tr></thead>
+          <tbody>
+            <tr><td>Teklif</td><td>Satış</td><td><code>/offers/form</code></td><td>Satış Temsilcisi</td></tr>
+            <tr><td>Sipariş</td><td>Satış</td><td><code>/sales</code></td><td>Satış Temsilcisi / Yönetici</td></tr>
+            <tr><td>Üretim Planlama</td><td>Üretim</td><td><code>/production/planning</code></td><td>Üretim Planlama</td></tr>
+            <tr><td>Üretim</td><td>Üretim</td><td><code>/production/work-orders</code></td><td>Üretim Sefi / Operator</td></tr>
+            <tr><td>Kalite Kontrol</td><td>Kalite</td><td><code>/quality/final-inspection</code></td><td>Kalite Kontrolcu</td></tr>
+            <tr><td>Sevkiyat</td><td>Stok / Satış</td><td><code>/shipments</code></td><td>Depocu / Sevk Sorumlusu</td></tr>
+            <tr><td>Fatura</td><td>Finans</td><td><code>/invoices</code></td><td>Muhasebe</td></tr>
+            <tr><td>Tahsilat</td><td>Finans</td><td><code>/payments</code></td><td>Muhasebe</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- ADIM 1: TEKLIF -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="adim1">
+        <h2>Adim 1: Teklif Hazirlama</h2>
+
+        <table>
+          <thead><tr><th>Bilgi</th><th>Detay</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Ekran</strong></td><td><code>/offers/form</code></td></tr>
+            <tr><td><strong>Kim Yapar</strong></td><td>Satış Temsilcisi</td></tr>
+            <tr><td><strong>Ne Yapilir</strong></td><td>Müşteri secilir, ürün kalemleri eklenir, fiyat ve teslim tarihi belirlenir</td></tr>
+            <tr><td><strong>Sonuç</strong></td><td>Teklif DRAFT &rarr; SENT durumuna gecer, PDF olusur</td></tr>
+            <tr><td><strong>Süre</strong></td><td>15 dakika - 1 gun</td></tr>
+          </tbody>
+        </table>
+
+        <h3>İşlem Adimlari</h3>
+        <ol>
+          <li>Satış &gt; Teklifler &gt; "+ Yeni Teklif"</li>
+          <li>Müşteri secin (Autocomplete)</li>
+          <li>Ürün kalemleri ekleyin (ürün, miktar, birim fiyat)</li>
+          <li>Teslim tarihi ve geçerlilik tarihi girin</li>
+          <li>Kaydet (DRAFT) &rarr; Gönder (SENT)</li>
+          <li>PDF indir veya e-posta ile müşteriye iletin</li>
+        </ol>
+
+        <div class="tip info">
+          <div class="tip-title">Bilgi: Teklif Onay</div>
+          <p>50.000 TL ustu teklifler yönetici onayindan gecmeden gonderilmez. Sistem otomatik onay talep eder.</p>
+        </div>
+
+        <h3>Müşteriden Gelen Cevap</h3>
+        <table>
+          <thead><tr><th>Cevap</th><th>Durum</th><th>Sonraki Adim</th></tr></thead>
+          <tbody>
+            <tr><td>Kabul</td><td><span class="badge badge-success">ACCEPTED</span></td><td>Adim 2: Siparişe dönüştür</td></tr>
+            <tr><td>Red</td><td><span class="badge badge-danger">REJECTED</span></td><td>Revizyon yap veya kapat</td></tr>
+            <tr><td>Degisiklik Talebi</td><td><span class="badge badge-default">DRAFT (revizyon)</span></td><td>Teklif revize et, yeniden gönder</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- ADIM 2: SIPARIS -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="adim2">
+        <h2>Adim 2: Sipariş Oluşturma</h2>
+
+        <table>
+          <thead><tr><th>Bilgi</th><th>Detay</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Ekran</strong></td><td><code>/sales</code></td></tr>
+            <tr><td><strong>Kim Yapar</strong></td><td>Satış Temsilcisi</td></tr>
+            <tr><td><strong>Ne Yapilir</strong></td><td>ACCEPTED teklif siparişe dönüştürulur</td></tr>
+            <tr><td><strong>Sonuç</strong></td><td>Sipariş olusur, onay süreçi baslar</td></tr>
+            <tr><td><strong>Süre</strong></td><td>5-15 dakika</td></tr>
+          </tbody>
+        </table>
+
+        <h3>İşlem Adimlari</h3>
+        <ol>
+          <li>ACCEPTED teklif detayina girin</li>
+          <li>"Siparişe Donustur" butonuna tıklayin</li>
+          <li>Kalemler otomatik aktarilir, gerekirse duzoltin</li>
+          <li>Sipariş kaydedin</li>
+          <li>"Onay Iste" tıklayin (gerekiyorsa)</li>
+          <li>Yönetici onayi beklenir &rarr; APPROVED</li>
+        </ol>
+
+        <h3>Sipariş Durum Gecisi</h3>
+        <div class="flow">
+          <div class="flow-step active">DRAFT</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">PENDING_APPROVAL</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">APPROVED</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Adim 3'e gec</div>
+        </div>
+
+        <div class="tip warning">
+          <div class="tip-title">Dikkat: Sozlesme İnceleme</div>
+          <p>Havacilik/savunma müşterileri için sipariş onayindan once Kalite &gt; Sozlesme İnceleme süreçi baslatilir. Teknik, kapasite ve kalite gereksinimleri gozden gecirilir.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- ADIM 3: URETIM PLANLAMA -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="adim3">
+        <h2>Adim 3: Üretim Planlama</h2>
+
+        <table>
+          <thead><tr><th>Bilgi</th><th>Detay</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Ekran</strong></td><td><code>/production/planning</code></td></tr>
+            <tr><td><strong>Kim Yapar</strong></td><td>Üretim Planlama Sorumlusu</td></tr>
+            <tr><td><strong>Ne Yapilir</strong></td><td>Is emri olusturulur, malzeme ve kapasite kontrol edilir</td></tr>
+            <tr><td><strong>Sonuç</strong></td><td>Is emri planlanir, makineler atanır</td></tr>
+            <tr><td><strong>Süre</strong></td><td>1-2 gun</td></tr>
+          </tbody>
+        </table>
+
+        <h3>İşlem Adimlari</h3>
+        <ol>
+          <li>Sipariş detayindan "Üretime Aktar" tıklayin</li>
+          <li>Uretilecek kalemleri ve miktarlari onaylayin</li>
+          <li>Sistem is emri oluşturur</li>
+          <li>Malzeme durumunu kontrol edin (stok yeterli mi?)</li>
+          <li>Makine ve personel atayin</li>
+          <li>Başlangıç ve bitis tarihlerini planlayin</li>
+        </ol>
+
+        <h3>Malzeme Kontrolü</h3>
+        <table>
+          <thead><tr><th>Durum</th><th>Açıklama</th><th>Aksiyon</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge badge-success">Yeterli</span></td><td>Stokta yeterli malzeme var</td><td>Üretimi başlat</td></tr>
+            <tr><td><span class="badge badge-warning">Kismi</span></td><td>Bazi malzemeler eksik</td><td>Satin alma talebi oluştur, kismi üretim başlat</td></tr>
+            <tr><td><span class="badge badge-danger">Yetersiz</span></td><td>Kritik malzeme yok</td><td>Satin alma süreçi tamamlanana kadar bekle</td></tr>
+          </tbody>
+        </table>
+
+        <div class="tip info">
+          <div class="tip-title">Bilgi: Kapasite Cizelgeleme</div>
+          <p>Makine kapasite takvimi uzerinden doluluk oranlarini gorun. Çakışma varsa alternatif makine veya vardiya planlarin.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- ADIM 4: URETIM -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="adim4">
+        <h2>Adim 4: Üretim Yapma</h2>
+
+        <table>
+          <thead><tr><th>Bilgi</th><th>Detay</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Ekran</strong></td><td><code>/production/work-orders</code></td></tr>
+            <tr><td><strong>Kim Yapar</strong></td><td>Üretim Sefi, Operatorler</td></tr>
+            <tr><td><strong>Ne Yapilir</strong></td><td>Is emri gerceklestirilir, operasyonlar tamamlanir</td></tr>
+            <tr><td><strong>Sonuç</strong></td><td>Ürün uretilir, stoga alınir</td></tr>
+            <tr><td><strong>Süre</strong></td><td>1-3 hafta (ürün karmasikligina gore)</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Üretim Süreçi</h3>
+        <div class="flow">
+          <div class="flow-step active">Is Emri Ac</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Malzeme Cek</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Operasyonlar</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Proses Ici Kontrol</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Üretim Tamamla</div>
+        </div>
+
+        <h3>İşlem Adimlari</h3>
+        <ol>
+          <li>Is emrini "Başlat" durumuna cevirin</li>
+          <li>Malzeme depolardan cekilir (stok otomatik duser)</li>
+          <li>Operasyonlari sirayla tamamlayin (kesme, tornalama, kaynak vb.)</li>
+          <li>Her operasyon sonrasi proses ici kontrol yapilabilir</li>
+          <li>Son operasyon tamamlandiginda is emrini kapapin</li>
+          <li>Uretilen ürünler stoga girer</li>
+        </ol>
+
+        <div class="tip warning">
+          <div class="tip-title">Dikkat: Üretim Sirasinda Uygunsuzluk</div>
+          <p>Üretim sirasinda kalite sorunu tespit edilirse hemen NCR açın. Etkilenen parcalari karantinaya alın. Üretim sefini bilgilendirin. MRB karari beklenir (yeniden isle, hurda, vb.).</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- ADIM 5: KALITE KONTROL -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="adim5">
+        <h2>Adim 5: Kalite Kontrol (Son Muayene)</h2>
+
+        <table>
+          <thead><tr><th>Bilgi</th><th>Detay</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Ekran</strong></td><td><code>/quality/final-inspection</code></td></tr>
+            <tr><td><strong>Kim Yapar</strong></td><td>Kalite Kontrolcu</td></tr>
+            <tr><td><strong>Ne Yapilir</strong></td><td>Son muayene, boyutsal ve gorunusel kontrol</td></tr>
+            <tr><td><strong>Sonuç</strong></td><td>Onayla / Reddet / Kosullu Onayla</td></tr>
+            <tr><td><strong>Süre</strong></td><td>1-3 gun</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Son Muayene Akisi</h3>
+        <div class="flow">
+          <div class="flow-step">Üretim Tamamlandi</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step active">Son Muayene</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Onayla / Reddet</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">CoC Oluştur</div>
+        </div>
+
+        <h3>Sonuç Secenekleri ve Aksiyon</h3>
+        <table>
+          <thead><tr><th>Sonuç</th><th>Ne Olur</th><th>Sonraki Adim</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge badge-success">Onayla</span></td><td>Ürün kaliteyi gecti</td><td>CoC oluştur &rarr; Adim 6: Sevkiyat</td></tr>
+            <tr><td><span class="badge badge-danger">Reddet</span></td><td>Kritik uygunsuzluk</td><td>NCR ac &rarr; MRB karari &rarr; Rework veya Hurda</td></tr>
+            <tr><td><span class="badge badge-warning">Kosullu Onayla</span></td><td>Minor sapma</td><td>Müşteri sapma onayi iste &rarr; Kabul gelirse sevk</td></tr>
+          </tbody>
+        </table>
+
+        <div class="tip">
+          <div class="tip-title">İpucu: CoC Otomatik Olusma</div>
+          <p>"Onayla" sonrasi CoC (Uygünlük Sertifikasi) butonu aktif olur. Tiklayin, PDF indir veya müşteriye gonderin.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- ADIM 6: SEVKIYAT -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="adim6">
+        <h2>Adim 6: Sevkiyat</h2>
+
+        <table>
+          <thead><tr><th>Bilgi</th><th>Detay</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Ekran</strong></td><td><code>/shipments</code></td></tr>
+            <tr><td><strong>Kim Yapar</strong></td><td>Depocu / Sevk Sorumlusu</td></tr>
+            <tr><td><strong>Ne Yapilir</strong></td><td>İrsaliye olusturulur, ürünler paketlenir ve gonderilir</td></tr>
+            <tr><td><strong>Sonuç</strong></td><td>Ürünler müşteriye ulasir, stok duser</td></tr>
+            <tr><td><strong>Süre</strong></td><td>1-2 gun</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Sevkiyat Adimlari</h3>
+        <ol>
+          <li>Sipariş detayindan "Sevkiyat Oluştur" tıklayin</li>
+          <li>Sevk edilecek kalemleri ve miktarlari secin</li>
+          <li>Sevk adresi otomatik gelir (müşteri sevkiyat adresi)</li>
+          <li>Tasiyici bilgisini girin (kargo firma, arac plakasi vb.)</li>
+          <li>CoC ve gerekli belgeleri ekleyin</li>
+          <li>İrsaliye kaydedin ve PDF olarak yazdirin</li>
+          <li>Paketleri gonderin</li>
+        </ol>
+
+        <h3>Kismi Sevkiyat</h3>
+        <p>Siparişin tamamini tek seferde sevk etmeniz gerekmez. Hazır olan kalemleri once gonderin, kalan için yeni irsaliye olustürün. Sipariş detayinda sevk edilen ve kalan miktarlar görüntülenir.</p>
+
+        <div class="tip info">
+          <div class="tip-title">Bilgi: Stok Etkisi</div>
+          <p>İrsaliye olusturuldigunda ilgili ürünler stoktan otomatik duser. Stok yetersizse sistem uyarı verir.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- ADIM 7: FATURA & TAHSILAT -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="adim7">
+        <h2>Adim 7: Fatura &amp; Tahsilat</h2>
+
+        <table>
+          <thead><tr><th>Bilgi</th><th>Detay</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Ekran</strong></td><td><code>/invoices</code> ve <code>/payments</code></td></tr>
+            <tr><td><strong>Kim Yapar</strong></td><td>Muhasebe</td></tr>
+            <tr><td><strong>Ne Yapilir</strong></td><td>Satış faturasi kesilir, ödeme tahsil edilir</td></tr>
+            <tr><td><strong>Sonuç</strong></td><td>Cari hesap kapanir, süreç tamamlanir</td></tr>
+            <tr><td><strong>Süre</strong></td><td>1 gun (fatura) + vadeye gore (tahsilat)</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Fatura Oluşturma</h3>
+        <ol>
+          <li>Sevkiyat sonrasi "Fatura Oluştur" tıklayin</li>
+          <li>İrsaliye kalemleri otomatik faturaya aktarilir</li>
+          <li>KDV orani ve vade tarihini kontrol edin</li>
+          <li>Fatura kesin (KESILDI durumu)</li>
+          <li>Cari hesap otomatik güncellenir</li>
+          <li>e-Fatura gerekiyorsa UBL formatinda olustürün</li>
+        </ol>
+
+        <h3>Tahsilat</h3>
+        <ol>
+          <li>Müşteri odemesi geldiginde Ödeme Kayıt ekranina girin</li>
+          <li>Müşteri secin, tutari girin</li>
+          <li>İlişkili fatura secin</li>
+          <li>Ödeme yontemi ve hedef hesap (kasa/banka) belirleyin</li>
+          <li>Kaydet &rarr; Cari hesap ve kasa/banka otomatik güncellenir</li>
+        </ol>
+
+        <h3>Fatura Durum Gecisi</h3>
+        <div class="flow">
+          <div class="flow-step active">KESILDI</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">KISMI ODEME</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">ODENDI</div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- KARAR NOKTALARI -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="karar-noktalari">
+        <h2>Karar Noktalari</h2>
+        <p>Süreç boyunca karslasilabilecek karar noktalari ve senaryolari:</p>
+
+        <div class="card">
+          <h4>Karar 1: Teklif Reddedilirse?</h4>
+          <div class="flow">
+            <div class="flow-step">REJECTED</div>
+            <span class="flow-arrow">&#8594;</span>
+            <div class="flow-step active">Revizyon?</div>
+            <span class="flow-arrow">&#8594;</span>
+            <div class="flow-step">Evet: Yeni teklif oluştur</div>
+          </div>
+          <p>Müşteri geri bildirimi analiz edilir. Fiyat/miktar/teslim tarihi revize edilir. Yeni teklif gondulir. Red sebebi CRM notuna kaydedilir.</p>
+        </div>
+
+        <div class="card">
+          <h4>Karar 2: Stok Yetersizse?</h4>
+          <div class="flow">
+            <div class="flow-step">Stok Yetersiz</div>
+            <span class="flow-arrow">&#8594;</span>
+            <div class="flow-step active">Satin Alma</div>
+            <span class="flow-arrow">&#8594;</span>
+            <div class="flow-step">Malzeme Geldi</div>
+            <span class="flow-arrow">&#8594;</span>
+            <div class="flow-step">Üretim Başla</div>
+          </div>
+          <p>Satin alma talebi otomatik olusturulabilir. Acil durumlarda alternatif tedarikçi aranir. Kismi malzeme ile kismi üretim baslatilabilir. Müşteriye gecikme bildirimi gonderilir.</p>
+        </div>
+
+        <div class="card">
+          <h4>Karar 3: Kalite Uygunsuzluk Tespit Edilirse?</h4>
+          <div class="flow">
+            <div class="flow-step">Uygunsuzluk</div>
+            <span class="flow-arrow">&#8594;</span>
+            <div class="flow-step active">NCR Ac</div>
+            <span class="flow-arrow">&#8594;</span>
+            <div class="flow-step">MRB Karari</div>
+            <span class="flow-arrow">&#8594;</span>
+            <div class="flow-step">Rework / Hurda / Sapma</div>
+          </div>
+          <p><strong>Rework:</strong> Yeniden işleme alınir, ek süre gerekir. <strong>Hurda:</strong> Stoktan dusulur, yeni üretim baslar. <strong>Müşteri sapma onayi:</strong> Müşteri kabul ederse sevk, red ederse rework/hurda.</p>
+        </div>
+
+        <div class="card">
+          <h4>Karar 4: Müşteri Sipariş Degisikligi Isterse?</h4>
+          <div class="flow">
+            <div class="flow-step">Degisiklik Talebi</div>
+            <span class="flow-arrow">&#8594;</span>
+            <div class="flow-step active">Etki Analizi</div>
+            <span class="flow-arrow">&#8594;</span>
+            <div class="flow-step">Kabul / Red</div>
+          </div>
+          <p>Üretim baslamissa maliyet ve süre etkisi analiz edilir. Ek maliyet müşteriye iletilir. Kabul edilirse sipariş ve is emri güncellenir. Üretim ileri aşamadaysa değişiklik kisitli olabilir.</p>
+        </div>
+
+        <div class="card">
+          <h4>Karar 5: Ödeme Gecikirse?</h4>
+          <div class="flow">
+            <div class="flow-step">Vade Gecti</div>
+            <span class="flow-arrow">&#8594;</span>
+            <div class="flow-step active">Hatirlatma</div>
+            <span class="flow-arrow">&#8594;</span>
+            <div class="flow-step">Temas / Yasal İşlem</div>
+          </div>
+          <p>Sistem vadesi geçmiş faturalari kirmizi uyarı ile gösterir. Müşteriye otomatik hatırlatma gonderilir. Uzun sureli gecikmelerde yeni sipariş alma durdurulabilir.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- ORNEK SENARYO -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="örnek-senaryo">
+        <h2>Örnek Senaryo: ABC Makina'dan 500 Adet CNC Parça Siparişi</h2>
+
+        <div class="tip info">
+          <div class="tip-title">Senaryo Ozeti</div>
+          <p>ABC Makina A.S., 500 adet CNC torna parçası (Parça No: QVX-2026-0100) talep ediyor. Malzeme: 4140 celik, tolerans: &plusmn;0.02mm. Teslim süresi: 3 hafta.</p>
+        </div>
+
+        <h3>Gun 1: Teklif</h3>
+        <table>
+          <thead><tr><th>İşlem</th><th>Detay</th></tr></thead>
+          <tbody>
+            <tr><td>Satış Temsilcisi teklif hazırlar</td><td>500 adet x 45 TRY = 22.500 TRY + KDV</td></tr>
+            <tr><td>PDF olusturulur</td><td>Teklif No: TKL-2026-0150</td></tr>
+            <tr><td>E-posta ile gonderilir</td><td>abc-satin@abcmakina.com</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Gun 2: Sipariş</h3>
+        <table>
+          <thead><tr><th>İşlem</th><th>Detay</th></tr></thead>
+          <tbody>
+            <tr><td>Müşteri teklifi kabul eder</td><td>Durum: ACCEPTED</td></tr>
+            <tr><td>"Siparişe Donustur" tıklanir</td><td>Sipariş No: SIP-2026-0089</td></tr>
+            <tr><td>Yönetici onaylar</td><td>Durum: APPROVED</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Gun 3-4: Üretim Planlama</h3>
+        <table>
+          <thead><tr><th>İşlem</th><th>Detay</th></tr></thead>
+          <tbody>
+            <tr><td>Is emri olusturulur</td><td>IE-2026-0200</td></tr>
+            <tr><td>Malzeme kontrolü</td><td>4140 celik: 300 adet stokta, 200 adet eksik</td></tr>
+            <tr><td>Satin alma talebi</td><td>200 adet 4140 celik cubuk siparişi verilir</td></tr>
+            <tr><td>Makine atama</td><td>CNC-01 ve CNC-02 makinelari planlanir</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Gun 5-18: Üretim</h3>
+        <table>
+          <thead><tr><th>İşlem</th><th>Detay</th></tr></thead>
+          <tbody>
+            <tr><td>Gun 5: İlk 300 adet başlangıç</td><td>Stoktan malzeme cekilir</td></tr>
+            <tr><td>Gun 7: Ek malzeme gelir</td><td>Giriş kontrol: PASS. Stoga girer.</td></tr>
+            <tr><td>Gun 8-18: Üretim devam</td><td>Toplam 500 adet tamamlanir</td></tr>
+            <tr><td>Proses ici kontrol</td><td>Her 50 parcada 5 adet ölçüm (kontrol plani geregi)</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Gun 19: Kalite Kontrol</h3>
+        <table>
+          <thead><tr><th>İşlem</th><th>Detay</th></tr></thead>
+          <tbody>
+            <tr><td>Son muayene yapılır</td><td>498 adet PASS, 2 adet tolerans disinda</td></tr>
+            <tr><td>2 adet için NCR açılır</td><td>NCR-2026-0042 (MINOR)</td></tr>
+            <tr><td>MRB karari: Hurda</td><td>2 adet stoktan dusulur</td></tr>
+            <tr><td>2 adet ek üretim</td><td>Toplam 500 adet tamamlanir</td></tr>
+            <tr><td>CoC olusturulur</td><td>PDF olarak hazırlanir</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Gun 20: Sevkiyat</h3>
+        <table>
+          <thead><tr><th>İşlem</th><th>Detay</th></tr></thead>
+          <tbody>
+            <tr><td>İrsaliye olusturulur</td><td>500 adet, sevk adresi: ABC Makina Fabrika</td></tr>
+            <tr><td>Paketleme ve gonderim</td><td>Kargo: X Lojistik, Takip No: TRK123456</td></tr>
+            <tr><td>Stok duser</td><td>500 adet QVX-2026-0100 stoktan cikar</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Gun 21: Fatura ve Tahsilat</h3>
+        <table>
+          <thead><tr><th>İşlem</th><th>Detay</th></tr></thead>
+          <tbody>
+            <tr><td>Satış faturasi kesilir</td><td>500 x 45 = 22.500 + KDV 4.500 = 27.000 TRY</td></tr>
+            <tr><td>Vade: 30 gun</td><td>Ödeme beklenir</td></tr>
+            <tr><td>Cari hesap güncellenir</td><td>ABC Makina borcu: 27.000 TRY</td></tr>
+            <tr><td>Gun 50: Ödeme gelir</td><td>27.000 TRY havale. Fatura: ODENDI. Cari: 0 TRY</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- SURE TAHMINI -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="süre-tahmini">
+        <h2>Süre Tahmini: Teklif &rarr; Sevkiyat</h2>
+        <p>Tipik bir sipariş için adim bazlı süre tahminleri aşağıdadir. Gerçek sureler ürün karmasikligina, malzeme durumuna ve üretim yogunluguna gore degisir.</p>
+
+        <table>
+          <thead><tr><th>Adim</th><th>Min Süre</th><th>Tipik Süre</th><th>Maks Süre</th></tr></thead>
+          <tbody>
+            <tr><td>Teklif hazırlama ve onay</td><td>1 gun</td><td>2-3 gun</td><td>1 hafta</td></tr>
+            <tr><td>Müşteri karar süresi</td><td>1 gun</td><td>3-5 gun</td><td>2 hafta</td></tr>
+            <tr><td>Sipariş ve onay</td><td>1 gun</td><td>1-2 gun</td><td>3 gun</td></tr>
+            <tr><td>Üretim planlama</td><td>1 gun</td><td>1-2 gun</td><td>5 gun</td></tr>
+            <tr><td>Malzeme temin (stokta yoksa)</td><td>-</td><td>3-7 gun</td><td>2 hafta</td></tr>
+            <tr><td>Üretim</td><td>3 gun</td><td>1-2 hafta</td><td>4 hafta</td></tr>
+            <tr><td>Kalite kontrol</td><td>1 gun</td><td>1-3 gun</td><td>5 gun</td></tr>
+            <tr><td>Sevkiyat</td><td>1 gun</td><td>1-2 gun</td><td>3 gun</td></tr>
+            <tr><td><strong>TOPLAM</strong></td><td><strong>1 hafta</strong></td><td><strong>2-4 hafta</strong></td><td><strong>6-8 hafta</strong></td></tr>
+          </tbody>
+        </table>
+
+        <div class="tip warning">
+          <div class="tip-title">Dikkat: Gecikme Riskleri</div>
+          <p>Kalite uygunsuzluk (rework), malzeme temin gecikmesi, makine arizasi ve müşteri değişiklik talebi en yaygin gecikme sebepleridir. Her senaryonun yönetim plani yukaridaki karar noktalari bolumunde aciklanmistir.</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="doc-footer">
+    Quvex ERP &mdash; Kullanıcı Kılavuzu &copy; 2026
+  </footer>
+
+</div>
+<script src="../js/guide-enhancements.js"></script>
+</body>
+</html>

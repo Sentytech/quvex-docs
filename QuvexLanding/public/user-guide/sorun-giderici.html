@@ -1,0 +1,1832 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorun Giderici — Quvex ERP</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .troubleshooter {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .step-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #64748b;
+        }
+        .step-indicator .crumb {
+            cursor: pointer;
+            color: #2563eb;
+            text-decoration: underline;
+        }
+        .step-indicator .crumb:hover {
+            color: #1d4ed8;
+        }
+        .step-indicator .sep {
+            color: #cbd5e1;
+        }
+        .step-indicator .current {
+            font-weight: 600;
+            color: #1e293b;
+        }
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        .category-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 24px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            user-select: none;
+        }
+        .category-card:hover {
+            border-color: #2563eb;
+            background: #eff6ff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37,99,235,0.15);
+        }
+        .category-card .icon {
+            font-size: 36px;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .category-card .label {
+            font-weight: 600;
+            font-size: 16px;
+            color: #1e293b;
+        }
+        .task-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .task-list li {
+            margin-bottom: 8px;
+        }
+        .task-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 16px 20px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            color: #1e293b;
+            transition: all 0.15s;
+        }
+        .task-btn:hover {
+            border-color: #2563eb;
+            background: #f8fafc;
+        }
+        .task-btn::before {
+            content: '\279C ';
+            color: #2563eb;
+            margin-right: 8px;
+        }
+        .problem-section {
+            margin-bottom: 24px;
+        }
+        .problem-section details {
+            margin-bottom: 8px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .problem-section details[open] {
+            border-color: #2563eb;
+        }
+        .problem-section summary {
+            padding: 14px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 15px;
+            color: #dc2626;
+            background: #fef2f2;
+            transition: background 0.15s;
+            list-style: none;
+        }
+        .problem-section summary::-webkit-details-marker { display: none; }
+        .problem-section summary::before {
+            content: '\25B6 ';
+            font-size: 12px;
+            margin-right: 8px;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        .problem-section details[open] summary::before {
+            transform: rotate(90deg);
+        }
+        .problem-section details[open] summary {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        .problem-section summary:hover {
+            background: #fee2e2;
+        }
+        .problem-section details[open] summary:hover {
+            background: #bfdbfe;
+        }
+        .solution-box {
+            padding: 16px 20px;
+            background: #f0fdf4;
+            border-top: 1px solid #e2e8f0;
+        }
+        .solution-box h4 {
+            color: #166534;
+            margin: 0 0 10px 0;
+            font-size: 14px;
+        }
+        .solution-box ol {
+            margin: 0;
+            padding-left: 20px;
+            color: #334155;
+            line-height: 1.8;
+        }
+        .solution-box .tip {
+            margin-top: 12px;
+            padding: 10px 14px;
+            background: #fefce8;
+            border-left: 4px solid #eab308;
+            border-radius: 0 6px 6px 0;
+            font-size: 13px;
+            color: #713f12;
+        }
+        .back-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #f1f5f9;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #475569;
+            margin-bottom: 20px;
+            transition: all 0.15s;
+        }
+        .back-btn:hover {
+            background: #e2e8f0;
+            border-color: #cbd5e1;
+        }
+        .support-box {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 40px;
+            text-align: center;
+        }
+        .support-box h2 {
+            color: #92400e;
+            margin-top: 0;
+        }
+        .support-channels {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+        .support-channels .channel {
+            background: white;
+            padding: 16px 24px;
+            border-radius: 8px;
+            min-width: 160px;
+        }
+        .hidden { display: none !important; }
+
+        @media (max-width: 600px) {
+            .category-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .category-card { padding: 16px 12px; }
+            .category-card .icon { font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" style="max-width: 1000px; margin: 0 auto; padding: 20px;">
+
+    <header style="text-align: center; margin-bottom: 32px;">
+        <h1 style="font-size: 28px; color: #1e293b;">Takildim, Ne Yapmaliyim?</h1>
+        <p style="color: #64748b; font-size: 16px;">Adim adim sorununuzu teshis edin ve cozumu bulun.</p>
+        <p style="margin-top: 8px;"><a href="index.html">Ana Sayfa</a> &middot; <a href="hata-mesajlari.html">Hata Mesajlari</a> &middot; <a href="sik-sorulan-sorular.html">SSS</a></p>
+    </header>
+
+    <div class="troubleshooter" id="app">
+
+        <!-- BREADCRUMB -->
+        <div class="step-indicator" id="breadcrumb">
+            <span class="current">Kategori Secin</span>
+        </div>
+
+        <!-- STEP 1: CATEGORIES -->
+        <div id="step-categories">
+            <h2 style="text-align:center; color:#475569; margin-bottom: 24px;">Ne yapmaya calisiyorsunuz?</h2>
+            <div class="category-grid">
+                <div class="category-card" onclick="showCategory('stok')">
+                    <span class="icon">&#128230;</span>
+                    <span class="label">Stok</span>
+                </div>
+                <div class="category-card" onclick="showCategory('üretim')">
+                    <span class="icon">&#9881;</span>
+                    <span class="label">Üretim</span>
+                </div>
+                <div class="category-card" onclick="showCategory('satis')">
+                    <span class="icon">&#128176;</span>
+                    <span class="label">Satis</span>
+                </div>
+                <div class="category-card" onclick="showCategory('kalite')">
+                    <span class="icon">&#9989;</span>
+                    <span class="label">Kalite</span>
+                </div>
+                <div class="category-card" onclick="showCategory('finans')">
+                    <span class="icon">&#128178;</span>
+                    <span class="label">Finans</span>
+                </div>
+                <div class="category-card" onclick="showCategory('bakım')">
+                    <span class="icon">&#128295;</span>
+                    <span class="label">Bakım</span>
+                </div>
+                <div class="category-card" onclick="showCategory('giriş')">
+                    <span class="icon">&#128274;</span>
+                    <span class="label">Giriş / Yetki</span>
+                </div>
+                <div class="category-card" onclick="showCategory('diger')">
+                    <span class="icon">&#128736;</span>
+                    <span class="label">Diger</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 2: TASKS (all hidden by default) -->
+
+        <!-- STOK TASKS -->
+        <div id="tasks-stok" class="hidden">
+            <button class="back-btn" onclick="goHome()">Geri Don</button>
+            <h2>Stok — Ne yapmak istiyorsunuz?</h2>
+            <ul class="task-list">
+                <li><button class="task-btn" onclick="showProblems('stok-giriş')">Stok girişi yapmak istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('stok-çıkış')">Stok çıkışi yapmak istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('stok-transfer')">Depolar arası transfer yapmak istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('stok-sayım')">Stok sayımi yapmak istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('stok-kart')">Yeni stok karti olusturmak istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('stok-barkod')">Barkod okutmak/tanımlamak istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('stok-rapor')">Stok raporu almak istiyorum</button></li>
+            </ul>
+        </div>
+
+        <!-- URETIM TASKS -->
+        <div id="tasks-üretim" class="hidden">
+            <button class="back-btn" onclick="goHome()">Geri Don</button>
+            <h2>Üretim — Ne yapmak istiyorsunuz?</h2>
+            <ul class="task-list">
+                <li><button class="task-btn" onclick="showProblems('üretim-isemri')">Is emri olusturmak istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('üretim-baslat')">Üretimi başlatmak istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('üretim-tamamla')">Is emrini tamamlamak istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('üretim-fire')">Fire/hurda kaydı girmek istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('üretim-makine')">Makine atamasi yapmak istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('üretim-recete')">Recete/BOM tanımlamak istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('üretim-plan')">Üretim planlama yapmak istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('üretim-operator')">Operator atamak istiyorum</button></li>
+            </ul>
+        </div>
+
+        <!-- SATIS TASKS -->
+        <div id="tasks-satis" class="hidden">
+            <button class="back-btn" onclick="goHome()">Geri Don</button>
+            <h2>Satis — Ne yapmak istiyorsunuz?</h2>
+            <ul class="task-list">
+                <li><button class="task-btn" onclick="showProblems('satis-teklif')">Teklif olusturmak istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('satis-sipariş')">Sipariş olusturmak istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('satis-fatura')">Fatura kesmek istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('satis-irsaliye')">İrsaliye olusturmak istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('satis-müşteri')">Müşteri karti olusturmak istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('satis-iade')">Iade işlemi yapmak istiyorum</button></li>
+            </ul>
+        </div>
+
+        <!-- KALITE TASKS -->
+        <div id="tasks-kalite" class="hidden">
+            <button class="back-btn" onclick="goHome()">Geri Don</button>
+            <h2>Kalite — Ne yapmak istiyorsunuz?</h2>
+            <ul class="task-list">
+                <li><button class="task-btn" onclick="showProblems('kalite-kontrol')">Giriş/çıkış kontrolu yapmak istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('kalite-ncr')">Uygunsuzluk raporu (NCR) acmak istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('kalite-kalibrasyon')">Kalibrasyon takibi yapmak istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('kalite-capa')">CAPA olusturmak istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('kalite-denetim')">Denetim plani tanımlamak istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('kalite-sertifika')">Sertifika yüklemek istiyorum</button></li>
+            </ul>
+        </div>
+
+        <!-- FINANS TASKS -->
+        <div id="tasks-finans" class="hidden">
+            <button class="back-btn" onclick="goHome()">Geri Don</button>
+            <h2>Finans — Ne yapmak istiyorsunuz?</h2>
+            <ul class="task-list">
+                <li><button class="task-btn" onclick="showProblems('finans-odeme')">Odeme kaydı girmek istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('finans-cari')">Cari hesap işlemleri yapmak istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('finans-kasa')">Kasa işlemleri yapmak istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('finans-banka')">Banka mutabakati yapmak istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('finans-döviz')">Dövizli işlem yapmak istiyorum</button></li>
+            </ul>
+        </div>
+
+        <!-- BAKIM TASKS -->
+        <div id="tasks-bakım" class="hidden">
+            <button class="back-btn" onclick="goHome()">Geri Don</button>
+            <h2>Bakım — Ne yapmak istiyorsunuz?</h2>
+            <ul class="task-list">
+                <li><button class="task-btn" onclick="showProblems('bakım-ariza')">Ariza bildirimi yapmak istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('bakım-periyodik')">Periyodik bakım planlamak istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('bakım-parca')">Yedek parca talep etmek istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('bakım-geçmiş')">Bakım geçmişini gormek istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('bakım-kapatma')">Bakım isini kapatmak istiyorum</button></li>
+            </ul>
+        </div>
+
+        <!-- GIRIS/YETKI TASKS -->
+        <div id="tasks-giriş" class="hidden">
+            <button class="back-btn" onclick="goHome()">Geri Don</button>
+            <h2>Giriş / Yetki — Ne yapmak istiyorsunuz?</h2>
+            <ul class="task-list">
+                <li><button class="task-btn" onclick="showProblems('giriş-login')">Sisteme giriş yapmak istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('giriş-şifre')">Şifremi değiştirmek istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('giriş-yetki')">Bir sayfaya erisim istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('giriş-kullanıcı')">Yeni kullanıcı olusturmak istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('giriş-rol')">Rol ve yetki tanımlamak istiyorum</button></li>
+            </ul>
+        </div>
+
+        <!-- DIGER TASKS -->
+        <div id="tasks-diger" class="hidden">
+            <button class="back-btn" onclick="goHome()">Geri Don</button>
+            <h2>Diger — Ne yapmak istiyorsunuz?</h2>
+            <ul class="task-list">
+                <li><button class="task-btn" onclick="showProblems('diger-rapor')">Rapor almak/indirmek istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('diger-dosya')">Dosya yüklemek istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('diger-bildirim')">Bildirimleri gormek istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('diger-yazdirma')">Yazdirma işlemi yapmak istiyorum</button></li>
+                <li><button class="task-btn" onclick="showProblems('diger-ayar')">Sistem ayarlarini değiştirmek istiyorum</button></li>
+            </ul>
+        </div>
+
+        <!-- STEP 3: PROBLEMS & SOLUTIONS -->
+
+        <!-- STOK GIRIS -->
+        <div id="problems-stok-giriş" class="hidden">
+            <button class="back-btn" onclick="showCategory('stok')">Geri Don</button>
+            <h2>Stok Girişi — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Stok kodunu bulamiyorum</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Arama alanına stok kodunun bir kismini yazin (tam kodu yazmak zorunda degilsiniz)</li>
+                            <li>Ürün adinin bir kismini yazarak da arayabilirsiniz</li>
+                            <li>Buyuk/küçük harf farki sonucu etkilemez</li>
+                            <li>Ürün sisteme hic tanımlanmamis olabilir — Stok &gt; Yeni Stok Karti'ndan ekleyin</li>
+                        </ol>
+                        <div class="tip">İpucu: Quvex ürün arama kutusu arama kutusuna en az 2 karakter yazdiginizda öneriler gelir.</div>
+                    </div>
+                </details>
+                <details>
+                    <summary>Miktar girdigimde hata veriyor</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Negatif miktar girilemez — sifirdan buyuk bir değer girin</li>
+                            <li>Ondalik ayirici olarak nokta (.) kullanın, virgul (,) kabul edilmez</li>
+                            <li>Cok buyuk sayilar (ornegin 999.999.999) kabul edilmeyebilir</li>
+                        </ol>
+                    </div>
+                </details>
+                <details>
+                    <summary>Depo secimi yapamiyorum</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Sisteme en az bir depo tanimli olmalidir</li>
+                            <li>Stok &gt; Depolar'dan yeni depo ekleyin veya mevcut depolari kontrol edin</li>
+                            <li>Depo yetkiniz olmayabilir — yönetiçinize sorun</li>
+                        </ol>
+                    </div>
+                </details>
+                <details>
+                    <summary>Kaydet butonuna bastiktan sonra hicbir sey olmuyor</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Zorunlu alanları (kirmizi yildizli) kontrol edin, bos olabilir</li>
+                            <li>Internet baglantinizi kontrol edin</li>
+                            <li>Sayfayi yenileyin (F5) ve tekrar deneyin</li>
+                            <li>Tarayici konsolunda hata olabilir — Ctrl+Shift+J ile kontrol edin</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- STOK CIKIS -->
+        <div id="problems-stok-çıkış" class="hidden">
+            <button class="back-btn" onclick="showCategory('stok')">Geri Don</button>
+            <h2>Stok Çıkışi — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Stok yetersiz hatasi aliyor</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Çıkış yapmak istediginiz depodaki mevcut miktari kontrol edin</li>
+                            <li>Ürün baska depoda olabilir — tum depolarin bakiyesini kontrol edin</li>
+                            <li>Once depolar arası transfer yapın, sonra çıkışi gerin</li>
+                        </ol>
+                    </div>
+                </details>
+                <details>
+                    <summary>Yanlis ürüne çıkış yaptim, geri alabilir miyim?</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Stok hareketi onaysiz ise "Iptal" butonuyla geri alın</li>
+                            <li>Onaylanmissa ters kayıt girin (çıkış yerine giriş)</li>
+                            <li>Açıklama alanına "Duzeltme — yanlis çıkış iptali" yazin</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- STOK TRANSFER -->
+        <div id="problems-stok-transfer" class="hidden">
+            <button class="back-btn" onclick="showCategory('stok')">Geri Don</button>
+            <h2>Depolar Arasi Transfer — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Hedef depo listede gorulmuyor</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Hedef depo "Aktif" durumda olmalidir</li>
+                            <li>Stok &gt; Depolar ekranindan depo durumunu kontrol edin</li>
+                            <li>Yetkiniz yalnizca belirli depolara olabilir — yönetiçinize sorun</li>
+                        </ol>
+                    </div>
+                </details>
+                <details>
+                    <summary>Transfer miktari kaynak depodaki miktari asiyor</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Kaynak depodaki guncel miktari kontrol edin</li>
+                            <li>Transfer miktarini mevcut stok miktarina esit veya daha az yapın</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- STOK SAYIM -->
+        <div id="problems-stok-sayım" class="hidden">
+            <button class="back-btn" onclick="showCategory('stok')">Geri Don</button>
+            <h2>Stok Sayımi — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Sayım baslatamiyorum</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Depoda devam eden baska bir sayım olmadigini kontrol edin</li>
+                            <li>Sayım yetkisinin rolunuzde tanimli oldugundan emin olun</li>
+                            <li>Ayarlar &gt; Roller &gt; Stok altindan yetki kontrol edin</li>
+                        </ol>
+                    </div>
+                </details>
+                <details>
+                    <summary>Sayım sirasinda stok hareketi engelleniyor</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Bu normaldir — sayım sirasinda depoya giriş/çıkış yapilamaz</li>
+                            <li>Sayımin tamamlanmasini bekleyin</li>
+                            <li>Acil durumda sayımi gecici olarak durdürün (yönetici yetkisi gerekir)</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- STOK KART -->
+        <div id="problems-stok-kart" class="hidden">
+            <button class="back-btn" onclick="showCategory('stok')">Geri Don</button>
+            <h2>Stok Karti Olusturma — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Stok kodu zaten mevcut hatasi</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Bu stok kodu baska bir ürün için kullaniliyor</li>
+                            <li>Stok listesinde kodu aratarak mevcut ürünu bulun</li>
+                            <li>Farkli bir stok kodu belirleyin</li>
+                        </ol>
+                    </div>
+                </details>
+                <details>
+                    <summary>Zorunlu alanları doldurdum ama kaydedemiyorum</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Birim alanı secili mi kontrol edin</li>
+                            <li>Stok grubu/kategorisi secili mi kontrol edin</li>
+                            <li>Formun en altindaki hata mesajlarini kontrol edin</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- STOK BARKOD -->
+        <div id="problems-stok-barkod" class="hidden">
+            <button class="back-btn" onclick="showCategory('stok')">Geri Don</button>
+            <h2>Barkod İşlemleri — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Barkod okuyucu calismiyor</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>USB kablosunu cikarip tekrar takin</li>
+                            <li>Barkod okuyucunun isiginin yandigini kontrol edin</li>
+                            <li>Baska bir USB portuna takin</li>
+                            <li>Bilgisayari yeniden baslatin</li>
+                        </ol>
+                    </div>
+                </details>
+                <details>
+                    <summary>Barkod okutunca ürün bulunamiyor</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Ürün kartinda barkod tanimli mi kontrol edin</li>
+                            <li>Barkod numarasıni manuel olarak yazarak deneyin</li>
+                            <li>Barkod etiketi yirtik/kirli olabilir — temizleyin veya yenisini basin</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- STOK RAPOR -->
+        <div id="problems-stok-rapor" class="hidden">
+            <button class="back-btn" onclick="showCategory('stok')">Geri Don</button>
+            <h2>Stok Raporu — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Rapor cok uzun suruyor / yüklenmiyar</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Tarih araligini daraltarak daha kisa donem secin</li>
+                            <li>Filtre kullanarak sadece belirli ürün/depo secin</li>
+                            <li>Tarayicida yeni sekme acmayin, raporun tamamlanmasini bekleyin</li>
+                        </ol>
+                    </div>
+                </details>
+                <details>
+                    <summary>Excel indirme calismiyar</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Tarayici pop-up engelleyicisini kontrol edin — indirmeye izin verin</li>
+                            <li>Indirilenler klasorunu kontrol edin — dosya indirilmis olabilir</li>
+                            <li>Farkli tarayıcı deneyin (Chrome öneriliyor)</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- URETIM IS EMRI -->
+        <div id="problems-üretim-isemri" class="hidden">
+            <button class="back-btn" onclick="showCategory('üretim')">Geri Don</button>
+            <h2>Is Emri Olusturma — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Ürün secince "Recete tanimli degil" hatasi aliyor</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Once Üretim &gt; Receteler'den ürüne recete (BOM) tanımlayin</li>
+                            <li>Recetede hammadde, miktar ve operasyonlari belirtin</li>
+                            <li>Receteyi kaydedin ve is emri ekranina geri donun</li>
+                        </ol>
+                    </div>
+                </details>
+                <details>
+                    <summary>Sipariş baglantisi kuramiyorum</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Siparasın durumunun "Onaylandi" oldugunu kontrol edin</li>
+                            <li>Sipariş zaten baska is emrine baglanmis olabilir</li>
+                            <li>Sipariş numarasıni dogru girdiginizden emin olun</li>
+                        </ol>
+                    </div>
+                </details>
+                <details>
+                    <summary>Tarih secemiyorum</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Gecmis tarih secilemez — bugunden ileriye tarih secin</li>
+                            <li>Bitis tarihi başlangıç tarihinden once olamaz</li>
+                            <li>Takvim acilmiyorsa sayfayi yenileyin</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- URETIM BASLAT -->
+        <div id="problems-üretim-baslat" class="hidden">
+            <button class="back-btn" onclick="showCategory('üretim')">Geri Don</button>
+            <h2>Üretimi Başlatma — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Hammadde yetersiz hatasi</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Is emri detayinda eksik malzemeleri gorebilirsiniz</li>
+                            <li>Satınalma talebi olustürün veya depolar arası transfer yapın</li>
+                            <li>Malzeme gelene kadar is emrini "Beklemede" durumuna alın</li>
+                        </ol>
+                    </div>
+                </details>
+                <details>
+                    <summary>Operator atanmamis hatasi</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Is emri detayinda "Operator" alanına kisi atayin</li>
+                            <li>Vardiya listesinden uygun operatörü secin</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- URETIM TAMAMLA -->
+        <div id="problems-üretim-tamamla" class="hidden">
+            <button class="back-btn" onclick="showCategory('üretim')">Geri Don</button>
+            <h2>Is Emri Tamamlama — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Miktar eksik hatasi aliyor</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Üretim kayıtlarıni girin — tum adimlardaki miktarlari kontrol edin</li>
+                            <li>Fire miktarini girdiyseniz toplam (iyi + fire) hedefi karsilamali</li>
+                            <li>Kismi tamamlama için yöneticiden onay alın</li>
+                        </ol>
+                    </div>
+                </details>
+                <details>
+                    <summary>Kalite onay bekliyor hatasi</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Son kontrol (final inspection) tamamlanmali</li>
+                            <li>Kalite biriminden onay isteyin</li>
+                            <li>Onay geldikten sonra is emrini tamamlayin</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- URETIM FIRE -->
+        <div id="problems-üretim-fire" class="hidden">
+            <button class="back-btn" onclick="showCategory('üretim')">Geri Don</button>
+            <h2>Fire/Hurda Kaydi — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Fire miktari cok fazla hatasi</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Fire miktari üretim miktarini gecemez</li>
+                            <li>Dogru miktari girin: fire + iyi ürün = toplam üretim</li>
+                            <li>Gercekten yüksek fire varsa kalite birimine bildirin</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- URETIM MAKINE -->
+        <div id="problems-üretim-makine" class="hidden">
+            <button class="back-btn" onclick="showCategory('üretim')">Geri Don</button>
+            <h2>Makine Atamasi — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Makine baska ise atanmis</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Üretim &gt; Is Emirleri'nden makinenin hangi ise atandigini bulun</li>
+                            <li>Alternatif makine secin veya mevcut isin bitmesini bekleyin</li>
+                            <li>Oncelik degisikligi için üretim planlama ile gorusun</li>
+                        </ol>
+                    </div>
+                </details>
+                <details>
+                    <summary>Makine bakımda goruluyar, atayamiyorum</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Bakım biriminden makinenin ne zaman hazir olacagini ogrenin</li>
+                            <li>Bakım tamamlandiktan sonra makine durumunu "Aktif" yapın</li>
+                            <li>Baska bir uygun makineye yonlendirin</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- URETIM RECETE -->
+        <div id="problems-üretim-recete" class="hidden">
+            <button class="back-btn" onclick="showCategory('üretim')">Geri Don</button>
+            <h2>Recete/BOM Tanimlama — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Hammadde ekleyemiyorum</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Hammaddenin stok kartinin olusturulmus oldugunu kontrol edin</li>
+                            <li>Arama kutusuna ürün kodu veya adini yazin</li>
+                            <li>Stok karti yoksa once Stok &gt; Yeni Stok Karti'ndan olustürün</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- URETIM PLAN -->
+        <div id="problems-üretim-plan" class="hidden">
+            <button class="back-btn" onclick="showCategory('üretim')">Geri Don</button>
+            <h2>Üretim Planlama — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Kapasite cakismasi hatasi</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Kapasite takviminden bos zaman dilimi bulun</li>
+                            <li>Tarih/saat araligini değiştirin</li>
+                            <li>Farkli makineye yonlendirin</li>
+                        </ol>
+                    </div>
+                </details>
+                <details>
+                    <summary>Gantt goruntusunde işler gorulmuyor</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Tarih filtrelerini kontrol edin — dogru donem secili mi?</li>
+                            <li>Makine/hat filtresi seciliyse kaldirin</li>
+                            <li>Sayfayi yenileyin</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- URETIM OPERATOR -->
+        <div id="problems-üretim-operator" class="hidden">
+            <button class="back-btn" onclick="showCategory('üretim')">Geri Don</button>
+            <h2>Operator Atamasi — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Operator listesi bos gorunuyor</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Operator rolune sahip kullanıcılarin tanımlandigini kontrol edin</li>
+                            <li>Ayarlar &gt; Kullanıcılar'dan "Operator" rolu olan kisileri kontrol edin</li>
+                            <li>Yeni operator eklemek için yönetiçinize bildirin</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- SATIS TEKLIF -->
+        <div id="problems-satis-teklif" class="hidden">
+            <button class="back-btn" onclick="showCategory('satis')">Geri Don</button>
+            <h2>Teklif Olusturma — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Müşteri listesinde aranan müşteri yok</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Müşteri kartinin olusturulmus oldugunu kontrol edin</li>
+                            <li>Satis &gt; Müşteriler'den yeni müşteri karti olustürün</li>
+                            <li>Arama terimini kisaltarak deneyin (tam ad yerine parca yazin)</li>
+                        </ol>
+                    </div>
+                </details>
+                <details>
+                    <summary>Ürün fiyati otomatik gelmiyor</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Ürün kartinda liste fiyati tanimli mi kontrol edin</li>
+                            <li>Müşteriye ozel fiyat tanımlanmis mi kontrol edin</li>
+                            <li>Fiyat tanimli degilse manuel olarak girin</li>
+                        </ol>
+                    </div>
+                </details>
+                <details>
+                    <summary>Teklif PDF ciktisi alınmiyor</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Tarayici pop-up engelleyicisini kontrol edin</li>
+                            <li>Teklif once kaydedilmis olmali — kaydedin sonra PDF alın</li>
+                            <li>Indirilenler klasorunu kontrol edin</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- SATIS SIPARIS -->
+        <div id="problems-satis-sipariş" class="hidden">
+            <button class="back-btn" onclick="showCategory('satis')">Geri Don</button>
+            <h2>Sipariş Olusturma — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Tekliften siparişe dönüştürme calismiyar</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Teklifin durumunu kontrol edin — "Onaylandi" olmali</li>
+                            <li>Teklifin geçerlilik süresi dolmus olabilir — yeni teklif olustürün</li>
+                            <li>Yetkinizi kontrol edin — sipariş olusturma izni gerekli</li>
+                        </ol>
+                    </div>
+                </details>
+                <details>
+                    <summary>Sipariş kaydedilmiyor</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Tum zorunlu alanları (müşteri, ürün, miktar, fiyat) doldurdugunuzden emin olun</li>
+                            <li>Birim fiyat sifir olamaz</li>
+                            <li>Teslimat tarihi bugunden onceki bir tarih olamaz</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- SATIS FATURA -->
+        <div id="problems-satis-fatura" class="hidden">
+            <button class="back-btn" onclick="showCategory('satis')">Geri Don</button>
+            <h2>Fatura Kesme — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Fatura geri alınmiyor / düzenlenemiyor</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>"Gonderildi" veya "Odendi" durumdaki faturalar düzenlenemez</li>
+                            <li>Duzeltme için iade/iptal faturasi kesin</li>
+                            <li>Muhasebe birimi ile gorusun</li>
+                        </ol>
+                    </div>
+                </details>
+                <details>
+                    <summary>Müşteri cari hesabı olusturulmamis hatasi</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Finans &gt; Cari Hesaplar'dan müşteriye hesap açın</li>
+                            <li>Gerekli bilgileri (vergi no, adres vb.) eksiksiz girin</li>
+                            <li>Sonra fatura kesme ekranina donun</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- SATIS IRSALIYE -->
+        <div id="problems-satis-irsaliye" class="hidden">
+            <button class="back-btn" onclick="showCategory('satis')">Geri Don</button>
+            <h2>İrsaliye Olusturma — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Sipariş baglantisi kurulamiyor</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Siparasın "Onaylandi" durumda oldugunu kontrol edin</li>
+                            <li>Sipariş zaten irsaliyelenmis olabilir — kontrol edin</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- SATIS MUSTERI -->
+        <div id="problems-satis-müşteri" class="hidden">
+            <button class="back-btn" onclick="showCategory('satis')">Geri Don</button>
+            <h2>Müşteri Karti Olusturma — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Vergi numarası zaten kayıtli hatasi</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Bu vergi numarasıyla kayıtli müşteri zaten mevcut</li>
+                            <li>Müşteri listesinde vergi numarası ile aratarak bulun</li>
+                            <li>Mevcut kaydı güncelleyin, yeni kayıt eklemeyin</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- SATIS IADE -->
+        <div id="problems-satis-iade" class="hidden">
+            <button class="back-btn" onclick="showCategory('satis')">Geri Don</button>
+            <h2>Iade İşlemi — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Iade faturasi olusturulamiyor</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Orijinal fatura numarasıni dogru sectiginizden emin olun</li>
+                            <li>Iade miktari orijinal fatura miktarini aşamaz</li>
+                            <li>Muhasebe yetkiniz oldugunu kontrol edin</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- KALITE KONTROL -->
+        <div id="problems-kalite-kontrol" class="hidden">
+            <button class="back-btn" onclick="showCategory('kalite')">Geri Don</button>
+            <h2>Giriş/Çıkış Kontrolu — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Kontrol formu gorulmuyor</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Ürün için denetim plani tanımlanmis olmali</li>
+                            <li>Kalite &gt; Denetim Planlari'ndan kontrol edin</li>
+                            <li>Plan yoksa once tanımlayin</li>
+                        </ol>
+                    </div>
+                </details>
+                <details>
+                    <summary>RED verdim ama ürün hala kullanilabiliyor</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>RED karari kaydedildikten sonra malzeme otomatik karantinaya alınmali</li>
+                            <li>Kaydi kontrol edin — durumu "Karantina" olmali</li>
+                            <li>Sistem yöneticisine bildirin, otomatik blok aktif olmayabilir</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- KALITE NCR -->
+        <div id="problems-kalite-ncr" class="hidden">
+            <button class="back-btn" onclick="showCategory('kalite')">Geri Don</button>
+            <h2>NCR Acma — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>NCR kapatma butonu aktif degil</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>CAPA (Düzeltici Faaliyet) tamamlanmis olmali</li>
+                            <li>Kalite &gt; CAPA ekranindan ilgili faaliyeti tamamlayin</li>
+                            <li>Etkinlik doğrulamasi yapilmis mi kontrol edin</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- KALITE KALIBRASYON -->
+        <div id="problems-kalite-kalibrasyon" class="hidden">
+            <button class="back-btn" onclick="showCategory('kalite')">Geri Don</button>
+            <h2>Kalibrasyon Takibi — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Suresi dolmus cihaz kullanilamaz hatasi</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Cihazi kullanimdan cikarin</li>
+                            <li>Kalibrasyon firmasina gonderin</li>
+                            <li>Yeni sertifika geldikten sonra sisteme yükleyin</li>
+                            <li>Bu cihazla son yapilan olcumleri gozden gecirin</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- KALITE CAPA -->
+        <div id="problems-kalite-capa" class="hidden">
+            <button class="back-btn" onclick="showCategory('kalite')">Geri Don</button>
+            <h2>CAPA Olusturma — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Kok neden analizi alanı zorunlu mu?</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Evet, AS9100 geregi kok neden analizi zorunludur</li>
+                            <li>5 Neden veya balik kilcigi yontemi kullanın</li>
+                            <li>Analiz sonucunu metin alanına yazin</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- KALITE DENETIM -->
+        <div id="problems-kalite-denetim" class="hidden">
+            <button class="back-btn" onclick="showCategory('kalite')">Geri Don</button>
+            <h2>Denetim Plani — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Kontrol noktasi ekleyemiyorum</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Once plani "Taslak" durumunda kaydedin</li>
+                            <li>Sonra kontrol noktalari ekleyin</li>
+                            <li>Her nokta için kabul kriteri ve olcum yontemi belirtin</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- KALITE SERTIFIKA -->
+        <div id="problems-kalite-sertifika" class="hidden">
+            <button class="back-btn" onclick="showCategory('kalite')">Geri Don</button>
+            <h2>Sertifika Yukleme — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Dosya formati desteklenmiyor hatasi</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Kabul edilen formatlar: PDF, JPG, PNG</li>
+                            <li>Dosyayi PDF formatina dönüştürün</li>
+                            <li>Dosya boyutu 10 MB'i asmamali</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- FINANS ODEME -->
+        <div id="problems-finans-odeme" class="hidden">
+            <button class="back-btn" onclick="showCategory('finans')">Geri Don</button>
+            <h2>Odeme Kaydi — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Odeme tutari fatura tutariyla eslesmiyor hatasi</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Fatura tutari ile odeme tutarini karsilastirin</li>
+                            <li>Kismi odeme yapiyorsaniz "Kismi Odeme" secenegini secin</li>
+                            <li>Dövizli işlemlerde kur farkini kontrol edin</li>
+                        </ol>
+                    </div>
+                </details>
+                <details>
+                    <summary>Kasa bakiyesi yetersiz</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Kasaya para girişi yapın (banka cekimi veya nakit)</li>
+                            <li>Farkli odeme yontemi kullanın (havale/EFT)</li>
+                            <li>Kasa bakiyesini kontrol edin</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- FINANS CARI -->
+        <div id="problems-finans-cari" class="hidden">
+            <button class="back-btn" onclick="showCategory('finans')">Geri Don</button>
+            <h2>Cari Hesap İşlemleri — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Cari bakiye güncelleme hatasi</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Sayfayi yenileyin ve işlemi tekrar deneyin</li>
+                            <li>Cari hesap hareketlerini kontrol edin</li>
+                            <li>Sorun devam ederse IT birimine bildirin</li>
+                        </ol>
+                    </div>
+                </details>
+                <details>
+                    <summary>Cari hesap ekstre alınamiyor</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Tarih araligini kontrol edin</li>
+                            <li>Secilen donemde hareket olmayabilir</li>
+                            <li>Farkli tarayıcı deneyin veya sayfayi yenileyin</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- FINANS KASA -->
+        <div id="problems-finans-kasa" class="hidden">
+            <button class="back-btn" onclick="showCategory('finans')">Geri Don</button>
+            <h2>Kasa İşlemleri — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Kasa tanimimli degil hatasi</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Finans &gt; Kasalar'dan yeni kasa tanımlayin</li>
+                            <li>Kasa adi ve para birimi girin</li>
+                            <li>Kaydedin ve işleme devam edin</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- FINANS BANKA -->
+        <div id="problems-finans-banka" class="hidden">
+            <button class="back-btn" onclick="showCategory('finans')">Geri Don</button>
+            <h2>Banka Mutabakati — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Banka hesap eksiresi yüklenmiyor</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Dosya formati destekleniyor mu kontrol edin (XLSX, CSV)</li>
+                            <li>Dosya iceriginin banka formatina uygun oldugunu dogrulayin</li>
+                            <li>Manuel girerek devam edebilirsiniz</li>
+                        </ol>
+                    </div>
+                </details>
+                <details>
+                    <summary>Eslesmeyenler listesi cok fazla</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Tarih araliginin banka ekstresiyle ayni oldugunu kontrol edin</li>
+                            <li>Eksik cari hesap işlemleri olabilir — once bunlari girin</li>
+                            <li>Tutar farklıliklari için dekont detaylarini kontrol edin</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- FINANS DOVIZ -->
+        <div id="problems-finans-döviz" class="hidden">
+            <button class="back-btn" onclick="showCategory('finans')">Geri Don</button>
+            <h2>Dövizli İşlemler — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>TCMB kur alınamadi hatasi</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Internet baglantinizi kontrol edin</li>
+                            <li>TCMB servisi gecici olarak erisliemez olabilir — birkac dakika bekleyin</li>
+                            <li>Manuel olarak gunun kürünu girin</li>
+                        </ol>
+                    </div>
+                </details>
+                <details>
+                    <summary>Kur farki hesaplanamiyor</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Hem fatura hem odeme için kur bilgisinin girildiginden emin olun</li>
+                            <li>Para biriminin dogru secildigini kontrol edin</li>
+                            <li>Kur farkini manuel hesaplayarak muhasebe fisine girin</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- BAKIM ARIZA -->
+        <div id="problems-bakım-ariza" class="hidden">
+            <button class="back-btn" onclick="showCategory('bakım')">Geri Don</button>
+            <h2>Ariza Bildirimi — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Makine listesinde makinemi bulamiyorum</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Makine kodu veya adinin bir kismini yazarak arayin</li>
+                            <li>Makine sisteme tanimli olmayabilir — yönetiçinize bildirin</li>
+                            <li>Baska bir bolum/hat altinda tanimli olabilir</li>
+                        </ol>
+                    </div>
+                </details>
+                <details>
+                    <summary>Ariza tipi secenekleri uygun degil</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>En yakin ariza tipini secin</li>
+                            <li>Açıklama alanına detayli bilgi yazin</li>
+                            <li>Yeni ariza tipi eklenmesi için yönetiçinize bildirin</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- BAKIM PERIYODIK -->
+        <div id="problems-bakım-periyodik" class="hidden">
+            <button class="back-btn" onclick="showCategory('bakım')">Geri Don</button>
+            <h2>Periyodik Bakım — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Periyodik bakım otomatik olusmuyor</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Bakım planinda periyot (gun/saat) dogru tanımlanmis mi kontrol edin</li>
+                            <li>Plan durumunun "Aktif" oldugunu kontrol edin</li>
+                            <li>Son bakım tarihinin girilmis oldugunu kontrol edin</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- BAKIM PARCA -->
+        <div id="problems-bakım-parca" class="hidden">
+            <button class="back-btn" onclick="showCategory('bakım')">Geri Don</button>
+            <h2>Yedek Parca Talebi — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Yedek parca stokta gorulmuyor</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Parca kodu veya adiyla arayin</li>
+                            <li>Stokta yoksa satınalma talebi olustürün</li>
+                            <li>Acil durumlarda alternatif parca kullanilabilir mi muhendise dansin</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- BAKIM GECMIS -->
+        <div id="problems-bakım-geçmiş" class="hidden">
+            <button class="back-btn" onclick="showCategory('bakım')">Geri Don</button>
+            <h2>Bakım Gecmisi — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Eski bakım kayıtları gorulmuyor</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Tarih filtresini genisletin — varsayilan filtre son 1 ay olabilir</li>
+                            <li>"Tum Tarihler" secenegini kullanın</li>
+                            <li>Arsivlenmis kayıtlar için IT birimine danisin</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- BAKIM KAPATMA -->
+        <div id="problems-bakım-kapatma" class="hidden">
+            <button class="back-btn" onclick="showCategory('bakım')">Geri Don</button>
+            <h2>Bakım Isi Kapatma — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Bakım isi kapatilamiyor</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Tum kontrol maddeleri isaretlenmis mi kontrol edin</li>
+                            <li>Kullanılan malzeme/parca bilgisi girilmis mi kontrol edin</li>
+                            <li>Bakım sorumlusunun onayi gerekebilir</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- GIRIS LOGIN -->
+        <div id="problems-giriş-login" class="hidden">
+            <button class="back-btn" onclick="showCategory('giriş')">Geri Don</button>
+            <h2>Sisteme Giriş — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Şifrem dogru ama giremiyorum</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Caps Lock acik olabilir — kontrol edin</li>
+                            <li>Turkce karakter sorunu olabilir — klavye dilini kontrol edin</li>
+                            <li>Hesabiniz kilitlenmis olabilir (5 hatali deneme) — 15 dakika bekleyin</li>
+                            <li>Şifreniz değiştirilmis olabilir — yönetiçinize sorun</li>
+                        </ol>
+                    </div>
+                </details>
+                <details>
+                    <summary>Giriş sayfasi yüklenmiyar</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Internet baglantinizi kontrol edin</li>
+                            <li>Tarayici onbellegini temizleyin (Ctrl+Shift+Delete)</li>
+                            <li>Farkli tarayıcı deneyin</li>
+                            <li>VPN kullaniyorsaniz baglanti durumunu kontrol edin</li>
+                        </ol>
+                    </div>
+                </details>
+                <details>
+                    <summary>Oturum surekli kapaniyor</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Tarayici cerezlerinin aktif oldugunu kontrol edin</li>
+                            <li>Tarayiçinin "gizli mod"da olmadigini kontrol edin</li>
+                            <li>Baska bir sekmede çıkış yapmis olabilirsiniz</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- GIRIS SIFRE -->
+        <div id="problems-giriş-şifre" class="hidden">
+            <button class="back-btn" onclick="showCategory('giriş')">Geri Don</button>
+            <h2>Şifre Degistirme — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Yeni şifrem kabul edilmiyor</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Şifre en az 12 karakter olmali</li>
+                            <li>En az 1 buyuk harf, 1 küçük harf, 1 rakam, 1 ozel karakter icermeli</li>
+                            <li>Eski şifrenizle ayni olamaz</li>
+                            <li>Ornek: "Fabrika2026Quvex!"</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- GIRIS YETKI -->
+        <div id="problems-giriş-yetki" class="hidden">
+            <button class="back-btn" onclick="showCategory('giriş')">Geri Don</button>
+            <h2>Sayfa Erisimi — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>"Bu işlem için yetkiniz yok" hatasi</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Bu sayfa/işlem için rolunuzde yetki tanimli degil</li>
+                            <li>Yönetiçinizden Ayarlar &gt; Roller ekranindan yetki eklemesini isteyin</li>
+                            <li>Yetkiler: Goruntule, Kaydet, Sil seklinde tanımlanir</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- GIRIS KULLANICI -->
+        <div id="problems-giriş-kullanıcı" class="hidden">
+            <button class="back-btn" onclick="showCategory('giriş')">Geri Don</button>
+            <h2>Kullanıcı Olusturma — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>E-posta zaten kayıtli hatasi</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Bu e-posta ile baska bir kullanıcı zaten mevcut</li>
+                            <li>Farkli bir e-posta adresi kullanın</li>
+                            <li>Mevcut kullanıcıyi arayin — belki pasif durumdadir, aktif edin</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- GIRIS ROL -->
+        <div id="problems-giriş-rol" class="hidden">
+            <button class="back-btn" onclick="showCategory('giriş')">Geri Don</button>
+            <h2>Rol ve Yetki Tanimlama — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Yetki degisikligi hemen uygulanmiyar</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Kullanıcınin çıkış yapip tekrar giriş yapmasi gerekir</li>
+                            <li>Yetki değişiklikleri bir sonraki girişte aktif olur</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- DIGER RAPOR -->
+        <div id="problems-diger-rapor" class="hidden">
+            <button class="back-btn" onclick="showCategory('diger')">Geri Don</button>
+            <h2>Rapor Alma — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Rapor cok uzun suruyor</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Tarih araligini daralttin — kisa donem secin</li>
+                            <li>Filtre kullanın (belirli ürün, depo, müşteri)</li>
+                            <li>Yogun saatlerde rapor alma işlemi yavaslanabilir</li>
+                        </ol>
+                    </div>
+                </details>
+                <details>
+                    <summary>Excel dosyasi acilamiyor</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Excel veya uyumlu bir program (LibreOffice) yuklu olmalidir</li>
+                            <li>Dosyayi sag tıklayip "Birlikte Ac" &gt; Excel secin</li>
+                            <li>Dosya bozuk olabilir — tekrar indirin</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- DIGER DOSYA -->
+        <div id="problems-diger-dosya" class="hidden">
+            <button class="back-btn" onclick="showCategory('diger')">Geri Don</button>
+            <h2>Dosya Yukleme — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Dosya boyutu hatasi</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Maksimum dosya boyutu 10 MB'dir</li>
+                            <li>Resimler için sikistrima yaparak kucultun</li>
+                            <li>PDF dosyalarini sayfa sayfa bolerek yükleyin</li>
+                        </ol>
+                    </div>
+                </details>
+                <details>
+                    <summary>Desteklenmeyen format hatasi</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Kabul edilen formatlar: PDF, JPG, PNG, XLSX, DOCX</li>
+                            <li>Dosyayi uygun formata dönüştürün</li>
+                            <li>BMP &gt; JPG, ODS &gt; XLSX gibi dönüşümler yapın</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- DIGER BILDIRIM -->
+        <div id="problems-diger-bildirim" class="hidden">
+            <button class="back-btn" onclick="showCategory('diger')">Geri Don</button>
+            <h2>Bildirimler — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Bildirimler gelmiyar</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Internet baglantinizi kontrol edin</li>
+                            <li>Tarayici bildirim izinlerini kontrol edin</li>
+                            <li>Sayfayi yenileyin — SignalR baglantisi kopmus olabilir</li>
+                            <li>Ayarlar'dan bildirim tercihlerinizi kontrol edin</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- DIGER YAZDIRMA -->
+        <div id="problems-diger-yazdirma" class="hidden">
+            <button class="back-btn" onclick="showCategory('diger')">Geri Don</button>
+            <h2>Yazdirma — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Cikti bos/bozuk geliyor</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Once "Yazdir Onizleme" ile kontrol edin (Ctrl+P)</li>
+                            <li>Sayfa yonunu (dikey/yatay) kontrol edin</li>
+                            <li>Olcekleme ayarini "%100" veya "Sayfaya Sigdir" yapın</li>
+                            <li>Farkli yazici deneyin veya PDF olarak kaydedin</li>
+                        </ol>
+                    </div>
+                </details>
+                <details>
+                    <summary>Barkod etiketi yazdiramiyorum</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Etiket yaziçinin bagli ve acik oldugunu kontrol edin</li>
+                            <li>Etiket boyutunun yaziciya uygun oldugunu kontrol edin</li>
+                            <li>Yazici surucusunun yuklu oldugunu kontrol edin</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- DIGER AYAR -->
+        <div id="problems-diger-ayar" class="hidden">
+            <button class="back-btn" onclick="showCategory('diger')">Geri Don</button>
+            <h2>Sistem Ayarlari — Sik Karsilasilan Sorunlar</h2>
+            <div class="problem-section">
+                <details>
+                    <summary>Ayarlar sayfasina erisemiyorum</summary>
+                    <div class="solution-box">
+                        <h4>Cozum:</h4>
+                        <ol>
+                            <li>Sistem ayarlari için yönetici yetkisi gerekir</li>
+                            <li>Yönetiçinize danisarak gerekli yetki tanimini isteyin</li>
+                            <li>Sadece kendi profilinizi "Profil" sayfasindan düzenleyebilirsiniz</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- Sprint 11 Yeni Sorun Giderme (Nisan 2026) -->
+    <!-- ============================================================ -->
+    <div class="step-container" id="sprint11-troubles" style="display:block;">
+        <h2 style="margin-top:30px;">Sprint 11 Yenilikleri - Sik Karsilasilan Sorunlar</h2>
+        <div class="problem-section">
+            <details>
+                <summary>ProductVariant matrisi yuklenmiyor / bos gorunuyor</summary>
+                <div class="solution-box">
+                    <h4>Olasi Nedenler ve Cozumler:</h4>
+                    <ol>
+                        <li><strong>Oznitelik tanimli degil:</strong> Stok &gt; Ozellikler sayfasindan once "Beden" ve "Renk" gibi oznitelikleri olusturmaniz gerekir.</li>
+                        <li><strong>Ozniteliklere deger atanmamis:</strong> Her oznitelik icin en az 2 deger girin (örnek: Beden = S, M, L).</li>
+                        <li><strong>Urune baglanmamis:</strong> Urun duzenleme ekraninda Varyantlar sekmesinden oznitelikleri bu urune atayin.</li>
+                        <li><strong>Tarayici cache:</strong> Ctrl+F5 ile sayfayi zorla yenileyin.</li>
+                        <li><strong>Yetki:</strong> ProductVariant.Goruntule yetkisi olmali. Sistem yoneticinizden isteyin.</li>
+                    </ol>
+                </div>
+            </details>
+            <details>
+                <summary>HACCP sapmasi bildirim gondermiyor</summary>
+                <div class="solution-box">
+                    <h4>Cozum:</h4>
+                    <ol>
+                        <li>Kalite &gt; HACCP &gt; CCP ayarlarinda kritik limitin (min/max) dogru girildigini kontrol edin.</li>
+                        <li>CCP icin "Bildirim Aktif" secenegi isaretli olmalidir.</li>
+                        <li>Ayarlar &gt; Bildirim Ayarlari &gt; HACCP Sapmasi kanalinin (SignalR / E-posta / WhatsApp) acik oldugunu dogrulayin.</li>
+                        <li>WhatsApp icin onayli sablon gerekir; Ayarlar &gt; Entegrasyonlar &gt; WhatsApp sekmesinden sablonu kontrol edin.</li>
+                        <li>Test amacli limitin disinda deger girin ve logu Ayarlar &gt; Sistem &gt; Bildirim Gecmisi'nden kontrol edin.</li>
+                    </ol>
+                </div>
+            </details>
+            <details>
+                <summary>WhatsApp test mesaji gitmedi</summary>
+                <div class="solution-box">
+                    <h4>Cozum:</h4>
+                    <ol>
+                        <li>Ayarlar &gt; Entegrasyonlar &gt; WhatsApp Business API sekmesinde Phone Number ID, Access Token ve Business Account ID alanlarinin dolu oldugunu dogrulayin.</li>
+                        <li>Access Token'in suresi dolmus olabilir. Meta Business Manager'dan yeni token alin ve guncelleyin.</li>
+                        <li>Test mesaji icin kullandiginiz numara E.164 formatinda olmalidir (+905XX...).</li>
+                        <li>Meta tarafinda sablon "APPROVED" durumunda olmalidir. "PENDING" veya "REJECTED" sablonlar gonderilemez.</li>
+                        <li>Polly Circuit Breaker acik olabilir (cok sayida hata sonrasi). 5 dakika bekleyip tekrar deneyin.</li>
+                        <li>Meta rate limit (dakikada maksimum mesaj) asilmis olabilir. Log kayitlarini kontrol edin.</li>
+                    </ol>
+                </div>
+            </details>
+            <details>
+                <summary>Real-time pano guncellenmiyor (SignalR baglanti hatasi)</summary>
+                <div class="solution-box">
+                    <h4>Cozum:</h4>
+                    <ol>
+                        <li>Tarayici konsolunu acin (F12) ve "WebSocket" veya "SignalR" ile ilgili hata mesaji arayin.</li>
+                        <li>Proxy / Firewall WebSocket baglantilarini engelliyor olabilir. IT'nizden <code>/hubs/notification</code> yolunun acik oldugunu dogrulatin.</li>
+                        <li>Sayfanin sag alt kosesinde yesil nokta olmali. Kirmizi ise baglanti kurulamamis demektir.</li>
+                        <li>Oturum suresi dolmus olabilir. Cikis yapip tekrar giris yapin.</li>
+                        <li>Ayarlar &gt; Profil &gt; Bildirim Abonelikleri'nden "Canli Pano" kanalinin acik oldugunu kontrol edin.</li>
+                        <li>Cozum olmazsa sayfayi yenileyin (F5). SignalR otomatik olarak yeniden baglanacaktir.</li>
+                    </ol>
+                </div>
+            </details>
+            <details>
+                <summary>Demo data yuklenirken hata aliyorum</summary>
+                <div class="solution-box">
+                    <h4>Cozum:</h4>
+                    <ol>
+                        <li><strong>Veri zaten mevcut:</strong> Ayni sektor icin daha once demo yuklediyseniz "Demo Veri Temizle" ile temizleyip tekrar deneyin.</li>
+                        <li><strong>Yetki eksikligi:</strong> Demo veri yukleme icin sistem yoneticisi yetkisi gerekir.</li>
+                        <li><strong>Disk / veritabani limiti:</strong> Multi-tenant ortamda tenant storage limiti asilmis olabilir. Yoneticinizden kontrol isteyin.</li>
+                        <li><strong>Mevcut ozel veri:</strong> Sisteme zaten gercek veri girdiyseniz demo yukleme engellenir. Temiz bir test tenant'i kullanin.</li>
+                        <li><strong>Yukleme yarida kaldi:</strong> Ayarlar &gt; Sistem &gt; Demo Veri Durumu sayfasindan "Sifirla" butonu ile temizleyip tekrar deneyin.</li>
+                        <li>Hata devam ediyorsa Ayarlar &gt; Sistem &gt; Loglar sayfasindan "DemoDataSeeder" etiketli kayitlari destek ekibine iletin.</li>
+                    </ol>
+                </div>
+            </details>
+            <details>
+                <summary>Kalip atim sayaci artmiyor</summary>
+                <div class="solution-box">
+                    <h4>Cozum:</h4>
+                    <ol>
+                        <li>Kalibin is emrine dogru atandigini kontrol edin (Uretim &gt; Is Emri &gt; Kalip alani).</li>
+                        <li>Operator ShopFloor Terminal'de uretim miktarini girmelidir; aksi halde sayac artmaz.</li>
+                        <li>Kalip kartinda "Shot Counter Aktif" secenegi isaretli olmalidir.</li>
+                        <li>Multi-cavity kaliplarda sayac atim basina artar (cavity sayisi ile carpmaz). Bu normaldir.</li>
+                    </ol>
+                </div>
+            </details>
+            <details>
+                <summary>CE Teknik Dosya versiyonu onaylanmiyor</summary>
+                <div class="solution-box">
+                    <h4>Cozum:</h4>
+                    <ol>
+                        <li>Onay zincirindeki tum kisilerin (Tasarim, Kalite, Yonetim) onayi tamamlanmis olmalidir.</li>
+                        <li>Zorunlu dokumanlar eksik olabilir: Risk analizi (ISO 14971), test raporu, kullanim kilavuzu. Eksik olanlar kirmizi gosterilir.</li>
+                        <li>UDI kodu atanmamis olabilir. UDI-DI alanini doldurun.</li>
+                        <li>Workflow kilidi: Bir onceki versiyon "draft" durumundaysa yeni versiyon olusturulamaz. Taslak versiyonu iptal edin veya tamamlayin.</li>
+                    </ol>
+                </div>
+            </details>
+        </div>
+    </div>
+
+    <!-- HALA COZEMEDIM -->
+    <div class="support-box">
+        <h2>Hala Cozemedim!</h2>
+        <p style="color: #78350f; font-size: 16px;">Yukaridaki adimlari denemenize ragmen sorun devam ediyorsa bize ulasin:</p>
+        <div class="support-channels">
+            <div class="channel">
+                <strong>Telefon</strong><br>
+                <span style="font-size: 18px;">0212 XXX XX XX</span><br>
+                <small>Hafta ici 09:00-18:00</small>
+            </div>
+            <div class="channel">
+                <strong>E-posta</strong><br>
+                <span style="font-size: 18px;">destek@quvex.io</span><br>
+                <small>24 saat içinde yanit</small>
+            </div>
+            <div class="channel">
+                <strong>WhatsApp</strong><br>
+                <span style="font-size: 18px;">0531 232 47 89</span><br>
+                <small>Hafta ici 09:00-18:00</small>
+            </div>
+        </div>
+        <p style="color: #78350f; margin-top: 20px; font-size: 14px;">
+            Destek ekibine ulasirken su bilgileri hazir bulundürün:<br>
+            <strong>1.</strong> Ekran goruntusu &nbsp; <strong>2.</strong> Hangi işlem &nbsp; <strong>3.</strong> Hata mesaji &nbsp; <strong>4.</strong> Kullanıcı adiniz
+        </p>
+    </div>
+
+</div>
+
+<script>
+(function() {
+    var currentCategory = null;
+    var currentTask = null;
+
+    window.goHome = function() {
+        hideAll();
+        show('step-categories');
+        updateBreadcrumb([{label: 'Kategori Secin', action: null}]);
+        currentCategory = null;
+        currentTask = null;
+    };
+
+    window.showCategory = function(cat) {
+        hideAll();
+        show('tasks-' + cat);
+        currentCategory = cat;
+        currentTask = null;
+        var catNames = {
+            stok: 'Stok', üretim: 'Üretim', satis: 'Satis', kalite: 'Kalite',
+            finans: 'Finans', bakım: 'Bakım', giriş: 'Giriş / Yetki', diger: 'Diger'
+        };
+        updateBreadcrumb([
+            {label: 'Kategori Secin', action: 'goHome()'},
+            {label: catNames[cat], action: null}
+        ]);
+    };
+
+    window.showProblems = function(taskId) {
+        hideAll();
+        var el = document.getElementById('problems-' + taskId);
+        if (el) {
+            el.classList.remove('hidden');
+            currentTask = taskId;
+            var catPart = taskId.split('-')[0];
+            var catNames = {
+                stok: 'Stok', üretim: 'Üretim', satis: 'Satis', kalite: 'Kalite',
+                finans: 'Finans', bakım: 'Bakım', giriş: 'Giriş / Yetki', diger: 'Diger'
+            };
+            var taskEl = document.querySelector('#tasks-' + catPart + ' .task-btn[onclick*="' + taskId + '"]');
+            var taskName = taskEl ? taskEl.textContent.trim().replace(/^\u279C\s*/, '') : taskId;
+            updateBreadcrumb([
+                {label: 'Kategori Secin', action: 'goHome()'},
+                {label: catNames[catPart], action: "showCategory('" + catPart + "')"},
+                {label: taskName, action: null}
+            ]);
+        }
+    };
+
+    function hideAll() {
+        document.getElementById('step-categories').classList.add('hidden');
+        var allDivs = document.querySelectorAll('[id^="tasks-"], [id^="problems-"]');
+        allDivs.forEach(function(d) { d.classList.add('hidden'); });
+    }
+
+    function show(id) {
+        document.getElementById(id).classList.remove('hidden');
+    }
+
+    function updateBreadcrumb(items) {
+        var bc = document.getElementById('breadcrumb');
+        bc.innerHTML = '';
+        items.forEach(function(item, i) {
+            if (i > 0) {
+                var sep = document.createElement('span');
+                sep.className = 'sep';
+                sep.textContent = ' > ';
+                bc.appendChild(sep);
+            }
+            var span = document.createElement('span');
+            if (item.action) {
+                span.className = 'crumb';
+                span.setAttribute('onclick', item.action);
+            } else {
+                span.className = 'current';
+            }
+            span.textContent = item.label;
+            bc.appendChild(span);
+        });
+    }
+})();
+</script>
+
+</body>
+</html>

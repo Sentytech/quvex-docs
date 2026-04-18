@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quvex ERP - Sik Sorulan Sorular (SSS)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  details { background: var(--glass); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--glass-border); border-radius: var(--radius-sm); margin-bottom: 0.65rem; box-shadow: 0 2px 8px rgba(99,102,241,0.06); transition: all 0.2s; }
+  details:hover { box-shadow: 0 4px 16px rgba(99,102,241,0.12); }
+  details[open] { border-left: 4px solid var(--primary); }
+  summary { padding: 1rem 1.25rem; cursor: pointer; font-weight: 600; color: var(--text); font-size: 0.95rem; list-style: none; display: flex; align-items: center; gap: 0.75rem; }
+  summary::-webkit-details-marker { display: none; }
+  summary::before { content: '+'; display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 6px; background: var(--gradient-subtle); color: var(--primary); font-weight: 700; font-size: 1.1rem; flex-shrink: 0; transition: transform 0.2s; }
+  details[open] summary::before { content: '\2212'; transform: rotate(180deg); }
+  .faq-answer { padding: 0 1.25rem 1rem 3.25rem; color: var(--text-secondary); line-height: 1.7; }
+  .faq-answer p { margin-bottom: 0.5rem; }
+  .faq-answer ol, .faq-answer ul { margin: 0.25rem 0 0.5rem 1.25rem; }
+  .faq-category { font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spaçıng: 0.5px; display: inline-block; padding: 3px 12px; border-radius: 999px; margin-bottom: 0.5rem; }
+  .faq-search { width: 100%; padding: 0.85rem 1.2rem; border: 2px solid var(--border); border-radius: var(--radius-sm); font-size: 1rem; font-family: inherit; background: var(--white); transition: border-color 0.2s; margin-bottom: 1.5rem; }
+  .faq-search:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(99,102,241,0.12); }
+  .faq-count { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1rem; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="doc-header">
+    <div class="breadcrumb"><a href="index.html">Kullanıcı Kılavuzu</a> &raquo; Sik Sorulan Sorular</div>
+    <span class="version-badge">v1.0 &mdash; Nisan 2026</span>
+    <h1>Sik Sorulan Sorular (SSS)</h1>
+    <p>Quvex ERP hakkinda en cok sorulan sorular ve cevaplari. Aramayi kullanarak hızlıca bulun.</p>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-value">65</div>
+      <div class="stat-label">Soru</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">7</div>
+      <div class="stat-label">Kategori</div>
+    </div>
+  </div>
+
+  <!-- Arama -->
+  <input type="text" class="faq-search" id="faqSearch" placeholder="Soru ara... (örnek: şifre, stok, fatura, NCR)" oninput="filterFaq()">
+  <div class="faq-count" id="faqCount">65 soru goruntuluyor</div>
+
+  <!-- ============================================================ -->
+  <!-- GENEL -->
+  <!-- ============================================================ -->
+  <h2 id="genel">Genel Sorular</h2>
+
+  <details class="faq-item">
+    <summary>Quvex ERP'ye nasil giriş yaparim?</summary>
+    <div class="faq-answer">
+      <p>Tarayiçinizin adres cubuguna sirketinizin Quvex adresini yazin (örnek: <code>https://firma.quvex.io</code>). E-posta ve şifrenizi girin, "Giriş Yap" butonuna basin. İlk girişte şifrenizi değiştirmeniz istenecektir.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Şifremi unuttum, ne yapmaliyim?</summary>
+    <div class="faq-answer">
+      <p>Giriş ekranindaki "Şifremi Unuttum" baglantisina tıklayin. E-posta adresinize şifre sifirlama baglantisi gonderilecektir. Eger bu işlem calismiyorsa sistem yönetiçinize basvürün.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Hesabim kilitlendi, ne yapmaliyim?</summary>
+    <div class="faq-answer">
+      <p>5 yanlis şifre denemesinden sonra hesap 15 dakika otomatik olarak kilitlenir. 15 dakika bekleyip tekrar deneyin veya sistem yönetiçinizden kilidi kaldirmasini isteyin.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Sisteme telefonumdan girebilir miyim?</summary>
+    <div class="faq-answer">
+      <p>Evet, Quvex ERP mobil uyumludur. Telefonunuzun tarayıcısi ile giriş yapın. Ayrica PWA olarak ana ekrana ekleyerek uygulama gibi kullanabilirsiniz. Detaylar için <a href="ilk-adimlar.html#mobil">İlk Adimlar &gt; Mobil Erişim</a> sayfasina bakin.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>PWA nedir ve nasil yüklerim?</summary>
+    <div class="faq-answer">
+      <p>PWA (Progressive Web App), web sitesini telefonunuza veya bilgisayariniza uygulama gibi yükleme teknolojisidir. Chrome'da adres cubugundaki "Yukle" ikonuna basin. Detayli talimat için <a href="ilk-adimlar.html#mobil">İlk Adimlar</a> sayfasina bakin.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Hangi tarayıcılar destekleniyor?</summary>
+    <div class="faq-answer">
+      <p>Google Chrome (önerilen), Microsoft Edge, Mozilla Firefox ve Safari'nin son 2 surumu desteklenir. Internet Explorer desteklenmez.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Sistemin dilini değiştirebilir miyim?</summary>
+    <div class="faq-answer">
+      <p>Simdilik Quvex arayüzü Türkçe olarak sunulmaktadir. Gelecek surumlerdeIngilizce dil destegi planlanmaktadir.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Koyu tema (dark mode) nasil aktiflestirilir?</summary>
+    <div class="faq-answer">
+      <p>Üst bardaki gunes/ay ikonuna tıklayarak acik ve koyu tema arasında geçiş yapabilirsiniz. Tercihiniz kaydedilir ve sonraki girişlerde hatirlanir.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Bildirimleri nasil kapatirim veya acarim?</summary>
+    <div class="faq-answer">
+      <p>Üst bardaki bildirim zili ikonuna tıklayin, acilan panelin alt kismindaki "Bildirim Ayarlari" baglantisina gidin. Buradan hangi bildirimleri almak istediginizi secebilirsiniz. Sesli bildirimleri de ayni yerden acip kapatabilirsiniz.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Birden fazla sekme acabilir miyim?</summary>
+    <div class="faq-answer">
+      <p>Evet, ayni tarayıcıda birden fazla sekmede Quvex acabilirsiniz. Ornegin bir sekmede stok kartlarıni, diger sekmede is emrini düzenleyebilirsiniz.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Ctrl+K ne ise yarar?</summary>
+    <div class="faq-answer">
+      <p>Ctrl+K tuslarina bastiginizda genel arama kutusu açılır. Buradan ürün, müşteri, sipariş, fatura gibi her turlu kaydı hızlıca bulabilirsiniz. Sonuca tıklayarak dogrudan o sayfaya gidersiniz.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Ayni anda kac kullanıcı giriş yapabilir?</summary>
+    <div class="faq-answer">
+      <p>Kullanıcı sayisi lisans paketinize bagli olarak degisir. Mevcut aktif kullanıcı sayinizi Ayarlar &gt; Kullanıcı Yönetimi sayfasindan gorebilirsiniz.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Sistem yetki hatasi veriyor, ne yapmaliyim?</summary>
+    <div class="faq-answer">
+      <p>Bu hata, yapmaya calistiginiz işlem için yetkinizin olmadigini gösterir. Menude sayfayi goremiyorsaniz da yetki eksikligi sebebiyledir. Sistem yönetiçinizden gerekli yetkileri talep edin.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Verilerim güvenli mi?</summary>
+    <div class="faq-answer">
+      <p>Evet. Quvex ERP; HTTPS şifreleme, CSRF korumasi, SQL injection onlemi, guclu şifre politikasi, hesap kilitleme ve güvenlik denetim kayıtları ile korunmaktadir. Tüm baglantiler SSL/TLS ile şifrelenir.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Sistemde yaptigim işlemlerin kaydıni gorebilir miyim?</summary>
+    <div class="faq-answer">
+      <p>Evet, tüm işlemler denetim kayıtlarında (audit log) tutulur. Yönetici yetkisiyle Ayarlar &gt; Denetim Kayıtları sayfasindan kim, ne zaman, ne yapti bilgisine erisebilirsiniz.</p>
+    </div>
+  </details>
+
+  <!-- ============================================================ -->
+  <!-- URETIM -->
+  <!-- ============================================================ -->
+  <h2 id="üretim">Üretim</h2>
+
+  <details class="faq-item">
+    <summary>Is emri nasil açılır?</summary>
+    <div class="faq-answer">
+      <p>Üretim &gt; Üretim Listesi sayfasina gidin. Sag ustteki <strong>+ Yeni Is Emri</strong> butonuna tıklayin. Ürünu secin, miktari, başlangıç ve bitis tarihlerini girin, Kaydet butonuna basin. Detaylar için <a href="ilk-adimlar.html#is-emri">İlk Adimlar</a> rehberine bakin.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Gantt grafiği nasil kullanilir?</summary>
+    <div class="faq-answer">
+      <p>Üretim &gt; Gantt sayfasini açın. Tüm is emirleri zaman cizelgesinde cubuk olarak gorunur. Cubukun uzerinde fareyi tutarak detay gorebilirsiniz. Surukle-birak ile tarihleri değiştirebilirsiniz. Filtreler ile belirli makine veya tarihe gore gorunum daraltabilirsiniz.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>ShopFloor Terminal nedir, nasil kullanilir?</summary>
+    <div class="faq-answer">
+      <p>ShopFloor Terminal, atolyedeki operatorlerin dokunmatik ekranli bilgisayar veya tabletlerden veri girişi yaptigi özel bir ekrandir. Üretim &gt; ShopFloor Terminal yolundan açılır. Barkod okutarak veya NumPad ile is emri secip, üretim miktari girer, durus sebebi kaydedersiniz.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Is emrini iptal edebilir miyim?</summary>
+    <div class="faq-answer">
+      <p>"Bekliyor" durumundaki is emirlerini iptal edebilirsiniz. "Devam Ediyor" veya "Tamamlandi" durumundaki is emirleri iptal edilemez; bunlari yönetiçinize bildirin.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Fire (hurda) miktari nasil girilir?</summary>
+    <div class="faq-answer">
+      <p>Is emri detay sayfasinda "Fire Miktari" alanına değerini girin. Alternatif olarak ShopFloor Terminal'de üretim girişi sirasinda "Fire" alanıni doldürün. Fire miktari otomatik olarak stoktan dusulur.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Üretim operasyonlarini (aşamalari) nasil tanımlarim?</summary>
+    <div class="faq-answer">
+      <p>Is emri formunda "Operasyonlar" sekmesine gidin. + ile yeni operasyon ekleyin: ad (örnek: Kesim), makine, planlanan süre ve sirasi girin. Her operasyon ayri ayri baslatilip tamamlanabilir.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Fason (dis işlem) is emri nasil açılır?</summary>
+    <div class="faq-answer">
+      <p>Satınalma &gt; Fason Is Emirleri sayfasindan + butonuna tıklayin. Hangi işlemin dis firmaya verilecegini, tedarikciy ve beklenen teslim tarihini belirtin.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Kapasite planlama nasil çalışır?</summary>
+    <div class="faq-answer">
+      <p>Üretim &gt; Kapasite Planlama sayfasinda her makinenin günlük/haftalık kapasitesini ve mevcut yukunu gorursunuz. Asiri yüklenen makineler kirmizi olarak isaretlenir. Is emirlerini dengeli dagitmak için bu ekrani kullanın.</p>
+    </div>
+  </details>
+
+  <!-- ============================================================ -->
+  <!-- STOK -->
+  <!-- ============================================================ -->
+  <h2 id="stok">Stok &amp; Depo</h2>
+
+  <details class="faq-item">
+    <summary>Stok karti nasil olusturulur?</summary>
+    <div class="faq-answer">
+      <p>Stok &gt; Stok Kartları &gt; + Yeni Stok Karti yolunu izleyin. Stok kodu, adi, birimi ve kategorisini girin. Detaylar için <a href="ilk-adimlar.html#stok-karti">İlk Adimlar</a> rehberine bakin.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Barkod okuyucu nasil kullanilir?</summary>
+    <div class="faq-answer">
+      <p>USB barkod okuyucunuzu bilgisayara takin. Stok fisi veya ShopFloor Terminal gibi sayfalarda barkod okutma alanına imleci getirin ve ürünun barkodunu okutun. Sistem otomatik olarak ilgili stok kartini bulur.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Lot (parti) takibi nasil yapılır?</summary>
+    <div class="faq-answer">
+      <p>Stok karti formunda "Lot Takibi" secenegini isaretleyin. Bundan sonra o malzeme ile işlem yaparken (giriş, çıkış, üretim) lot numarası girmeniz zorunlu olur. Bu sayede malzemenin izlenebilirligi saglanir.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Stok sayımi nasil yapılır?</summary>
+    <div class="faq-answer">
+      <p>Stok &gt; Stok Sayım sayfasindan yeni sayım olustürün. Sayilacak depoyu ve malzemeleri secin. Fiziksel sayımi girin. Sistem farklı cikarsa "Sayım Farki" raporu oluşturur ve onay sonrasi stoklari günceller.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Minimum stok uyarısi nasil çalışır?</summary>
+    <div class="faq-answer">
+      <p>Stok kartinda "Min. Stok" alanına değer girin. Mevcut stok bu seviyenin altina dustugunde Dashboard'da uyarı gorursunuz ve bildirim alirsiniz. Boylece malzeme bitmeden satınalma süreçi baslayabilirsiniz.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Depolar arası transfer nasil yapılır?</summary>
+    <div class="faq-answer">
+      <p>Stok &gt; Stok Fişleri &gt; + Yeni Fis &gt; Fis Tipi: Transfer secin. Kaynak depo, hedef depo, malzeme ve miktari girin. Kaydet butonuyla stok otomatik olarak bir depodan digerine aktarilir.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>ABC analizi ne ise yarar?</summary>
+    <div class="faq-answer">
+      <p>ABC analizi, stoklarinizi değerine gore sınıflandırır. A sinifi: en değerli %20'lik dilim (toplam değerin ~%80'i), B sinifi: orta, C sinifi: düşük değerli kalemler. Bu sayede değerli stoklara daha fazla dikkat edersiniz.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Depo lokasyonu (raf adresi) nasil tanımlanir?</summary>
+    <div class="faq-answer">
+      <p>Stok &gt; Depo Lokasyonları sayfasindan depo, koridor, raf ve kat bilgisini girin. Sonra stok kartlarında veya stok fişlerinde malzemenin lokasyonunu secebilirsiniz.</p>
+    </div>
+  </details>
+
+  <!-- ============================================================ -->
+  <!-- KALITE -->
+  <!-- ============================================================ -->
+  <h2 id="kalite">Kalite</h2>
+
+  <details class="faq-item">
+    <summary>NCR (Uygunsuzluk Raporu) nasil açılır?</summary>
+    <div class="faq-answer">
+      <p>Kalite &gt; Temel &gt; NCR &gt; + butonuna tıklayin. Uygunsuzlugun açıklamasini yazin, ilgili ürünu/operasyonu secin, fotograf ekleyin. Kaydettikten sonra NCR, inceleme aşamasına gecmek uzere ilgili kisiye bildirim gonderir.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>CAPA süreçi nasil işler?</summary>
+    <div class="faq-answer">
+      <ol>
+        <li><strong>Sorun Tespiti:</strong> NCR uzerinden uygunsuzluk belirlenir.</li>
+        <li><strong>Kok Neden Analizi:</strong> Sorunun neden olustugu arastirilir (5 Neden, balik kilcigi vb.).</li>
+        <li><strong>Düzeltici Aksiyon:</strong> Mevcut sorunu cozmek için alınan önlem.</li>
+        <li><strong>Onleyici Aksiyon:</strong> Sorunun tekrarini engellemek için yapilan iyilestirme.</li>
+        <li><strong>Doğrulama:</strong> Aksiyonlarin etkili olup olmadiginin kontrolü.</li>
+      </ol>
+      <p>Kalite &gt; Temel &gt; CAPA sayfasindan tüm adimlari takip edebilirsiniz.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Kalibrasyon hatirlaticlari nasil ayarlanir?</summary>
+    <div class="faq-answer">
+      <p>Kalite &gt; Temel &gt; Kalibrasyon sayfasindan ölçüm aletinizi ekleyin. Kalibrasyon periyodunu (örnek: 6 ay) belirleyin. Sistem, kalibrasyon tarihi yaklasidiginda otomatik bildirim gonderir.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Giriş kontrol nasil yapılır?</summary>
+    <div class="faq-answer">
+      <p>Tedarikciden malzeme geldiginde Kalite &gt; Temel &gt; Giriş Kontrol sayfasindan yeni kontrol kaydı olustürün. Ölçüm sonuclarini girin. "Kabul" veya "Red" karari verin. Red durumunda otomatik NCR acilabiir.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>SPC grafikleri ne ise yarar?</summary>
+    <div class="faq-answer">
+      <p>SPC (Istatistiksel Proses Kontrol) grafikleri, üretim süreçinin kararli olup olmadigini gösterir. Ölçüm sonuçları kontrol sinirlari içindeyse proses kontrol altindadir. Sinir disi cikarsa müdahale gerekir. Kalite &gt; İstatistik &gt; SPC sayfasindan erisilebilir.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Tedarikçi değerlendirmesi nasil yapılır?</summary>
+    <div class="faq-answer">
+      <p>Kalite &gt; Tedarik &gt; Değerlendirme sayfasindan tedarikcilerinizi kalite, teslimat süresi, fiyat ve iletisim gibi kriterlere gore puanlayin. Puanlar otomatik olarak ortalanır ve raporlanir.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>AS9100 modülünu kimler kullanmali?</summary>
+    <div class="faq-answer">
+      <p>Havacilik, savunma veya uzay sanayinde üretim yapan firmalar için zorunludur. Sozlesme inceleme, son muayene, CoC, MRB ve müşteri tavizi işlemleri bu modül altindadir. Kalite &gt; Standart menusu altindan erisilebilir.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>FMEA analizi nasil yapılır?</summary>
+    <div class="faq-answer">
+      <p>Kalite &gt; İstatistik &gt; FMEA sayfasindan yeni analiz olustürün. Her potansiyel hata için: hata turu, etkisi, siddeti, olasilik ve tespit edilebilirlik puani girin. RPN (Risk Oncelik Numarası) otomatik hesaplanir. Yüksek RPN'li hatalara oncelik verin.</p>
+    </div>
+  </details>
+
+  <!-- ============================================================ -->
+  <!-- SATIS / SATINALMA -->
+  <!-- ============================================================ -->
+  <h2 id="satış">Satış &amp; Satınalma</h2>
+
+  <details class="faq-item">
+    <summary>Teklif nasil hazirlenir?</summary>
+    <div class="faq-answer">
+      <p>Satış &gt; Teklifler &gt; + butonuna tıklayin. Müşteriyi secin, ürünleri ve fiyatlari ekleyin, vade ve teslim sartlarini belirtin. Kaydedin. Teklif PDF olarak indirip müşteriye gonderebilirsiniz.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Teklif kabul edildi, siparişe nasil cevirilir?</summary>
+    <div class="faq-answer">
+      <p>Teklif detay sayfasinda durumu "Kabul Edildi" (ACCEPTED) olarak değiştirin. Sonra "Siparişe Donustur" butonuna tıklayin. Sistem teklifteki tüm bilgileri otomatik olarak sipariş formuna aktarir.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Yeni müşteri nasil eklenir?</summary>
+    <div class="faq-answer">
+      <p>Satış &gt; Müşteriler &gt; + Yeni Müşteri butonuna tıklayin. Firma adi, vergi dairesi, vergi no, adres ve iletisim bilgilerini girin. Detaylar için <a href="ilk-adimlar.html#müşteri">İlk Adimlar</a> rehberine bakin.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Tedarikçi nasil eklenir?</summary>
+    <div class="faq-answer">
+      <p>Satınalma &gt; Tedarikciler &gt; + butonuna tıklayin. Tedarikçi bilgilerini girin. Alternatif olarak Satış &gt; Müşteriler sayfasindaki <code>?type=suppliers</code> filtresi ile tedarikçi listesine de erisebilirsiniz.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Satınalma talebi nasil olusturulur?</summary>
+    <div class="faq-answer">
+      <p>Satınalma &gt; Satınalma Talepleri &gt; + butonuna tıklayin. İhtiyaç duydugunuz malzeme, miktar ve istenen tarihi girin. Talep onay akisina girer ve onay sonrasi satınalma siparişine donusur.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Mal kabul nasil yapılır?</summary>
+    <div class="faq-answer">
+      <p>Satınalma &gt; Mal Kabul sayfasindan + butonuna tıklayin. Satınalma siparişini secin, gelen malzemenin miktarini kontrol edin. Kalite kontrole yonlendirmek isterseniz "Giriş Kontrol" isaretleyin. Kabul ettikten sonra stok otomatik güncellenir.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Cari hesap ekstresi nasil gorulur?</summary>
+    <div class="faq-answer">
+      <p>Satış &gt; Cari Hesap Ekstre sayfasina gidin. Müşteri veya tedarikciy secin. Tarih araligini belirleyin. Tüm fatura, ödeme ve iade işlemlerini kronolojik olarak gorursunuz. PDF olarak da indirebilirsiniz.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Sipariş durumunu nasil takip ederim?</summary>
+    <div class="faq-answer">
+      <p>Satış &gt; Siparişler sayfasindan siparişinizi bulun. Durum kolonu "Bekliyor", "Hazirlaniyor", "Sevk Edildi" veya "Tamamlandi" gibi aşamalari gösterir. Sipariş detay sayfasinda tüm geçmişi gorebilirsiniz.</p>
+    </div>
+  </details>
+
+  <!-- ============================================================ -->
+  <!-- FINANS -->
+  <!-- ============================================================ -->
+  <h2 id="finans">Finans &amp; Muhasebe</h2>
+
+  <details class="faq-item">
+    <summary>Fatura nasil kesilir?</summary>
+    <div class="faq-answer">
+      <p>Finans &gt; Faturalar &gt; + butonuna tıklayin. Fatura tipini secin (satış/alis), müşteriyi/tedarikciy secin, kalemleri ekleyin, KDV oranini belirleyin, Kaydet butonuna basin. SENT durumuna gecirdikten sonra fatura geri alınamaz.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Ödeme kaydı nasil girilir?</summary>
+    <div class="faq-answer">
+      <p>Finans &gt; Odemeler sayfasindan + butonuna tıklayin. Ödeme yapan/alan cariyi secin, tutari girin, ödeme yontemini (nakit, havale, cek) secin. Kasa veya banka hesabıni belirtin. Kaydettiginizde cari bakiye otomatik güncellenir.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Cari bakiye nasil çalışır?</summary>
+    <div class="faq-answer">
+      <p>Her fatura kesildiginde ve ödeme kaydedildiginde cari bakiye otomatik olarak güncellenir. Fatura = borc/alacak artisi, ödeme = borc/alacak azalisi. Dashboard'da ve Cari Hesap Ekstre sayfasinda güncel bakiyeyi gorursunuz.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Kasa ve banka hesabı nasil tanımlanir?</summary>
+    <div class="faq-answer">
+      <p>Finans &gt; Kasa/Banka sayfasindan + butonuna tıklayin. Hesap adi, tipi (kasa/banka), para birimi ve acilis bakiyesini girin. Birden fazla kasa ve banka hesabı tanımlayabilirsiniz.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Kasadan bankaya (veya tam tersi) para aktarimi nasil yapılır?</summary>
+    <div class="faq-answer">
+      <p>Finans &gt; Kasa/Banka sayfasindan "Transfer" butonuna tıklayin. Kaynak hesabı ve hedef hesabı secin, tutari girin. Transfer sonrasi her iki hesabın bakiyesi otomatik güncellenir. Bu işleme "virman" da denir.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Döviz kuru nasil güncellenir?</summary>
+    <div class="faq-answer">
+      <p>Finans &gt; Döviz Kurlari sayfasinda TCMB kuragi günlük olarak otomatik cekilir. Isterseniz manuel de kur girebilirsiniz. Dövizli faturalarda sectiginiz gunun kuru otomatik uygulanir.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Banka mutabakati nasil yapılır?</summary>
+    <div class="faq-answer">
+      <p>Finans &gt; Banka Mutabakat sayfasindan banka hesabıni secin. Banka ekstresindeki işlemleri sistemdeki kayıtlarla eslestirin. Eslesmeyen kayıtlar vurgulanir. Mutabakat sonrasi tutarsizliklari duzeltebilirsiniz.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>KDV ve tevkifat nasil hesaplanir?</summary>
+    <div class="faq-answer">
+      <p>Fatura olusturulurken KDV oranini secin (%1, %10, %20). Tevkifat gerekiyorsa tevkifat oranini da belirtin. Sistem KDV ve tevkifat tutarlarini otomatik hesaplar ve fatura toplamina yansitir.</p>
+    </div>
+  </details>
+
+  <!-- ============================================================ -->
+  <!-- TEKNIK -->
+  <!-- ============================================================ -->
+  <h2 id="teknik">Teknik Sorular</h2>
+
+  <details class="faq-item">
+    <summary>Hangi tarayıcıyi kullanmaliyim?</summary>
+    <div class="faq-answer">
+      <p><strong>Google Chrome</strong> (en son surum) önerilen tarayıcıdir. Microsoft Edge ve Firefox da desteklenmektedir. Safari (macOS/iOS) için son surum kullanın. Internet Explorer desteklenmez.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Internet baglantim kesilirse ne olur?</summary>
+    <div class="faq-answer">
+      <p>PWA kurulumu yaptiyseniz, son görüntülenen veriler çevrimdışı kullanilabilir. Yeni kayıt oluşturma gibi işlemler baglanti geldiginde otomatik senkronize edilir. Baglanti kopukluklari üst barda uyarı olarak gosterilir.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Verilerim yedekleniyor mu?</summary>
+    <div class="faq-answer">
+      <p>Evet, veritabanı günlük olarak otomatik yedeklenir. Yedekler şifrelenmiş olarak saklanir. Veri kaybi durumunda sistem yönetiçiniz belirli bir tarihe geri donebilir.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Ayni anda baska biri ayni kaydı duzenliyorsa ne olur?</summary>
+    <div class="faq-answer">
+      <p>Sistem "son kaydeden kazanir" prensibine gore çalışır. Eger baska bir kullanıcı ayni kaydı sizden once kaydettiyse, siz kaydetmeye calistiginizda uyarı alirsiniz. Bu durumda sayfayi yenileyip değişikliklerinizi tekrar yapın.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>PDF ve Excel rapor indirme nasil çalışır?</summary>
+    <div class="faq-answer">
+      <p>Listeleme sayfalarında ve rapor sayfalarında "PDF İndir" ve "Excel İndir" butonlari bulunur. Bu butonlara tıkladiginizda mevcut gorunumdeki veriler dosya olarak bilgisayariniza indirilir.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Ekran cozunurlugu ne olmali?</summary>
+    <div class="faq-answer">
+      <p>Minimum 1366x768 piksel öneriyoruz. Full HD (1920x1080) ve ustu en iyi deneyimi sunar. Mobil cihazlarda ekran otomatik olarak uyum saglar.</p>
+    </div>
+  </details>
+
+  <!-- ============================================================ -->
+  <!-- EK SORULAR -->
+  <!-- ============================================================ -->
+  <h2 id="ek">Ek Sorular</h2>
+
+  <details class="faq-item">
+    <summary>Recete (BOM) nasil tanımlanir?</summary>
+    <div class="faq-answer">
+      <p>Üretim &gt; Receteler sayfasindan + butonuna tıklayin. Ana ürünu secin, alt malzemeleri ve miktarlarini ekleyin. Bir ürünun birden fazla alternatif recetesi olabilir.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Seri numara takibi nasil yapılır?</summary>
+    <div class="faq-answer">
+      <p>Kalite &gt; Standart &gt; Seri Numaralari sayfasindan seri numara şablonlarıni tanımlayin. Üretim sirasinda her ürüne otomatik veya manuel seri numara atanır. Seri numara ile ürünun tüm geçmişini sorgulayabilirsiniz.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Preventif bakım plani nasil olusturulur?</summary>
+    <div class="faq-answer">
+      <p>Bakım &gt; Preventif Bakım sayfasindan + butonuna tıklayin. Makineyi secin, bakım tipini (yag degisimi, filtre vb.), periyodunu (haftalık, aylik vb.) ve sorumlu kisiyi belirtin. Sistem otomatik hatırlatma gonderir.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>OEE skoru ne anlama gelir?</summary>
+    <div class="faq-answer">
+      <p>OEE = Kullanilabilirlik x Performans x Kalite. Örnek: %90 x %95 x %99 = %84.6. Dunya sinifi üretim %85 ustu kabul edilir. Bakım &gt; OEE Raporu sayfasindan makinelerinizin OEE değerlerini takip edebilirsiniz.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>SignalR bildirimleri nasil çalışır?</summary>
+    <div class="faq-answer">
+      <p>SignalR, sunucu ile tarayıcıniz arasında anlık baglanti saglar. Yeni NCR, stok uyarısi, is emri tamamlanmasi gibi olaylarda sayfayi yenilemeden aninda bildirim alirsiniz. Baglanti otomatik kurulur, ek ayar gerekmez.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Raporları otomatik gonderebilir miyim?</summary>
+    <div class="faq-answer">
+      <p>Su an için raporlar manuel olarak indirilir. Zamanlanmis rapor gonderimi gelecek surumlerdeplanlanmaktadir. Dashboard uyarıları ile kritik metrikleri anlık takip edebilirsiniz.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Birden fazla sirket/tenant yonetebilir miyim?</summary>
+    <div class="faq-answer">
+      <p>Evet, Quvex multi-tenant mimarisini destekler. Her sirket ayri bir veritabanı semasinda izole edilir. Kullanıcılar yalnizca yetkili olduklari siirketin verilerini gorebilir. Detaylar için sistem yönetiçinize basvürün.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>AI Insights ozelligi ne yapar?</summary>
+    <div class="faq-answer">
+      <p>Yapay zeka destekli analiz modülü; üretim trendlerini tahmin eder, kalite anomalilerini otomatik tespit eder, stok optimizasyonu önerileri sunar ve genel performans hakkinda icgoruler saglar. Raporlar &gt; AI Insights sayfasindan erisebilirsiniz.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>E-fatura entegrasyonu nasil çalışır?</summary>
+    <div class="faq-answer">
+      <p>Ayarlar &gt; Entegrasyonlar sayfasindan e-fatura entegrasyon ayarlarini yapın. Entegrasyon aktif edildikten sonra fatura "SENT" durumuna gecirildiginde otomatik olarak GIB'e iletilir.</p>
+    </div>
+  </details>
+
+  <!-- ============================================================ -->
+  <!-- Sprint 11 Yeni Sorular (Nisan 2026) -->
+  <!-- ============================================================ -->
+  <h2 id="sprint11">Sprint 11 Yenilikleri (Nisan 2026)</h2>
+
+  <details class="faq-item">
+    <summary>Beden ve renk varyantlarımı nasıl yönetirim?</summary>
+    <div class="faq-answer">
+      <p>Stok &gt; Ürünler sayfasinda bir ürünu açın ve <strong>Varyantlar</strong> sekmesine gecin. Öznitelikleri tanımlayin (Beden: S/M/L/XL, Renk: Kirmizi/Mavi). Sistem tüm kombinasyonlari otomatik olarak matris halinde olusturür ve her kombinasyona ayri SKU kodu üretir. Her varyantin kendi stok seviyesi, fiyati ve barkodu olabilir.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Gıda işletmem için HACCP kullanabilir miyim?</summary>
+    <div class="faq-answer">
+      <p>Evet. Kalite &gt; HACCP menusune gidin. Onceliikle PRP (ön gereksinimler) ve CCP (kritik kontrol noktalari) tanımlayin. Her CCP için izleme sikligi, kritik limit (örnek: sicaklik ≥75&deg;C) ve sapma durumundaki aksiyon belirlenir. Operatörler tablet veya terminalden ölçüm girdiğinde limit disi değerlerde sistem otomatik NCR açar ve yöneticiye WhatsApp/SignalR bildirimi gönderir.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Recall (geri çağırma) nasıl başlatılır?</summary>
+    <div class="faq-answer">
+      <p>Kalite &gt; Recall &gt; <strong>Yeni Recall</strong> butonuna tiklayin. Etkilenen ürün ve lot numaralarini girin. Sistem lot izlenebilirliği sayesinde o lottan hangi müşterilere ne kadar sevkiyat yapıldığını otomatik listeler. Recall bildirimi e-posta ve WhatsApp ile müşterilere gönderilir, geri dönen ürünler karantina stoguna alinir. Sürecin her adimi (başlatma, müşteri bildirim, iade, imha/rework) kaydedilir.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Plastik kalıplarımı nereden takip ederim?</summary>
+    <div class="faq-answer">
+      <p>Bakım &gt; <strong>Kalıp Envanteri</strong> sayfasindan tüm kalıplarinizi yönetebilirsiniz. Her kalıp için cavity (göz) sayısı, çevrim süresi, toplam atım ömrü ve mevcut atım sayacı tutulur. Üretim sirasinda her atim sayaç otomatik artar. Belirlediğiniz eşiğe (örnek: %80) ulaştığında preventif bakım iş emri açılır.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>CE teknik dosyamı sistemde tutabilir miyim?</summary>
+    <div class="faq-answer">
+      <p>Evet. Kalite &gt; <strong>CE Teknik Dosya</strong> modülünden ürün bazında teknik dosya oluşturabilirsiniz. Direktif/tüzük (MDR, MDD, Makine Direktifi), risk analizi (ISO 14971), test raporlari, kullanim kılavuzu, UDI kodu ve uygunluk beyanı tek ekranda toplanir. Her revizyon versiyonlanir ve onay zinciri (Tasarim &rarr; Kalite &rarr; Yönetim) workflow ile takip edilir.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>WhatsApp bildirimi nasıl açılır?</summary>
+    <div class="faq-answer">
+      <p>Ayarlar &gt; Entegrasyonlar &gt; <strong>WhatsApp Business API</strong> sekmesine gidin. Meta Business Manager'dan aldığınız Phone Number ID, Access Token ve Webhook Secret bilgilerini girin. Onaylı şablonlarinizi (sipariş onayi, kritik uyarı, recall bildirim) sisteme yükleyin. Bildirim tetikleyicilerini (NCR acıldıgında, stok alarmi, CCP sapmasi) secin ve kaydet. Test mesajı gönder butonuyla doğrulayin.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Real-time TV panosunu nasıl gösteririm?</summary>
+    <div class="faq-answer">
+      <p>Raporlar &gt; <strong>Canlı Pano</strong> sayfasini açın ve sağ üstten pano şablonu secin (Üretim Dashboard, OEE, Kalite, Finans). TV'ye bağlı bilgisayarda tam ekran (F11) modunda tarayici acik birakin. Veri SignalR uzerinden sayfa yenilemeye gerek kalmadan anlik güncellenir. İsterseniz her X saniyede bir pano değiştirme özelligini etkinlestirebilirsiniz.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>5 dakikada hazır demo veriyi nasıl yüklerim?</summary>
+    <div class="faq-answer">
+      <p>İlk giriş ekranında veya Ayarlar &gt; Sektör Profili &gt; <strong>Demo Veri Yükle</strong> butonuna tiklayin. 8 hazır sektör şablonundan birini secin (Gida, Tekstil, Metal, Plastik, Medikal, Otomotiv, Savunma, Genel Uretim). Sistem o sektöre uygun örnek ürünler, müşteriler, tedarikçiler, iş emirleri ve kalite kayıtlarıni otomatik oluşturur. Yaklasik 3-5 dakika sürer. Canli veriye geçmeden once demo veriyi tek tikla temizleyebilirsiniz.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Kaynakçı sertifikası süresi dolunca uyarı alır mıyım?</summary>
+    <div class="faq-answer">
+      <p>Evet. Üretim &gt; <strong>Kaynak &gt; Kaynakçılar</strong> sayfasinda her personelin WPQR sertifikasi, yeterlilik pozisyonu (1G, 2G, 3G, 4G) ve bitiş tarihi tutulur. Süre dolmadan 30/15/7 gün önce sorumluya SignalR ve e-posta bildirimi gider. Süre dolduğunda o kaynakçı iş emrine atanamaz, sistem engeller ve yeniden sinav planlama adimi tetiklenir.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Persona dashboardumu nasıl seçerim?</summary>
+    <div class="faq-answer">
+      <p>Sağ üst profil ikonu &gt; <strong>Dashboard Ayarları</strong>'na tiklayin. Rolünüze uygun persona şablonu secin: Fabrika Müdürü, Üretim Planlama, Kalite Mühendisi, Satinalma, Satış Temsilcisi, Muhasebe, Bakım Teknisyeni, Operatör. Her persona farklı widget seti ve KPI sunar. İsterseniz widget'lari surukle-birak ile özelleştirebilir, kendi özel dashboard'unuzu kaydedebilirsiniz.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>WPS (Kaynak Prosedür Şartnamesi) nasıl oluşturulur?</summary>
+    <div class="faq-answer">
+      <p>Üretim &gt; Kaynak &gt; <strong>WPS</strong> sayfasindan yeni WPS olusturun. Ana malzeme, kaynak yöntemi (GTAW/GMAW/SMAW), elektrot, gaz, pozisyon (1G-6G), akım aralığı, voltaj, kaynak hızı ve ısı girdisi parametrelerini tanımlayin. EN ISO 15609 formatinda PDF çıktisi alabilirsiniz. WPS onaylandiktan sonra WPQR ile (test kaynağı) dogrulanmalidir.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>HACCP CCP sapmasında ne olur?</summary>
+    <div class="faq-answer">
+      <p>Operatör ölçüm girdiginde sistem kritik limiti (örnek: Pastorize sicaklik ≥75&deg;C) otomatik kontrol eder. Sapma tespit edilirse: (1) İlgili lot otomatik karantinaya alinir, (2) NCR açılır, (3) Kalite müdürüne WhatsApp/SignalR bildirimi gider, (4) Düzeltici faaliyet kaydı baslatilir, (5) Recall gerekebilecek durumlar işaretlenir. Tüm zincir geriye dönuk raporlanabilir.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>UDI kodu otomatik üretiliyor mu?</summary>
+    <div class="faq-answer">
+      <p>Evet. Kalite &gt; CE Teknik Dosya &gt; UDI sekmesinden ürüne atanacak UDI-DI (cihaz tanımlayicı) girilir. UDI-PI (üretim tanımlayıcı: lot, seri, son kullanma tarihi) ise üretim sirasinda otomatik olarak eklenir. GS1 Data Matrix barkodu yazdirma formatinda cikti alabilirsiniz. EUDAMED ile entegrasyon ileriki surumlerde planlanmaktadir.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Demo veriyi canlıya geçmeden nasıl temizlerim?</summary>
+    <div class="faq-answer">
+      <p>Ayarlar &gt; Sektör Profili &gt; <strong>Demo Veri Temizle</strong> butonuna tiklayin. Sistem yalnızca demo olarak yüklenmiş kayıtları (demo_* prefix) siler, sonradan girdiğiniz gercek verilere dokunmaz. Temizlik işlemi geri alinamaz; devam etmeden önce onay istenir.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>8 sektör şablonu hangileri?</summary>
+    <div class="faq-answer">
+      <p>Sprint 11 ile 8 hazır sektör template'i eklendi: <strong>(1) Gida &amp; Icecek</strong> (HACCP + Recall), <strong>(2) Tekstil &amp; Konfeksiyon</strong> (ProductVariant matrisi), <strong>(3) Metal Islem &amp; CNC</strong>, <strong>(4) Plastik Enjeksiyon</strong> (Kalıp envanteri), <strong>(5) Medikal Cihaz</strong> (CE + MDR + UDI), <strong>(6) Otomotiv Tedarikci</strong> (IATF 16949 + PPAP), <strong>(7) Savunma &amp; Havacilik</strong> (AS9100 + WPS/WPQR), <strong>(8) Genel Uretim</strong>. Her template demo veri + modul aktivasyonu + dashboard persona içerir.</p>
+    </div>
+  </details>
+
+  <!-- Footer -->
+  <div class="doc-footer">
+    <a href="index.html" class="nav-back">&larr; Ana Sayfaya Don</a><br><br>
+    &copy; 2026 Quvex &mdash; Üretim Yönetim Platformu<br>
+    Bu kılavuz son kullanıcılar için hazırlanmıştır. &middot; v1.0
+  </div>
+
+</div>
+
+<script>
+function filterFaq() {
+  var input = document.getElementById('faqSearch').value.toLowerCase().replace(/[ığüşöçİĞÜŞÖÇ]/g, function(c) {
+    return {ı:'i',ğ:'g',ü:'u',ş:'s',ö:'o',ç:'c','İ':'i','Ğ':'g','Ü':'u','Ş':'s','Ö':'o','Ç':'c'}[c]||c;
+  });
+  var items = document.querySelectorAll('.faq-item');
+  var visible = 0;
+  items.forEach(function(item) {
+    var text = item.textContent.toLowerCase().replace(/[ığüşöçİĞÜŞÖÇ]/g, function(c) {
+      return {ı:'i',ğ:'g',ü:'u',ş:'s',ö:'o',ç:'c','İ':'i','Ğ':'g','Ü':'u','Ş':'s','Ö':'o','Ç':'c'}[c]||c;
+    });
+    if (input === '' || text.indexOf(input) > -1) {
+      item.style.display = '';
+      visible++;
+    } else {
+      item.style.display = 'none';
+    }
+  });
+  document.getElementById('faqCount').textContent = visible + ' soru goruntuluyor';
+}
+</script>
+<script src="js/guide-enhancements.js"></script>
+</body>
+</html>

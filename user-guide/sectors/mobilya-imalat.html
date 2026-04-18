@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mobilya İmalatı Sektörü - Quvex ERP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="container">
+
+  <a href="../index.html" class="nav-back">&#8592; Ana Sayfa</a>
+
+  <div class="doc-header">
+    <span class="version-badge">v1.5</span>
+    <div class="breadcrumb"><a href="../index.html">Kullanıcı Kılavuzu</a> / <a href="../index.html">Sektör Rehberleri</a> / Mobilya İmalatı</div>
+    <h1>Mobilya İmalatı Sektörü Rehberi</h1>
+    <p>Set bazlı BOM, panel/sunta stok yönetimi, CNC router, kenar bantlama, boya süreçleri ve proje bazlı paketleme. Mobilya fabrikanızı Quvex ile yönetin.</p>
+  </div>
+
+  <div class="two-col">
+
+    <aside>
+      <nav class="nav-sidebar">
+        <a href="#zorunluluklar">Sektör Gereksinimleri</a>
+        <a href="#modüller">Quvex Modül Eşleşmesi</a>
+        <a href="#onboarding">Onboarding Adımları</a>
+        <a href="#senaryo">Örnek Senaryo</a>
+        <a href="#kurulum">Tipik Fabrika Kurulumu</a>
+        <a href="#başlangıç">Başlangıç Adımları</a>
+      </nav>
+    </aside>
+
+    <main>
+
+      <section id="zorunluluklar">
+        <h2>Sektör Gereksinimleri</h2>
+        <p>Mobilya üreticileri için kritik gereksinimler: set bazlı BOM (bir set = birden fazla parça), panel optimizasyonu, kenar bantlama ve boya süreç takibi, proje bazlı paketleme ve müşteri kabul testleridir. EN 16139 otel mobilyası için zorunludur.</p>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Gereksinim</th><th>Öncelik</th><th>Açıklama</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Set Bazlı BOM</td><td><span class="badge badge-new">KRİTİK</span></td><td>Otel yatak odası seti = karyola + başlık + 2 komodin + gardırop</td></tr>
+            <tr><td>Panel/Sunta Stok</td><td><span class="badge badge-new">KRİTİK</span></td><td>MDF, sunta, masif, kaplama levha m² takibi</td></tr>
+            <tr><td>Proje Bazlı Paketleme</td><td><span class="badge badge-new">KRİTİK</span></td><td>200 oda × 5 parça = 1000 parça, oda numarası bazlı asorti</td></tr>
+            <tr><td>CNC Router Takibi</td><td>Yüksek</td><td>Router programı, kesim planı, fire optimizasyonu</td></tr>
+            <tr><td>Kenar Bantlama</td><td>Yüksek</td><td>Bant türü, renk eşleştirme, yapıştırıcı lot</td></tr>
+            <tr><td>Boya/Vernik Süreci</td><td>Yüksek</td><td>Lake, vernik, yaş boya aşamaları, kuruma süresi</td></tr>
+            <tr><td>AQL Muayene</td><td>Orta</td><td>Yüzey kalitesi, çizik, boyut kontrolü</td></tr>
+            <tr><td>Aksesuar Yönetimi</td><td>Orta</td><td>Menteşe, ray, çekmece kulbu, ayak stok takibi</td></tr>
+            <tr><td>Montaj Talimatı</td><td>Orta</td><td>Her setle birlikte teknik montaj çizimi</td></tr>
+            <tr><td>Saha Montaj</td><td>Düşük</td><td>Otel/proje sahasında kurulum takibi</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="modüller">
+        <h2>Quvex Modül Eşleşmesi</h2>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Gereksinim</th><th>Quvex Modülü</th><th>Ekran</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Set Bazlı BOM</td><td>Üretim</td><td>Üretim &gt; BOM &gt; Multi-Level</td></tr>
+            <tr><td>Panel/Sunta Stok</td><td>Stok</td><td>Stok &gt; Ürünler (m² birim)</td></tr>
+            <tr><td>Proje Bazlı Paketleme</td><td>Sevkiyat</td><td>Sevkiyat &gt; Proje Asorti</td></tr>
+            <tr><td>CNC Router</td><td>Üretim</td><td>Üretim &gt; İş Emri &gt; Router</td></tr>
+            <tr><td>Kenar Bantlama</td><td>Üretim</td><td>Üretim &gt; İşlem Rotası</td></tr>
+            <tr><td>Boya/Vernik</td><td>Üretim</td><td>Üretim &gt; Boyahane İş Emri</td></tr>
+            <tr><td>Kalite Kontrol</td><td>Kalite</td><td>Kalite &gt; Son Kontrol</td></tr>
+            <tr><td>Aksesuar</td><td>Stok</td><td>Stok &gt; Ürünler</td></tr>
+            <tr><td>Saha Montaj</td><td>Servis</td><td>Servis &gt; Saha İş Emirleri</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="onboarding">
+        <h2>Onboarding: Otomatik Yapılandırma</h2>
+        <p>"Mobilya İmalatı" sektör profilini seçtiğinizde:</p>
+
+        <div class="card-grid">
+          <div class="card">
+            <h4>Set BOM Şablonu</h4>
+            <p>Multi-level BOM yapısı aktif olur. Bir ürün birden fazla alt parçadan oluşabilir.</p>
+          </div>
+          <div class="card">
+            <h4>Mobilya Fire Kategorileri</h4>
+            <p>Çizik, kenar kırığı, renk sapması, kaplama kabarması, boyut hatası kategorileri eklenir.</p>
+          </div>
+          <div class="card">
+            <h4>Mobilya Rota Şablonu</h4>
+            <p>Kesim (CNC) &gt; Kenar Bantlama &gt; Delme &gt; Boya/Lake &gt; Montaj &gt; Paketleme rotası hazır gelir.</p>
+          </div>
+          <div class="card">
+            <h4>m² Birim Desteği</h4>
+            <p>Panel/levha stoklarında m² birimi aktif olur, MRP otomatik m² hesaplar.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="senaryo">
+        <h2>Örnek Senaryo: Özgür Bey'in Otel Projesi</h2>
+        <p>Özgür Bey, Antalya'daki 5 yıldızlı bir otele 200 oda mobilya siparişi aldı. Her oda 5 parçalı yatak odası seti (karyola + başlık + 2 komodin + gardırop) içeriyor.</p>
+
+        <h3>Proje Tanımı</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Müşteri ve Proje</h4>
+              <p>Satış &gt; Müşteriler'den "Antalya Palmiye Otel" kaydı açılır. Proje detayı: "200 oda × Yatak Odası Seti", teslim tarihi, saha montaj dahil.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Set Ürün Tanımı</h4>
+              <p>Stok &gt; Ürünler'den "Yatak Odası Seti - Deluxe" ana ürünü açılır. BOM multi-level:
+              <ul>
+                <li>Karyola (160×200) - 1 adet</li>
+                <li>Başlık paneli - 1 adet</li>
+                <li>Komodin - 2 adet</li>
+                <li>3 kapaklı gardırop - 1 adet</li>
+              </ul></p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Her Parça için Alt BOM</h4>
+              <p>Örnek: Gardırop BOM = 8 m² MDF 18mm + 2m² arka panel 8mm + 6 menteşe + 3 kulp + 4 ayak + bant + boya</p>
+            </div>
+          </div>
+        </div>
+
+        <h3>MRP ve Üretim</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>MRP Çalıştırma</h4>
+              <p>Üretim &gt; MRP'den 200 set için ihtiyaç hesaplanır: ~2400 m² MDF, 800 adet menteşe, 600 adet kulp, 40 kg lake boya. Stok açığı için satınalma siparişleri oluşur.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <h4>CNC Router Kesim</h4>
+              <p>Kesim ekibi günlük 20 set için panel keser. Router programı optimize fire (%6). İş emrinde kullanılan panel lotu kaydedilir.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">6</div>
+            <div class="step-content">
+              <h4>Kenar Bantlama ve Delme</h4>
+              <p>Kesilen paneller kenar bantlamaya geçer. Bant rengi MDF rengine eşleşmeli. Ardından CNC delik işlemleri.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">7</div>
+            <div class="step-content">
+              <h4>Boyahane</h4>
+              <p>Boyanan parçalar için ayrı iş emri. Astar → Ara zımpara → Son kat → Kuruma. 48 saat kuruma süresi sisteme tanımlı.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">8</div>
+            <div class="step-content">
+              <h4>AQL Muayene</h4>
+              <p>Kalite &gt; Son Kontrol'den yüzey kalitesi, boyut ve renk kontrolü yapılır. AQL 2.5 uygulanır.</p>
+            </div>
+          </div>
+        </div>
+
+        <h3>Paketleme ve Sevkiyat</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">9</div>
+            <div class="step-content">
+              <h4>Proje Bazlı Asorti</h4>
+              <p>Sevkiyat &gt; Proje Asorti'den her oda için 5 parçalık set hazırlanır. Her set kendi oda numarası ile etiketlenir (OTEL-ODA-001 gibi).</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">10</div>
+            <div class="step-content">
+              <h4>Sevkiyat</h4>
+              <p>Oteldeki kat planına göre sevkiyat yapılır. İlk 50 oda öncelikli (otel açılış hazırlığı).</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">11</div>
+            <div class="step-content">
+              <h4>Saha Montaj</h4>
+              <p>Servis &gt; Saha İş Emirleri'nden montaj ekibi planlanır. Her odada kurulum tamamlandığında mobil uygulamadan onay.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="kurulum">
+        <h2>Tipik Mobilya Fabrikası Kurulumu</h2>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Tanımlanacak Veri</th><th>Ekran</th><th>Örnek</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Makineler</td><td>Ayarlar &gt; Makineler</td><td>CNC Router, Kenar Bant, Delme, Boya Kabini</td></tr>
+            <tr><td>Panel/Sunta</td><td>Stok &gt; Ürünler</td><td>MDF 18mm, Sunta 18mm, Masif meşe</td></tr>
+            <tr><td>Aksesuarlar</td><td>Stok &gt; Ürünler</td><td>Menteşe, ray, kulp, ayak, vida</td></tr>
+            <tr><td>Boya/Vernik</td><td>Stok &gt; Ürünler</td><td>Lake beyaz, vernik mat, astar</td></tr>
+            <tr><td>Ürünler (Setler)</td><td>Stok &gt; Ürünler</td><td>Yatak odası seti, yemek odası seti, ofis</td></tr>
+            <tr><td>BOM Şablonları</td><td>Üretim &gt; BOM</td><td>Multi-level, her set için alt parçalar</td></tr>
+            <tr><td>Fire Kategorileri</td><td>Ayarlar &gt; Tanımlar</td><td>Çizik, kenar kırığı, renk sapması</td></tr>
+            <tr><td>Müşteriler</td><td>Satış &gt; Müşteriler</td><td>Oteller, yurtlar, ev mobilyası perakende</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="başlangıç">
+        <h2>Önerilen Başlangıç Adımları</h2>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Sektör Profilini Seçin</h4>
+              <p>Onboarding wizard'da "Mobilya İmalatı" profilini seçin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Panel ve Aksesuar Kataloğu</h4>
+              <p>En çok kullandığınız MDF, sunta, kaplama ve aksesuarları sisteme tanımlayın. m² bazlı stok.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Set BOM'larını Hazırlayın</h4>
+              <p>Standart ürün setlerinizin multi-level BOM'larını oluşturun. Alt parça BOM'ları da tanımlayın.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>Rotaları Tanımlayın</h4>
+              <p>Kesim → Kenar → Delme → Boya → Montaj → Paketleme rotasını şablon olarak kaydedin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <h4>Pilot Proje</h4>
+              <p>Küçük bir set siparişi ile tüm süreci test edin.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> Set paketlemede her oda için ayrı barkod etiket basın. Oteldeki saha ekibi doğru odaya doğru seti götürmelidir, karışıklık zaman kaybettirir.
+        </div>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> Panel kesimde fire yüzdesini düzenli izleyin. %8'in üzerinde fire varsa CNC optimize programınızı gözden geçirin.
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="doc-footer">
+    <p>Quvex ERP &mdash; Mobilya İmalatı Sektörü Rehberi &middot; v1.5 &middot; Nisan 2026</p>
+  </div>
+
+</div>
+<script src="../js/guide-enhancements.js"></script>
+</body>
+</html>

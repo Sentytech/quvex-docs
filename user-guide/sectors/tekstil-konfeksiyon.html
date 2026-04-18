@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tekstil ve Hazır Giyim Sektörü - Quvex ERP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="container">
+
+  <a href="../index.html" class="nav-back">&#8592; Ana Sayfa</a>
+
+  <div class="doc-header">
+    <span class="version-badge">v1.5</span>
+    <div class="breadcrumb"><a href="../index.html">Kullanıcı Kılavuzu</a> / <a href="../index.html">Sektör Rehberleri</a> / Tekstil ve Hazır Giyim</div>
+    <h1>Tekstil ve Hazır Giyim Sektörü Rehberi</h1>
+    <p>Beden/renk varyant matrisi, boya lot eşleştirme, pastal-kesim planlama, AQL 2.5 muayene ve set bazlı paketleme. Konfeksiyon atölyenizi Quvex ile yönetin.</p>
+  </div>
+
+  <div class="two-col">
+
+    <aside>
+      <nav class="nav-sidebar">
+        <a href="#zorunluluklar">Sektör Gereksinimleri</a>
+        <a href="#modüller">Quvex Modül Eşleşmesi</a>
+        <a href="#onboarding">Onboarding Adımları</a>
+        <a href="#senaryo">Örnek Senaryo</a>
+        <a href="#kurulum">Tipik Atölye Kurulumu</a>
+        <a href="#başlangıç">Başlangıç Adımları</a>
+      </nav>
+    </aside>
+
+    <main>
+
+      <section id="zorunluluklar">
+        <h2>Sektör Gereksinimleri</h2>
+        <p>Hazır giyim üreticileri için kritik gereksinimler: beden/renk varyant yönetimi, boya lot tutarlılığı, AQL kalite kontrolü ve zamanında sevkiyattır. Koton, LC Waikiki gibi perakende müşteriler AQL 2.5 muayene ve ISO 9001 şartı arar.</p>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Gereksinim</th><th>Öncelik</th><th>Açıklama</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>ProductVariant Matrisi</td><td><span class="badge badge-new">KRİTİK</span></td><td>Beden (S/M/L/XL) × Renk (Beyaz/Mavi/Siyah) matrisi, her kombinasyon ayrı SKU</td></tr>
+            <tr><td>Boya Lot Eşleştirme</td><td><span class="badge badge-new">KRİTİK</span></td><td>Aynı sipariş içinde aynı lot kumaş kullanımı (renk tonu sapması olmasın)</td></tr>
+            <tr><td>AQL 2.5 Muayene</td><td><span class="badge badge-new">KRİTİK</span></td><td>ISO 2859-1 standardına göre rastgele örneklem kalite kontrol</td></tr>
+            <tr><td>Pastal/Kesim Planı</td><td><span class="badge badge-new">KRİTİK</span></td><td>Kumaş serimi, beden dağılım, fire optimizasyonu</td></tr>
+            <tr><td>Set Bazlı Paketleme</td><td>Yüksek</td><td>Kutu içi asorti (her kutuda 2S, 3M, 3L, 2XL gibi)</td></tr>
+            <tr><td>Sipariş Takibi</td><td>Yüksek</td><td>Büyük perakende siparişlerin parti bazlı takibi</td></tr>
+            <tr><td>Dikim Süreleri</td><td>Orta</td><td>SMV (Standart Dakika Değeri) takibi, verimlilik</td></tr>
+            <tr><td>Fason Yönetimi</td><td>Orta</td><td>Dikim, baskı, nakış işlerinin dışarıya verilmesi</td></tr>
+            <tr><td>Yıkama/Finish</td><td>Orta</td><td>Taşlama, yumuşatma, ütü süreç takibi</td></tr>
+            <tr><td>İade Yönetimi</td><td>Düşük</td><td>İkinci kalite, hatalı ürün iade süreci</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="modüller">
+        <h2>Quvex Modül Eşleşmesi</h2>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Gereksinim</th><th>Quvex Modülü</th><th>Ekran</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>ProductVariant Matrisi</td><td>Stok</td><td>Stok &gt; Ürünler &gt; Varyantlar (beden × renk)</td></tr>
+            <tr><td>Boya Lot Eşleştirme</td><td>Stok</td><td>Stok &gt; Lot Takibi</td></tr>
+            <tr><td>AQL 2.5 Muayene</td><td>Kalite</td><td>Kalite &gt; Son Kontrol &gt; AQL Örneklem</td></tr>
+            <tr><td>Pastal/Kesim Planı</td><td>Üretim</td><td>Üretim &gt; Kesim Planlama</td></tr>
+            <tr><td>MRP Çalıştırma</td><td>Üretim</td><td>Üretim &gt; MRP</td></tr>
+            <tr><td>Set Bazlı Paketleme</td><td>Sevkiyat</td><td>Sevkiyat &gt; Koli Asorti</td></tr>
+            <tr><td>Fason Yönetimi</td><td>Üretim</td><td>Üretim &gt; Fason İş Emirleri</td></tr>
+            <tr><td>Müşteri Yönetimi</td><td>Satış</td><td>Satış &gt; Müşteriler</td></tr>
+            <tr><td>Sevkiyat ve Fatura</td><td>Sevkiyat + Finans</td><td>Sevkiyat &gt; Yeni, Finans &gt; Fatura</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="onboarding">
+        <h2>Onboarding: Otomatik Yapılandırma</h2>
+        <p>"Tekstil ve Hazır Giyim" sektör profilini seçtiğinizde:</p>
+
+        <div class="card-grid">
+          <div class="card">
+            <h4>Varyant Matrisi</h4>
+            <p>Beden ve renk boyutları varsayılan olarak tanımlanır. Ürün açarken matris otomatik gelir.</p>
+          </div>
+          <div class="card">
+            <h4>AQL Örneklem Planı</h4>
+            <p>ISO 2859-1 AQL 2.5 örneklem tablosu sisteme önceden tanımlanır.</p>
+          </div>
+          <div class="card">
+            <h4>Konfeksiyon Fire Kategorileri</h4>
+            <p>Kumaş hatası, dikiş hatası, ölçü hatası, leke, renk sapması gibi kategoriler otomatik eklenir.</p>
+          </div>
+          <div class="card">
+            <h4>Dikim Rota Şablonu</h4>
+            <p>Kesim &gt; Dikim &gt; Yıkama &gt; Ütü &gt; Son Kontrol &gt; Paketleme rotası hazır gelir.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="senaryo">
+        <h2>Örnek Senaryo: Atlas Bey ve Koton Siparişi</h2>
+        <p>Atlas Bey, İstanbul'da gömlek üretim atölyesi işletiyor. Koton'dan 50.000 adetlik erkek gömlek siparişi aldı.</p>
+
+        <h3>1. Hafta: Sipariş ve Planlama</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Müşteri ve Ürün Tanımı</h4>
+              <p>Satış &gt; Müşteriler'den Koton kaydını açın. Stok &gt; Ürünler'den "Erkek Uzun Kollu Gömlek" ürününü ekleyin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Varyant Matrisi Oluşturma</h4>
+              <p>Ürün detayında Varyantlar sekmesinden S/M/L/XL × Beyaz/Mavi/Siyah matrisini oluşturun. Toplam 12 SKU otomatik üretilir.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Sipariş Kaydı</h4>
+              <p>Koton'dan gelen 50.000 adetlik sipariş: 15.000 Beyaz, 20.000 Mavi, 15.000 Siyah. Her renk için S:%20, M:%30, L:%30, XL:%20 dağılımı.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>MRP Çalıştırma</h4>
+              <p>Üretim &gt; MRP ekranından sipariş için hammadde ihtiyacını hesaplayın. Sistem %3 fire payı ile kumaş metrajı, düğme, etiket ihtiyacını çıkarır.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <h4>Boya Lot Eşleştirme</h4>
+              <p>Stok &gt; Lot Takibi'nden her renk için aynı boya lotundan kumaş seçin. "Mavi" için 20.000 metrelik tek lot ayırın (renk sapması olmasın).</p>
+            </div>
+          </div>
+        </div>
+
+        <h3>2-4. Hafta: Üretim</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">6</div>
+            <div class="step-content">
+              <h4>Pastal ve Kesim Planı</h4>
+              <p>Üretim &gt; Kesim Planlama'dan her renk için pastal hazırlayın. Sistem beden dağılımına göre kaç kat serileceğini ve fire oranını hesaplar.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">7</div>
+            <div class="step-content">
+              <h4>Dikim İş Emirleri</h4>
+              <p>Kesilen parçalar dikim bandına geçer. Her banda günlük iş emri oluşturulur. SMV bazlı hedef: banda başına 800 adet/gün.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">8</div>
+            <div class="step-content">
+              <h4>Yıkama ve Finish</h4>
+              <p>Dikilen gömlekler fason yıkama firmasına gönderilir. Üretim &gt; Fason İş Emirleri'nden takip edilir. Dönen ürünler ütülenir.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">9</div>
+            <div class="step-content">
+              <h4>AQL 2.5 Son Kontrol</h4>
+              <p>Kalite &gt; Son Kontrol &gt; AQL Örneklem ekranından her partiden ISO 2859-1'e göre örneklem alınır. 1000'lik partide 80 numune, 5 ret limiti.</p>
+            </div>
+          </div>
+        </div>
+
+        <h3>5. Hafta: Sevkiyat</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">10</div>
+            <div class="step-content">
+              <h4>Set Bazlı Paketleme</h4>
+              <p>Sevkiyat &gt; Koli Asorti ekranından her koliye 12'li asorti (2S+4M+4L+2XL) hazırlanır. Barkod etiket basılır.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">11</div>
+            <div class="step-content">
+              <h4>Sevkiyat ve Fatura</h4>
+              <p>Koton deposuna sevkiyat yapılır. Finans &gt; Fatura'dan e-fatura kesilir. Müşteri cari hesabı güncellenir.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="kurulum">
+        <h2>Tipik Konfeksiyon Atölyesi Kurulumu</h2>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Tanımlanacak Veri</th><th>Ekran</th><th>Örnek</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Müşteriler</td><td>Satış &gt; Müşteriler</td><td>Koton, LC Waikiki, DeFacto, Mavi Jeans</td></tr>
+            <tr><td>Ürünler</td><td>Stok &gt; Ürünler</td><td>Erkek Gömlek, Kadın Bluz, Çocuk T-shirt</td></tr>
+            <tr><td>Varyant Boyutları</td><td>Ayarlar &gt; Varyantlar</td><td>Beden: XS/S/M/L/XL/XXL, Renk: RAL kodları</td></tr>
+            <tr><td>Kumaş/Hammadde</td><td>Stok &gt; Ürünler</td><td>%100 Pamuk Poplin 120gr, Polyester astar</td></tr>
+            <tr><td>Dikim Bantları</td><td>Ayarlar &gt; Makineler</td><td>Banda-1 (20 kişi), Banda-2 (15 kişi)</td></tr>
+            <tr><td>Operatörler</td><td>İK &gt; Personel</td><td>Makineci, overlokçu, ütücü, kontrolcü</td></tr>
+            <tr><td>Fason Firmalar</td><td>Satınalma &gt; Tedarikçiler</td><td>Yıkama, baskı, nakış firmaları</td></tr>
+            <tr><td>AQL Planı</td><td>Kalite &gt; AQL</td><td>AQL 2.5 (genel), AQL 1.5 (ihracat)</td></tr>
+            <tr><td>Fire Kategorileri</td><td>Ayarlar &gt; Tanımlar</td><td>Kumaş hatası, dikiş atlaması, ölçü hatası, leke</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="başlangıç">
+        <h2>Önerilen Başlangıç Adımları</h2>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Sektör Profilini Seçin</h4>
+              <p>Onboarding wizard'da "Tekstil ve Hazır Giyim" profilini seçin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Varyant Boyutlarını Tanımlayın</h4>
+              <p>Ayarlar &gt; Varyantlar ekranından beden ve renk listelerinizi girin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Ana Ürünlerinizi Açın</h4>
+              <p>En çok ürettiğiniz 5-10 ürünü varyant matrisi ile tanımlayın.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>AQL Planınızı Yükleyin</h4>
+              <p>Kalite &gt; AQL ekranından müşteri bazlı AQL seviyelerini belirleyin (Koton AQL 2.5, ihracat AQL 1.5).</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <h4>Pilot Sipariş</h4>
+              <p>Küçük bir siparişle tüm süreci test edin: sipariş &gt; MRP &gt; kesim &gt; dikim &gt; AQL &gt; paketleme &gt; sevkiyat.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> Boya lot eşleştirme çok kritik. Aynı sipariş içinde farklı lot kullanırsanız, müşteriye gelen gömleklerde renk tonu farkı görülür ve iade/chargeback yaşarsınız.
+        </div>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> AQL muayenesinde ret durumunda tüm parti %100 kontrol edilmelidir. Bunu önceden operasyon planınıza bir "yedek kontrol günü" olarak ekleyin.
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="doc-footer">
+    <p>Quvex ERP &mdash; Tekstil ve Hazır Giyim Sektörü Rehberi &middot; v1.5 &middot; Nisan 2026</p>
+  </div>
+
+</div>
+<script src="../js/guide-enhancements.js"></script>
+</body>
+</html>

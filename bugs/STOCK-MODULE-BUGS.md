@@ -217,7 +217,7 @@ Her fix sonrası aşağıdaki test senaryoları uygulanacak:
 
 ### Oturum Başlatma
 ```
-1. Bu dosyayı oku: C:\rynSoft\smallFactory\STOCK-MODULE-BUGS.md
+1. Bu dosyayı oku: C:\rynSoft\quvex\quvex-docs\bugs\STOCK-MODULE-BUGS.md
 2. Sprint seç (S1 → S2 → S3 sırasıyla)
 3. Agent teams ile paralel çalışma başlat
 4. Her fix sonrası test agent'ları çalıştır

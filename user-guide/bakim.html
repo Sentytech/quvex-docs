@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bakım (CMMS) - Quvex ERP Kullanıcı Kılavuzu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+
+  <a href="index.html" class="nav-back">&#8592; Ana Sayfa</a>
+
+  <div class="doc-header">
+    <span class="version-badge">v2.0</span>
+    <div class="breadcrumb"><a href="index.html">Kullanıcı Kılavuzu</a> / Bakım</div>
+    <h1>Bakım (CMMS) Modülü</h1>
+    <p>Koruyucu, düzeltici ve kestirimci bakım -- makine kaydı, iş emri, arıza takibi, OEE ve MTBF/MTTR</p>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-value">3</div>
+      <div class="stat-label">Bakım Türü</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">OEE</div>
+      <div class="stat-label">Dashboard</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">Otomatik</div>
+      <div class="stat-label">İş Emri</div>
+    </div>
+  </div>
+
+  <!-- Sprint 11 Yenilikleri Callout -->
+  <div class="card" style="border-left:4px solid #f59e0b;background:linear-gradient(135deg,#fffbeb,#fef3c7);">
+    <div class="tip-title" style="color:#92400e;font-size:1rem;font-weight:700;margin-bottom:0.5rem;">Sprint 11 Yenilikleri (Nisan 2026)</div>
+    <ul style="margin:0 0 0 1.2rem;color:var(--text-secondary);line-height:1.7;">
+      <li><strong>Kalip Envanteri (Mold Inventory):</strong> Plastik enjeksiyon, dokum ve sac sekillendirme kaliplari icin ayri envanter ekrani. Cavity sayisi, cycle time, shot counter ve omur yonetimi. <a href="modules/mold-inventory.html">Kalip Envanteri Modulu</a>.</li>
+      <li><strong>Shot Counter Tetikli Preventif Bakim:</strong> Kalip atim sayaci belirli esige (%50, %80, %95) ulastiginda otomatik bakim is emri olusur.</li>
+      <li><strong>Kalip Bakim Dongusu:</strong> Kayit -&gt; Uretim -&gt; Esik -&gt; Bakim -&gt; Temizlik -&gt; Uretime donus surec semasi icin <a href="surecler.html#kalip-akis">Surecler &gt; Kalip Bakim</a> sayfasina bakin.</li>
+    </ul>
+  </div>
+
+  <div class="two-col">
+
+    <aside>
+      <nav class="nav-sidebar">
+        <a href="#tanitim">Tanıtım</a>
+        <a href="#hızlı-başlangıç">Hızlı Başlangıç</a>
+        <a href="#makine">Makine Kaydı</a>
+        <a href="#koruyucu">Koruyucu Bakım</a>
+        <a href="#is-emri">Bakım İş Emri</a>
+        <a href="#arıza">Arıza Kaydı</a>
+        <a href="#oee">OEE Dashboard</a>
+        <a href="#mtbf">MTBF / MTTR</a>
+        <a href="#faq">SSS</a>
+      </nav>
+    </aside>
+
+    <main>
+
+      <!-- ======================================== -->
+      <!-- 1. TANITIM                               -->
+      <!-- ======================================== -->
+      <section id="tanitim">
+        <h2>1. Tanıtım</h2>
+        <p>Bakım modülü (CMMS -- Computerized Maintenance Management System), fabrikadaki tüm makinelerin bakım süreçlerini dijital ortamda yönetmenizi sağlar.</p>
+
+        <h3>Bakım Türleri</h3>
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-icon bakım">&#9881;</div>
+            <h4>Koruyucu Bakım</h4>
+            <p>Planlı periyodik bakımlar. Arıza oluşmadan önce yapılır. Örnek: Yağlama, filtre değişimi, kalibrasyon.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon bakım">&#9888;</div>
+            <h4>Düzeltici Bakım</h4>
+            <p>Arıza sonrası yapılan onarım. Makinenin çalışmasını durduran sorunlar giderilir.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon ai">&#9733;</div>
+            <h4>Kestirimci Bakım</h4>
+            <p>Sensör verileri ve AI tahminleriyle arıza öncesi uyarı. Titreşim, sıcaklık ve akım verileri analiz edilir.</p>
+          </div>
+        </div>
+
+        <h3>Bakım Süreç Akışı</h3>
+        <div class="flow">
+          <div class="flow-step active">Planlama</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">İş Emri</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Atama</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Uygulama</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Tamamlama</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Raporlama</div>
+        </div>
+      </section>
+
+      <!-- ======================================== -->
+      <!-- 2. HIZLI BAŞLANGIÇ                       -->
+      <!-- ======================================== -->
+      <section id="hızlı-başlangıç">
+        <h2>2. Hızlı Başlangıç -- İlk Bakım Planı</h2>
+        <p>Sistemi ilk kez kullanıyorsanız aşağıdaki adımları takip edin.</p>
+
+        <div class="card">
+          <h4>Adım 1: Makine Kaydı</h4>
+          <p><strong>Bakım &gt; Makineler</strong> menüsünden <strong>+ Yeni Makine</strong> butonuna tıklayın. <code>Name</code> (makine adı) ve <code>Code</code> (makine kodu) alanlarını doldürün.</p>
+        </div>
+        <div class="card">
+          <h4>Adım 2: Koruyucu Bakım Planı</h4>
+          <p>Makine detayında <strong>Bakım Planları</strong> sekmesine gidin. Yeni plan oluştürün: bakım türü, periyot (gün/saat) ve yapılacak işlemleri tanımlayın.</p>
+        </div>
+        <div class="card">
+          <h4>Adım 3: İş Emri Takibi</h4>
+          <p>Plan süresi dolduğunda sistem otomatik iş emri oluşturur. <strong>Bakım &gt; İş Emirleri</strong> sayfasından takip edin.</p>
+        </div>
+        <div class="card">
+          <h4>Adım 4: Tamamlama</h4>
+          <p>Bakım yapıldıktan sonra iş emrini "Tamamlandı" olarak işaretleyin. Harcanan süre ve kullanılan malzemeleri kaydedin.</p>
+        </div>
+
+        <div class="tip">
+          <div class="tip-title">İpucu</div>
+          Başlangıçta en kritik 5-10 makinenizi sisteme ekleyerek başlayın. Zamanla tüm makine parkürünu kapsama alın.
+        </div>
+      </section>
+
+      <!-- ======================================== -->
+      <!-- 3. MAKİNE KAYDI                          -->
+      <!-- ======================================== -->
+      <section id="makine">
+        <h2>3. Makine Kaydı</h2>
+        <p>Her makine sisteme bir kart olarak kaydedilir. Makine kartı, bakım geçmişi ve performans verilerinin temelidir.</p>
+
+        <h3>Makine Kartı Alanları</h3>
+        <table class="field-table">
+          <thead><tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th></tr></thead>
+          <tbody>
+            <tr><td class="required">Name</td><td>Makinenin tanınabilir adı (ör. CNC Torna 1)</td><td>Evet</td></tr>
+            <tr><td class="required">Code</td><td>Benzersiz makine kodu (ör. CNC-T01)</td><td>Evet</td></tr>
+            <tr><td>Marka / Model</td><td>Üretici firma ve model bilgisi</td><td>Hayır</td></tr>
+            <tr><td>Seri No</td><td>Fabrika seri numarası</td><td>Hayır</td></tr>
+            <tr><td>Kurulum Tarihi</td><td>Makinenin fabrikaya kurulduğu tarih</td><td>Hayır</td></tr>
+            <tr><td>Konum</td><td>Fabrikanın hangi bölümünde (ör. Atölye A, Hat 2)</td><td>Hayır</td></tr>
+            <tr><td>Durum</td><td>Aktif / Bakımda / Arızalı / Pasif</td><td>Hayır</td></tr>
+            <tr><td>Garanti Bitiş</td><td>Garanti süresinin sona erdiği tarih</td><td>Hayır</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Makine Geçmişi</h3>
+        <p>Her makinenin detay sayfasında şu bilgiler görüntülenir:</p>
+        <ul>
+          <li>Tüm bakım iş emirleri (tarih sırasına göre)</li>
+          <li>Arıza kayıtları ve çözüm bilgileri</li>
+          <li>Toplam çalışma saati</li>
+          <li>OEE trendi (grafik)</li>
+          <li>Yedek parça tüketim geçmişi</li>
+        </ul>
+
+        <div class="warning tip">
+          <div class="tip-title">Dikkat</div>
+          <code>Code</code> alanı benzersiz olmalıdır. Aynı kod ile iki makine kaydedilemez.
+        </div>
+      </section>
+
+      <!-- ======================================== -->
+      <!-- 4. KORUYUCU BAKIM PLANI                   -->
+      <!-- ======================================== -->
+      <section id="koruyucu">
+        <h2>4. Koruyucu Bakım Planı</h2>
+        <p>Periyodik bakım planları tanımlayarak arıza öncesi müdahale sağlarsınız. Plan süresi dolduğunda sistem otomatik iş emri oluşturur.</p>
+
+        <h3>Plan Tanımlama</h3>
+        <table class="field-table">
+          <thead><tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th></tr></thead>
+          <tbody>
+            <tr><td class="required">Plan Adı</td><td>Bakım planının kısa adı (ör. Haftalık Yağlama)</td><td>Evet</td></tr>
+            <tr><td class="required">Makine</td><td>Planın uygulanacağı makine</td><td>Evet</td></tr>
+            <tr><td class="required">Periyot</td><td>Tekrar sıklığı: gün, hafta, ay veya çalışma saati</td><td>Evet</td></tr>
+            <tr><td class="required">Bakım Türü</td><td>Yağlama / Filtre / Kalibrasyon / Genel Kontrol vb.</td><td>Evet</td></tr>
+            <tr><td>Tahmini Süre</td><td>Bakım için öngörülen dakika/saat</td><td>Hayır</td></tr>
+            <tr><td>Sorumlu</td><td>Varsayılan atanacak teknisyen</td><td>Hayır</td></tr>
+            <tr><td>Kontrol Listesi</td><td>Yapılacak işlemlerin adım adım listesi</td><td>Hayır</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Otomatik İş Emri Oluşturma</h3>
+        <div class="flow">
+          <div class="flow-step active">Plan Tanımla</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Periyot Dol</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Otomatik İş Emri</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Bildirim Gönder</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Teknisyen Ata</div>
+        </div>
+
+        <div class="tip">
+          <div class="tip-title">Bilgi</div>
+          Planlar aktif/pasif yapılabilir. Mevsimsel bakımlar için planı gerektiğinde pasife alıp tekrar aktive edebilirsiniz.
+        </div>
+      </section>
+
+      <!-- ======================================== -->
+      <!-- 5. BAKIM İŞ EMRİ                         -->
+      <!-- ======================================== -->
+      <section id="is-emri">
+        <h2>5. Bakım İş Emri</h2>
+        <p>Bakım iş emri, yapılması gereken bir bakım görevinin resmi kaydıdır. Koruyucu bakım planından otomatik veya arıza bildirimi sonrası manuel oluşturulabilir.</p>
+
+        <h3>İş Emri Alanları</h3>
+        <table class="field-table">
+          <thead><tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th></tr></thead>
+          <tbody>
+            <tr><td class="required">İş Emri No</td><td>Sistem tarafından otomatik verilir</td><td>Otomatik</td></tr>
+            <tr><td class="required">Makine</td><td>Bakımın yapılacağı makine</td><td>Evet</td></tr>
+            <tr><td class="required">Bakım Türü</td><td>Koruyucu / Düzeltici / Kestirimci</td><td>Evet</td></tr>
+            <tr><td class="required">Öncelik</td><td>Düşük / Normal / Yüksek / Acil</td><td>Evet</td></tr>
+            <tr><td>Atanan Teknisyen</td><td>İşi yapacak bakım personeli</td><td>Hayır</td></tr>
+            <tr><td>Planlanan Tarih</td><td>Bakımın yapılması gereken tarih</td><td>Hayır</td></tr>
+            <tr><td>Açıklama</td><td>Yapılacak işin detayı</td><td>Hayır</td></tr>
+          </tbody>
+        </table>
+
+        <h3>İş Emri Durumları</h3>
+        <div class="flow">
+          <div class="flow-step">Açık</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step active">Atandı</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Devam Ediyor</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Tamamlandı</div>
+        </div>
+
+        <h3>Tamamlama Formu</h3>
+        <p>İş emri tamamlanırken aşağıdaki bilgiler kaydedilir:</p>
+        <table class="field-table">
+          <thead><tr><th>Alan</th><th>Açıklama</th></tr></thead>
+          <tbody>
+            <tr><td>Başlangıç Zamanı</td><td>Bakımın fiili başladığı saat</td></tr>
+            <tr><td>Bitiş Zamanı</td><td>Bakımın fiili bittiği saat</td></tr>
+            <tr><td>Harcanan Süre</td><td>Otomatik hesaplanır (dakika)</td></tr>
+            <tr><td>Kullanılan Malzeme</td><td>Yedek parça ve sarf malzeme listesi</td></tr>
+            <tr><td>Sonuç Notu</td><td>Yapılan işlemin özeti</td></tr>
+          </tbody>
+        </table>
+
+        <div class="tip">
+          <div class="tip-title">İpucu</div>
+          Acil iş emirleri oluşturulduğunda ilgili teknisyene SignalR anlık bildirim gönderilir.
+        </div>
+      </section>
+
+      <!-- ======================================== -->
+      <!-- 6. ARIZA KAYDI                            -->
+      <!-- ======================================== -->
+      <section id="arıza">
+        <h2>6. Arıza Kaydı</h2>
+        <p>Makine arızalandığında operatör veya bakım ekibi arıza kaydı oluşturur. Arıza kaydı otomatik olarak düzeltici bakım iş emrine dönüşür.</p>
+
+        <h3>Arıza Bildirimi Alanları</h3>
+        <table class="field-table">
+          <thead><tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th></tr></thead>
+          <tbody>
+            <tr><td class="required">Makine</td><td>Arızalanan makine</td><td>Evet</td></tr>
+            <tr><td class="required">Arıza Tanımı</td><td>Arızanın kısa açıklaması</td><td>Evet</td></tr>
+            <tr><td class="required">Arıza Zamanı</td><td>Arızanın meydana geldiği tarih ve saat</td><td>Evet</td></tr>
+            <tr><td>Arıza Tipi</td><td>Mekanik / Elektrik / Hidrolik / Yazılım / Diğer</td><td>Hayır</td></tr>
+            <tr><td>Aciliyet</td><td>Üretimi durduruyor mu?</td><td>Hayır</td></tr>
+            <tr><td>Fotoğraf</td><td>Arıza görüntüsü (dosya yükleme)</td><td>Hayır</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Kök Neden Analizi</h3>
+        <p>Arıza giderildikten sonra kök neden ve çözüm bilgileri kaydedilir:</p>
+        <table class="field-table">
+          <thead><tr><th>Alan</th><th>Açıklama</th></tr></thead>
+          <tbody>
+            <tr><td>Kök Neden</td><td>Arızanın temel sebebi (ör. Aşınmış rulman)</td></tr>
+            <tr><td>Çözüm</td><td>Yapılan onarımın açıklaması</td></tr>
+            <tr><td>Önleyici Tedbir</td><td>Tekrar oluşmaması için alınan önlem</td></tr>
+            <tr><td>Duruş Süresi</td><td>Makinenin durduğu toplam süre (dakika)</td></tr>
+          </tbody>
+        </table>
+
+        <div class="warning tip">
+          <div class="tip-title">Dikkat</div>
+          Üretimi durduran arızalar "Acil" olarak işaretlenir ve bakım ekibine anında bildirim gider.
+        </div>
+      </section>
+
+      <!-- ======================================== -->
+      <!-- 7. OEE DASHBOARD                         -->
+      <!-- ======================================== -->
+      <section id="oee">
+        <h2>7. OEE Dashboard</h2>
+        <p>OEE (Overall Equipment Effectiveness -- Toplam Ekipman Etkinliği), makinelerinizin ne kadar verimli kullanıldığını gösteren temel göstergedir.</p>
+
+        <h3>OEE Hesaplama Formülü</h3>
+        <div class="card">
+          <h4>OEE = Kullanılabilirlik x Performans x Kalite</h4>
+          <table>
+            <thead><tr><th>Bileşen</th><th>Formül</th><th>Açıklama</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><strong>Kullanılabilirlik</strong></td>
+                <td>Çalışma Süresi / Planlanan Süre</td>
+                <td>Makine ne kadar süre çalıştı? Arıza ve duruşlar düşürür.</td>
+              </tr>
+              <tr>
+                <td><strong>Performans</strong></td>
+                <td>Gerçek Üretim / Hedef Üretim</td>
+                <td>Çalışırken ne hızda üretti? Yavaşlamalar düşürür.</td>
+              </tr>
+              <tr>
+                <td><strong>Kalite</strong></td>
+                <td>Sağlam Ürün / Toplam Üretim</td>
+                <td>Üretilenlerin ne kadarı sağlam? Fire düşürür.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>OEE Değerlendirme Skalası</h3>
+        <table>
+          <thead><tr><th>OEE Değeri</th><th>Durum</th><th>Açıklama</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge badge-danger">&lt; %40</span></td><td>Kötü</td><td>Ciddi iyileştirme gerekli</td></tr>
+            <tr><td><span class="badge badge-warning">%40 - %60</span></td><td>Orta</td><td>Tipik gelişme alanı</td></tr>
+            <tr><td><span class="badge badge-info">%60 - %75</span></td><td>İyi</td><td>Kabul edilebilir seviye</td></tr>
+            <tr><td><span class="badge badge-success">%75 - %85</span></td><td>Çok İyi</td><td>Dünya sınıfına yakın</td></tr>
+            <tr><td><span class="badge badge-primary">&gt; %85</span></td><td>Mükemmel</td><td>Dünya sınıfı üretim</td></tr>
+          </tbody>
+        </table>
+
+        <p>Dashboard'da her makine için ayrı OEE göstergesi ve fabrika geneli ortalama OEE grafiği görüntülenir.</p>
+
+        <div class="tip">
+          <div class="tip-title">İpucu</div>
+          OEE verilerini günlük takip edin. Ani düşüşler genellikle bir arıza veya kalite sorununa işaret eder.
+        </div>
+      </section>
+
+      <!-- ======================================== -->
+      <!-- 8. MTBF / MTTR                           -->
+      <!-- ======================================== -->
+      <section id="mtbf">
+        <h2>8. MTBF / MTTR</h2>
+        <p>Bu iki metrik, bakım ekibinin performansını ve makinelerin güvenilirliğini ölçer.</p>
+
+        <div class="card-grid">
+          <div class="card">
+            <h4>MTBF (Mean Time Between Failures)</h4>
+            <p><strong>Arızalar Arası Ortalama Süre</strong></p>
+            <p>Formül: Toplam Çalışma Süresi / Arıza Sayısı</p>
+            <p>Yüksek MTBF = Makine daha güvenilir, daha az arızalanıyor.</p>
+          </div>
+          <div class="card">
+            <h4>MTTR (Mean Time To Repair)</h4>
+            <p><strong>Ortalama Onarım Süresi</strong></p>
+            <p>Formül: Toplam Onarım Süresi / Arıza Sayısı</p>
+            <p>Düşük MTTR = Bakım ekibi arızaları daha hızlı çözüyor.</p>
+          </div>
+        </div>
+
+        <h3>Trend Analizi</h3>
+        <p>Sistem MTBF ve MTTR değerlerini makine bazında aylık olarak hesaplar ve grafik halınde sunar. Aşağıdaki durumları izleyin:</p>
+
+        <table>
+          <thead><tr><th>Durum</th><th>Anlam</th><th>Yapılacak</th></tr></thead>
+          <tbody>
+            <tr><td>MTBF düşüyor</td><td>Makine daha sık arızalanıyor</td><td>Koruyucu bakım planını gözden geçirin, periyotları kısaltın</td></tr>
+            <tr><td>MTBF artıyor</td><td>Bakım stratejisi işe yarıyor</td><td>Mevcut planları sürdürün</td></tr>
+            <tr><td>MTTR artıyor</td><td>Onarımlar uzuyor</td><td>Yedek parça stoğunu ve teknisyen eğitimini kontrol edin</td></tr>
+            <tr><td>MTTR düşüyor</td><td>Onarımlar hızlanıyor</td><td>Ekip performansı iyi, devam edin</td></tr>
+          </tbody>
+        </table>
+
+        <div class="info tip">
+          <div class="tip-title">Bilgi</div>
+          MTBF ve MTTR değerleri, OEE'nin "Kullanılabilirlik" bileşenini doğrudan etkiler.
+        </div>
+      </section>
+
+      <!-- ======================================== -->
+      <!-- 9. SSS                                    -->
+      <!-- ======================================== -->
+      <section id="faq">
+        <h2>9. Sık Sorulan Sorular</h2>
+
+        <div class="card">
+          <h4>1. Bakım planı oluşturduğumda iş emri hemen mi oluşur?</h4>
+          <p>Hayır. Plan tanımlandığında periyot sayacı başlar. Süre dolduğunda otomatik iş emri oluşturulur.</p>
+        </div>
+
+        <div class="card">
+          <h4>2. Makine kodunu (Code) sonradan değiştirebilir miyim?</h4>
+          <p>Evet, ancak bu değişiklik geçmiş kayıtları etkilemez. Karışıklık olmaması için kod değiştirmekten kaçının.</p>
+        </div>
+
+        <div class="card">
+          <h4>3. Arıza bildirimi kim yapabilir?</h4>
+          <p>Bakım iş emri oluşturma izni olan herkes arıza bildirimi yapabilir. Genellikle operatörler ve bakım teknisyenleri bu yetkiye sahiptir.</p>
+        </div>
+
+        <div class="card">
+          <h4>4. OEE neden %100'den düşük çıkıyor?</h4>
+          <p>OEE üç bileşenin çarpımıdır. Herhangi bir kayıp (duruş, yavaşlama, fire) değeri düşürür. Örneğin %90 x %95 x %99 = %84,6.</p>
+        </div>
+
+        <div class="card">
+          <h4>5. Koruyucu bakım yapılmazsa ne olur?</h4>
+          <p>İş emri "Gecikmiş" durumuna düşer ve kırmızı uyarı gösterilir. Bildirim ayarlarına göre e-posta veya anlık bildirim gönderilir.</p>
+        </div>
+
+        <div class="card">
+          <h4>6. Bakım maliyetlerini nasıl takip ederim?</h4>
+          <p>Her iş emrinde kullanılan yedek parça ve işçilik süresi kaydedilir. Raporlar sayfasından makine bazlı bakım maliyet raporu alabilirsiniz.</p>
+        </div>
+
+        <div class="card">
+          <h4>7. Bir makineyi silersem bakım geçmişi silinir mi?</h4>
+          <p>Makineler silinemez, yalnızca "Pasif" duruma alınabilir. Geçmiş kayıtlar korunur.</p>
+        </div>
+
+        <div class="card">
+          <h4>8. Kestirimci bakım için sensör gerekli mi?</h4>
+          <p>Kestirimci bakım, sensör verilerine dayanır. Sensör bağlantısı yoksa koruyucu bakım planlarıyla çalışabilirsiniz.</p>
+        </div>
+
+        <div class="card">
+          <h4>9. Birden fazla teknisyeni aynı iş emrine atayabilir miyim?</h4>
+          <p>Şu anda her iş emrine bir sorumlu atanır. İş emri açıklamasına ek personel bilgisi ekleyebilirsiniz.</p>
+        </div>
+
+        <div class="card">
+          <h4>10. MTBF değeri hangi birimle gösterilir?</h4>
+          <p>Saat olarak gösterilir. Örneğin MTBF = 720 saat demek, makine ortalama 720 saatte bir arızalanıyor demektir.</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="doc-footer">
+    Quvex ERP &copy; 2026 &mdash; Bakım (CMMS) Modülü Kullanıcı Kılavuzu v2.0
+  </div>
+
+</div>
+<script src="js/guide-enhancements.js"></script>
+</body>
+</html>

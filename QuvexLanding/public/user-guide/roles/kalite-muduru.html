@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kalite Müdürü Kılavuzu - Quvex ERP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="container">
+
+  <a href="../index.html" class="nav-back">&#8592; Ana Sayfa</a>
+
+  <div class="doc-header">
+    <span class="version-badge">v1.5</span>
+    <div class="breadcrumb"><a href="../index.html">Kullanıcı Kılavuzu</a> / <a href="../index.html">Rol Kılavuzlari</a> / Kalite Müdürü</div>
+    <h1>Kalite Müdürü Kılavuzu</h1>
+    <p>Siz kalite müdürüsunuz. Ürünlerin standartlara uygunlugunu, denetim hazırlıklari ve süreç iyilestirmesini siz yonetirsiniz.</p>
+  </div>
+
+  <div class="two-col">
+
+    <aside>
+      <nav class="nav-sidebar">
+        <a href="#bakis">Genel Bakis</a>
+        <a href="#sabah">Sabah Rutini</a>
+        <a href="#günlük">Gunluk Gorevler</a>
+        <a href="#haftalık">Haftalik Gorevler</a>
+        <a href="#tipik-gun">Tipik Bir Gun</a>
+        <a href="#as9100">AS9100 Denetim Checklist</a>
+        <a href="#ekranlar">Önemli Ekranlar</a>
+        <a href="#ipuçları">İpuçları ve Hatalar</a>
+      </nav>
+    </aside>
+
+    <main>
+
+      <section id="bakis">
+        <h2>Genel Bakis</h2>
+        <p>Kalite müdürü olarak sizin goereviniz <strong>ürün ve süreç kalitesini guvence altina almak</strong>tir. NCR/CAPA yönetimi, giriş kontrol, kalibrasyon takibi, AS9100 uyumlulugu ve tedarikçi değerlendirmesi sizin sorumluluk alanınizdir.</p>
+
+        <div class="card-grid">
+          <div class="card">
+            <h4>Uygunsuzluk</h4>
+            <p>NCR acma, CAPA takibi, MRB kararlari, müşteri taviz</p>
+          </div>
+          <div class="card">
+            <h4>Kontrol</h4>
+            <p>Giriş kontrol, proses kontrol, son kontrol, FAI</p>
+          </div>
+          <div class="card">
+            <h4>Standart</h4>
+            <p>AS9100, PPAP, SPC, kontrol plani, FMEA</p>
+          </div>
+          <div class="card">
+            <h4>Iyilestirme</h4>
+            <p>CAPA etkinlik olcumu, tedarikçi puanlama, trend analizi</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="sabah">
+        <h2>Sabah Rutini (08:00 - 09:00)</h2>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Acik NCR'leri Kontrol Edin</h4>
+              <p><strong>Kalite &gt; NCR Listesi</strong> ekraninda "Acik" durumundaki NCR'leri filtreleyin. Süresi dolmak uzere olanlari oncelikli olarak ele alın.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Giriş Kontrol Bekleyenleri Gorun</h4>
+              <p><strong>Kalite &gt; Giriş Kontrol</strong> ekraninda "Bekliyor" durumundaki malzemeleri kontrol edin. Üretimi bekleyen is emirleri için oncelikli inceleyin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Kalibrasyon Vadelerini Kontrol Edin</h4>
+              <p><strong>Kalite &gt; Kalibrasyon</strong> ekraninda bu hafta vadesi dolan ölçüm aletlerini gorun. Suresini gecen alet kullanimda olmamalidir.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>CAPA Takibi</h4>
+              <p><strong>Kalite &gt; CAPA Listesi</strong> ekraninda devam eden düzeltici faaliyetlerin durumunu kontrol edin. Süresi gecenler için sorumluyu uyarın.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="günlük">
+        <h2>Gunluk Gorevler</h2>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Görev</th><th>Ekran</th><th>Açıklama</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>NCR inceleme ve karar</td><td>Kalite &gt; NCR</td><td>Yeni bildirilen uygunsuzluklari değerlendirin. Kabul/red/taviz/hurda karari verin.</td></tr>
+            <tr><td>Giriş kontrol</td><td>Kalite &gt; Giriş Kontrol</td><td>Gelen malzemeleri kontrol edin, sonucu kaydedin. Red durumunda NCR açın.</td></tr>
+            <tr><td>Son kontrol onay</td><td>Kalite &gt; Son Kontrol</td><td>Üretimi biten parcalarin son kontrolünü yapın veya onaylayin.</td></tr>
+            <tr><td>CoC düzenle</td><td>Kalite &gt; CoC</td><td>Sevkiyat için Uygünlük Sertifikasi (Certificate of Conformance) hazırlayin.</td></tr>
+            <tr><td>Proses kontrol</td><td>Üretim &gt; Is Emri Detay</td><td>Üretim sirasinda ara kontrol sonuclarini kaydedin veya inceleyin.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="haftalık">
+        <h2>Haftalik Gorevler</h2>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>NCR/CAPA Trend Analizi</h4>
+              <p>Haftalik NCR sayisi, tekrar eden sorunlar, CAPA etkinlik orani. Trendi inceleyin &mdash; artan sorunlar koku neden analizi gerektirir.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Tedarikçi DeÄŸerlendirme</h4>
+              <p><strong>Satınalma &gt; Tedarikçi DeÄŸerlendirme</strong> ekraninda kalite puanlarini güncelleyin. Puani düşük tedarikciler için iyilestirme plani isteyin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Kalibrasyon Planlama</h4>
+              <p>Gelecek hafta vadesi dolacak ölçüm aletlerini belirleyin. Kalibrasyon firmasiyla randevu olustürün.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>SPC Grafik İnceleme</h4>
+              <p>Istatistiksel proses kontrol grafiklerini inceleyin. Kontrol limitlerini asan değerler varsa aksiyon baslatin.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="tipik-gun">
+        <h2>Tipik Bir Gun Senaryosu</h2>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Saat</th><th>Aktivite</th><th>Quvex Ekrani</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>08:00</td><td>Acik NCR'leri kontrol edin. 2 yeni NCR var &mdash; biri müşteri sikayeti, digeri ic bulgu.</td><td>Kalite &gt; NCR</td></tr>
+            <tr><td>08:30</td><td>Giriş kontrol: dun gelen 3 parti malzeme bekliyor. Birini kontrol edin.</td><td>Kalite &gt; Giriş Kontrol</td></tr>
+            <tr><td>09:30</td><td>MRB toplantisi: Kritik bir NCR için karar vermeniz gerekiyor. Hurda mi, yeniden işlem mi?</td><td>Kalite &gt; NCR Detay</td></tr>
+            <tr><td>10:30</td><td>FAI raporu hazırlayin. Yeni ürün için ilk parça onay süreçi.</td><td>Kalite &gt; FAI</td></tr>
+            <tr><td>11:30</td><td>Kalibrasyon vadesi dolan 2 mikrometre için hatırlatma geldi. Firmayi arayin.</td><td>Kalite &gt; Kalibrasyon</td></tr>
+            <tr><td>13:00</td><td>Üretim türündan sonra operator fire bildirdi. NCR açın ve CAPA baslatin.</td><td>Kalite &gt; NCR &gt; Yeni</td></tr>
+            <tr><td>14:00</td><td>Son kontrol: 500 adetlik parti tamamlandi. Numune kontrolü yapın, CoC hazırlayin.</td><td>Kalite &gt; Son Kontrol, CoC</td></tr>
+            <tr><td>15:00</td><td>Tedarikçi puanlamasini güncelleyin. X Tedarikçi son 3 ayda 4 red aldi.</td><td>Satınalma &gt; Tedarikçi</td></tr>
+            <tr><td>15:30</td><td>CAPA takibi: gecen hafta acilan 3 CAPA'nin durumunu kontrol edin.</td><td>Kalite &gt; CAPA</td></tr>
+            <tr><td>16:30</td><td>Haftalik kalite raporu hazırlayin. NCR trendi, fire orani, CAPA ozeti.</td><td>Raporlar</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="as9100">
+        <h2>AS9100 Denetim Hazırlık Checklist</h2>
+        <p>Savunma ve havacilik sektörunde calisiyorsaniz bu checklist denetim oncesi kontrol listenizdir:</p>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>#</th><th>Kontrol Noktasi</th><th>Quvex Ekrani</th><th>Durum</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Tüm NCR'ler kapatildi mi? Acik NCR var mi?</td><td>Kalite &gt; NCR</td><td>&#9744;</td></tr>
+            <tr><td>2</td><td>CAPA'lar zamaninda tamamlandi mi? Etkinlik olculdu mu?</td><td>Kalite &gt; CAPA</td><td>&#9744;</td></tr>
+            <tr><td>3</td><td>Kalibrasyon geçerlilik sureleri güncel mi?</td><td>Kalite &gt; Kalibrasyon</td><td>&#9744;</td></tr>
+            <tr><td>4</td><td>FAI raporları tamamlandi mi?</td><td>Kalite &gt; FAI</td><td>&#9744;</td></tr>
+            <tr><td>5</td><td>CoC'ler dogru ve güncel mi?</td><td>Kalite &gt; CoC</td><td>&#9744;</td></tr>
+            <tr><td>6</td><td>Tedarikçi değerlendirmeleri yapildi mi?</td><td>Satınalma &gt; Tedarikçi</td><td>&#9744;</td></tr>
+            <tr><td>7</td><td>Seri numara izlenebilirligi tamamlandi mi?</td><td>Üretim &gt; Seri Numara</td><td>&#9744;</td></tr>
+            <tr><td>8</td><td>Doküman onay süreçleri kapatildi mi?</td><td>Kalite &gt; Doküman Onay</td><td>&#9744;</td></tr>
+            <tr><td>9</td><td>MRB kararlari kayıt altinda mi?</td><td>Kalite &gt; MRB</td><td>&#9744;</td></tr>
+            <tr><td>10</td><td>Müşteri taviz kayıtları var mi?</td><td>Kalite &gt; Müşteri Taviz</td><td>&#9744;</td></tr>
+            <tr><td>11</td><td>EÄŸitim kayıtları güncel mi?</td><td>IK &gt; EÄŸitim</td><td>&#9744;</td></tr>
+            <tr><td>12</td><td>SPC grafikleri kontrol limitlerinde mi?</td><td>Kalite &gt; SPC</td><td>&#9744;</td></tr>
+          </tbody>
+        </table>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> Bu checklist'i denetimden 2 hafta once gozden gecirmeye baslayin. Her maddeyi Quvex uzerinden kontrol edip eksikleri tamamlayin.
+        </div>
+      </section>
+
+      <section id="ekranlar">
+        <h2>En Önemli Ekranlar</h2>
+
+        <div class="card-grid">
+          <div class="card">
+            <h4>Kalite &gt; NCR</h4>
+            <p>Uygunsuzluk raporları. Acma, inceleme, karar, kapatma. Gunluk kullanacaginiz ana ekran.</p>
+            <p><a href="../kalite.html">Kalite Kılavuzu &rarr;</a></p>
+          </div>
+          <div class="card">
+            <h4>Kalite &gt; CAPA</h4>
+            <p>Düzeltici ve onleyici faaliyetler. NCR'lerden turetilen aksiyonlarin takibi.</p>
+            <p><a href="../kalite.html">Kalite Kılavuzu &rarr;</a></p>
+          </div>
+          <div class="card">
+            <h4>Kalite &gt; Giriş Kontrol</h4>
+            <p>Gelen malzeme kontrolü. Kabul/red sonucu, ölçüm kayıtları.</p>
+            <p><a href="../kalite.html">Kalite Kılavuzu &rarr;</a></p>
+          </div>
+          <div class="card">
+            <h4>Kalite &gt; Kalibrasyon</h4>
+            <p>Ölçüm aleti takibi. Vade uyarıları, kalibrasyon geçmişi.</p>
+            <p><a href="../kalite.html">Kalite Kılavuzu &rarr;</a></p>
+          </div>
+        </div>
+      </section>
+
+      <section id="ipuçları">
+        <h2>İpuçları ve Yaygin Hatalar</h2>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> NCR acerken "Kok Neden" alanıni bos birakmayin. Bu alan CAPA etkinligini olcmek için kritiktir.
+        </div>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> Giriş kontrolde red verdiginizde otomatik olarak NCR oluşturma seceenegi gelir. "NCR Oluştur" butonuna tıkladiginizda bilgiler otomatik dolar.
+        </div>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> AS9100 denetimi oncesi tüm dokulari PDF olarak indirin. Kalite &gt; Raporlar ekranindan toplu cikti alabilirsiniz.
+        </div>
+
+        <div class="callout callout-warn">
+          <strong>Dikkat:</strong> Kalibrasyon süresi geçmiş ölçüm aleti ile yapilan olcumler gecersiz sayilir. Sistem uyarı verir ama engellemez &mdash; sorumluluk sizdedir.
+        </div>
+
+        <div class="callout callout-warn">
+          <strong>Dikkat:</strong> CAPA kapatirken "Etkinlik Olcumu" alanıni mutlaka doldürün. Denetimlerde bu alan özellikle sorulur.
+        </div>
+
+        <div class="callout callout-warn">
+          <strong>Dikkat:</strong> CoC uzerindeki bilgilerin (parti no, miktar, tarih) is emri ile eslesmesini kontrol edin. Uyumsuzluk denetimde ciddi bulgu olur.
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="doc-footer">
+    <p>Quvex ERP &mdash; Kalite Müdürü Kılavuzu &middot; v1.5 &middot; Mart 2026</p>
+  </div>
+
+</div>
+<script src="../js/guide-enhancements.js"></script>
+</body>
+</html>

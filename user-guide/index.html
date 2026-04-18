@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quvex ERP — Dokümantasyon Merkezi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* Sticky audience nav — 4 hedef kitle */
+  .audience-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    padding: 12px 0;
+    margin: 0 -20px 24px -20px;
+    border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .audience-nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .audience-nav a {
+    padding: 8px 16px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .audience-nav a.kullanici { background: #ede9fe; color: #6366f1; }
+  .audience-nav a.kullanici:hover { background: #6366f1; color: #fff; }
+  .audience-nav a.satis { background: #d1fae5; color: #10b981; }
+  .audience-nav a.satis:hover { background: #10b981; color: #fff; }
+  .audience-nav a.gelistirici { background: #fef3c7; color: #f59e0b; }
+  .audience-nav a.gelistirici:hover { background: #f59e0b; color: #fff; }
+  .audience-nav a.operasyon { background: #fee2e2; color: #dc2626; }
+  .audience-nav a.operasyon:hover { background: #dc2626; color: #fff; }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+  @media (max-width: 640px) {
+    .audience-nav a { font-size: 0.75rem; padding: 6px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Sticky Audience Navigation -->
+<nav class="audience-nav" aria-label="Hedef Kitle Navigasyonu">
+  <div class="audience-nav-inner">
+    <a href="#kullanici" class="kullanici">👷 Son Kullanıcı</a>
+    <a href="#satis" class="satis">💼 Satış</a>
+    <a href="#gelistirici" class="gelistirici">👨‍💻 Geliştirici</a>
+    <a href="#operasyon" class="operasyon">🛠️ Operasyon</a>
+    <a href="mobile-preview/index.html" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;font-weight:700;">📱 Mobil Demo</a>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="doc-header">
+    <span class="version-badge">v3.0 &mdash; 12 Nisan 2026 &middot; Sprint 11</span>
+    <h1>Quvex ERP &mdash; Dokümantasyon Merkezi</h1>
+    <p>Üretim Yönetim Platformu &middot; 18 Sektör &middot; 133K+ KOBİ Pazarı &middot; AS9100 / ISO 13485 / IATF / HACCP Uyumlu</p>
+  </div>
+
+  <!-- Mobil Demo Banner -->
+  <a href="mobile-preview/index.html" style="display:block;text-decoration:none;margin:1rem 0;padding:20px 24px;background:linear-gradient(135deg,#6366f1 0%,#8b5cf6 50%,#ec4899 100%);border-radius:12px;color:#fff;box-shadow:0 8px 24px rgba(99,102,241,0.3);">
+    <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+      <div style="font-size:3rem;">📱</div>
+      <div style="flex:1;min-width:200px;">
+        <div style="font-size:1.3rem;font-weight:800;margin-bottom:4px;">Quvex Mobil — Canlı Önizleme</div>
+        <div style="font-size:0.9rem;opacity:0.95;">Tüm dashboardlar, izin talep, üretim sayacı, vardiya devir, NCR onay, fason onay süreçleri tarayıcıdan dene</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.2);padding:10px 20px;border-radius:8px;font-weight:700;">Aç →</div>
+    </div>
+  </a>
+
+  <!-- İstatistikler -->
+  <div class="stats-bar">
+    <div class="stat-item"><div class="stat-value">156</div><div class="stat-label">Controller</div></div>
+    <div class="stat-item"><div class="stat-value">170+</div><div class="stat-label">Endpoint</div></div>
+    <div class="stat-item"><div class="stat-value">1978+</div><div class="stat-label">Test</div></div>
+    <div class="stat-item"><div class="stat-value">39</div><div class="stat-label">User Guide</div></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- HEDEF KİTLE SEÇİMİ — DOKÜMANTASYON HUB -->
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>📚 Hedef Kitleye Göre Dokümantasyon</h2>
+  <p style="color:var(--text-muted);margin-bottom:1rem;">Aradığınız bilgi türünü seçin: kullanım rehberi, satış materyali, teknik dokümantasyon veya operasyon prosedürleri.</p>
+  <div class="card-grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;">
+
+    <a href="#kullanici" class="card module-card" style="border-left:4px solid #6366f1;background:linear-gradient(135deg,#f0f0ff 0%,#fff 100%);">
+      <div style="font-size:2.5rem;margin-bottom:8px;">👷</div>
+      <h3>Son Kullanıcı</h3>
+      <p><strong>Operatör, Müdür, Patron, Kaliteci, Muhasebeci...</strong></p>
+      <p style="font-size:0.85rem;color:var(--text-muted);margin-top:8px;">39 modül + sektör + rol kılavuzu, sorun giderici, sözlük, FAQ</p>
+      <div style="margin-top:12px;font-size:0.85rem;color:#6366f1;font-weight:600;">↓ Aşağıya kaydırın</div>
+    </a>
+
+    <a href="#satis" class="card module-card" style="border-left:4px solid #10b981;background:linear-gradient(135deg,#f0fff4 0%,#fff 100%);">
+      <div style="font-size:2.5rem;margin-bottom:8px;">💼</div>
+      <h3>Satış &amp; Pazarlama</h3>
+      <p><strong>Sales team, demo planlayanlar, pazarlamacılar</strong></p>
+      <p style="font-size:0.85rem;color:var(--text-muted);margin-top:8px;">Pitch deck, demo script, fiyatlandırma, rekabet analizi, brosurler</p>
+      <div style="margin-top:12px;font-size:0.85rem;color:#10b981;font-weight:600;">↓ Aşağıya kaydırın</div>
+    </a>
+
+    <a href="#gelistirici" class="card module-card" style="border-left:4px solid #f59e0b;background:linear-gradient(135deg,#fffbeb 0%,#fff 100%);">
+      <div style="font-size:2.5rem;margin-bottom:8px;">👨‍💻</div>
+      <h3>Geliştirici</h3>
+      <p><strong>Backend, frontend, full-stack developer</strong></p>
+      <p style="font-size:0.85rem;color:var(--text-muted);margin-top:8px;">PRD, mimari, API endpoints, onboarding, business knowhow, sektör analizi</p>
+      <div style="margin-top:12px;font-size:0.85rem;color:#f59e0b;font-weight:600;">↓ Aşağıya kaydırın</div>
+    </a>
+
+    <a href="#operasyon" class="card module-card" style="border-left:4px solid #dc2626;background:linear-gradient(135deg,#fef2f2 0%,#fff 100%);">
+      <div style="font-size:2.5rem;margin-bottom:8px;">🛠️</div>
+      <h3>Operasyon &amp; DevOps</h3>
+      <p><strong>SRE, DevOps, sistem yöneticisi, destek ekibi</strong></p>
+      <p style="font-size:0.85rem;color:var(--text-muted);margin-top:8px;">Deployment, DR runbook, scalability, security audit, refresh token</p>
+      <div style="margin-top:12px;font-size:0.85rem;color:#dc2626;font-weight:600;">↓ Aşağıya kaydırın</div>
+    </a>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- BÖLÜM: SON KULLANICI -->
+  <!-- ═══════════════════════════════════════════ -->
+  <h2 id="kullanici" style="border-top:3px solid #6366f1;padding-top:24px;margin-top:48px;">👷 Son Kullanıcı Dokümantasyonu</h2>
+  <p style="color:var(--text-muted);margin-bottom:1rem;">Quvex'i günlük kullanan personel için hazırlanmış kılavuzlar. Operatörden patrona kadar her rol için.</p>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- TAKILDIM — EN ÖNEMLİ BÖLÜM -->
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>Takıldığınızda</h2>
+  <div class="card-grid">
+    <a href="sorun-giderici.html" class="card module-card" style="border-left:4px solid #dc2626;grid-column:1/-1;">
+      <div style="display:flex;align-items:center;gap:16px;">
+        <div style="font-size:2.5rem;">🆘</div>
+        <div>
+          <h3>Sorun Giderici &mdash; Takıldım, Ne Yapmalıyım?</h3>
+          <p style="margin:0;">İnteraktif sorun çözme sihirbazı. Kategorinizi seçin, sorununuzu bulun, adım adım çözümü uygulayın. <strong>62 hazır çözüm.</strong></p>
+        </div>
+      </div>
+    </a>
+    <a href="hata-mesajlari.html" class="card module-card" style="border-left:4px solid #f59e0b;">
+      <div style="font-size:1.5rem;margin-bottom:6px;">⚠️</div>
+      <h3>Hata Mesajları Rehberi</h3>
+      <p>53 hata mesajı: ne anlama gelir, neden olur, nasıl çözülür. Aranabilir.</p>
+    </a>
+    <a href="sik-sorulan-sorular.html" class="card module-card" style="border-left:4px solid var(--success);">
+      <div style="font-size:1.5rem;margin-bottom:6px;">❓</div>
+      <h3>Sık Sorulan Sorular</h3>
+      <p>65+ soru, 7 kategoride. Şifre unutma, barkod, NCR, fatura, offline çalışma...</p>
+    </a>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SİSTEMİ TANIYIM -->
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>Sistemi Tanıyın</h2>
+  <div class="card-grid">
+    <a href="iliski-haritasi.html" class="card module-card" style="border-left:4px solid var(--violet);grid-column:1/-1;">
+      <div style="display:flex;align-items:center;gap:16px;">
+        <div style="font-size:2.5rem;">🗺</div>
+        <div>
+          <h3>Modül İlişki Haritası &amp; Akış Şemaları</h3>
+          <p style="margin:0;">14 modülün birbirleriyle bağlantısı, veri akışı, neydi / ne oldu / nedir karşılaştırmaları, adım adım iş süreçleri. <strong>Sistemi anlamak için buradan başlayın.</strong></p>
+        </div>
+      </div>
+    </a>
+    <a href="ilk-adimlar.html" class="card module-card" style="border-left:4px solid var(--primary);">
+      <div style="font-size:1.5rem;margin-bottom:6px;">🚀</div>
+      <h3>İlk 30 Dakika</h3>
+      <p>Sisteme ilk giriş, navigasyon, ilk stok kartı ve iş emri oluşturma. Yeni kullanıcılar buradan başlasın.</p>
+    </a>
+    <a href="terimler-sozlugu.html" class="card module-card" style="border-left:4px solid var(--cyan);">
+      <div style="font-size:1.5rem;margin-bottom:6px;">📖</div>
+      <h3>Terimler Sözlüğü</h3>
+      <p>120+ üretim ve ERP terimi. Her terimin ne olduğu, ne işe yaradığı, Quvex'te nerede bulunacağı. Aranabilir.</p>
+    </a>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- İŞ AKIŞLARI -->
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>Uçtan Uca İş Akışları</h2>
+  <div class="card-grid">
+    <a href="workflows/teklif-siparis-uretim-sevk.html" class="card module-card" style="border-left:4px solid var(--violet);">
+      <div style="font-size:1.5rem;margin-bottom:6px;">🔄</div>
+      <h3>Teklif → Sipariş → Üretim → Sevkiyat → Fatura</h3>
+      <p>Siparişin yaşam döngüsü. 7 adım, karar noktaları, örnek senaryo.</p>
+    </a>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- MODÜLLER -->
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>Modül Kılavuzları</h2>
+  <div class="card-grid">
+    <a href="stok.html" class="card module-card" style="border-left:4px solid #6366f1;">
+      <h3>📦 Stok &amp; Depo</h3>
+      <p>Stok takibi, depo yönetimi, barkod, sayım, lot takibi, ABC analizi, min/max uyarıları, depo lokasyonları</p>
+    </a>
+    <a href="satis.html" class="card module-card" style="border-left:4px solid #10b981;">
+      <h3>💰 Satış &amp; Teklif</h3>
+      <p>Teklif hazırlama, sipariş takibi, müşteri yönetimi, cari hesap ekstre, fatura, irsaliye</p>
+    </a>
+    <a href="uretim.html" class="card module-card" style="border-left:4px solid #f59e0b;">
+      <h3>⚙ Üretim</h3>
+      <p>Üretim planlama, iş emri, Gantt, kapasite, sevkiyat, seri numara, fason işler, ShopFloor Terminal</p>
+    </a>
+    <a href="kalite.html" class="card module-card" style="border-left:4px solid #06b6d4;">
+      <h3>✅ Kalite (23 Alt Modül)</h3>
+      <p>NCR, CAPA, SPC, kalibrasyon, FMEA, PPAP, FAI, AS9100, tedarikçi değerlendirme, kontrol planları</p>
+    </a>
+    <a href="satinalma.html" class="card module-card" style="border-left:4px solid #8b5cf6;">
+      <h3>🛒 Satınalma</h3>
+      <p>Satınalma talebi, teklif, sipariş, mal kabul, tedarikçi yönetimi, fason iş emirleri</p>
+    </a>
+    <a href="finans.html" class="card module-card" style="border-left:4px solid #f43f5e;">
+      <h3>💳 Finans &amp; Muhasebe</h3>
+      <p>Fatura, tahsilat, cari bakiye takibi, döviz kurları, banka mutabakat, e-fatura entegrasyonu</p>
+    </a>
+    <a href="finans.html#kasa-banka" class="card module-card" style="border-left:4px solid #ec4899;">
+      <h3>🏦 Kasa / Banka</h3>
+      <p>Nakit kasa ve banka hesapları, para giriş/çıkış, transfer, hareket defteri, otomatik bakiye</p>
+    </a>
+    <a href="bakim.html" class="card module-card" style="border-left:4px solid #64748b;">
+      <h3>🔧 Bakım (CMMS)</h3>
+      <p>Koruyucu bakım, arıza kaydı, OEE, MTBF/MTTR, kapasite planlama, bakım iş emri</p>
+    </a>
+    <a href="ik.html" class="card module-card" style="border-left:4px solid #0891b2;">
+      <h3>👥 İK &amp; Vardiya</h3>
+      <p>Personel yönetimi, izin takibi, vardiya planlama, yetkinlik matrisi, eğitim kayıtları</p>
+    </a>
+    <a href="raporlar.html" class="card module-card" style="border-left:4px solid #7c3aed;">
+      <h3>📈 Raporlama &amp; AI Insights</h3>
+      <p>13+ standart rapor, KPI dashboard, dinamik rapor, AI tahmin ve anomali tespiti, Excel export</p>
+    </a>
+    <a href="ayarlar.html" class="card module-card" style="border-left:4px solid #475569;">
+      <h3>⚙ Sistem Ayarları</h3>
+      <p>Kullanıcı, rol, yetki, güvenlik, sektör profili, bildirim ayarları, multi-tenancy</p>
+    </a>
+    <a href="surecler.html" class="card module-card" style="border-left:4px solid #059669;">
+      <h3>🔗 Süreçler &amp; Entegrasyon</h3>
+      <p>e-Fatura, SignalR bildirimler, Excel import/export, TCMB döviz kuru, proje yönetimi</p>
+    </a>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- ROL KILAVUZLARI -->
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>Rol Bazlı Kılavuzlar</h2>
+  <p style="color:var(--text-muted);margin-bottom:1rem;">Rolünüze göre hangi ekranları kullanacağınızı, günlük rutininizi ve ipuçlarını öğrenin.</p>
+  <div class="card-grid">
+    <a href="roles/fabrika-sahibi.html" class="card module-card" style="border-left:4px solid #f59e0b;">
+      <h3>👔 Fabrika Sahibi</h3>
+      <p>Dashboard, KPI'lar, kar-zarar, stratejik raporlar</p>
+    </a>
+    <a href="roles/uretim-muduru.html" class="card module-card" style="border-left:4px solid #10b981;">
+      <h3>🏭 Üretim Müdürü</h3>
+      <p>İş emri, Gantt, OEE, kapasite, fason koordinasyonu</p>
+    </a>
+    <a href="roles/kalite-muduru.html" class="card module-card" style="border-left:4px solid #06b6d4;">
+      <h3>✅ Kalite Müdürü</h3>
+      <p>NCR, CAPA, FAI, denetim hazırlığı, AS9100</p>
+    </a>
+    <a href="roles/cnc-operatoru.html" class="card module-card" style="border-left:4px solid #8b5cf6;">
+      <h3>⚙ CNC Operatörü</h3>
+      <p>ShopFloor terminal, iş emri başlat/bitir, barkod</p>
+    </a>
+    <a href="roles/muhasebeci.html" class="card module-card" style="border-left:4px solid #f43f5e;">
+      <h3>💰 Muhasebeci</h3>
+      <p>Fatura, ödeme, cari, kasa/banka, KDV</p>
+    </a>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SEKTÖR BAZLI MODÜLLER — SPRINT 11 YENİ -->
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>Sektör Bazlı Modüller <span style="display:inline-block;background:#dc2626;color:#fff;font-size:0.7rem;padding:3px 10px;border-radius:12px;vertical-align:middle;margin-left:8px;font-weight:700;">YENİ — Sprint 11</span></h2>
+  <p style="color:var(--text-muted);margin-bottom:1rem;">Sprint 11 ile eklenen sektör özel modüller. Sadece ilgili sektör profilini seçtiğinizde menüde görünür.</p>
+  <div class="card-grid">
+    <a href="modules/product-variant.html" class="card module-card" style="border-left:4px solid #ec4899;">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <h3>🧵 Ürün Varyantları</h3>
+        <span style="background:#dc2626;color:#fff;font-size:0.65rem;padding:2px 8px;border-radius:10px;font-weight:700;">YENİ</span>
+      </div>
+      <p><strong>Tekstil / Hazır Giyim</strong> — Beden × Renk matrisi, toplu varyant üretimi, Pantone kodu, stok ısı haritası, lot eşleştirme</p>
+    </a>
+    <a href="modules/haccp-recall.html" class="card module-card" style="border-left:4px solid #16a34a;">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <h3>🍎 HACCP &amp; Geri Çağırma</h3>
+        <span style="background:#dc2626;color:#fff;font-size:0.65rem;padding:2px 8px;border-radius:10px;font-weight:700;">YENİ</span>
+      </div>
+      <p><strong>Gıda Üretimi</strong> — 7 prensip, CCP ölçüm kaydı, otomatik sapma NCR, 7 adım recall wizard, forward trace, ISO 22000</p>
+    </a>
+    <a href="modules/mold-inventory.html" class="card module-card" style="border-left:4px solid #0891b2;">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <h3>🏭 Kalıp Envanteri</h3>
+        <span style="background:#dc2626;color:#fff;font-size:0.65rem;padding:2px 8px;border-radius:10px;font-weight:700;">YENİ</span>
+      </div>
+      <p><strong>Plastik Enjeksiyon</strong> — Kavite, shot sayacı, bakım eşiği uyarısı, kalıp durumu, OEE istatistikleri</p>
+    </a>
+    <a href="modules/ce-technical-file.html" class="card module-card" style="border-left:4px solid #f59e0b;">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <h3>📐 CE Teknik Dosya</h3>
+        <span style="background:#dc2626;color:#fff;font-size:0.65rem;padding:2px 8px;border-radius:10px;font-weight:700;">YENİ</span>
+      </div>
+      <p><strong>Makine İmalatı</strong> — Direktif 2006/42/EC, 19 alan, risk değerlendirme EN ISO 12100, notified body, onay workflow</p>
+    </a>
+    <a href="modules/wps-wpqr.html" class="card module-card" style="border-left:4px solid #64748b;">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <h3>🔥 WPS / WPQR</h3>
+        <span style="background:#dc2626;color:#fff;font-size:0.65rem;padding:2px 8px;border-radius:10px;font-weight:700;">YENİ</span>
+      </div>
+      <p><strong>Kaynak Atölyesi</strong> — 19 parametre, WPQR, kaynakçı sertifika expiry alarmı, AWS D17.1 / ASME IX / EN ISO 9606</p>
+    </a>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SEKTÖR REHBERLERİ -->
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>Sektör Rehberleri</h2>
+  <div class="card-grid">
+    <a href="sectors/savunma-havacilik.html" class="card module-card" style="border-left:4px solid #1a3d6d;">
+      <h3>✈ Savunma &amp; Havacılık</h3>
+      <p>AS9100 zorunlulukları, FAI, CoC, MRB, denetim checklist</p>
+    </a>
+    <a href="sectors/cnc-metal-işleme.html" class="card module-card" style="border-left:4px solid #64748b;">
+      <h3>⚙ CNC &amp; Metal İşleme</h3>
+      <p>OEE, fason, fire takibi, kapasite, tipik kurulum</p>
+    </a>
+    <a href="sectors/otomotiv-yan-sanayi.html" class="card module-card" style="border-left:4px solid #dc2626;">
+      <h3>🚗 Otomotiv Yan Sanayi</h3>
+      <p>PPAP 18 element, FMEA, SPC, OEM denetim checklist</p>
+    </a>
+    <a href="modules/product-variant.html" class="card module-card" style="border-left:4px solid #ec4899;">
+      <h3>🧵 Tekstil &amp; Hazır Giyim <span style="background:#dc2626;color:#fff;font-size:0.6rem;padding:2px 6px;border-radius:8px;">YENİ</span></h3>
+      <p>Ürün varyantları, beden × renk matrisi, Pantone, lot takibi</p>
+    </a>
+    <a href="modules/haccp-recall.html" class="card module-card" style="border-left:4px solid #16a34a;">
+      <h3>🍎 Gıda Üretimi <span style="background:#dc2626;color:#fff;font-size:0.6rem;padding:2px 6px;border-radius:8px;">YENİ</span></h3>
+      <p>HACCP, CCP, recall workflow, ISO 22000, forward trace</p>
+    </a>
+    <a href="modules/mold-inventory.html" class="card module-card" style="border-left:4px solid #0891b2;">
+      <h3>🏭 Plastik Enjeksiyon <span style="background:#dc2626;color:#fff;font-size:0.6rem;padding:2px 6px;border-radius:8px;">YENİ</span></h3>
+      <p>Kalıp envanteri, shot sayacı, bakım eşiği, kavite takibi</p>
+    </a>
+    <a href="modules/ce-technical-file.html" class="card module-card" style="border-left:4px solid #f59e0b;">
+      <h3>📐 Makine İmalatı <span style="background:#dc2626;color:#fff;font-size:0.6rem;padding:2px 6px;border-radius:8px;">YENİ</span></h3>
+      <p>CE teknik dosya, 2006/42/EC, risk değerlendirme, notified body</p>
+    </a>
+    <a href="modules/wps-wpqr.html" class="card module-card" style="border-left:4px solid #64748b;">
+      <h3>🔥 Kaynak Atölyesi <span style="background:#dc2626;color:#fff;font-size:0.6rem;padding:2px 6px;border-radius:8px;">YENİ</span></h3>
+      <p>WPS, WPQR, kaynakçı sertifika, AWS D17.1 / ASME IX</p>
+    </a>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- KLAVYE KISAYOLLARI -->
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>Klavye Kısayolları</h2>
+  <div class="card">
+    <table>
+      <thead><tr><th>Kısayol</th><th>İşlem</th><th>Açıklama</th></tr></thead>
+      <tbody>
+        <tr><td><code>Ctrl + K</code></td><td>Genel Arama</td><td>Ürün, müşteri, sipariş, fatura arama</td></tr>
+        <tr><td><code>Ctrl + S</code></td><td>Kaydet</td><td>Form sayfalarında aktif kaydı kaydet</td></tr>
+        <tr><td><code>Ctrl + N</code></td><td>Yeni Kayıt</td><td>Liste sayfalarında yeni kayıt oluştur</td></tr>
+        <tr><td><code>Enter</code></td><td>Satır Ekle</td><td>Stok fişi ve fatura kalem satırlarında yeni satır</td></tr>
+        <tr><td><code>Escape</code></td><td>Pencere Kapat</td><td>Açık olan diyalog penceresini kapat</td></tr>
+        <tr><td><code>R</code></td><td>Sayfa Yenile</td><td>Mevcut sayfadaki verileri yeniden yükle</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- HIZLI ERİŞİM -->
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>Hızlı Erişim — Sık Kullanılan İşlemler</h2>
+  <div class="card">
+    <table>
+      <thead><tr><th>İşlem</th><th>Menü Yolu</th></tr></thead>
+      <tbody>
+        <tr><td>Yeni Teklif Oluştur</td><td>Satış → Teklifler → <code>+</code> butonu</td></tr>
+        <tr><td>Stok Girişi Yap</td><td>Stok → Stok Fişleri → <code>+</code> butonu</td></tr>
+        <tr><td>NCR Aç</td><td>Kalite → Temel → NCR → <code>+</code> butonu</td></tr>
+        <tr><td>Fatura Kes</td><td>Finans → Faturalar → <code>+</code> butonu</td></tr>
+        <tr><td>İş Emri Oluştur</td><td>Üretim → Üretim Listesi → <code>+</code> butonu</td></tr>
+        <tr><td>Kasa/Banka İşlemi</td><td>Finans → Kasa/Banka</td></tr>
+        <tr><td>ShopFloor Terminal</td><td>Üretim → ShopFloor Terminal</td></tr>
+        <tr><td>Bakım Planı Oluştur</td><td>Bakım → Bakım İş Emirleri → <code>+</code> butonu</td></tr>
+        <tr><td>İzin Talebi</td><td>İK → İzin Talepleri → <code>+</code> butonu</td></tr>
+        <tr><td>Rapor Görüntüle</td><td>Raporlar → Rapor Paneli</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- BÖLÜM: SATIŞ & PAZARLAMA -->
+  <!-- ═══════════════════════════════════════════ -->
+  <h2 id="satis" style="border-top:3px solid #10b981;padding-top:24px;margin-top:48px;">💼 Satış &amp; Pazarlama Dokümantasyonu</h2>
+  <p style="color:var(--text-muted);margin-bottom:1rem;">Müşteriye sunum yapan, demo hazırlayan, fiyat veren ekip için hazır materyaller.</p>
+
+  <h3 style="color:#10b981;margin-top:24px;">🎯 Sales Kit (Sprint 11)</h3>
+  <div class="card-grid">
+    <a href="md-viewer.html?file=../marketing/sales/SALES-PITCH-DECK.md" class="card module-card" style="border-left:4px solid #10b981;">
+      <div style="font-size:1.5rem;margin-bottom:6px;">📊</div>
+      <h3>Sales Pitch Deck</h3>
+      <p>12 slayt — problem, çözüm, TAM/SAM/SOM, sektörler, killer features, fiyat, başarı hikayesi. İlk müşteri görüşmesi için hazır.</p>
+    </a>
+    <a href="md-viewer.html?file=../marketing/sales/DEMO-SCRIPT.md" class="card module-card" style="border-left:4px solid #10b981;">
+      <div style="font-size:1.5rem;margin-bottom:6px;">🎬</div>
+      <h3>Demo Script</h3>
+      <p>15 dakikalık dakika dakika demo akışı + 8 sektör varyasyonu + objection handling + post-demo cadence.</p>
+    </a>
+    <a href="md-viewer.html?file=../marketing/sales/PRICING-STRATEGY.md" class="card module-card" style="border-left:4px solid #10b981;">
+      <div style="font-size:1.5rem;margin-bottom:6px;">💰</div>
+      <h3>Pricing Strategy</h3>
+      <p>3 plan (Başlangıç $99 / Pro $199 / Enterprise $399), 3 yıllık TCO karşılaştırma, partner program, sales FAQ.</p>
+    </a>
+  </div>
+
+  <h3 style="color:#10b981;margin-top:24px;">📄 Brosur &amp; Tek Sayfa</h3>
+  <div class="card-grid">
+    <a href="../marketing/brochures/brosur-01-yonetici-ozeti.html" class="card module-card" style="border-left:4px solid #10b981;">
+      <h3>Yönetici Özeti</h3>
+      <p>1 sayfalık genel tanıtım — patron için</p>
+    </a>
+    <a href="../marketing/brochures/brosur-02-sektorel-cozum.html" class="card module-card" style="border-left:4px solid #10b981;">
+      <h3>Sektörel Çözüm</h3>
+      <p>Sektör bazlı çözüm önerisi</p>
+    </a>
+    <a href="../marketing/brochures/brosur-03-karsilastirma.html" class="card module-card" style="border-left:4px solid #10b981;">
+      <h3>Özellik Karşılaştırma</h3>
+      <p>Quvex vs Logo / Mikro / SAP B1</p>
+    </a>
+    <a href="../marketing/brochures/brosur-04-tek-sayfa.html" class="card module-card" style="border-left:4px solid #10b981;">
+      <h3>Tek Sayfa Satış</h3>
+      <p>Kompakt satış dokümanı</p>
+    </a>
+    <a href="../marketing/brochures/brosur-05-teknik.html" class="card module-card" style="border-left:4px solid #10b981;">
+      <h3>Teknik Veri Sayfası</h3>
+      <p>Modüller, integrasyonlar, kapasite</p>
+    </a>
+  </div>
+
+  <h3 style="color:#10b981;margin-top:24px;">🔍 Pazar &amp; Rekabet Analizi</h3>
+  <div class="card-grid">
+    <a href="md-viewer.html?file=../analysis/QUVEX-MARKET-ANALYSIS.md" class="card module-card" style="border-left:4px solid #10b981;">
+      <h3>📈 Market Analysis</h3>
+      <p>KOBİ pazarı 51K→133K, sektör skorları, 9 rekabet avantajı, TAM/SAM/SOM</p>
+    </a>
+    <a href="md-viewer.html?file=../marketing/competitive/derin-rakip-karsilastirma.md" class="card module-card" style="border-left:4px solid #10b981;">
+      <h3>🥊 Derin Rakip Karşılaştırma</h3>
+      <p>Logo Tiger, Mikro Y, SAP B1, Netsis vs Quvex</p>
+    </a>
+    <a href="md-viewer.html?file=../marketing/competitive/rakip-analizi-ve-eksikler.md" class="card module-card" style="border-left:4px solid #10b981;">
+      <h3>📋 Rakip Analizi &amp; Eksikleri</h3>
+      <p>Rakiplerin zayıf noktaları, Quvex avantajları</p>
+    </a>
+    <a href="md-viewer.html?file=../analysis/QUVEX-FINAL-STRATEGY-2026.md" class="card module-card" style="border-left:4px solid #10b981;">
+      <h3>🎯 Final Strategy 2026</h3>
+      <p>12 bölüm, 700+ satır master strateji dokümanı</p>
+    </a>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- BÖLÜM: GELİŞTİRİCİ -->
+  <!-- ═══════════════════════════════════════════ -->
+  <h2 id="gelistirici" style="border-top:3px solid #f59e0b;padding-top:24px;margin-top:48px;">👨‍💻 Geliştirici Dokümantasyonu</h2>
+  <p style="color:var(--text-muted);margin-bottom:1rem;">Backend, frontend ve full-stack geliştiriciler için teknik referans, mimari ve onboarding.</p>
+
+  <h3 style="color:#f59e0b;margin-top:24px;">📋 Ürün Tanımı &amp; İş Bilgisi</h3>
+  <div class="card-grid">
+    <a href="md-viewer.html?file=../product/PRD.md" class="card module-card" style="border-left:4px solid #f59e0b;">
+      <div style="font-size:1.5rem;margin-bottom:6px;">📘</div>
+      <h3>PRD — Product Requirements Document</h3>
+      <p>Ürün gereksinimleri v3.0 — modüller, kapsam, özellikler, sektör desteği, Sprint 11 niş modüller</p>
+    </a>
+    <a href="md-viewer.html?file=../product/BUSINESS-KNOWHOW.md" class="card module-card" style="border-left:4px solid #f59e0b;">
+      <div style="font-size:1.5rem;margin-bottom:6px;">🏭</div>
+      <h3>Business Know-How</h3>
+      <p>Üretim sektörü iş bilgisi — süreçler, roller, iş akışları, HACCP/WPS/Mold/CE/Variant detayları (1000+ satır)</p>
+    </a>
+    <a href="md-viewer.html?file=../product/ONBOARDING.md" class="card module-card" style="border-left:4px solid #f59e0b;">
+      <div style="font-size:1.5rem;margin-bottom:6px;">🚀</div>
+      <h3>Developer Onboarding</h3>
+      <p>Yeni geliştirici rehberi — kurulum, mimari, API/UI, sektör onboarding, SignalR, WhatsApp config</p>
+    </a>
+    <a href="md-viewer.html?file=../product/DURUM.md" class="card module-card" style="border-left:4px solid #f59e0b;">
+      <div style="font-size:1.5rem;margin-bottom:6px;">📊</div>
+      <h3>Proje Durumu (DURUM.md)</h3>
+      <p>11 sprint tamamlandı, test sayıları, sektör skorları, pazar erişimi, Mehmet Bey trial conversion</p>
+    </a>
+    <a href="md-viewer.html?file=../product/CHANGELOG.md" class="card module-card" style="border-left:4px solid #f59e0b;">
+      <div style="font-size:1.5rem;margin-bottom:6px;">📝</div>
+      <h3>Changelog</h3>
+      <p>Sürüm bazlı değişiklik kaydı — Sprint 1-11 detaylı log, son değişiklik [2026-04-12]</p>
+    </a>
+  </div>
+
+  <h3 style="color:#f59e0b;margin-top:24px;">🔗 API &amp; Mimari</h3>
+  <div class="card-grid">
+    <a href="md-viewer.html?file=../architecture/API-UI-ENDPOINT-MAP.md" class="card module-card" style="border-left:4px solid #f59e0b;">
+      <h3>API ↔ UI Endpoint Map</h3>
+      <p>170+ endpoint eşleme haritası, permission, açıklama. 9 yeni Sprint 11 modülü dahil.</p>
+    </a>
+    <a href="md-viewer.html?file=../CLAUDE.md" class="card module-card" style="border-left:4px solid #f59e0b;">
+      <h3>CLAUDE.md (Çalışma Kuralları)</h3>
+      <p>Merkez çalışma kuralları, klasör yapısı, test çalıştırma, Sprint 11 modül tablosu</p>
+    </a>
+    <a href="md-viewer.html?file=../FILE-MAP.md" class="card module-card" style="border-left:4px solid #f59e0b;">
+      <h3>FILE-MAP.md</h3>
+      <p>160 dosyalık dokümantasyon haritası — 14 klasör indeksi</p>
+    </a>
+    <a href="md-viewer.html?file=../architecture/TENANT-SCALING-ARCHITECTURE.md" class="card module-card" style="border-left:4px solid #f59e0b;">
+      <h3>Tenant Scaling Architecture</h3>
+      <p>Multi-tenant mimari tasarımı — şema izolasyonu, JWT, permissions</p>
+    </a>
+  </div>
+
+  <h3 style="color:#f59e0b;margin-top:24px;">📊 Analiz &amp; UX Audit</h3>
+  <div class="card-grid">
+    <a href="md-viewer.html?file=../analysis/QUVEX_FULL_ANALYSIS.md" class="card module-card" style="border-left:4px solid #f59e0b;">
+      <h3>Full Analysis</h3>
+      <p>Master proje analizi + Sprint 11 niş modüller</p>
+    </a>
+    <a href="md-viewer.html?file=../analysis/PROJECT_ANALYSIS.md" class="card module-card" style="border-left:4px solid #f59e0b;">
+      <h3>Project Analysis</h3>
+      <p>156 controller, 133 entity, 1978+ test</p>
+    </a>
+    <a href="md-viewer.html?file=../analysis/CNC-USER-JOURNEY-UX-AUDIT.md" class="card module-card" style="border-left:4px solid #f59e0b;">
+      <h3>CNC User Journey UX</h3>
+      <p>Mehmet Bey persona — 35+ ekran skorlama</p>
+    </a>
+    <a href="md-viewer.html?file=../analysis/UX-AUDIT-MASTER-CROSS-SECTOR.md" class="card module-card" style="border-left:4px solid #f59e0b;">
+      <h3>UX Master Cross-Sector</h3>
+      <p>10 sektör cross-analiz, ortak problemler</p>
+    </a>
+    <a href="md-viewer.html?file=../analysis/UX-AUDIT-METAL-MOBILYA-TEKSTIL.md" class="card module-card" style="border-left:4px solid #f59e0b;">
+      <h3>UX: Metal/Mobilya/Tekstil</h3>
+      <p>3 sektör derin UX denetimi</p>
+    </a>
+    <a href="md-viewer.html?file=../analysis/UX-AUDIT-GIDA-OTOMOTIV-PLASTIK-MAKINE.md" class="card module-card" style="border-left:4px solid #f59e0b;">
+      <h3>UX: Gıda/Otomotiv/Plastik/Makine</h3>
+      <p>4 sektör UX denetimi + sektör özel modüller</p>
+    </a>
+    <a href="md-viewer.html?file=../analysis/UX-AUDIT-KAYNAK-MEDIKAL.md" class="card module-card" style="border-left:4px solid #f59e0b;">
+      <h3>UX: Kaynak/Medikal</h3>
+      <p>Niş sektör UX denetimi</p>
+    </a>
+  </div>
+
+  <h3 style="color:#f59e0b;margin-top:24px;">🗺️ Roadmap &amp; Sprint</h3>
+  <div class="card-grid">
+    <a href="md-viewer.html?file=../roadmap/QUVEX-ROADMAP.md" class="card module-card" style="border-left:4px solid #f59e0b;">
+      <h3>Quvex Roadmap</h3>
+      <p>11/11 sprint tamamlandı, gelecek planları</p>
+    </a>
+    <a href="md-viewer.html?file=../roadmap/FAZLANDIRMA.md" class="card module-card" style="border-left:4px solid #f59e0b;">
+      <h3>Fazlandırma</h3>
+      <p>F1-F8 detaylı faz kırılımı, alt madde takibi</p>
+    </a>
+    <a href="md-viewer.html?file=../sprints/SPRINT-PLAN.md" class="card module-card" style="border-left:4px solid #f59e0b;">
+      <h3>Master Sprint Plan</h3>
+      <p>11 sprint özeti, 1978+ test</p>
+    </a>
+    <a href="md-viewer.html?file=../sprints/SPRINT-11-KAPSAYICI-URUN-2026-04-12.md" class="card module-card" style="border-left:4px solid #f59e0b;">
+      <h3>📌 Sprint 11 Detay</h3>
+      <p>Kapsayıcı Ürün Sprinti — 50+ agent, 130+ dosya, 5 niş modül + 3 killer feature</p>
+    </a>
+  </div>
+
+  <h3 style="color:#f59e0b;margin-top:24px;">🧪 Test &amp; Senaryolar</h3>
+  <div class="card-grid">
+    <a href="md-viewer.html?file=../tests/TEST-PLAN-E2E-v4.md" class="card module-card" style="border-left:4px solid #f59e0b;">
+      <h3>E2E Test Plan v4</h3>
+      <p>Master E2E test planı</p>
+    </a>
+    <a href="md-viewer.html?file=../tests/TEST-CHECKLIST-E2E.md" class="card module-card" style="border-left:4px solid #f59e0b;">
+      <h3>E2E Checklist</h3>
+      <p>21 sektör senaryo + Sprint 11 ekleri</p>
+    </a>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- BÖLÜM: OPERASYON & DEVOPS -->
+  <!-- ═══════════════════════════════════════════ -->
+  <h2 id="operasyon" style="border-top:3px solid #dc2626;padding-top:24px;margin-top:48px;">🛠️ Operasyon &amp; DevOps Dokümantasyonu</h2>
+  <p style="color:var(--text-muted);margin-bottom:1rem;">SRE, DevOps, sistem yöneticisi ve destek ekibi için deployment, güvenlik ve felaket kurtarma.</p>
+
+  <h3 style="color:#dc2626;margin-top:24px;">🚀 Deployment &amp; Configuration</h3>
+  <div class="card-grid">
+    <a href="md-viewer.html?file=../architecture/DEPLOYMENT-GUIDE.md" class="card module-card" style="border-left:4px solid #dc2626;">
+      <div style="font-size:1.5rem;margin-bottom:6px;">📦</div>
+      <h3>Deployment Guide</h3>
+      <p>Production deployment — Docker, env vars, SSL, multi-tenant kurulum</p>
+    </a>
+    <a href="md-viewer.html?file=../architecture/TENANT-20-PLAN.md" class="card module-card" style="border-left:4px solid #dc2626;">
+      <div style="font-size:1.5rem;margin-bottom:6px;">📋</div>
+      <h3>20 Tenant Plan</h3>
+      <p>Küçük scale deployment</p>
+    </a>
+    <a href="md-viewer.html?file=../architecture/TENANT-50-PLAN.md" class="card module-card" style="border-left:4px solid #dc2626;">
+      <div style="font-size:1.5rem;margin-bottom:6px;">📋</div>
+      <h3>50 Tenant Plan</h3>
+      <p>Orta scale deployment</p>
+    </a>
+    <a href="md-viewer.html?file=../architecture/1000-TENANT-SCALABILITY-PLAN.md" class="card module-card" style="border-left:4px solid #dc2626;">
+      <div style="font-size:1.5rem;margin-bottom:6px;">📈</div>
+      <h3>1000 Tenant Scalability</h3>
+      <p>Sharding, connection pooling, performans optimizasyonu, infrastructure scaling</p>
+    </a>
+  </div>
+
+  <h3 style="color:#dc2626;margin-top:24px;">🔒 Güvenlik &amp; Audit</h3>
+  <div class="card-grid">
+    <a href="md-viewer.html?file=../architecture/SECURITY-AUDIT-CHECKLIST.md" class="card module-card" style="border-left:4px solid #dc2626;">
+      <div style="font-size:1.5rem;margin-bottom:6px;">🔐</div>
+      <h3>Security Audit Checklist</h3>
+      <p>Güvenlik denetim kontrol listesi + Sprint 11 sertleştirme (multi-role, IDOR, AES-256, PII redaction)</p>
+    </a>
+    <a href="md-viewer.html?file=../architecture/REFRESH-TOKEN-SECURITY-UPGRADE.md" class="card module-card" style="border-left:4px solid #dc2626;">
+      <div style="font-size:1.5rem;margin-bottom:6px;">🔑</div>
+      <h3>Refresh Token Upgrade</h3>
+      <p>Token rotation, revocation, expiry yönetimi</p>
+    </a>
+  </div>
+
+  <h3 style="color:#dc2626;margin-top:24px;">🆘 Felaket Kurtarma &amp; Operasyon</h3>
+  <div class="card-grid">
+    <a href="md-viewer.html?file=../architecture/DISASTER-RECOVERY-RUNBOOK.md" class="card module-card" style="border-left:4px solid #dc2626;">
+      <div style="font-size:1.5rem;margin-bottom:6px;">🚨</div>
+      <h3>Disaster Recovery Runbook</h3>
+      <p>RPO &lt;1h, RTO &lt;4h. Backup, restore, failover prosedürleri. Adım adım kriz yönetimi.</p>
+    </a>
+    <a href="md-viewer.html?file=../architecture/ENDPOINT-TEST-PROMPT.md" class="card module-card" style="border-left:4px solid #dc2626;">
+      <div style="font-size:1.5rem;margin-bottom:6px;">🧪</div>
+      <h3>Endpoint Test Prompt</h3>
+      <p>Hızlı endpoint test şablonu — health check, smoke test</p>
+    </a>
+    <a href="md-viewer.html?file=../architecture/BUNDLE_ANALYSIS.md" class="card module-card" style="border-left:4px solid #dc2626;">
+      <div style="font-size:1.5rem;margin-bottom:6px;">📊</div>
+      <h3>Bundle Analysis</h3>
+      <p>UI bundle optimizasyonu — recharts, antd, moment.js</p>
+    </a>
+    <a href="md-viewer.html?file=../architecture/TEST-RESULTS.md" class="card module-card" style="border-left:4px solid #dc2626;">
+      <div style="font-size:1.5rem;margin-bottom:6px;">✅</div>
+      <h3>Test Results</h3>
+      <p>Bulk insert performans test sonuçları</p>
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <div class="doc-footer">
+    &copy; 2026 Quvex &mdash; Üretim Yönetim Platformu<br>
+    Dokümantasyon Merkezi &middot; v3.0 &middot; Sprint 11 (12 Nisan 2026)<br>
+    <small style="color:var(--text-muted);">
+      4 hedef kitle: Son Kullanıcı / Satış / Geliştirici / Operasyon &middot;
+      <a href="mailto:destek@quvex.io" style="color:#6366f1;">destek@quvex.io</a>
+    </small>
+  </div>
+
+</div>
+<script src="js/guide-enhancements.js"></script>
+</body>
+</html>

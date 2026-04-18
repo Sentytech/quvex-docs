@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WPS / WPQR &mdash; Quvex ERP Kullanıcı Kılavuzu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="container">
+
+  <a href="../index.html" class="nav-back">&#8592; Ana Sayfa</a>
+
+  <div class="doc-header">
+    <span class="version-badge">v3.0 &middot; Sprint 11 &middot; YENİ</span>
+    <div class="breadcrumb"><a href="../index.html">Kullanıcı Kılavuzu</a> / Sektör Modülleri / WPS &amp; WPQR</div>
+    <h1>WPS / WPQR ve Kaynakçı Sertifika Yönetimi</h1>
+    <p>Kaynak atölyesi için prosedür spesifikasyonu (WPS), kalifikasyon kaydı (WPQR), kaynakçı sertifikaları ve expiry alarmları &mdash; tam kılavuz</p>
+  </div>
+
+  <div class="two-col">
+
+    <aside>
+      <nav class="nav-sidebar">
+        <a href="#wps-nedir">WPS Nedir?</a>
+        <a href="#19-parametre">19 Parametre</a>
+        <a href="#wpqr">WPQR Nedir?</a>
+        <a href="#kaynakci">Kaynakçı Sertifikaları</a>
+        <a href="#expiry">Expiry Alarmı</a>
+        <a href="#standartlar">Standartlar</a>
+        <a href="#kullanim">Kullanım Akışı</a>
+        <a href="#sss">SSS</a>
+      </nav>
+    </aside>
+
+    <main>
+
+      <section id="wps-nedir">
+        <h2>1. WPS Nedir?</h2>
+        <p><strong>WPS (Welding Procedure Specification &mdash; Kaynak Prosedürü Spesifikasyonu)</strong>, belirli bir kaynak işinin nasıl yapılacağını tanımlayan resmi dokümandır. Hangi kaynak yöntemi, hangi dolgu metali, hangi akım, hangi voltaj, hangi pozisyon... Her detay WPS'te yazılıdır.</p>
+        <p>WPS, kaynak kalitesinin tutarlı olmasını garanti eder. Aynı parça, aynı prosedürle defalarca kaynaklanınca sonuç aynı olmalıdır.</p>
+
+        <div class="tip info">
+          <div class="tip-title">&#128161; Ne Zaman Zorunludur?</div>
+          <p>Basınçlı kaplar, köprüler, boru hatları, savunma, havacılık ve kaldırma ekipmanlarında WPS zorunludur. Denetimde ilk istenen dokümandır.</p>
+        </div>
+      </section>
+
+      <section id="19-parametre">
+        <h2>2. WPS'in 19 Parametresi</h2>
+        <p>Quvex WPS formunda şu parametreler yer alır (standartlara uyumlu):</p>
+
+        <table>
+          <thead><tr><th>#</th><th>Parametre</th><th>Örnek</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>WPS No</td><td>WPS-2026-001</td></tr>
+            <tr><td>2</td><td>Kaynak Prosesi</td><td>135 (MAG) / 141 (TIG) / 111 (Elektrot)</td></tr>
+            <tr><td>3</td><td>Ana Malzeme (P/S Number)</td><td>P1 - Karbon çelik S235JR</td></tr>
+            <tr><td>4</td><td>Malzeme Kalınlık Aralığı</td><td>6-20 mm</td></tr>
+            <tr><td>5</td><td>Dolgu Metali (F Number)</td><td>ER70S-6, &Oslash;1.0 mm</td></tr>
+            <tr><td>6</td><td>Koruyucu Gaz</td><td>M21 (%82 Ar + %18 CO2)</td></tr>
+            <tr><td>7</td><td>Gaz Debi</td><td>12-15 L/dk</td></tr>
+            <tr><td>8</td><td>Akım Tipi / Polarite</td><td>DC (+)</td></tr>
+            <tr><td>9</td><td>Akım (A)</td><td>180-220</td></tr>
+            <tr><td>10</td><td>Voltaj (V)</td><td>22-26</td></tr>
+            <tr><td>11</td><td>Kaynak Hızı (cm/dk)</td><td>25-35</td></tr>
+            <tr><td>12</td><td>Isı Girdisi (kJ/mm)</td><td>0.8-1.2</td></tr>
+            <tr><td>13</td><td>Kaynak Pozisyonu</td><td>PA (düz), PB (yatay oluk)</td></tr>
+            <tr><td>14</td><td>Ön Isıtma (°C)</td><td>80-120</td></tr>
+            <tr><td>15</td><td>Pasolar Arası Sıcaklık</td><td>Max 250°C</td></tr>
+            <tr><td>16</td><td>Paso Sayısı</td><td>3 (kök + dolgu + kapak)</td></tr>
+            <tr><td>17</td><td>Ağızlık Tipi</td><td>V tipi, 60°</td></tr>
+            <tr><td>18</td><td>Test &amp; Muayene</td><td>VT + RT + UT</td></tr>
+            <tr><td>19</td><td>Kaynak Sonrası Isıl İşlem</td><td>Gerekmez</td></tr>
+          </tbody>
+        </table>
+
+        <div class="tip success">
+          <div class="tip-title">&#9989; Çıktı</div>
+          <p>Form tamamlanınca tek tıkla <strong>PDF WPS sayfası</strong> üretilir. Atölye panosuna asılır, operatör bakarak uygulayabilir.</p>
+        </div>
+      </section>
+
+      <section id="wpqr">
+        <h2>3. WPQR Nedir? (Qualification Record)</h2>
+        <p><strong>WPQR</strong> veya <strong>PQR (Procedure Qualification Record)</strong>, bir WPS'in gerçekten kaliteli kaynak ürettiğini kanıtlayan test kaydıdır. Önce deneme parçası kaynaklanır, laboratuvara gönderilir, testler yapılır:</p>
+        <ul>
+          <li><strong>Görsel muayene (VT)</strong></li>
+          <li><strong>Radyografik muayene (RT)</strong> &mdash; X-ray</li>
+          <li><strong>Ultrasonik muayene (UT)</strong></li>
+          <li><strong>Çekme testi (Tensile)</strong></li>
+          <li><strong>Eğme testi (Bend)</strong></li>
+          <li><strong>Darbe testi (Charpy)</strong></li>
+          <li><strong>Makro/mikro yapı muayenesi</strong></li>
+          <li><strong>Sertlik testi (Hardness)</strong></li>
+        </ul>
+
+        <p>Test sonuçları <strong>olumlu</strong> ise WPS onaylanır, WPQR numarası verilir. Artık o prosedürle seri üretim yapılabilir.</p>
+
+        <div class="tip info">
+          <div class="tip-title">&#128161; Bağlantı</div>
+          <p>Quvex'te WPS kaydı WPQR numarasına linklenir. WPQR olmayan WPS "Onaysız" kalır ve üretimde kullanılamaz.</p>
+        </div>
+      </section>
+
+      <section id="kaynakci">
+        <h2>4. Kaynakçı Sertifikaları</h2>
+        <p>Sadece prosedür değil, <strong>kaynakçının kendisi de sertifikalı olmak zorundadır</strong>. Her kaynakçı hangi süreç, hangi pozisyon, hangi malzeme için yetkili olduğunu kanıtlayan bir belge taşır.</p>
+
+        <h3>Kaynakçı Kartı</h3>
+        <p>Menü: <strong>İK &rarr; Kaynakçılar &rarr; + Yeni</strong>. Her kaynakçı için şu bilgiler tutulur:</p>
+        <ul>
+          <li><strong>Ad Soyad:</strong> Hasan Yılmaz</li>
+          <li><strong>Sicil No:</strong> KY-014</li>
+          <li><strong>Sertifika No:</strong> EN ISO 9606-1 / 135 P BW 1.1 S t10 PA ss nb</li>
+          <li><strong>Standart:</strong> EN ISO 9606-1</li>
+          <li><strong>Süreç:</strong> 135 (MAG)</li>
+          <li><strong>Malzeme:</strong> Karbon çelik grubu 1.1</li>
+          <li><strong>Kalınlık:</strong> 3-20 mm</li>
+          <li><strong>Pozisyon:</strong> PA, PB, PC</li>
+          <li><strong>Geçerlilik:</strong> 2025-06-15 &rarr; 2027-06-15 (2 yıl)</li>
+          <li><strong>Sertifika PDF:</strong> yüklenmiş</li>
+          <li><strong>Onay Kuruluşu:</strong> TÜV SÜD</li>
+        </ul>
+
+        <p>Bir kaynakçı birden fazla sertifikaya sahip olabilir (farklı süreçler, farklı malzemeler). Quvex hepsini listeler.</p>
+      </section>
+
+      <section id="expiry">
+        <h2>5. Sertifika Expiry Alarmı</h2>
+        <p>Kaynakçı sertifikaları genelde <strong>2 yılda bir</strong> yenilenir. Expiry tarihi geçmiş kaynakçının iş yapması uygunsuzluktur, denetimde ciddi bulgu oluşturur.</p>
+
+        <p>Quvex dashboard'da renkli durum gösterimi yapar:</p>
+        <ul>
+          <li><span style="background:#dcfce7;padding:2px 8px;">YEŞİL</span> &mdash; Geçerli, 60+ gün var</li>
+          <li><span style="background:#fef3c7;padding:2px 8px;">SARI</span> &mdash; 30-60 gün kaldı, yenileme planla</li>
+          <li><span style="background:#fed7aa;padding:2px 8px;">TURUNCU</span> &mdash; 30 gün kaldı, acil</li>
+          <li><span style="background:#fee2e2;padding:2px 8px;">KIRMIZI</span> &mdash; Dolmuş, çalışma yasak</li>
+        </ul>
+
+        <h3>Otomatik Aksiyonlar</h3>
+        <ol>
+          <li>60 gün kala kaynakçıya ve İK'ya email/SignalR bildirim</li>
+          <li>30 gün kala ikinci uyarı, sınav planı önerilir</li>
+          <li>Geçme günü (-0) sertifika <strong>otomatik pasif</strong> olur</li>
+          <li>Sertifikasız kaynakçıya iş emri atanamaz (sistem bloklar)</li>
+          <li>Yenileme sınavı kaydedilip yeni PDF yüklendiğinde sertifika yeşile döner</li>
+        </ol>
+
+        <div class="tip warning">
+          <div class="tip-title">&#9888; Denetim Uyarısı</div>
+          <p>Bir denetçi "Hasan Yılmaz 2026-03-15'teki kaynak işini yaptığında sertifikası geçerli miydi?" sorusunu sorabilir. Quvex audit log ile kanıt sunar &mdash; o tarihte expiry tarihi, sertifika versiyonu, durum bilgisi.</p>
+        </div>
+      </section>
+
+      <section id="standartlar">
+        <h2>6. Standartlar</h2>
+        <table>
+          <thead><tr><th>Standart</th><th>Kapsam</th><th>Sektör</th></tr></thead>
+          <tbody>
+            <tr><td><strong>EN ISO 9606-1</strong></td><td>Çelik kaynakçı kalifikasyonu</td><td>Genel imalat, inşaat</td></tr>
+            <tr><td><strong>EN ISO 15614-1</strong></td><td>Kaynak prosedürü kalifikasyonu (metal ark)</td><td>Genel imalat</td></tr>
+            <tr><td><strong>AWS D1.1</strong></td><td>Yapısal çelik kaynağı</td><td>Bina, köprü (ABD)</td></tr>
+            <tr><td><strong>AWS D17.1</strong></td><td>Havacılık kaynağı</td><td>Uçak, uzay</td></tr>
+            <tr><td><strong>ASME Section IX</strong></td><td>Basınçlı kap kaynağı</td><td>Petrokimya, enerji</td></tr>
+            <tr><td><strong>EN ISO 3834</strong></td><td>Kalite gereksinimleri (kaynak tesisi)</td><td>Genel</td></tr>
+          </tbody>
+        </table>
+
+        <p>Quvex her WPS'e uygulanan standardı bağlar, denetimde raporlama kolaylaşır.</p>
+      </section>
+
+      <section id="kullanim">
+        <h2>7. Günlük Kullanım Akışı</h2>
+        <div class="flow">
+          <div class="flow-step active">İş Emri</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">WPS Seç</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Kaynakçı Ata</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Yetki Kontrol</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Kaynak Yap</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Muayene</div>
+        </div>
+
+        <ol>
+          <li>Üretim planlama iş emrini açar</li>
+          <li>Kaynak operasyonuna uygun WPS seçilir (sistem filtreli liste sunar)</li>
+          <li>Uygun sertifikaya sahip kaynakçı atanır (liste sadece yetkili olanları gösterir)</li>
+          <li>Kaynakçı tabletten iş emrini görür, WPS detayı ekrana gelir</li>
+          <li>Kaynak yapılır, parametreler log'lanır (opsiyonel: makineden otomatik)</li>
+          <li>VT muayene yapılır, sonuç kaydedilir</li>
+          <li>RT/UT gerekiyorsa lab numunesi takip edilir</li>
+        </ol>
+      </section>
+
+      <section id="sss">
+        <h2>8. Sık Sorulan Sorular</h2>
+
+        <div class="card">
+          <h4>WPS olmadan üretim yapabilir miyim?</h4>
+          <p>Teknik olarak Quvex sizi durdurmaz ama iş emrinde "WPS atanmamış" uyarısı verir. Basınçlı kap, savunma, havacılık işlerinde kesinlikle yapılmamalıdır.</p>
+        </div>
+
+        <div class="card">
+          <h4>Kaynakçı sertifikası yenilemeden süreyi uzatabilir mi?</h4>
+          <p>EN ISO 9606'ya göre 6 ayda bir "çalıştığına dair imza" ile 2 yıl uzatılır. Quvex bu 6 aylık onayı da takip eder.</p>
+        </div>
+
+        <div class="card">
+          <h4>WPS'i değiştirdiğimde WPQR yeniden mi yapılmalı?</h4>
+          <p>Temel değişiklikler (süreç, malzeme grubu, dolgu metali) varsa evet. Küçük değişiklikler (akım aralığı &plusmn;%10) için gerekmez. Quvex değişiklik tipine göre uyarır.</p>
+        </div>
+
+        <div class="card">
+          <h4>Kaynakçı kimlik fotoğrafı ekleyebilir miyim?</h4>
+          <p>Evet. İK modülündeki personel kartından fotoğraf ve parmak izi kaydı yapılır. ShopFloor terminalden kaynakçı parmak izi ile giriş yapabilir.</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="doc-footer">
+    &copy; 2026 Quvex &mdash; WPS / WPQR &middot; Sprint 11 &middot; v3.0<br>
+    <small style="color:var(--text-muted);">destek@quvex.io</small>
+  </div>
+
+</div>
+<script src="../js/guide-enhancements.js"></script>
+</body>
+</html>

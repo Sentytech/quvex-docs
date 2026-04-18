@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Savunma ve Havacilik Sektöru - Quvex ERP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="container">
+
+  <a href="../index.html" class="nav-back">&#8592; Ana Sayfa</a>
+
+  <div class="doc-header">
+    <span class="version-badge">v1.5</span>
+    <div class="breadcrumb"><a href="../index.html">Kullanıcı Kılavuzu</a> / <a href="../index.html">Sektör Rehberleri</a> / Savunma &amp; Havacilik</div>
+    <h1>Savunma ve Havacilik Sektöru Rehberi</h1>
+    <p>AS9100 uyumlu üretim yönetimi. FAI, CoC, MRB, sahte parça önleme, FOD kontrolü ve tam izlenebilirlik.</p>
+  </div>
+
+  <div class="two-col">
+
+    <aside>
+      <nav class="nav-sidebar">
+        <a href="#zorunluluklar">Sektör Zorunluluklari</a>
+        <a href="#modüller">Quvex Modül Eslesmesi</a>
+        <a href="#onboarding">Onboarding Adimlari</a>
+        <a href="#senaryo">Örnek Senaryo</a>
+        <a href="#denetim">Denetim Checklist</a>
+        <a href="#başlangıç">Başlangıç Adimlari</a>
+      </nav>
+    </aside>
+
+    <main>
+
+      <section id="zorunluluklar">
+        <h2>Sektör Zorunluluklari</h2>
+        <p>Savunma ve havacilik sektöru, dunyanin en siki kalite ve izlenebilirlik gereksinimlerine sahiptir. AS9100, AQAP ve NADCAP standartlari bu sektörun temelini oluşturur.</p>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Zorunluluk</th><th>Standart</th><th>Açıklama</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Kalite Yönetim Sistemi</td><td>AS9100 Rev D</td><td>ISO 9001 uzerine havacilik özel gereksinimleri</td></tr>
+            <tr><td>İlk Parça Onay</td><td>AS9102 (FAI)</td><td>Yeni ürün veya süreç degisikliginde ilk parça detayli ölçüm ve onay</td></tr>
+            <tr><td>Uygünlük Sertifikasi</td><td>CoC / CoT</td><td>Her sevkiyatta parcalarin spesifikasyona uygun oldugunu belgeleyen sertifika</td></tr>
+            <tr><td>Malzeme İnceleme Kurulu</td><td>MRB</td><td>Uygunsuz parcalar için red/kabul/yeniden işlem karari veren kurul</td></tr>
+            <tr><td>Sahte Parça Önleme</td><td>AS6174 / AS6081</td><td>Counterfeit parça tespiti ve önleme proseduru</td></tr>
+            <tr><td>Yabanci Cisim Hasari Önleme</td><td>FOD (NAS 412)</td><td>Üretim alanında yabanci cisim kontrolü</td></tr>
+            <tr><td>Tam İzlenebilirlik</td><td>Sektör genel</td><td>Hammaddeden son ürüne, seri numara bazlı geçmiş kaydı</td></tr>
+            <tr><td>Müşteri Taviz</td><td>Customer Concession</td><td>Spesifikasyon disi ürünu müşteriyle goruserek kabul ettirme süreçi</td></tr>
+            <tr><td>Doküman Onay</td><td>AS9100 7.5</td><td>Kontrol altinda belgeler, revizyon yönetimi, onay suerci</td></tr>
+            <tr><td>Risk Yönetimi</td><td>AS9100 6.1</td><td>Süreç bazlı risk değerlendirmesi ve azaltma planları</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="modüller">
+        <h2>Quvex Modül Eslesmesi</h2>
+        <p>Aşağıdaki tabloda her zorunlulugu karsilayan Quvex modülü ve ekrani gosterilmektedir:</p>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Zorunluluk</th><th>Quvex Modülü</th><th>Ekran</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>AS9100 Kalite Yönetimi</td><td>Kalite</td><td>NCR, CAPA, Giriş Kontrol, Son Kontrol</td></tr>
+            <tr><td>FAI (İlk Parça Onay)</td><td>Kalite &gt; Standart</td><td>Kalite &gt; FAI</td></tr>
+            <tr><td>CoC (Uygünlük Sertifikasi)</td><td>Kalite &gt; Standart</td><td>Kalite &gt; CoC</td></tr>
+            <tr><td>MRB Kararlari</td><td>Kalite &gt; Standart</td><td>Kalite &gt; MRB</td></tr>
+            <tr><td>Sahte Parça Önleme</td><td>Satınalma + Kalite</td><td>Tedarikçi DeÄŸerlendirme, Giriş Kontrol</td></tr>
+            <tr><td>FOD Kontrolü</td><td>Kalite + Üretim</td><td>Kontrol Planı, ShopFloor Checklist</td></tr>
+            <tr><td>Seri Numara İzlenebilirlik</td><td>Üretim</td><td>Üretim &gt; Seri Numara, Genealogy</td></tr>
+            <tr><td>Müşteri Taviz</td><td>Kalite &gt; Standart</td><td>Kalite &gt; Müşteri Taviz</td></tr>
+            <tr><td>Doküman Onay</td><td>Kalite &gt; Doküman</td><td>Kalite &gt; Doküman Onay</td></tr>
+            <tr><td>Risk Yönetimi</td><td>Kalite &gt; Standart</td><td>FMEA, Kontrol Planı</td></tr>
+            <tr><td>Kalibrasyon</td><td>Kalite &gt; Temel</td><td>Kalite &gt; Kalibrasyon</td></tr>
+            <tr><td>Tedarikçi DeÄŸerlendirme</td><td>Satınalma</td><td>Satınalma &gt; Tedarikçi DeÄŸerlendirme</td></tr>
+            <tr><td>SPC</td><td>Kalite &gt; İstatistik</td><td>Kalite &gt; SPC</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="onboarding">
+        <h2>Onboarding: Otomatik Yapılandırma</h2>
+        <p>Quvex'e ilk giriş sirasinda "Savunma &amp; Havacilik" sektör profilini sectiginizde aşağıdakiler otomatik yapılandırilir:</p>
+
+        <div class="card-grid">
+          <div class="card">
+            <h4>Kalite Modülleri Aktif</h4>
+            <p>NCR, CAPA, FAI, CoC, MRB, Müşteri Taviz, SPC, Kalibrasyon modülleri otomatik açılır.</p>
+          </div>
+          <div class="card">
+            <h4>Seri Numara Zorunlu</h4>
+            <p>Üretim is emirlerinde seri numara atamasi zorunlu hale gelir.</p>
+          </div>
+          <div class="card">
+            <h4>Kalite Kapisi Aktif</h4>
+            <p>Is emirlerinde kalite kontrol adimi otomatik eklenir. Kontrol gecmeden tamamlanamaz.</p>
+          </div>
+          <div class="card">
+            <h4>Doküman Onay Süreçi</h4>
+            <p>Tüm teknik dokümanlar onay süreçi ile kontrol altina alınir.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="senaryo">
+        <h2>Örnek Senaryo: Havacilik Parçası Üretimi</h2>
+        <p>Bir savunma firmasindan 200 adet havacilik parçası siparişi aldiginizi dusunun. Süreç bastan sona soyle işler:</p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Sozlesme İnceleme (Contract Review)</h4>
+              <p>Müşteri spesifikasyonlari, teknik resimler ve özel gereksinimler sisteme girilir. Kalite ekibi inceleme yapar, kabul/red karari verir.</p>
+              <p><em>Ekran: Kalite &gt; Sozlesme İnceleme</em></p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Malzeme Tedariik ve Giriş Kontrol</h4>
+              <p>Onaylanan tedarikciden hammadde sipariş edilir. Malzeme geldiginde giriş kontrol yapılır: sertifika kontrolü, boyut olcumu, malzeme test raporu. Sahte parça kontrol checklist'i uygulanir.</p>
+              <p><em>Ekran: Satınalma &gt; Sipariş, Kalite &gt; Giriş Kontrol</em></p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Is Emri ve Üretim</h4>
+              <p>200 adetlik is emri açılır. Her adima seri numara atanır. Operatorler ShopFloor terminalınden is emrini baslatir. Ara kontrol noktalari otomatik devreye girer.</p>
+              <p><em>Ekran: Üretim &gt; Is Emri, ShopFloor Terminal</em></p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>FAI (İlk Parça Onay)</h4>
+              <p>İlk 3 parcadan detayli ölçüm raporu cikarilir. Tüm boyutlar, toleranslar ve yuzey kaliteleri kaydedilir. Onay sonrasi seri üretim baslar.</p>
+              <p><em>Ekran: Kalite &gt; FAI</em></p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <h4>Proses Kontrol ve SPC</h4>
+              <p>Üretim sirasinda kritik boyutlar duzgunli olarak olculur. SPC grafikleri kontrol limitleri içinde kalmaldir. Sapma durumunda otomatik uyarı gelir.</p>
+              <p><em>Ekran: Kalite &gt; SPC</em></p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">6</div>
+            <div class="step-content">
+              <h4>Uygunsuzluk Yönetimi</h4>
+              <p>12 parça ölçüm disi cikti. NCR acildi, MRB toplandi: 5 adet yeniden işlem, 7 adet hurda karari. Müşteri taviz istendi ve onaylandi.</p>
+              <p><em>Ekran: Kalite &gt; NCR, MRB, Müşteri Taviz</em></p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">7</div>
+            <div class="step-content">
+              <h4>Son Kontrol ve CoC</h4>
+              <p>193 adet (200 - 7 hurda) son kontrolden gecirilir. Tamamii uygun. CoC (Uygünlük Sertifikasi) hazırlarnir: parti numarası, seri numaralar, ölçüm ozetleri.</p>
+              <p><em>Ekran: Kalite &gt; Son Kontrol, CoC</em></p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">8</div>
+            <div class="step-content">
+              <h4>Sevkiyat ve Data Pack</h4>
+              <p>Parcalar ambalajlanir, FOD checklist'i tamamlanir. Data pack hazırlanir: FAI, CoC, malzeme sertifikalari, SPC raporları, NCR kayıtları. Hepsi tek dosyada museteriye gonderilir.</p>
+              <p><em>Ekran: Üretim &gt; Data Pack, Satış &gt; Sevkiyat</em></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="denetim">
+        <h2>AS9100 Denetim Hazırlık Checklist</h2>
+        <p>Denetim oncesi aşağıdaki tüm maddeleri Quvex uzerinden kontrol edin. Bu listeyi denetimden en az 2 hafta once gozden gecirmeye baslayin.</p>
+
+        <h3>Kalite Yönetimi</h3>
+        <table class="field-table">
+          <thead>
+            <tr><th>#</th><th>Kontrol</th><th>Ekran</th><th>&#9744;</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Tüm acik NCR'ler kapatildi veya gecerli aksiyonu var</td><td>Kalite &gt; NCR</td><td>&#9744;</td></tr>
+            <tr><td>2</td><td>CAPA'lar zamaninda tamamlandi, etkinlik olculdu</td><td>Kalite &gt; CAPA</td><td>&#9744;</td></tr>
+            <tr><td>3</td><td>MRB kararlari kayıt altinda ve imzali</td><td>Kalite &gt; MRB</td><td>&#9744;</td></tr>
+            <tr><td>4</td><td>Müşteri taviz kayıtları mevcut</td><td>Kalite &gt; Müşteri Taviz</td><td>&#9744;</td></tr>
+            <tr><td>5</td><td>Giriş kontrol kayıtları eksiksiz</td><td>Kalite &gt; Giriş Kontrol</td><td>&#9744;</td></tr>
+          </tbody>
+        </table>
+
+        <h3>İzlenebilirlik</h3>
+        <table class="field-table">
+          <thead>
+            <tr><th>#</th><th>Kontrol</th><th>Ekran</th><th>&#9744;</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>6</td><td>Seri numaralar eksiksiz atanmis</td><td>Üretim &gt; Seri Numara</td><td>&#9744;</td></tr>
+            <tr><td>7</td><td>Genealogy (as-built) kayıtları tamamlanmis</td><td>Üretim &gt; Genealogy</td><td>&#9744;</td></tr>
+            <tr><td>8</td><td>Lot-parça eslesmesi dogru</td><td>Stok &gt; Lot Takibi</td><td>&#9744;</td></tr>
+            <tr><td>9</td><td>Data pack'ler sevk edilen partiler için hazır</td><td>Üretim &gt; Data Pack</td><td>&#9744;</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Dokümantasyon</h3>
+        <table class="field-table">
+          <thead>
+            <tr><th>#</th><th>Kontrol</th><th>Ekran</th><th>&#9744;</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>10</td><td>FAI raporları tamamlanmis ve onaylanmis</td><td>Kalite &gt; FAI</td><td>&#9744;</td></tr>
+            <tr><td>11</td><td>CoC'ler dogru ve güncel</td><td>Kalite &gt; CoC</td><td>&#9744;</td></tr>
+            <tr><td>12</td><td>Doküman onay süreçleri kapatilmis</td><td>Kalite &gt; Doküman Onay</td><td>&#9744;</td></tr>
+            <tr><td>13</td><td>Kontrol planları güncel</td><td>Kalite &gt; Kontrol Planı</td><td>&#9744;</td></tr>
+            <tr><td>14</td><td>FMEA revizyon tarihleri güncel</td><td>Kalite &gt; FMEA</td><td>&#9744;</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Altyapi ve Ekipman</h3>
+        <table class="field-table">
+          <thead>
+            <tr><th>#</th><th>Kontrol</th><th>Ekran</th><th>&#9744;</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>15</td><td>Kalibrasyon geçerlilik sureleri güncel</td><td>Kalite &gt; Kalibrasyon</td><td>&#9744;</td></tr>
+            <tr><td>16</td><td>Makine bakım planları uygulanmis</td><td>Bakım &gt; Planlama</td><td>&#9744;</td></tr>
+            <tr><td>17</td><td>EÄŸitim kayıtları güncel (operator yetkinlikleri)</td><td>IK &gt; EÄŸitim</td><td>&#9744;</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Tedarik Zinciri</h3>
+        <table class="field-table">
+          <thead>
+            <tr><th>#</th><th>Kontrol</th><th>Ekran</th><th>&#9744;</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>18</td><td>Onaylanan tedarikçi listesi güncel</td><td>Satınalma &gt; Tedarikciler</td><td>&#9744;</td></tr>
+            <tr><td>19</td><td>Tedarikçi değerlendirmeleri yapılmış</td><td>Satınalma &gt; DeÄŸerlendirme</td><td>&#9744;</td></tr>
+            <tr><td>20</td><td>Sahte parça önleme proseduru uygulanmis</td><td>Kalite &gt; Giriş Kontrol</td><td>&#9744;</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="başlangıç">
+        <h2>Önerilen Başlangıç Adimlari</h2>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Sektör Profilini Secin</h4>
+              <p>Onboarding wizard'da "Savunma &amp; Havacilik" profilini secin. Gerekli modüller otomatik aktif olur.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Kalibrasyon Aletlerini Tanimlayin</h4>
+              <p>Tüm ölçüm aletlerinizi Kalite &gt; Kalibrasyon ekranina girin. Vade tarihlerini dogru girin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Onaylanmis Tedarikçi Listesini Olustürün</h4>
+              <p>Tedarikcilerinizi girin ve deÄŸerlendirme yapni. Sadece onaylanan tedarikcilerden satin alim yapın.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>Kontrol Planları ve FMEA Tanimlayin</h4>
+              <p>Ürünleriniz için kontrol planları ve FMEA dokümanlarini sisteme yükleyin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <h4>Pilot Üretim Başlatın</h4>
+              <p>Bir is emri ile tam süreçi (sipariş &gt; üretim &gt; FAI &gt; son kontrol &gt; CoC &gt; sevkiyat) test edin.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> Savunma sektörunde denetim her an gelebilir. Kayıtlarınizi günlük tutun, ay sonuna biriktirmeyin. Quvex'in otomatik uyarıları bu konuda size yardimci olur.
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="doc-footer">
+    <p>Quvex ERP &mdash; Savunma ve Havacilik Sektöru Rehberi &middot; v1.5 &middot; Mart 2026</p>
+  </div>
+
+</div>
+<script src="../js/guide-enhancements.js"></script>
+</body>
+</html>

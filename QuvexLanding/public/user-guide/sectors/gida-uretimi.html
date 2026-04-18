@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gıda Üretimi Sektörü - Quvex ERP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="container">
+
+  <a href="../index.html" class="nav-back">&#8592; Ana Sayfa</a>
+
+  <div class="doc-header">
+    <span class="version-badge">v1.5</span>
+    <div class="breadcrumb"><a href="../index.html">Kullanıcı Kılavuzu</a> / <a href="../index.html">Sektör Rehberleri</a> / Gıda Üretimi</div>
+    <h1>Gıda Üretimi Sektörü Rehberi</h1>
+    <p>HACCP kritik kontrol noktaları, lot izlenebilirlik, raf ömrü takibi, FIFO depo ve geri çağırma (Recall) yönetimi. Gıda tesisinizi Quvex ile ISO 22000 uyumlu hale getirin.</p>
+  </div>
+
+  <div class="two-col">
+
+    <aside>
+      <nav class="nav-sidebar">
+        <a href="#zorunluluklar">Sektör Gereksinimleri</a>
+        <a href="#modüller">Quvex Modül Eşleşmesi</a>
+        <a href="#onboarding">Onboarding Adımları</a>
+        <a href="#senaryo">Örnek Senaryo</a>
+        <a href="#kurulum">Tipik Tesis Kurulumu</a>
+        <a href="#başlangıç">Başlangıç Adımları</a>
+      </nav>
+    </aside>
+
+    <main>
+
+      <section id="zorunluluklar">
+        <h2>Sektör Gereksinimleri</h2>
+        <p>Gıda üreticileri için en kritik gereksinimler: ISO 22000 ve HACCP uyumu, 5996 sayılı Gıda Kanunu gereği tam izlenebilirlik, kritik kontrol noktası (CCP) ölçüm kayıtları ve gerektiğinde hızlı geri çağırma (recall) yeteneğidir.</p>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Gereksinim</th><th>Öncelik</th><th>Açıklama</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>HACCP CCP Takibi</td><td><span class="badge badge-new">KRİTİK</span></td><td>Pastörizasyon 72°C/15sn, soğutma, dolum gibi kritik noktalarda ölçüm kaydı</td></tr>
+            <tr><td>Lot İzlenebilirlik</td><td><span class="badge badge-new">KRİTİK</span></td><td>Hammaddeden son ürüne kadar tam zincir (tedarikçi &gt; üretim &gt; müşteri)</td></tr>
+            <tr><td>Raf Ömrü Yönetimi</td><td><span class="badge badge-new">KRİTİK</span></td><td>Üretim tarihi + raf ömrü = son tüketim tarihi, otomatik uyarı</td></tr>
+            <tr><td>Recall (Geri Çağırma)</td><td><span class="badge badge-new">KRİTİK</span></td><td>Lot bazlı geri çağırma, 4 saat içinde etkilenen müşteri listesi</td></tr>
+            <tr><td>FIFO Depo</td><td>Yüksek</td><td>İlk giren ilk çıkar, son kullanma tarihine göre otomatik sıralama</td></tr>
+            <tr><td>Tedarikçi Sertifika</td><td>Yüksek</td><td>ISO 22000, helal, organik sertifika takibi ve yenileme uyarısı</td></tr>
+            <tr><td>Sapma → NCR</td><td>Yüksek</td><td>CCP limit ihlallerinin otomatik NCR'a dönüşmesi</td></tr>
+            <tr><td>Temizlik/Dezenfeksiyon</td><td>Orta</td><td>SSOP (Standart Sanitasyon Operasyon Prosedürü) kayıtları</td></tr>
+            <tr><td>Alerjen Yönetimi</td><td>Orta</td><td>Glüten, süt, fındık gibi alerjenlerin ayrı hat takibi</td></tr>
+            <tr><td>Sevkiyat Soğuk Zincir</td><td>Orta</td><td>Araç sıcaklık kaydı, soğuk zincir ihlali uyarısı</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="modüller">
+        <h2>Quvex Modül Eşleşmesi</h2>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Gereksinim</th><th>Quvex Modülü</th><th>Ekran</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>HACCP CCP Takibi</td><td>Kalite + HACCP</td><td>Kalite &gt; <a href="../modules/haccp-recall.html">HACCP</a> &gt; CCP Tanımları</td></tr>
+            <tr><td>Lot İzlenebilirlik</td><td>Stok</td><td>Stok &gt; Lot Takibi &gt; Genealogy</td></tr>
+            <tr><td>Raf Ömrü Yönetimi</td><td>Stok</td><td>Stok &gt; Lot &gt; Raf Ömrü Uyarıları</td></tr>
+            <tr><td>Recall İşlemi</td><td>Kalite</td><td>Kalite &gt; <a href="../modules/haccp-recall.html">Recall</a></td></tr>
+            <tr><td>FIFO Depo</td><td>Stok</td><td>Stok &gt; Depo &gt; FIFO Ayarları</td></tr>
+            <tr><td>Tedarikçi Sertifika</td><td>Satınalma</td><td>Satınalma &gt; Tedarikçi &gt; Sertifikalar</td></tr>
+            <tr><td>Sapma → NCR</td><td>Kalite</td><td>Kalite &gt; NCR (otomatik oluşur)</td></tr>
+            <tr><td>Üretim İş Emirleri</td><td>Üretim</td><td>Üretim &gt; İş Emirleri</td></tr>
+            <tr><td>Sevkiyat</td><td>Sevkiyat</td><td>Sevkiyat &gt; Yeni</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="onboarding">
+        <h2>Onboarding: Otomatik Yapılandırma</h2>
+        <p>"Gıda Üretimi" sektör profilini seçtiğinizde:</p>
+
+        <div class="card-grid">
+          <div class="card">
+            <h4>HACCP Modülü Aktif</h4>
+            <p>CCP tanımları, ölçüm formları ve sapma kuralları otomatik eklenir.</p>
+          </div>
+          <div class="card">
+            <h4>Lot Zorunlu</h4>
+            <p>Tüm hammadde ve ürünlerde lot numarası zorunlu hale gelir, raf ömrü alanı aktif olur.</p>
+          </div>
+          <div class="card">
+            <h4>Recall Modülü Aktif</h4>
+            <p>Geri çağırma ekranı açılır, lot bazlı müşteri zincir analizi kullanılabilir.</p>
+          </div>
+          <div class="card">
+            <h4>FIFO Varsayılan</h4>
+            <p>Depo çıkışlarında FIFO (son kullanma tarihine göre) otomatik uygulanır.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="senaryo">
+        <h2>Örnek Senaryo: Taze Bey'in Süt Ürünleri Tesisi</h2>
+        <p>Taze Bey, günlük 10 ton süt işleyen bir süt ürünleri tesisinde yönetici. Pastörize süt, yoğurt ve ayran üretiyor. ISO 22000 ve helal belgeli.</p>
+
+        <h3>Tedarikçi ve Hammadde Tanımı</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Tedarikçi Ekle</h4>
+              <p>Satınalma &gt; Tedarikçiler'den Çiftlik A ve Çiftlik B'yi kaydet. Sertifika sekmesine ISO 22000 belgelerini yükle, son geçerlilik tarihini gir.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Hammadde Tanımla</h4>
+              <p>"Çiğ Süt" ürününü Stok &gt; Ürünler'den aç. Lot zorunlu, raf ömrü 2 gün, saklama koşulu 4°C.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>HACCP CCP Tanımla</h4>
+              <p>Kalite &gt; HACCP &gt; CCP Tanımları'ndan pastörizasyon hattı için CCP ekle: "Sıcaklık 72°C ± 0.5°C, süre min 15 sn". Sapma kuralı: "Limit dışında → otomatik NCR aç + ürünü karantinaya al".</p>
+            </div>
+          </div>
+        </div>
+
+        <h3>Üretim ve Ölçüm</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>Mal Kabul</h4>
+              <p>Sabah Çiftlik A'dan 5000 lt süt gelir. Stok &gt; Mal Kabul'den LOT-2026-04-10-CA kodu ile kayıt. Giriş kontrolünde pH, yağ oranı ölçülür.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <h4>Üretim İş Emri</h4>
+              <p>Üretim &gt; İş Emirleri'nden "Pastörize Süt 1L" üretimi başlatılır. Sistem kullanılan hammadde lotunu kaydeder.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">6</div>
+            <div class="step-content">
+              <h4>CCP Ölçüm Kaydı</h4>
+              <p>Pastörizatör operatörü her 30 dakikada bir sıcaklık okur. Sistem CCP ölçüm formuna kaydeder. 72°C altına düşen bir ölçüm → otomatik NCR ve alarm.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">7</div>
+            <div class="step-content">
+              <h4>Son Ürün Kaydı</h4>
+              <p>Üretimden çıkan ürün LOT-2026-04-10-PS001 ile Stok'a girer. Üretim tarihi + 7 gün = son kullanma tarihi otomatik hesaplanır.</p>
+            </div>
+          </div>
+        </div>
+
+        <h3>Depolama ve Sevkiyat</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">8</div>
+            <div class="step-content">
+              <h4>FIFO Depo</h4>
+              <p>Soğuk depo çıkışında sistem en eski tarihli lotu otomatik seçer. Operatör elle müdahale edemez.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">9</div>
+            <div class="step-content">
+              <h4>Sevkiyat</h4>
+              <p>Migros'a 2000 adet sevkiyat. Sevkiyat evrakında lot numaraları yazılır. Araç soğuk zincir sıcaklığı kayıt altına alınır.</p>
+            </div>
+          </div>
+        </div>
+
+        <h3>Kriz: Recall</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">10</div>
+            <div class="step-content">
+              <h4>Recall Başlatma</h4>
+              <p>Tüketicinin birinden şikayet geldi: LOT-2026-04-10-PS001 içeren üründe bozulma şüphesi. Kalite &gt; Recall'dan bu lot için geri çağırma başlatılır.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">11</div>
+            <div class="step-content">
+              <h4>Etki Analizi</h4>
+              <p>Sistem 4 saat içinde etkilenen tüm müşterileri listeler: Migros (2000 adet), BİM (1500 adet), bakkal-3 (200 adet). Her biri aranır, ürün geri toplanır.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">12</div>
+            <div class="step-content">
+              <h4>Kök Neden Analizi</h4>
+              <p>Lot genealogy takibi ile kullanılan çiğ süt lotu ve pastörizatör kaydı incelenir. Resmi otoriteye (TKGM) bildirim yapılır.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="kurulum">
+        <h2>Tipik Gıda Tesisi Kurulumu</h2>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Tanımlanacak Veri</th><th>Ekran</th><th>Örnek</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Tedarikçiler</td><td>Satınalma &gt; Tedarikçiler</td><td>Çiftlik A, Çiftlik B (sertifika yüklenmiş)</td></tr>
+            <tr><td>Hammaddeler</td><td>Stok &gt; Ürünler</td><td>Çiğ süt, kültür, tuz, ambalaj</td></tr>
+            <tr><td>Ürünler</td><td>Stok &gt; Ürünler</td><td>Pastörize süt 1L, yoğurt 200gr, ayran 200ml</td></tr>
+            <tr><td>CCP Noktaları</td><td>Kalite &gt; HACCP</td><td>Pastörizasyon, soğutma, dolum, metal dedektör</td></tr>
+            <tr><td>Üretim Hatları</td><td>Ayarlar &gt; Makineler</td><td>Süt hattı, yoğurt hattı, ayran hattı</td></tr>
+            <tr><td>Depolar</td><td>Stok &gt; Depolar</td><td>Hammadde soğuk deposu, mamul deposu (FIFO)</td></tr>
+            <tr><td>Müşteriler</td><td>Satış &gt; Müşteriler</td><td>Migros, BİM, CarrefourSA, yerel bakkallar</td></tr>
+            <tr><td>Alerjen Kategorileri</td><td>Ayarlar &gt; Tanımlar</td><td>Süt, glüten, fındık, yumurta</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="başlangıç">
+        <h2>Önerilen Başlangıç Adımları</h2>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Sektör Profilini Seçin</h4>
+              <p>Onboarding wizard'da "Gıda Üretimi" profilini seçin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>HACCP Planınızı Yükleyin</h4>
+              <p>Kalite &gt; HACCP ekranından CCP noktalarınızı ve limit değerlerini girin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Tedarikçi Sertifikalarını Yükleyin</h4>
+              <p>Tüm hammadde tedarikçilerinizin sertifikalarını sisteme ekleyin ve son geçerlilik tarihlerini girin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>Recall Simülasyonu</h4>
+              <p>Test lot üzerinden bir recall tatbikatı yapın. 4 saat içinde tüm etkilenen müşterileri listeleyebildiğinizden emin olun.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <h4>FIFO Eğitimi</h4>
+              <p>Depo personeline FIFO mantığını ve sistemin nasıl uyarı verdiğini anlatın.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> CCP ölçümlerini mümkünse dijital sensörlerle otomatikleştirin. Operatörün elle girdiği veri hata riski taşır ve denetimde sorun çıkarabilir.
+        </div>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> Recall tatbikatlarını yılda en az 2 kez yapın. ISO 22000 denetiminde tatbikat kayıtları sorulur ve gerçek krizde hayat kurtarır.
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="doc-footer">
+    <p>Quvex ERP &mdash; Gıda Üretimi Sektörü Rehberi &middot; v1.5 &middot; Nisan 2026</p>
+  </div>
+
+</div>
+<script src="../js/guide-enhancements.js"></script>
+</body>
+</html>

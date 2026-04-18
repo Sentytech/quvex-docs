@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Metal Eşya / Çelik Konstrüksiyon Sektörü - Quvex ERP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="container">
+
+  <a href="../index.html" class="nav-back">&#8592; Ana Sayfa</a>
+
+  <div class="doc-header">
+    <span class="version-badge">v1.5</span>
+    <div class="breadcrumb"><a href="../index.html">Kullanıcı Kılavuzu</a> / <a href="../index.html">Sektör Rehberleri</a> / Metal Eşya / Çelik Konstrüksiyon</div>
+    <h1>Metal Eşya / Çelik Konstrüksiyon Sektörü Rehberi</h1>
+    <p>EN 1090 ve ISO 3834 uyumu, çelik profil tonaj takibi, plazma kesim, TIG kaynak, toz boya süreçleri ve CE belgeli ürün yönetimi. Çelik atölyenizi Quvex ile yönetin.</p>
+  </div>
+
+  <div class="two-col">
+
+    <aside>
+      <nav class="nav-sidebar">
+        <a href="#zorunluluklar">Sektör Gereksinimleri</a>
+        <a href="#modüller">Quvex Modül Eşleşmesi</a>
+        <a href="#onboarding">Onboarding Adımları</a>
+        <a href="#senaryo">Örnek Senaryo</a>
+        <a href="#kurulum">Tipik Atölye Kurulumu</a>
+        <a href="#başlangıç">Başlangıç Adımları</a>
+      </nav>
+    </aside>
+
+    <main>
+
+      <section id="zorunluluklar">
+        <h2>Sektör Gereksinimleri</h2>
+        <p>Metal eşya ve çelik konstrüksiyon üreticileri için kritik gereksinimler: EN 1090 yapısal çelik uygunluğu, ISO 3834 kaynak kalitesi, malzeme sertifika takibi (3.1 belgesi), kaynakçı yetkinliği ve CE işaretli ürünler için teknik dosyadır.</p>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Gereksinim</th><th>Öncelik</th><th>Açıklama</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>EN 1090 Uygunluk</td><td><span class="badge badge-new">KRİTİK</span></td><td>Yapısal çelik için CE uygunluk beyanı, EXC1-EXC4 yürütme sınıfı</td></tr>
+            <tr><td>ISO 3834 Kaynak Kalite</td><td><span class="badge badge-new">KRİTİK</span></td><td>Kaynak prosedür şartnamesi (WPS), kaynakçı sertifikası, kaynak tarama</td></tr>
+            <tr><td>Malzeme Sertifikası</td><td><span class="badge badge-new">KRİTİK</span></td><td>3.1 belgesi, tonaj ve döküm numarası takibi</td></tr>
+            <tr><td>Tonaj Stok Takibi</td><td><span class="badge badge-new">KRİTİK</span></td><td>Profil, levha, boru kg/ton bazlı stok</td></tr>
+            <tr><td>CE Belgeli Yangın Kapısı</td><td>Yüksek</td><td>EN 1634 yangın dayanım, ayrı teknik dosya</td></tr>
+            <tr><td>Plazma Kesim Planı</td><td>Yüksek</td><td>Nesting (iç içe yerleştirme), fire optimizasyonu</td></tr>
+            <tr><td>Toz Boya Süreci</td><td>Yüksek</td><td>Yüzey hazırlık, toz boyama, fırın süresi</td></tr>
+            <tr><td>Set Bazlı Sipariş</td><td>Orta</td><td>1000 raf seti = ayak + ray + rafiye + bağlantı elemanları</td></tr>
+            <tr><td>Saha Montaj Takibi</td><td>Orta</td><td>Müşteri sahasında kurulum iş emri</td></tr>
+            <tr><td>Kaynakçı Yetkinlik</td><td>Orta</td><td>EN ISO 9606 kaynakçı belgesi takibi ve yenileme uyarısı</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="modüller">
+        <h2>Quvex Modül Eşleşmesi</h2>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Gereksinim</th><th>Quvex Modülü</th><th>Ekran</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>EN 1090 Uyum</td><td>Kalite + Belgeler</td><td>Kalite &gt; CE Teknik Dosya</td></tr>
+            <tr><td>ISO 3834 Kaynak</td><td>Kalite</td><td>Kalite &gt; WPS ve Kaynakçı Kayıtları</td></tr>
+            <tr><td>Malzeme Sertifikası</td><td>Stok</td><td>Stok &gt; Lot &gt; Malzeme Sertifikası</td></tr>
+            <tr><td>Tonaj Stok</td><td>Stok</td><td>Stok &gt; Ürünler (kg/ton birim)</td></tr>
+            <tr><td>Plazma Kesim</td><td>Üretim</td><td>Üretim &gt; Kesim Planlama</td></tr>
+            <tr><td>Toz Boya Süreci</td><td>Üretim</td><td>Üretim &gt; Boyahane İş Emri</td></tr>
+            <tr><td>Set Bazlı Sipariş</td><td>Üretim</td><td>Üretim &gt; Multi-Level BOM</td></tr>
+            <tr><td>Saha Montaj</td><td>Servis</td><td>Servis &gt; Saha İş Emirleri</td></tr>
+            <tr><td>Kaynakçı Yetkinlik</td><td>İK</td><td>İK &gt; Personel &gt; Sertifikalar</td></tr>
+            <tr><td>CE Teknik Dosya</td><td>Belgeler</td><td>Belgeler &gt; CE Dosyası</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="onboarding">
+        <h2>Onboarding: Otomatik Yapılandırma</h2>
+        <p>"Metal Eşya / Çelik Konstrüksiyon" sektör profilini seçtiğinizde:</p>
+
+        <div class="card-grid">
+          <div class="card">
+            <h4>Tonaj Stok Birimi</h4>
+            <p>Stok kalemlerinde kg/ton birimi aktif olur, profil boyu otomatik kg'a çevrilir.</p>
+          </div>
+          <div class="card">
+            <h4>WPS ve Kaynakçı Kaydı</h4>
+            <p>Kaynak prosedür şartnamesi ve kaynakçı yetkinlik modülü açılır.</p>
+          </div>
+          <div class="card">
+            <h4>EN 1090 Teknik Dosya</h4>
+            <p>CE uygunluk beyan şablonu sisteme yüklenir, EXC sınıfları tanımlanır.</p>
+          </div>
+          <div class="card">
+            <h4>Çelik Fire Kategorileri</h4>
+            <p>Kesim fazlası, kaynak hatası, eğrilme, yüzey kusuru kategorileri eklenir.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="senaryo">
+        <h2>Örnek Senaryo: Yılmaz Bey'in Çelik Atölyesi</h2>
+        <p>Yılmaz Bey, çelik depo rafı ve CE belgeli yangın kapısı üreten bir atölye işletiyor. Son iş: bir lojistik firmasına 1000 adet ağır yük raf seti siparişi.</p>
+
+        <h3>Hammadde ve Planlama</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Çelik Profil Girişi</h4>
+              <p>Stok &gt; Mal Kabul'den 25 ton S355 köşebent ve 15 ton profil girişi yapılır. Malzeme sertifikası (3.1 belgesi) sisteme yüklenir, döküm numarası lot olarak kaydedilir.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Raf Seti Ürün Tanımı</h4>
+              <p>"Ağır Yük Raf Seti 2000×1000×2500" ürünü açılır. BOM multi-level:
+              <ul>
+                <li>4 adet ayak</li>
+                <li>8 adet yatay bağlantı</li>
+                <li>4 adet rafiye levhası</li>
+                <li>16 adet bağlantı elemanı</li>
+              </ul></p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>MRP Çalıştırma</h4>
+              <p>1000 set için ihtiyaç hesaplanır: ~45 ton profil, 20 ton levha, 16000 bağlantı elemanı. Eksik malzeme için satınalma siparişi oluşur.</p>
+            </div>
+          </div>
+        </div>
+
+        <h3>Üretim Süreci</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>Plazma Kesim</h4>
+              <p>Üretim &gt; Kesim Planlama'dan nesting yapılır. Levhalarda %5 fire hedefi. Her kesilen parçaya kaynak lot numarası işlenir.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <h4>Abkant Bükme</h4>
+              <p>Köşebent ve levhalar abkant presinde bükülür. İş emri sırasında operatör yetkinlik kontrolü.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">6</div>
+            <div class="step-content">
+              <h4>TIG Kaynak</h4>
+              <p>Kaynak iş emrinde WPS (örn. WPS-001 S355) ve kaynakçı (örn. Ahmet, EN ISO 9606 sertifikalı) kayıt altına alınır. Sertifikası olmayan kaynakçı iş alamaz.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">7</div>
+            <div class="step-content">
+              <h4>Kaynak Muayenesi</h4>
+              <p>Kalite &gt; Kaynak Muayenesi'nden görsel kontrol yapılır. Kritik dikişlerde MT (manyetik partikül) testi uygulanır. Kayıtlar EN 1090 dosyasına eklenir.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">8</div>
+            <div class="step-content">
+              <h4>Toz Boya</h4>
+              <p>Kaynakları geçen parçalar yüzey hazırlığa (kumlama) sonra toz boyama hattına gider. RAL 7035 gri. Fırın 180°C / 20 dk.</p>
+            </div>
+          </div>
+        </div>
+
+        <h3>Paketleme, Sevkiyat, Montaj</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">9</div>
+            <div class="step-content">
+              <h4>Set Paketleme</h4>
+              <p>Her set ayrı palete istiflenir, montaj talimatı ve bağlantı elemanları kutusuyla beraber. Palet etiketinde "Set ID + Müşteri + Depo Konumu".</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">10</div>
+            <div class="step-content">
+              <h4>EN 1090 CE Beyanı</h4>
+              <p>Sevkiyat öncesi Kalite &gt; CE Teknik Dosya'dan bu siparişe özel CE uygunluk beyanı üretilir ve müşteriye teslim edilir.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">11</div>
+            <div class="step-content">
+              <h4>Saha Montaj</h4>
+              <p>Servis &gt; Saha İş Emirleri'nden montaj ekibi planlanır. Depoda kurulum tamamlandıkça mobil onay.</p>
+            </div>
+          </div>
+        </div>
+
+        <h3>Paralel Süreç: Yangın Kapısı</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">12</div>
+            <div class="step-content">
+              <h4>EN 1634 CE Yangın Kapısı</h4>
+              <p>Yangın kapısı ayrı ürün olarak yönetilir. Her üretilen kapı seri numaralıdır ve bağlı olduğu akredite test raporu (EN 1634-1 60dk/90dk) Belgeler modülünden yönetilir.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="kurulum">
+        <h2>Tipik Çelik Atölyesi Kurulumu</h2>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Tanımlanacak Veri</th><th>Ekran</th><th>Örnek</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Makineler</td><td>Ayarlar &gt; Makineler</td><td>Plazma kesim, CNC abkant, TIG kaynak, toz boya</td></tr>
+            <tr><td>Çelik Kaliteleri</td><td>Stok &gt; Ürünler</td><td>S235, S355, 304 paslanmaz</td></tr>
+            <tr><td>Profil ve Levhalar</td><td>Stok &gt; Ürünler</td><td>Köşebent 50×50×5, HEA180, levha 4mm</td></tr>
+            <tr><td>Kaynakçılar</td><td>İK &gt; Personel</td><td>EN ISO 9606 belgeli, geçerlilik tarihleriyle</td></tr>
+            <tr><td>WPS Şartnameleri</td><td>Kalite &gt; WPS</td><td>WPS-S355-TIG, WPS-304-TIG</td></tr>
+            <tr><td>BOM Şablonları</td><td>Üretim &gt; BOM</td><td>Raf seti, yangın kapısı, çelik merdiven</td></tr>
+            <tr><td>Fire Kategorileri</td><td>Ayarlar &gt; Tanımlar</td><td>Kesim fazlası, kaynak hatası, eğrilme</td></tr>
+            <tr><td>CE Teknik Dosyalar</td><td>Belgeler</td><td>EN 1090 dosyası, EN 1634 yangın kapısı dosyası</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="başlangıç">
+        <h2>Önerilen Başlangıç Adımları</h2>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Sektör Profilini Seçin</h4>
+              <p>Onboarding wizard'da "Metal Eşya / Çelik Konstrüksiyon" profilini seçin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Kaynakçı Kayıtlarını Girin</h4>
+              <p>Tüm kaynakçılarınızın EN ISO 9606 sertifikalarını sisteme yükleyin, yenileme tarihlerini girin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>WPS Şartnameleri</h4>
+              <p>Onaylanmış kaynak prosedür şartnamelerinizi sisteme yükleyin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>Profil Stoğunu Ton Bazlı Tanımlayın</h4>
+              <p>Çelik profil ve levhalarınızı kg bazlı stok olarak girin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <h4>CE Teknik Dosya Şablonunu Hazırlayın</h4>
+              <p>EN 1090 için şablon dosyanızı Belgeler modülüne yükleyin.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> Malzeme sertifika (3.1) izlenebilirliği denetimde mutlaka sorulur. Her kesilen parçanın hangi tonaj lotundan geldiğini izleyebilmeniz gerekir.
+        </div>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> Kaynakçı sertifika süresi dolmadan 30 gün önce sistem uyarı versin diye ayarlayın. Süresi dolan kaynakçıya kritik dikiş yaptırmayın.
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="doc-footer">
+    <p>Quvex ERP &mdash; Metal Eşya / Çelik Konstrüksiyon Sektörü Rehberi &middot; v1.5 &middot; Nisan 2026</p>
+  </div>
+
+</div>
+<script src="../js/guide-enhancements.js"></script>
+</body>
+</html>

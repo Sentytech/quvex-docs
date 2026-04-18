@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modül İlişki Haritası — Quvex ERP Kullanıcı Kılavuzu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* İlişki Haritası Özel Stiller */
+  .map-section { margin:2rem 0; }
+  .map-title { font-size:1.3rem; font-weight:700; color:var(--text); margin-bottom:1rem; display:flex; align-items:center; gap:0.5rem; }
+
+  /* SVG Harita */
+  .svg-map { width:100%; max-width:1100px; margin:0 auto; }
+  .svg-map svg { width:100%; height:auto; }
+
+  /* Akış Şeması — Geliştirilmiş */
+  .flow-mega { display:flex; flex-direction:column; gap:0; margin:1.5rem 0; }
+  .flow-row { display:flex; align-items:stretch; gap:0; }
+  .flow-col { flex:1; display:flex; flex-direction:column; }
+
+  .flow-block {
+    background:var(--white);
+    border:2px solid var(--border);
+    border-radius:12px;
+    padding:16px 20px;
+    position:relative;
+    transition:all 0.3s;
+  }
+  .flow-block:hover { border-color:var(--primary); box-shadow:var(--shadow); }
+  .flow-block.active { border-color:var(--primary); background:rgba(99,102,241,0.04); }
+  .flow-block .step-num {
+    position:absolute; top:-10px; left:16px;
+    background:var(--gradient); color:white;
+    width:24px; height:24px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:11px; font-weight:800;
+  }
+  .flow-block h4 { font-size:14px; font-weight:700; color:var(--text); margin:4px 0 6px; }
+  .flow-block .who { font-size:11px; color:var(--primary); font-weight:600; margin-bottom:4px; }
+  .flow-block .what { font-size:12px; color:var(--text-secondary); line-height:1.5; }
+  .flow-block .screen { font-size:11px; color:var(--text-muted); margin-top:6px; }
+  .flow-block .screen code { background:rgba(99,102,241,0.08); padding:2px 6px; border-radius:4px; font-size:10px; }
+  .flow-block .result { font-size:11px; color:var(--success); font-weight:600; margin-top:4px; }
+
+  .flow-arrow-down {
+    text-align:center; padding:8px 0; color:var(--primary); font-size:20px; line-height:1;
+  }
+  .flow-arrow-right {
+    display:flex; align-items:center; justify-content:center;
+    padding:0 12px; color:var(--primary); font-size:24px; min-width:40px;
+  }
+  .flow-decision {
+    background:#fff8f0; border:2px solid var(--warning);
+    border-radius:12px; padding:14px 18px; text-align:center;
+  }
+  .flow-decision h4 { color:var(--warning); font-size:13px; }
+  .flow-decision .options { display:flex; gap:12px; margin-top:8px; justify-content:center; }
+  .flow-decision .opt { font-size:11px; padding:4px 10px; border-radius:6px; font-weight:600; }
+  .flow-decision .opt.yes { background:#dcfce7; color:#16a34a; }
+  .flow-decision .opt.no { background:#fef2f2; color:#dc2626; }
+
+  /* Neydi/Ne Oldu/Nedir kutuları */
+  .evolution-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:0; margin:1.5rem 0; }
+  .evo-card { padding:20px; position:relative; }
+  .evo-card:first-child { background:#fef2f2; border-radius:12px 0 0 12px; border:1px solid #fecaca; }
+  .evo-card:nth-child(2) { background:#fefce8; border-top:1px solid #fde68a; border-bottom:1px solid #fde68a; }
+  .evo-card:last-child { background:#f0fdf4; border-radius:0 12px 12px 0; border:1px solid #bbf7d0; }
+  .evo-card .evo-label { font-size:10px; font-weight:800; text-transform:uppercase; letter-spaçıng:1px; margin-bottom:8px; }
+  .evo-card:first-child .evo-label { color:#dc2626; }
+  .evo-card:nth-child(2) .evo-label { color:#ca8a04; }
+  .evo-card:last-child .evo-label { color:#16a34a; }
+  .evo-card h4 { font-size:14px; font-weight:700; color:var(--text); margin-bottom:6px; }
+  .evo-card p { font-size:12px; color:var(--text-secondary); line-height:1.6; }
+  .evo-card ul { font-size:12px; color:var(--text-secondary); margin:6px 0 0 16px; line-height:1.8; }
+  .evo-arrow { position:absolute; right:-14px; top:50%; transform:translateY(-50%); font-size:20px; color:var(--text-muted); z-index:2; }
+
+  /* Modül Kartı */
+  .mod-map-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:1rem 0; }
+  .mod-map-card {
+    background:var(--white); border:1px solid var(--border); border-radius:10px;
+    padding:14px; cursor:pointer; transition:all 0.3s; position:relative;
+  }
+  .mod-map-card:hover { border-color:var(--primary); box-shadow:var(--shadow); transform:translateY(-2px); }
+  .mod-map-card .icon { font-size:22px; margin-bottom:6px; }
+  .mod-map-card .name { font-size:13px; font-weight:700; color:var(--text); }
+  .mod-map-card .connects { font-size:10px; color:var(--text-muted); margin-top:4px; }
+  .mod-map-card .connects span { color:var(--primary); font-weight:600; }
+
+  /* Bağlantı Tablosu */
+  .connect-table { width:100%; border-collapse:collapse; font-size:13px; }
+  .connect-table th { background:var(--bg); padding:10px 12px; text-align:left; font-size:11px; text-transform:uppercase; letter-spaçıng:0.5px; color:var(--text-muted); border-bottom:2px solid var(--border); }
+  .connect-table td { padding:10px 12px; border-bottom:1px solid #f1f5f9; }
+  .connect-table td:first-child { font-weight:600; color:var(--text); white-space:nowrap; }
+  .connect-table .arrow { color:var(--primary); font-weight:700; text-align:center; }
+  .connect-table .trigger { font-size:11px; background:rgba(99,102,241,0.08); padding:2px 8px; border-radius:4px; color:var(--primary); }
+
+  @media(max-width:768px) {
+    .evolution-grid { grid-template-columns:1fr; gap:8px; }
+    .evo-card { border-radius:10px !important; }
+    .evo-arrow { display:none; }
+    .mod-map-grid { grid-template-columns:repeat(2,1fr); }
+    .flow-row { flex-direction:column; }
+    .flow-arrow-right { transform:rotate(90deg); padding:8px 0; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <a href="index.html" class="nav-back">&#8592; Ana Sayfa</a>
+
+  <div class="doc-header">
+    <span class="version-badge">v2.0</span>
+    <div class="breadcrumb"><a href="index.html">Kullanıcı Kılavuzu</a> / İlişki Haritası</div>
+    <h1>Modül İlişki Haritası &amp; Akış Şemaları</h1>
+    <p>Quvex ERP'deki 14 modülün birbirleriyle nasıl konuştuğunu, veri akışını ve iş süreçlerini görsel olarak anlayın.</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- BÖLÜM 1: BÜYÜK RESİM -->
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>1. Büyük Resim &mdash; Modüller Nasıl Bağlı?</h2>
+  <div class="card">
+    <p>Aşağıdaki harita, her modülün hangi modüllere veri gönderdiğini veya aldığını gösterir. Ok yönü veri akışını temsil eder.</p>
+  </div>
+
+  <!-- Metin tabanlı ilişki haritası -->
+  <div class="card" style="background:#0f1225;color:#e2e8f0;padding:2rem;border-radius:16px;font-family:monospace;font-size:12px;line-height:2;overflow-x:auto;">
+<pre style="margin:0;color:#94a3b8;">
+                          ┌─────────────────┐
+                          │   📊 DASHBOARD   │ ◄──── Tüm modüllerden veri toplar
+                          └────────┬────────┘
+                                   │
+        ┌──────────────────────────┼──────────────────────────┐
+        │                          │                          │
+        ▼                          ▼                          ▼
+┌───────────────┐        ┌─────────────────┐        ┌───────────────┐
+│  💰 SATIŞ     │───────▶│   ⚙ ÜRETİM      │───────▶│  ✅ KALİTE    │
+│               │        │                 │        │               │
+│ Teklif        │  Sipariş│ İş Emri        │ Muayene│ NCR           │
+│ Sipariş ──────┼──aktar─▶│ Planlama       │◄───────┤ CAPA          │
+│ Fatura        │        │ ShopFloor      │        │ FAI, SPC      │
+│ İrsaliye      │        │ Fason          │        │ Kalibrasyon   │
+└──────┬────────┘        └───┬─────┬──────┘        └───────┬───────┘
+       │                     │     │                       │
+       │              ┌──────┘     └──────┐                │
+       │              ▼                   ▼                │
+       │     ┌─────────────────┐ ┌────────────────┐       │
+       │     │  📦 STOK        │ │  🔧 BAKIM      │       │
+       │     │                 │ │                │       │
+       │     │ Depo, Lot       │ │ Koruyucu       │       │
+       │     │ Barkod          │ │ OEE, MTBF      │       │
+       │     │ Min/Max Uyarı ──┼─┼──▶ Satınalma   │       │
+       │     │ Transfer        │ │ İş Emri        │       │
+       │     └────────┬────────┘ └────────────────┘       │
+       │              │                                    │
+       │              ▼                                    │
+       │     ┌─────────────────┐                          │
+       │     │  🛒 SATINALMA   │                          │
+       │     │                 │                          │
+       │     │ Tedarikçi       │◄────── Tedarikçi         │
+       │     │ Fason Sipariş   │        Değerlendirme ─────┘
+       │     │ Mal Alım        │
+       │     └────────┬────────┘
+       │              │
+       ▼              ▼
+┌──────────────────────────────┐     ┌─────────────────┐
+│      💰 MUHASEBE / FİNANS    │     │  👥 İK &amp; VARDİYA │
+│                              │     │                 │
+│ Fatura ◄── Satış/Satınalma   │     │ Vardiya         │
+│ Ödeme, Cari Hesap            │     │ Eğitim ◄── Kalite
+│ Kasa/Banka                   │     │ Yetkinlik       │
+│ Döviz Kuru (TCMB)            │     │ Giriş/Çıkış    │
+└──────────────────────────────┘     └─────────────────┘
+        │
+        ▼
+┌──────────────────────────────────────────────────────┐
+│              📈 RAPORLAMA &amp; AI INSIGHTS              │
+│                                                      │
+│ Üretim Raporu ◄── Üretim    KPI Dashboard            │
+│ Stok Raporu   ◄── Stok      AI Tahmin &amp; Anomali      │
+│ Kalite Raporu ◄── Kalite    Maliyet Analizi           │
+│ Finans Raporu ◄── Muhasebe  Trend Grafikleri          │
+└──────────────────────────────────────────────────────┘
+</pre>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- BÖLÜM 2: NEYDİ / NE OLDU / NEDİR -->
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>2. Quvex'in Evrimi &mdash; Neydi, Ne Oldu, Nedir?</h2>
+
+  <div class="map-title">🔄 Platform Genel</div>
+  <div class="evolution-grid">
+    <div class="evo-card">
+      <div class="evo-label">❌ Neydi (Eski Durum)</div>
+      <h4>Dağınık Sistemler</h4>
+      <ul>
+        <li>Excel tabloları + kağıt formlar</li>
+        <li>3-4 farklı yazılım (muhasebe, stok, üretim ayrı)</li>
+        <li>Veri tekrarı, tutarsızlık</li>
+        <li>Denetimde panik, doküman arama</li>
+        <li>Maliyet tahmini, gerçek maliyet bilinmiyor</li>
+      </ul>
+      <span class="evo-arrow">▶</span>
+    </div>
+    <div class="evo-card">
+      <div class="evo-label">🔄 Ne Oldu (Dönüşüm)</div>
+      <h4>Quvex ERP Devreye Alındı</h4>
+      <ul>
+        <li>14 modül tek platformda birleşti</li>
+        <li>Tüm veriler tek veritabanında</li>
+        <li>Modüller arası otomatik veri akışı</li>
+        <li>AS9100/ISO 9001 uyumlu altyapı</li>
+        <li>1819 otomatik test ile kanıtlanmış</li>
+      </ul>
+      <span class="evo-arrow">▶</span>
+    </div>
+    <div class="evo-card">
+      <div class="evo-label">✅ Nedir (Şimdiki Durum)</div>
+      <h4>Tümleşik Üretim Platformu</h4>
+      <ul>
+        <li>Tek giriş, tek ekran, tek veritabanı</li>
+        <li>Sipariş girdiğinde üretim otomatik haberdar</li>
+        <li>Stok düştüğünde satınalma otomatik uyarılır</li>
+        <li>Denetçi geldiğinde tüm kayıtlar saniyede erişilir</li>
+        <li>AI ile tahmin, anomali tespiti, karar destek</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="map-title">📦 Stok Yönetimi</div>
+  <div class="evolution-grid">
+    <div class="evo-card">
+      <div class="evo-label">❌ Neydi</div>
+      <h4>Excel'de Stok Takibi</h4>
+      <p>Her depo ayrı Excel, bakiye tutarsız, sayım güne mal oluyordu, barkod yoktu, lot takibi imkansızdı.</p>
+      <span class="evo-arrow">▶</span>
+    </div>
+    <div class="evo-card">
+      <div class="evo-label">🔄 Ne Oldu</div>
+      <h4>Dijital Depo Sistemi</h4>
+      <p>Çoklu depo, lokasyon (Zone/Aisle/Rack/Shelf/Bin), barkod entegrasyonu, lot/parti takibi, otomatik min/max uyarı eklendi.</p>
+      <span class="evo-arrow">▶</span>
+    </div>
+    <div class="evo-card">
+      <div class="evo-label">✅ Nedir</div>
+      <h4>Akıllı Stok Yönetimi</h4>
+      <p>Anlık bakiye, barkod ile saniyede giriş/çıkış, ABC analizi, stok düşünce otomatik satınalma talebi, FIFO/LIFO değerleme.</p>
+    </div>
+  </div>
+
+  <div class="map-title">⚙ Üretim Yönetimi</div>
+  <div class="evolution-grid">
+    <div class="evo-card">
+      <div class="evo-label">❌ Neydi</div>
+      <h4>Kağıt İş Emirleri</h4>
+      <p>İş emirleri kağıtta, atölyede kayboluyordu. Hangi operatör ne yaptı bilinmiyordu. Fire manuel sayılıyordu. OEE hesaplanamıyordu.</p>
+      <span class="evo-arrow">▶</span>
+    </div>
+    <div class="evo-card">
+      <div class="evo-label">🔄 Ne Oldu</div>
+      <h4>Dijital Üretim + ShopFloor</h4>
+      <p>Dijital iş emri, Gantt planlama, kapasite kontrolü, operatör terminali (tablet), fason takibi, seri numara izlenebilirlik eklendi.</p>
+      <span class="evo-arrow">▶</span>
+    </div>
+    <div class="evo-card">
+      <div class="evo-label">✅ Nedir</div>
+      <h4>Akıllı Üretim Platformu</h4>
+      <p>Operatör tabletten iş emri başlatır, barkod okutarak parça kaydeder. OEE anlık izlenir. Fire otomatik raporlanır. Offline bile çalışır.</p>
+    </div>
+  </div>
+
+  <div class="map-title">✅ Kalite Yönetimi</div>
+  <div class="evolution-grid">
+    <div class="evo-card">
+      <div class="evo-label">❌ Neydi</div>
+      <h4>Dağınık Dokümanlar</h4>
+      <p>NCR kağıtta, CAPA Excel'de, FAI dosya dolabında. Denetimde tüm fabrika doküman arıyordu. İzlenebilirlik yoktu.</p>
+      <span class="evo-arrow">▶</span>
+    </div>
+    <div class="evo-card">
+      <div class="evo-label">🔄 Ne Oldu</div>
+      <h4>23 Alt Modüllü Kalite Sistemi</h4>
+      <p>NCR, CAPA, FAI, PPAP, SPC, FMEA, kalibrasyon, giriş kontrol, CoC, MRB ve 13 alt modül daha entegre edildi. AS9100 tam uyum.</p>
+      <span class="evo-arrow">▶</span>
+    </div>
+    <div class="evo-card">
+      <div class="evo-label">✅ Nedir</div>
+      <h4>Denetim Hazır Kalite</h4>
+      <p>Denetçi geldiğinde her kayda saniyede erişim. Tam izlenebilirlik: Hammadde → Üretim → Muayene → CoC → Sevk. SPC ile anlık proses kontrolü.</p>
+    </div>
+  </div>
+
+  <div class="map-title">💰 Finans &amp; Kasa/Banka</div>
+  <div class="evolution-grid">
+    <div class="evo-card">
+      <div class="evo-label">❌ Neydi</div>
+      <h4>Ayrı Muhasebe Programı</h4>
+      <p>Faturalar ayrı programda, stokla bağlantı yok. Cari bakiye manuel, kasa defteri kağıtta. Döviz kuru elle giriliyordu.</p>
+      <span class="evo-arrow">▶</span>
+    </div>
+    <div class="evo-card">
+      <div class="evo-label">🔄 Ne Oldu</div>
+      <h4>Entegre Finans Modülü</h4>
+      <p>Fatura→cari otomatik güncelleme, kasa/banka dijital, TCMB döviz kuru otomatik çekme, banka mutabakat eklendi.</p>
+      <span class="evo-arrow">▶</span>
+    </div>
+    <div class="evo-card">
+      <div class="evo-label">✅ Nedir</div>
+      <h4>Otomatik Finans Takibi</h4>
+      <p>Fatura kesildiğinde cari güncellenir, ödeme yapıldığında kasa/banka bakiyesi otomatik değişir. TCMB kuru 5 günlük fallback ile çekilir.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- BÖLÜM 3: MODÜLLER ARASI VERİ AKIŞI -->
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>3. Modüller Arası Otomatik Veri Akışı</h2>
+  <div class="card">
+    <p>Aşağıdaki tablo, bir modülde yapılan işlemin başka modülleri <strong>otomatik olarak</strong> nasıl etkilediğini gösterir. Bu sayede veri tekrarı olmaz, tutarsızlık yaşanmaz.</p>
+  </div>
+
+  <div class="card" style="overflow-x:auto;">
+    <table class="connect-table">
+      <thead>
+        <tr>
+          <th>Yapılan İşlem</th>
+          <th>Hangi Modülde</th>
+          <th class="arrow">→</th>
+          <th>Etkilenen Modül</th>
+          <th>Ne Olur?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Teklif onaylandı</td>
+          <td>Satış</td>
+          <td class="arrow">→</td>
+          <td>Satış</td>
+          <td>Sipariş otomatik oluşturulabilir <span class="trigger">Tek tık</span></td>
+        </tr>
+        <tr>
+          <td>Sipariş üretime aktarıldı</td>
+          <td>Satış</td>
+          <td class="arrow">→</td>
+          <td>Üretim</td>
+          <td>İş emri taslak olarak oluşur <span class="trigger">Otomatik</span></td>
+        </tr>
+        <tr>
+          <td>İş emri başlatıldı</td>
+          <td>Üretim</td>
+          <td class="arrow">→</td>
+          <td>Stok</td>
+          <td>Malzeme rezervasyonu yapılır <span class="trigger">Otomatik</span></td>
+        </tr>
+        <tr>
+          <td>İş emri tamamlandı</td>
+          <td>Üretim</td>
+          <td class="arrow">→</td>
+          <td>Stok + Kalite</td>
+          <td>Mamul stoka girer + son muayene tetiklenir <span class="trigger">Otomatik</span></td>
+        </tr>
+        <tr>
+          <td>Fire bildirildi</td>
+          <td>Üretim</td>
+          <td class="arrow">→</td>
+          <td>Stok + Kalite</td>
+          <td>Stok düşer + NCR açılabilir <span class="trigger">Otomatik + Manuel</span></td>
+        </tr>
+        <tr>
+          <td>Stok minimum altına düştü</td>
+          <td>Stok</td>
+          <td class="arrow">→</td>
+          <td>Satınalma</td>
+          <td>Bildirim + otomatik satınalma talebi <span class="trigger">SignalR</span></td>
+        </tr>
+        <tr>
+          <td>Mal alım yapıldı</td>
+          <td>Satınalma</td>
+          <td class="arrow">→</td>
+          <td>Stok + Kalite</td>
+          <td>Stok artar + giriş kontrol muayenesi tetiklenir <span class="trigger">Otomatik</span></td>
+        </tr>
+        <tr>
+          <td>Giriş kontrol RED</td>
+          <td>Kalite</td>
+          <td class="arrow">→</td>
+          <td>Satınalma + Stok</td>
+          <td>Tedarikçiye iade, stok karantina <span class="trigger">Otomatik</span></td>
+        </tr>
+        <tr>
+          <td>NCR açıldı</td>
+          <td>Kalite</td>
+          <td class="arrow">→</td>
+          <td>Üretim + Stok</td>
+          <td>İlgili iş emri ve stok bildirilir <span class="trigger">Bildirim</span></td>
+        </tr>
+        <tr>
+          <td>Fatura kesildi (SENT)</td>
+          <td>Satış/Satınalma</td>
+          <td class="arrow">→</td>
+          <td>Muhasebe</td>
+          <td>Cari bakiye otomatik güncellenir <span class="trigger">Otomatik</span></td>
+        </tr>
+        <tr>
+          <td>Ödeme kaydedildi</td>
+          <td>Muhasebe</td>
+          <td class="arrow">→</td>
+          <td>Kasa/Banka</td>
+          <td>Kasa/banka bakiyesi güncellenir <span class="trigger">Otomatik</span></td>
+        </tr>
+        <tr>
+          <td>Kalibrasyon süresi doldu</td>
+          <td>Kalite</td>
+          <td class="arrow">→</td>
+          <td>Bakım</td>
+          <td>Kalibrasyon iş emri oluşur <span class="trigger">Otomatik</span></td>
+        </tr>
+        <tr>
+          <td>Makine arızalandı</td>
+          <td>Bakım</td>
+          <td class="arrow">→</td>
+          <td>Üretim</td>
+          <td>İlgili iş emirleri uyarılır, OEE etkilenir <span class="trigger">SignalR</span></td>
+        </tr>
+        <tr>
+          <td>Eğitim süresi doldu</td>
+          <td>İK</td>
+          <td class="arrow">→</td>
+          <td>Kalite</td>
+          <td>Yetkinlik matrisi güncelleme uyarısı <span class="trigger">Bildirim</span></td>
+        </tr>
+        <!-- Sprint 11 Yeni Bağlantılar -->
+        <tr>
+          <td>Varyant stok girişi (beden/renk)</td>
+          <td>Stok / ProductVariant</td>
+          <td class="arrow">→</td>
+          <td>Ürün + Satış</td>
+          <td>SKU matrisi güncellenir, kombinasyonlar eşlenir <span class="trigger">Otomatik</span></td>
+        </tr>
+        <tr>
+          <td>CCP sapması tespit edildi</td>
+          <td>Kalite / HACCP</td>
+          <td class="arrow">→</td>
+          <td>Üretim + NCR</td>
+          <td>Düzeltici faaliyet + ürün karantina + NCR açılır <span class="trigger">SignalR + WhatsApp</span></td>
+        </tr>
+        <tr>
+          <td>Recall başlatıldı</td>
+          <td>Kalite / Recall</td>
+          <td class="arrow">→</td>
+          <td>HACCP + Lot + Müşteri + Satış</td>
+          <td>Etkilenen lotlar ve müşteriler tespit edilir, bildirim gönderilir <span class="trigger">SignalR</span></td>
+        </tr>
+        <tr>
+          <td>Kalıp atım limiti doldu</td>
+          <td>Kalıp Envanteri</td>
+          <td class="arrow">→</td>
+          <td>Üretim + Bakım</td>
+          <td>Preventif bakım iş emri açılır, üretim uyarılır <span class="trigger">Otomatik</span></td>
+        </tr>
+        <tr>
+          <td>CE teknik dosya güncellendi</td>
+          <td>CE Technical File</td>
+          <td class="arrow">→</td>
+          <td>Ürün + Kalite + Doküman</td>
+          <td>Versiyon numarası + onay zinciri tetiklenir <span class="trigger">Workflow</span></td>
+        </tr>
+        <tr>
+          <td>Kaynakçı sertifikası süresi doldu</td>
+          <td>WPS/WPQR</td>
+          <td class="arrow">→</td>
+          <td>İK + Üretim + Kalite</td>
+          <td>Kaynakçı atama bloklanır, yeniden sınav planlanır <span class="trigger">Otomatik</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Sprint 11 Yeni Moduller -->
+  <div class="card" style="margin-top:1.5rem;background:linear-gradient(135deg,#fefce8,#fef3c7);border-left:4px solid #f59e0b;">
+    <div class="map-title" style="color:#92400e;">Sprint 11 &mdash; Yeni Modul Iliskileri (Nisan 2026)</div>
+    <p>Sprint 11 ile eklenen 6 yeni modul mevcut 14 modulle asagidaki sekilde entegre calisir:</p>
+    <table class="connect-table">
+      <thead>
+        <tr><th>Yeni Modul</th><th class="arrow">&harr;</th><th>Bagli Moduller</th><th>Sektor</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>ProductVariant</strong></td><td class="arrow">&harr;</td><td>Urun, Stok, Satis, Uretim (BOM)</td><td>Tekstil, giyim, ayakkabi</td></tr>
+        <tr><td><strong>HACCP</strong></td><td class="arrow">&harr;</td><td>Uretim, Kalite, NCR, Lot Takibi</td><td>Gida, icecek, kozmetik</td></tr>
+        <tr><td><strong>Recall</strong></td><td class="arrow">&harr;</td><td>HACCP, Lot, Musteri, Satis, Sevkiyat</td><td>Gida, medikal, otomotiv</td></tr>
+        <tr><td><strong>MoldInventory</strong></td><td class="arrow">&harr;</td><td>Uretim, Bakim, Preventif Bakim</td><td>Plastik, dokum, sac</td></tr>
+        <tr><td><strong>CE Technical File</strong></td><td class="arrow">&harr;</td><td>Urun, Kalite, Dokuman, FMEA, ISO 14971</td><td>Medikal, makine, elektrik</td></tr>
+        <tr><td><strong>WPS / WPQR</strong></td><td class="arrow">&harr;</td><td>Kaynakci (IK), Uretim, Kalite, NDT</td><td>Savunma, gemi, yapi celigi</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- BÖLÜM 4: ANA İŞ AKIŞLARI (Detaylı) -->
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>4. Ana İş Akışları &mdash; Adım Adım</h2>
+
+  <!-- 4.1 SİPARİŞ YAŞAM DÖNGÜSÜ -->
+  <div class="map-title">🔄 Sipariş Yaşam Döngüsü (Teklif → Tahsilat)</div>
+  <div class="card">
+
+    <div class="flow-block active" style="margin-bottom:0;">
+      <span class="step-num">1</span>
+      <div class="who">Satış Ekibi</div>
+      <h4>Teklif Hazırla</h4>
+      <div class="what">Müşteriye fiyat teklifi oluştur. Ürün, miktar, birim fiyat, vade gir.</div>
+      <div class="screen">Ekran: <code>/offers/form</code></div>
+      <div class="result">→ Teklif durumu: TASLAK</div>
+    </div>
+    <div class="flow-arrow-down">▼</div>
+
+    <div class="flow-decision">
+      <h4>⚡ Karar: Müşteri teklifi kabul etti mi?</h4>
+      <div class="options">
+        <span class="opt yes">✓ Evet → Siparişe dönüştür</span>
+        <span class="opt no">✗ Hayır → Teklif revize et veya kapat</span>
+      </div>
+    </div>
+    <div class="flow-arrow-down">▼</div>
+
+    <div class="flow-block">
+      <span class="step-num">2</span>
+      <div class="who">Satış Ekibi</div>
+      <h4>Sipariş Oluştur</h4>
+      <div class="what">Onaylanan teklifi tek tıkla siparişe dönüştür. Teslimat tarihi ve koşulları belirle.</div>
+      <div class="screen">Ekran: <code>/sales</code> → "Siparişe Dönüştür" butonu</div>
+      <div class="result">→ Sipariş durumu: AÇIK</div>
+    </div>
+    <div class="flow-arrow-down">▼</div>
+
+    <div class="flow-block">
+      <span class="step-num">3</span>
+      <div class="who">Planlama</div>
+      <h4>Üretime Aktar</h4>
+      <div class="what">Siparişi üretime gönder. Sistem BOM'u kontrol eder, malzeme yeterliliğini denetler.</div>
+      <div class="screen">Ekran: <code>/sales</code> → "Üretime Aktar"</div>
+      <div class="result">→ İş emri otomatik oluşur (TASLAK)</div>
+    </div>
+    <div class="flow-arrow-down">▼</div>
+
+    <div class="flow-decision">
+      <h4>⚡ Karar: Yeterli hammadde var mı?</h4>
+      <div class="options">
+        <span class="opt yes">✓ Var → Üretimi planla</span>
+        <span class="opt no">✗ Yok → Satınalma talebi oluştur</span>
+      </div>
+    </div>
+    <div class="flow-arrow-down">▼</div>
+
+    <div class="flow-block">
+      <span class="step-num">4</span>
+      <div class="who">Üretim Müdürü</div>
+      <h4>İş Emri Planla &amp; Başlat</h4>
+      <div class="what">Gantt'ta makine ata, operatör belirle, tarihleri ayarla. İş emrini "Başladı" durumuna al.</div>
+      <div class="screen">Ekran: <code>/production/planning</code> (Gantt) → <code>/production</code></div>
+      <div class="result">→ Malzeme rezerve edilir, operatör bildirilir</div>
+    </div>
+    <div class="flow-arrow-down">▼</div>
+
+    <div class="flow-block">
+      <span class="step-num">5</span>
+      <div class="who">CNC Operatörü</div>
+      <h4>Üretim (ShopFloor Terminal)</h4>
+      <div class="what">Operatör tabletten iş emrini başlatır, üretim yapar, miktar girer. Fire varsa bildirir.</div>
+      <div class="screen">Ekran: <code>/shop-floor-terminal</code></div>
+      <div class="result">→ Üretim miktarı güncellenir, stok değişir</div>
+    </div>
+    <div class="flow-arrow-down">▼</div>
+
+    <div class="flow-decision">
+      <h4>⚡ Karar: Kalite muayenesi geçti mi?</h4>
+      <div class="options">
+        <span class="opt yes">✓ Geçti → Sevkiyata hazır</span>
+        <span class="opt no">✗ Geçmedi → NCR aç, CAPA başlat</span>
+      </div>
+    </div>
+    <div class="flow-arrow-down">▼</div>
+
+    <div class="flow-block">
+      <span class="step-num">6</span>
+      <div class="who">Depocu</div>
+      <h4>Sevkiyat</h4>
+      <div class="what">İrsaliye oluştur, miktarları doğrula, sevk et. Kısmi sevk de yapılabilir.</div>
+      <div class="screen">Ekran: <code>/production/shipment</code></div>
+      <div class="result">→ Stok düşer, sipariş durumu güncellenir</div>
+    </div>
+    <div class="flow-arrow-down">▼</div>
+
+    <div class="flow-block">
+      <span class="step-num">7</span>
+      <div class="who">Muhasebe</div>
+      <h4>Fatura &amp; Tahsilat</h4>
+      <div class="what">Satış faturası kes (otomatik cari güncelleme). Ödeme geldiğinde tahsilat kaydı yap.</div>
+      <div class="screen">Ekran: <code>/invoices/form</code> → <code>/payments</code></div>
+      <div class="result">→ Cari bakiye sıfırlanır, kasa/banka güncellenir</div>
+    </div>
+  </div>
+
+  <!-- 4.2 KALİTE DÖNGÜSÜ -->
+  <div class="map-title" style="margin-top:2rem;">🔍 Kalite Döngüsü (Uygunsuzluk → Düzeltici Faaliyet)</div>
+  <div class="card">
+    <div class="flow-block active" style="margin-bottom:0;">
+      <span class="step-num">1</span>
+      <div class="who">Herkes</div>
+      <h4>Uygunsuzluk Tespit Et</h4>
+      <div class="what">Üretimde, giriş kontrolde veya müşteri şikayetinde uygunsuzluk tespit edildi.</div>
+      <div class="result">→ NCR kaydı açılır</div>
+    </div>
+    <div class="flow-arrow-down">▼</div>
+
+    <div class="flow-block">
+      <span class="step-num">2</span>
+      <div class="who">Kalite Müdürü</div>
+      <h4>NCR Sınıflandırma</h4>
+      <div class="what">Uygunsuzluğu sınıfla: Kritik / Major / Minor. Karantina kararı ver. Etkilenen lotları belirle.</div>
+      <div class="screen">Ekran: <code>/quality/ncr</code></div>
+    </div>
+    <div class="flow-arrow-down">▼</div>
+
+    <div class="flow-decision">
+      <h4>⚡ Karar: Düzeltici faaliyet gerekli mi?</h4>
+      <div class="options">
+        <span class="opt yes">✓ Evet → CAPA başlat</span>
+        <span class="opt no">✗ Hayır → NCR'ı kapat (minor ise)</span>
+      </div>
+    </div>
+    <div class="flow-arrow-down">▼</div>
+
+    <div class="flow-block">
+      <span class="step-num">3</span>
+      <div class="who">İlgili Departman</div>
+      <h4>CAPA &mdash; Kök Neden Analizi</h4>
+      <div class="what">5 Neden, Ishikawa veya 8D yöntemiyle kök nedeni bul. Düzeltici faaliyet planla.</div>
+      <div class="screen">Ekran: <code>/quality/capa</code></div>
+    </div>
+    <div class="flow-arrow-down">▼</div>
+
+    <div class="flow-block">
+      <span class="step-num">4</span>
+      <div class="who">İlgili Departman</div>
+      <h4>Düzeltici Faaliyeti Uygula</h4>
+      <div class="what">Planlanmış aksiyonları gerçekleştir. Süreç, makine, eğitim veya doküman değişikliği yap.</div>
+    </div>
+    <div class="flow-arrow-down">▼</div>
+
+    <div class="flow-block">
+      <span class="step-num">5</span>
+      <div class="who">Kalite Müdürü</div>
+      <h4>Etkinlik Doğrulama</h4>
+      <div class="what">30-90 gün sonra aynı sorun tekrarladı mı kontrol et. SPC verilerini incele.</div>
+      <div class="result">→ Tekrarlamadıysa CAPA'yı kapat, NCR'ı kapat</div>
+    </div>
+  </div>
+
+  <!-- 4.3 SATINALMA DÖNGÜSÜ -->
+  <div class="map-title" style="margin-top:2rem;">🛒 Satınalma Döngüsü</div>
+  <div class="card">
+    <div class="flow-block active">
+      <span class="step-num">1</span>
+      <h4>İhtiyaç Doğar</h4>
+      <div class="what">Min stok uyarısı → otomatik talep <strong>VEYA</strong> üretim planından MRP hesaplama <strong>VEYA</strong> manuel talep</div>
+    </div>
+    <div class="flow-arrow-down">▼</div>
+    <div class="flow-block">
+      <span class="step-num">2</span>
+      <h4>Satınalma Siparişi Oluştur</h4>
+      <div class="what">Tedarikçi seç, kalem gir, fiyat ve vade belirle, onaya gönder.</div>
+      <div class="screen">Ekran: <code>/purchase-orders</code></div>
+    </div>
+    <div class="flow-arrow-down">▼</div>
+    <div class="flow-block">
+      <span class="step-num">3</span>
+      <h4>Mal Alım</h4>
+      <div class="what">Tedarikçiden gelen malzemeyi teslim al. Kısmi teslimat desteklenir.</div>
+      <div class="result">→ Stok otomatik artar + Giriş kontrol muayenesi tetiklenir</div>
+    </div>
+    <div class="flow-arrow-down">▼</div>
+    <div class="flow-decision">
+      <h4>⚡ Giriş Kontrol Sonucu</h4>
+      <div class="options">
+        <span class="opt yes">✓ KABUL → Stok onaylanır</span>
+        <span class="opt no">✗ RED → Tedarikçiye iade + NCR</span>
+      </div>
+    </div>
+    <div class="flow-arrow-down">▼</div>
+    <div class="flow-block">
+      <span class="step-num">4</span>
+      <h4>Alış Faturası + Ödeme</h4>
+      <div class="what">Tedarikçi faturası girilir → cari güncellenir → vade takibi başlar → ödeme yapılır.</div>
+      <div class="result">→ Cari + Kasa/Banka bakiyesi otomatik güncellenir</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- BÖLÜM 5: HER MODÜLÜN BAĞLANTILARI -->
+  <!-- ═══════════════════════════════════════════ -->
+  <h2>5. Her Modülün Bağlantı Haritası</h2>
+  <div class="card">
+    <p>Her modül kutusundaki sayı, o modülün kaç modülle doğrudan veri alışverişi yaptığını gösterir.</p>
+  </div>
+
+  <div class="mod-map-grid">
+    <div class="mod-map-card"><div class="icon">💰</div><div class="name">Satış</div><div class="connects">Bağlı: <span>Üretim, Stok, Muhasebe, Müşteri</span></div></div>
+    <div class="mod-map-card"><div class="icon">⚙</div><div class="name">Üretim</div><div class="connects">Bağlı: <span>Satış, Stok, Kalite, Bakım, İK</span></div></div>
+    <div class="mod-map-card"><div class="icon">📦</div><div class="name">Stok</div><div class="connects">Bağlı: <span>Üretim, Satınalma, Satış, Kalite</span></div></div>
+    <div class="mod-map-card"><div class="icon">✅</div><div class="name">Kalite</div><div class="connects">Bağlı: <span>Üretim, Stok, Satınalma, İK, Bakım</span></div></div>
+    <div class="mod-map-card"><div class="icon">🛒</div><div class="name">Satınalma</div><div class="connects">Bağlı: <span>Stok, Kalite, Muhasebe, Üretim</span></div></div>
+    <div class="mod-map-card"><div class="icon">💰</div><div class="name">Muhasebe</div><div class="connects">Bağlı: <span>Satış, Satınalma, Kasa/Banka</span></div></div>
+    <div class="mod-map-card"><div class="icon">🏦</div><div class="name">Kasa/Banka</div><div class="connects">Bağlı: <span>Muhasebe, Satış, Satınalma</span></div></div>
+    <div class="mod-map-card"><div class="icon">🔧</div><div class="name">Bakım</div><div class="connects">Bağlı: <span>Üretim, Kalite, Stok</span></div></div>
+    <div class="mod-map-card"><div class="icon">👥</div><div class="name">İK</div><div class="connects">Bağlı: <span>Üretim, Kalite, Bakım</span></div></div>
+    <div class="mod-map-card"><div class="icon">📈</div><div class="name">Raporlama</div><div class="connects">Bağlı: <span>TÜM modüllerden veri alır</span></div></div>
+    <div class="mod-map-card"><div class="icon">🤖</div><div class="name">AI Insights</div><div class="connects">Bağlı: <span>Üretim, Stok, Kalite, Satış</span></div></div>
+    <div class="mod-map-card"><div class="icon">🔒</div><div class="name">Güvenlik</div><div class="connects">Bağlı: <span>TÜM modüllerde yetki kontrolü</span></div></div>
+  </div>
+
+  <!-- İlgili Konular -->
+  <h2>İlgili Konular</h2>
+  <div class="card-grid">
+    <a href="workflows/teklif-siparis-uretim-sevk.html" class="card module-card">
+      <h4>🔄 Teklif→Sevk Detaylı Akış</h4>
+      <p>7 adımlı detaylı akış, karar noktaları, örnek senaryo</p>
+    </a>
+    <a href="ilk-adimlar.html" class="card module-card">
+      <h4>🚀 İlk 30 Dakika</h4>
+      <p>Sisteme ilk giriş, navigasyon, ilk işlemler</p>
+    </a>
+    <a href="terimler-sozlugu.html" class="card module-card">
+      <h4>📖 Terimler Sözlüğü</h4>
+      <p>120+ üretim ve ERP terimi açıklaması</p>
+    </a>
+  </div>
+
+  <div class="doc-footer">
+    &copy; 2026 Quvex &mdash; Üretim Yönetim Platformu &middot; Modül İlişki Haritası &middot; v2.0
+  </div>
+
+</div>
+<script src="js/guide-enhancements.js"></script>
+</body>
+</html>

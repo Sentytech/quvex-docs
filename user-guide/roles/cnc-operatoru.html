@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CNC Operatörü Kılavuzu - Quvex ERP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="container">
+
+  <a href="../index.html" class="nav-back">&#8592; Ana Sayfa</a>
+
+  <div class="doc-header">
+    <span class="version-badge">v1.5</span>
+    <div class="breadcrumb"><a href="../index.html">Kullanıcı Kılavuzu</a> / <a href="../index.html">Rol Kılavuzlari</a> / CNC Operatörü</div>
+    <h1>CNC Operatörü Kılavuzu (ShopFloor Terminal)</h1>
+    <p>Siz CNC operatörüsunuz. ShopFloor terminalıni kullanarak is emirlerinizi takip eder, ilerlemenizi kaydeder ve kalite bildirimlerini yaparisiniz.</p>
+  </div>
+
+  <div class="two-col">
+
+    <aside>
+      <nav class="nav-sidebar">
+        <a href="#bakis">Genel Bakis</a>
+        <a href="#terminal">Terminal Acilis</a>
+        <a href="#is-emri">Is Emri Secme</a>
+        <a href="#başlat">Başlat / Duraklat / Tamamla</a>
+        <a href="#fire">Fire Bildirimi</a>
+        <a href="#barkod">Barkod Okutma</a>
+        <a href="#numpad">NumPad Kullanimi</a>
+        <a href="#offline">Offline Çalışma</a>
+        <a href="#tipik-gun">Tipik Bir Gun</a>
+        <a href="#ipuçları">İpuçları ve Hatalar</a>
+      </nav>
+    </aside>
+
+    <main>
+
+      <section id="bakis">
+        <h2>Genel Bakis</h2>
+        <p>ShopFloor Terminal, fabrikanin üretim sahasinda kullanilmak uzere tasarlanmis dokunmatik ekran arayuzudur. Bilgisayar veya tablet uzerinden çalışır. Buyuk butonlar, kolay okuma ve hızlı veri girişi için optimize edilmistir.</p>
+
+        <div class="card-grid">
+          <div class="card">
+            <h4>Dokunmatik Arayüz</h4>
+            <p>Buyuk butonlar, glassmorphism tasarim, parmakla kolay kullanim</p>
+          </div>
+          <div class="card">
+            <h4>Barkod Destegi</h4>
+            <p>Is emri barkodu okutarak hızlı geçiş, ürün takibi</p>
+          </div>
+          <div class="card">
+            <h4>Offline Çalışma</h4>
+            <p>Internet kesilse bile çalışmaya devam, baglanti gelince senkronizasyon</p>
+          </div>
+          <div class="card">
+            <h4>NumPad Girişi</h4>
+            <p>Sayi girişlerinde buyuk dokunmatik NumPad, eldiven ile kullanim</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="terminal">
+        <h2>Terminal Acilis</h2>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Terminali Acin</h4>
+              <p>Bilgisayar veya tablette tarayıcıyi açın. ShopFloor Terminal otomatik olarak tam ekran açınir. Acilmiyorsa adres cubuguna <code>/shopfloor</code> yazin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Giriş Yapin</h4>
+              <p>Operator kodunuzu veya barkod kartinizi okutun. Her operatörün kendine özel kodu vardir. Kodu hatirlamiyorsaniz amirinize sorun.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Makinenizi Secin</h4>
+              <p>Giriş yaptiktan sonra size atanmis makinelerin listesi gelir. Bugun calisacaginiz makineyi secin.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="is-emri">
+        <h2>Is Emri Secme</h2>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Is Emri Listesini Gorun</h4>
+              <p>Makine sectikten sonra bu makineye atanmis is emirlerinin listesi görüntülenir. Oncelik sirasina gore siralanmistir &mdash; en ustteki en onceliklidir.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Is Emrini Secin</h4>
+              <p>Calisacaginiz is emrine dokunun. Is emri detaylari açılır: ürün adi, miktar, teknik resim, operasyon adimlari.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Barkod ile Hızlı Secim</h4>
+              <p>Is emri kagidindaki barkodu okutun. Sistem otomatik olarak ilgili is emrini acar. Elle secmeye gerek kalmaz.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="başlat">
+        <h2>Başlat / Duraklat / Tamamla</h2>
+
+        <div class="flow">
+          <div class="flow-step">BEKLIYOR</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step active">CALISIYOR</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">DURAKLATILDI</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">TAMAMLANDI</div>
+        </div>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Buton</th><th>Ne Zaman Kullanilir</th><th>Ne Olur</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong style="color:#22c55e;">BASLAT</strong></td>
+              <td>Is emri uzerinde çalışmaya basladiginizda</td>
+              <td>Kronometre baslar, is emri durumu "Calisiyor" olur. Üretim müdürü ekraninda canli güncellenir.</td>
+            </tr>
+            <tr>
+              <td><strong style="color:#f59e0b;">DURAKLAT</strong></td>
+              <td>Mola, malzeme bekleme, arıza gibi durumlarda</td>
+              <td>Kronometre durur. Duraklama sebebini secmeniz gerekir (mola, arıza, malzeme, diger).</td>
+            </tr>
+            <tr>
+              <td><strong style="color:#3b82f6;">DEVAM</strong></td>
+              <td>Duraklamadan sonra ise dondugunuzde</td>
+              <td>Kronometre tekrar baslar, kaldigi yerden devam eder.</td>
+            </tr>
+            <tr>
+              <td><strong style="color:#ef4444;">TAMAMLA</strong></td>
+              <td>Is emrindeki tüm parcalari islediniz</td>
+              <td>Tamamlanan adet sorulur. NumPad ile girin. Kalite kapisi varsa kontrol ekrani açılır.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="fire">
+        <h2>Fire Bildirimi</h2>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>"Fire Bildir" Butonuna Dokunun</h4>
+              <p>Is emri ekraninda sag altta kirmizi "Fire Bildir" butonu vardir. Hatali parça ciktiginda hemen buna dokunun.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Adedi Girin</h4>
+              <p>NumPad ile hatali parça adedini girin. Ornegin 3 parça hataliysa "3" yazin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Fire Nedenini Secin</h4>
+              <p>Listeden nedeni secin: boyut hatasi, yuzey hatasi, malzeme hatasi, operator hatasi, makine arizasi. Birden fazla neden secebilirsiniz.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>Kaydedin</h4>
+              <p>"Kaydet" butonuna dokunun. Bildirim kalite ekibine otomatik gonderilir.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-warn">
+          <strong>Önemli:</strong> Her fireyi hemen bildirin. Is emri sonunda topluca bildirmek yanlis fire orani hesaplanmasina yol acar. Aninda bildirirseniz kalite ekibi hemen müdahale edebilir.
+        </div>
+      </section>
+
+      <section id="barkod">
+        <h2>Barkod Okutma</h2>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>İşlem</th><th>Barkod Turu</th><th>Nasil Calisir</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Is emri secme</td><td>Is emri barkodu</td><td>Kagittaki barkodu okutun, is emri otomatik açılır</td></tr>
+            <tr><td>Operator girişi</td><td>Kimlik karti barkodu</td><td>Kartinizi okutun, şifre girmeden giriş yapın</td></tr>
+            <tr><td>Malzeme takibi</td><td>Malzeme lot barkodu</td><td>Malzemeyi okutun, lot numarası is emrine baglanir</td></tr>
+            <tr><td>Ürün etiketleme</td><td>Seri numara barkodu</td><td>Tamamlanan parcaya seri numara atanır</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="numpad">
+        <h2>NumPad Kullanimi</h2>
+        <p>Sayi girişi gereken her yerde ekranda buyuk bir NumPad (sayi klavyesi) açılır. Bu tuslara parmaginizla veya eldivenle dokunabilirsiniz.</p>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Tus</th><th>Islev</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>0-9</td><td>Sayi girişi</td></tr>
+            <tr><td>C</td><td>Girilen değeri temizle (sifirla)</td></tr>
+            <tr><td>&#9003;</td><td>Son haneyi sil</td></tr>
+            <tr><td>OK / &#10003;</td><td>Girişi onayla</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="offline">
+        <h2>Offline Çalışma ve Senkronizasyon</h2>
+
+        <p>ShopFloor Terminal internet baglantisi kesilse bile çalışmaya devam eder:</p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Baglanti Kesildiginde</h4>
+              <p>Ekranin üst kisminda türüncu "Cevrimdisi" yazisi belirir. Is emri başlat/duraklat/tamamla işlemlerine devam edebilirsiniz.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Veriler Yerel Kaydedilir</h4>
+              <p>Yaptiginiz tüm işlemler cihazin hafizasinda saklanir. Hicbir veriniz kaybolmaz.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Baglanti Geldiginde</h4>
+              <p>Yesil "Cevrimici" yazisi belirir. Bekleyen tüm işlemler otomatik olarak sunucuya gonderilir. Sizin birsey yapmaniza gerek yok.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> Offline modda iken bile fire bildirimi yapabilirsiniz. Baglanti geldiginde kalite ekibine otomatik bildirilir.
+        </div>
+      </section>
+
+      <section id="tipik-gun">
+        <h2>Tipik Bir Gun Senaryosu</h2>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Saat</th><th>Aktivite</th><th>Terminal İşlemi</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>07:00</td><td>Ise gelin. Terminal açın, kartinizi okutun.</td><td>Barkod ile giriş</td></tr>
+            <tr><td>07:05</td><td>CNC-2 makinesini secin. Is emri listesi geldi.</td><td>Makine secimi</td></tr>
+            <tr><td>07:10</td><td>İlk is emrini secin: "Mil işleme, 50 adet"</td><td>Is emri secimi</td></tr>
+            <tr><td>07:15</td><td>BASLAT butonuna dokunun. Kronometre baslar.</td><td>Başlat</td></tr>
+            <tr><td>09:00</td><td>3 adet hatali parça cikti. Fire bildirin.</td><td>Fire Bildir &gt; 3 adet &gt; Boyut hatasi</td></tr>
+            <tr><td>10:00</td><td>Mola. DURAKLAT butonuna dokunun, "Mola" secin.</td><td>Duraklat</td></tr>
+            <tr><td>10:15</td><td>Moladan donun. DEVAM butonuna dokunun.</td><td>Devam</td></tr>
+            <tr><td>12:00</td><td>50 adet tamamlandi (3 fire dahil). TAMAMLA'ya dokunun, adet: 47</td><td>Tamamla &gt; 47 adet</td></tr>
+            <tr><td>12:05</td><td>Kalite kontrolü gecti. Sonraki is emrine gecin.</td><td>Sonraki is emri</td></tr>
+            <tr><td>12:30</td><td>Ogle arası. DURAKLAT &gt; Mola.</td><td>Duraklat</td></tr>
+            <tr><td>13:30</td><td>DEVAM. Ikinci is emrini baslattin.</td><td>Devam &gt; Başlat</td></tr>
+            <tr><td>15:00</td><td>Internet kesildi. Türüncu "Cevrimdisi" uyarısi. Çalışmaya devam.</td><td>Offline mod</td></tr>
+            <tr><td>15:30</td><td>Internet geldi. Veriler otomatik senkronize edildi.</td><td>Otomatik senkronizasyon</td></tr>
+            <tr><td>16:30</td><td>Gun bitti. Son is emrini tamamlayin.</td><td>Tamamla</td></tr>
+            <tr><td>16:45</td><td>Çıkış yapın.</td><td>Çıkış</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="ipuçları">
+        <h2>İpuçları ve Yaygin Hatalar</h2>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> Is emrini başlatmayi unutmayin! Başlatmadan calisursaniz süre kaydı olmaz ve OEE yanlis hesaplanir.
+        </div>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> Mola ve arıza durumlarinda her zaman DURAKLAT butonunu kullanın. Boylece gerçek çalışma sureniz dogru olculur.
+        </div>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> Barkod okuyucu calismiyorsa is emri numarasıni elle girebilirsiniz. Arama kutusuna numarayi yazin.
+        </div>
+
+        <div class="callout callout-warn">
+          <strong>Dikkat:</strong> Is emri tamamlarken adet girerken dikkatli olun. 47 yerine 470 girerseniz stok rakamlari bozulur. Hata yaparsaniz hemen amirinize bildirin.
+        </div>
+
+        <div class="callout callout-warn">
+          <strong>Dikkat:</strong> Baskasinin operator koduyla giriş yapmayin. Her işlem sizin adiniza kaydedilir. Sorumluluk size aittir.
+        </div>
+
+        <div class="callout callout-warn">
+          <strong>Dikkat:</strong> Terminal ekranini kapatmayin. Kapatirsaniz sureniz kaybolmaz ama tekrar giriş yapmaniz gerekir.
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="doc-footer">
+    <p>Quvex ERP &mdash; CNC Operatörü Kılavuzu &middot; v1.5 &middot; Mart 2026</p>
+  </div>
+
+</div>
+<script src="../js/guide-enhancements.js"></script>
+</body>
+</html>

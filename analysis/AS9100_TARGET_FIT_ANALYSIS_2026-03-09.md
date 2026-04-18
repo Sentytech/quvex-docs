@@ -1,7 +1,7 @@
 # smallFactory AS9100 Hedef Uygunluk Analizi
 
 **Tarih:** 2026-03-09  
-**Kapsam:** `C:\rynSoft\smallFactory`, `C:\rynSoft\smallFactoryApi`, `C:\rynSoft\smallFactoryUI`  
+**Kapsam:** `C:\rynSoft\quvex\quvex-docs`, `C:\rynSoft\quvex\smallFactoryApi`, `C:\rynSoft\quvex\smallFactoryUI`  
 **Hedef persona:** 10-200 calisan, buyuk savunma sanayi ana yuklenicilerine calisan, AS9100 sertifikali veya sertifikasyon disiplinine gore isleyen alt yuklenici
 
 ## 1. Kisa Sonuc

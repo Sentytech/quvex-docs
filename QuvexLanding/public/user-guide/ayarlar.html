@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ayarlar - Quvex ERP Kullanıcı Kılavuzu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+
+  <a href="index.html" class="nav-back">&#8592; Ana Sayfa</a>
+
+  <div class="doc-header">
+    <span class="version-badge">v2.0</span>
+    <div class="breadcrumb"><a href="index.html">Kullanıcı Kılavuzu</a> / Ayarlar</div>
+    <h1>Sistem Ayarları</h1>
+    <p>Kullanıcı yönetimi, rol ve izinler, şirket bilgileri, güvenlik, multi-tenancy ve modül yapılandırması</p>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-value">RBAC</div>
+      <div class="stat-label">Yetki Modeli</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">12+</div>
+      <div class="stat-label">Karakter Şifre</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">11</div>
+      <div class="stat-label">Sektör Profili</div>
+    </div>
+  </div>
+
+  <!-- Sprint 11 Yenilikleri Callout -->
+  <div class="card" style="border-left:4px solid #f59e0b;background:linear-gradient(135deg,#fffbeb,#fef3c7);">
+    <div class="tip-title" style="color:#92400e;font-size:1rem;font-weight:700;margin-bottom:0.5rem;">Sprint 11 Yenilikleri (Nisan 2026)</div>
+    <ul style="margin:0 0 0 1.2rem;color:var(--text-secondary);line-height:1.7;">
+      <li><strong>8 Hazir Sektor Sablonu + Demo Veri:</strong> Gida, Tekstil, Metal CNC, Plastik, Medikal, Otomotiv, Savunma, Genel Uretim icin tek tikla demo yukleme. Bkz: <a href="ilk-adimlar.html#5-dakika">5 Dakikada Hazir</a>.</li>
+      <li><strong>WhatsApp Business API:</strong> Meta onayli sablonlarla musteri ve personel bildirimleri. Polly Circuit Breaker ile fail-safe calisma.</li>
+      <li><strong>Persona Dashboard:</strong> Role gore ozelleştirilmis dashboard secenekleri (Fabrika Muduru, Operator, Kalite, Satinalma, Bakim).</li>
+      <li><strong>Real-time Pano (SignalR):</strong> TV gosterimi icin canli uretim ve kalite panolari, sayfa yenileme olmadan anlik veri.</li>
+      <li><strong>Yeni Modul Sayfalari:</strong> <a href="modules/product-variant.html">ProductVariant</a>, <a href="modules/haccp-recall.html">HACCP/Recall</a>, <a href="modules/mold-inventory.html">Kalip Envanteri</a>, <a href="modules/ce-technical-file.html">CE Teknik Dosya</a>, <a href="modules/wps-wpqr.html">WPS/WPQR</a>.</li>
+    </ul>
+  </div>
+
+  <div class="two-col">
+
+    <aside>
+      <nav class="nav-sidebar">
+        <a href="#kullanıcı">Kullanıcı Yönetimi</a>
+        <a href="#roller">Rol ve İzinler</a>
+        <a href="#sirket">Şirket Bilgileri</a>
+        <a href="#sektör">Sektör Profili</a>
+        <a href="#modül">Modül Ayarları</a>
+        <a href="#bildirim">Bildirim Ayarları</a>
+        <a href="#güvenlik">Güvenlik</a>
+        <a href="#tenancy">Multi-Tenancy</a>
+        <a href="#faq">SSS</a>
+      </nav>
+    </aside>
+
+    <main>
+
+      <!-- ======================================== -->
+      <!-- 1. KULLANICI YÖNETİMİ                    -->
+      <!-- ======================================== -->
+      <section id="kullanıcı">
+        <h2>1. Kullanıcı Yönetimi</h2>
+        <p>Sisteme erişecek tüm personeli kullanıcı olarak tanımlayın. Her kullanıcıya bir rol atanır ve izinleri bu role göre belirlenir.</p>
+
+        <h3>Kullanıcı Oluşturma</h3>
+        <table class="field-table">
+          <thead><tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th></tr></thead>
+          <tbody>
+            <tr><td class="required">Ad Soyad</td><td>Kullanıcının tam adı</td><td>Evet</td></tr>
+            <tr><td class="required">E-posta</td><td>Giriş için kullanılacak e-posta adresi</td><td>Evet</td></tr>
+            <tr><td class="required">Şifre</td><td>En az 8 karakter, büyük/küçük harf, rakam ve özel karakter</td><td>Evet</td></tr>
+            <tr><td class="required">Rol</td><td>Kullanıcıya atanacak rol (ör. Üretim Sorumlusu)</td><td>Evet</td></tr>
+            <tr><td>Telefon</td><td>İletişim numarası</td><td>Hayır</td></tr>
+            <tr><td>Departman</td><td>Bağlı olduğu birim</td><td>Hayır</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Şifre Politikası</h3>
+        <div class="card">
+          <h4>Zorunlu Kurallar</h4>
+          <table>
+            <thead><tr><th>Kural</th><th>Gereksinim</th></tr></thead>
+            <tbody>
+              <tr><td>Minimum uzunluk</td><td><strong>8 karakter</strong></td></tr>
+              <tr><td>Büyük harf</td><td>En az 1 adet (A-Z)</td></tr>
+              <tr><td>Küçük harf</td><td>En az 1 adet (a-z)</td></tr>
+              <tr><td>Rakam</td><td>En az 1 adet (0-9)</td></tr>
+              <tr><td>Özel karakter</td><td>En az 1 adet (!@#$%^&amp;*)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="warning tip">
+          <div class="tip-title">Dikkat</div>
+          Kullanıcı oluşturma ve düzenleme yetkisi yalnızca "Yönetici" rolüne aittir. Diğer kullanıcılar yalnızca kendi profillerini güncelleyebilir.
+        </div>
+      </section>
+
+      <!-- ======================================== -->
+      <!-- 2. ROL VE İZİNLER                         -->
+      <!-- ======================================== -->
+      <section id="roller">
+        <h2>2. Rol ve İzin Yönetimi</h2>
+        <p>Quvex, RBAC (Role-Based Access Control) yetki modeli kullanır. Her rol, modül bazlı izinlerden oluşur.</p>
+
+        <h3>İzin Türleri</h3>
+        <table>
+          <thead><tr><th>İzin</th><th>Kod</th><th>Açıklama</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge badge-info">Görüntüle</span></td><td>Görüntüle</td><td>Verileri okuma, listeleme, detay görüntüleme</td></tr>
+            <tr><td><span class="badge badge-success">Kaydet</span></td><td>Kaydet</td><td>Yeni kayıt oluşturma ve mevcut kaydı düzenleme</td></tr>
+            <tr><td><span class="badge badge-danger">Sil</span></td><td>Sil</td><td>Kaydı kalıcı olarak silme</td></tr>
+          </tbody>
+        </table>
+
+        <div class="info tip">
+          <div class="tip-title">Bilgi</div>
+          Sistemde "Ekle" ve "Düzenle" ayrı izinler yoktur. "Kaydet" izni hem yeni kayıt oluşturmayı hem mevcut kaydı düzenlemeyi kapsar.
+        </div>
+
+        <h3>Örnek Rol Yapılandırması</h3>
+        <table>
+          <thead><tr><th>Modül</th><th>Üretim Sorumlusu</th><th>Satınalmacı</th><th>Kaliteci</th><th>Yönetici</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Üretim</td>
+              <td><span class="badge badge-success">Görüntüle + Kaydet</span></td>
+              <td><span class="badge badge-info">Görüntüle</span></td>
+              <td><span class="badge badge-info">Görüntüle</span></td>
+              <td><span class="badge badge-danger">Tam Yetki</span></td>
+            </tr>
+            <tr>
+              <td>Satınalma</td>
+              <td><span class="badge badge-info">Görüntüle</span></td>
+              <td><span class="badge badge-success">Görüntüle + Kaydet</span></td>
+              <td><span class="badge badge-info">Görüntüle</span></td>
+              <td><span class="badge badge-danger">Tam Yetki</span></td>
+            </tr>
+            <tr>
+              <td>Kalite</td>
+              <td><span class="badge badge-info">Görüntüle</span></td>
+              <td><span class="badge badge-info">Görüntüle</span></td>
+              <td><span class="badge badge-success">Görüntüle + Kaydet</span></td>
+              <td><span class="badge badge-danger">Tam Yetki</span></td>
+            </tr>
+            <tr>
+              <td>Ayarlar</td>
+              <td><span class="badge badge-default">Erişim Yok</span></td>
+              <td><span class="badge badge-default">Erişim Yok</span></td>
+              <td><span class="badge badge-default">Erişim Yok</span></td>
+              <td><span class="badge badge-danger">Tam Yetki</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Yeni Rol Oluşturma</h3>
+        <ol>
+          <li><strong>Ayarlar &gt; Roller</strong> sayfasına gidin</li>
+          <li><strong>+ Yeni Rol</strong> butonuna tıklayın</li>
+          <li>Rol adını girin (ör. "Depo Sorumlusu")</li>
+          <li>Her modül için izinleri (Görüntüle / Kaydet / Sil) işaretleyin</li>
+          <li>Kaydedin</li>
+        </ol>
+
+        <div class="warning tip">
+          <div class="tip-title">Dikkat</div>
+          "Yönetici" rolü silinemez ve izinleri değiştirilemez. Bu rol her zaman tam yetkiye sahiptir.
+        </div>
+      </section>
+
+      <!-- ======================================== -->
+      <!-- 3. ŞİRKET BİLGİLERİ                      -->
+      <!-- ======================================== -->
+      <section id="sirket">
+        <h2>3. Şirket Bilgileri</h2>
+        <p>Fatura, teklif ve raporlarda kullanılacak firma bilgilerini tanımlayın.</p>
+
+        <table class="field-table">
+          <thead><tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th></tr></thead>
+          <tbody>
+            <tr><td class="required">Firma Adı</td><td>Ticari unvan</td><td>Evet</td></tr>
+            <tr><td class="required">Vergi No</td><td>10 haneli vergi kimlik numarası</td><td>Evet</td></tr>
+            <tr><td class="required">Vergi Dairesi</td><td>Bağlı olunan vergi dairesi</td><td>Evet</td></tr>
+            <tr><td>Logo</td><td>Firma logosu (PNG/SVG, maks 10MB)</td><td>Hayır</td></tr>
+            <tr><td>Adres</td><td>Merkez ofis adresi</td><td>Hayır</td></tr>
+            <tr><td>Telefon</td><td>Genel telefon numarası</td><td>Hayır</td></tr>
+            <tr><td>E-posta</td><td>Genel firma e-posta adresi</td><td>Hayır</td></tr>
+            <tr><td>Web Sitesi</td><td>Firma web adresi</td><td>Hayır</td></tr>
+          </tbody>
+        </table>
+
+        <div class="tip">
+          <div class="tip-title">İpucu</div>
+          Firma logosu tüm PDF export ve yazdırma çıktılarında otomatik olarak kullanılır.
+        </div>
+      </section>
+
+      <!-- ======================================== -->
+      <!-- 4. SEKTÖR PROFİLİ                         -->
+      <!-- ======================================== -->
+      <section id="sektör">
+        <h2>4. Sektör Profili</h2>
+        <p>Quvex, seçtiğiniz sektöre göre arayüzü ve varsayılan ayarları otomatik yapılandırır.</p>
+
+        <h3>Desteklenen Sektörler (11 adet)</h3>
+        <table>
+          <thead><tr><th>Sektör</th><th>Özel Özellikler</th></tr></thead>
+          <tbody>
+            <tr><td>Savunma Sanayi</td><td>AS9100 modülleri aktif, izlenebilirlik zorunlu, CoC, MRB</td></tr>
+            <tr><td>Havacılık</td><td>AS9100, seri numarası takibi, data pack</td></tr>
+            <tr><td>Otomotiv</td><td>SPC aktif, PPAP dokümanları</td></tr>
+            <tr><td>Medikal</td><td>Lot/parti takibi, sterilizasyon kaydı</td></tr>
+            <tr><td>Makine İmalat</td><td>Proje bazlı üretim, BOM ağacı</td></tr>
+            <tr><td>Metal İşleme</td><td>Fason sipariş aktif, ısıl işlem takibi</td></tr>
+            <tr><td>Plastik</td><td>Kalıp yönetimi, renk kodu takibi</td></tr>
+            <tr><td>Elektronik</td><td>PCB takibi, komponent yönetimi</td></tr>
+            <tr><td>Gıda</td><td>Son kullanma tarihi, HACCP uyumlu</td></tr>
+            <tr><td>Tekstil</td><td>Beden/renk varyantları, sezon yönetimi</td></tr>
+            <tr><td>Genel Üretim</td><td>Standart ERP özellikleri</td></tr>
+          </tbody>
+        </table>
+
+        <div class="info tip">
+          <div class="tip-title">Bilgi</div>
+          Sektör profili ilk kurulumda seçilir. Sonradan değiştirilebilir ancak bazı modüller pasife alınabilir. Veriler silinmez.
+        </div>
+      </section>
+
+      <!-- ======================================== -->
+      <!-- 5. MODÜL AYARLARI                         -->
+      <!-- ======================================== -->
+      <section id="modül">
+        <h2>5. Modül Ayarları</h2>
+        <p>Her modülün özel parametreleri bu bölümden yapılandırılır.</p>
+
+        <h3>Stok Ayarları</h3>
+        <table class="field-table">
+          <thead><tr><th>Parametre</th><th>Açıklama</th><th>Varsayılan</th></tr></thead>
+          <tbody>
+            <tr><td>Negatif stok izni</td><td>Stok sıfırın altına düşebilir mi?</td><td>Hayır</td></tr>
+            <tr><td>Otomatik stok kodu</td><td>Ürün kodu otomatik mi üretilsin?</td><td>Evet</td></tr>
+            <tr><td>Depo lokasyon zorunluluğu</td><td>Stok hareketlerinde lokasyon seçimi zorunlu mu?</td><td>Hayır</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Üretim Ayarları</h3>
+        <table class="field-table">
+          <thead><tr><th>Parametre</th><th>Açıklama</th><th>Varsayılan</th></tr></thead>
+          <tbody>
+            <tr><td>İş emri numaralama</td><td>Otomatik numara formatı (ör. WO-2026-0001)</td><td>WO-YYYY-NNNN</td></tr>
+            <tr><td>Fire toleransı (%)</td><td>Kabul edilebilir fire oranı</td><td>%2</td></tr>
+            <tr><td>Otomatik stok düşümü</td><td>İş emri başladığında malzeme otomatik düşsün mü?</td><td>Evet</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Kalite Ayarları</h3>
+        <table class="field-table">
+          <thead><tr><th>Parametre</th><th>Açıklama</th><th>Varsayılan</th></tr></thead>
+          <tbody>
+            <tr><td>Giriş kontrol zorunluluğu</td><td>Mal alımda kalite kontrol zorunlu mu?</td><td>Evet</td></tr>
+            <tr><td>NCR otomatik numaralama</td><td>Uygunsuzluk kayıt numarası formatı</td><td>NCR-YYYY-NNNN</td></tr>
+            <tr><td>CAPA kapatma süresi (gün)</td><td>CAPA için maksimum kapatma süresi</td><td>30</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ======================================== -->
+      <!-- 6. BİLDİRİM AYARLARI                     -->
+      <!-- ======================================== -->
+      <section id="bildirim">
+        <h2>6. Bildirim Ayarları</h2>
+        <p>Bildirimlerin nasıl ve kime gönderileceğini yapılandırın.</p>
+
+        <h3>Bildirim Kanalları</h3>
+        <table>
+          <thead><tr><th>Kanal</th><th>Açıklama</th><th>Varsayılan</th></tr></thead>
+          <tbody>
+            <tr><td>SignalR (Anlık)</td><td>Tarayıcıda anlık pop-up bildirim</td><td><span class="badge badge-success">Açık</span></td></tr>
+            <tr><td>E-posta</td><td>Belirli olaylar için e-posta gönderimi</td><td><span class="badge badge-default">Kapalı</span></td></tr>
+            <tr><td>Sesli Uyarı</td><td>Kritik olaylar için tarayıcı sesi</td><td><span class="badge badge-default">Kapalı</span></td></tr>
+          </tbody>
+        </table>
+
+        <h3>Olay Bazlı Ayarlar</h3>
+        <p>Her bildirim türü için hangi kanalların aktif olacağını seçebilirsiniz:</p>
+        <table>
+          <thead><tr><th>Olay</th><th>SignalR</th><th>E-posta</th><th>Sesli</th></tr></thead>
+          <tbody>
+            <tr><td>Yeni sipariş</td><td>Varsayılan açık</td><td>İsteğe bağlı</td><td>Kapalı</td></tr>
+            <tr><td>Stok uyarısı</td><td>Varsayılan açık</td><td>İsteğe bağlı</td><td>İsteğe bağlı</td></tr>
+            <tr><td>Makine arızası</td><td>Varsayılan açık</td><td>Varsayılan açık</td><td>Varsayılan açık</td></tr>
+            <tr><td>Bakım hatırlatma</td><td>Varsayılan açık</td><td>İsteğe bağlı</td><td>Kapalı</td></tr>
+            <tr><td>Kalite reddi</td><td>Varsayılan açık</td><td>Varsayılan açık</td><td>İsteğe bağlı</td></tr>
+          </tbody>
+        </table>
+
+        <div class="tip">
+          <div class="tip-title">İpucu</div>
+          E-posta bildirimleri için SMTP ayarlarının yapılandırılmış olması gerekir. <strong>Ayarlar &gt; E-posta</strong> sayfasından SMTP sunucu bilgilerini girin.
+        </div>
+      </section>
+
+      <!-- ======================================== -->
+      <!-- 7. GÜVENLİK                              -->
+      <!-- ======================================== -->
+      <section id="güvenlik">
+        <h2>7. Güvenlik</h2>
+        <p>Quvex, kurumsal düzeyde güvenlik önlemleri uygular.</p>
+
+        <h3>Hesap Kilitleme</h3>
+        <div class="card">
+          <h4>5 Başarısız Giriş = 15 Dakika Kilit</h4>
+          <p>Art arda 5 kez yanlış şifre girildiğinde hesap otomatik olarak 15 dakika kilitlenir. Bu süre içinde doğru şifre girilse bile giriş yapılamaz.</p>
+        </div>
+
+        <h3>Güvenlik Önlemleri</h3>
+        <table>
+          <thead><tr><th>Önlem</th><th>Açıklama</th></tr></thead>
+          <tbody>
+            <tr><td>CSRF Koruması</td><td>Her state-changing isteğinde <code>X-Requested-With</code> veya <code>Authorization</code> header zorunlu</td></tr>
+            <tr><td>SQL Injection</td><td>Tüm sorgular parametrik, doğrudan SQL kullanılmaz</td></tr>
+            <tr><td>XSS Koruması</td><td>CSP (Content Security Policy) header aktif</td></tr>
+            <tr><td>CORS</td><td>Yalnızca belirli domain'lerden erişime izin verilir</td></tr>
+            <tr><td>Dosya Yükleme</td><td>Whitelist (izin verilen uzantılar), 10MB limit, MIME doğrulama</td></tr>
+            <tr><td>Güvenlik Header</td><td>HSTS, X-Frame-Options, X-Content-Type-Options aktif</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Denetim İzi (Audit Trail)</h3>
+        <p>Güvenlikle ilgili tüm olaylar <code>[SECURITY]</code> ön eki ile loglanır:</p>
+        <ul>
+          <li>Başarılı ve başarısız giriş denemeleri</li>
+          <li>Hesap kilitleme/açma</li>
+          <li>İzin değişiklikleri</li>
+          <li>Kullanıcı oluşturma/silme</li>
+          <li>Şifre değişiklikleri</li>
+        </ul>
+
+        <div class="warning tip">
+          <div class="tip-title">Dikkat</div>
+          Denetim izi kayıtları silinemez. Yasal zorunluluklar gereği en az 5 yıl saklanır.
+        </div>
+      </section>
+
+      <!-- ======================================== -->
+      <!-- 8. MULTI-TENANCY                          -->
+      <!-- ======================================== -->
+      <section id="tenancy">
+        <h2>8. Multi-Tenancy (Yönetici İçin)</h2>
+        <p>Quvex, birden fazla firmanın (tenant) aynı sistem üzerinde izole şekilde çalışmasını destekler. Bu bölüm yalnızca sistem yöneticileri içindir.</p>
+
+        <h3>Tenant Kavramı</h3>
+        <div class="card">
+          <h4>Nedir?</h4>
+          <p>Tenant, sistemi kullanan her bir firma anlamına gelir. Her tenant'ın verileri diğerlerinden tamamen izole edilmiştir. Bir firma diğer firmanın verilerini göremez, erişemez.</p>
+        </div>
+
+        <h3>Tenant Katmanları</h3>
+        <table>
+          <thead><tr><th>Katman</th><th>İzolasyon</th><th>Açıklama</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><span class="badge badge-info">Tier 1: Shared</span></td>
+              <td>Schema bazlı</td>
+              <td>Aynı veritabanı, farklı schema. Küçük firmalar için uygun.</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-success">Tier 2: Dedicated DB</span></td>
+              <td>Veritabanı bazlı</td>
+              <td>Ayrı veritabanı, aynı sunucu. Orta ölçek firmalar.</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-danger">Tier 3: Dedicated Server</span></td>
+              <td>Sunucu bazlı</td>
+              <td>Tamamen ayrı sunucu. Savunma sanayi ve kritik müşteriler.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Veri İzolasyonu</h3>
+        <p>Tüm sorgularda otomatik tenant filtresi uygulanır (EF Core <code>HasQueryFilter</code>). 143 entity üzerinde izolasyon aktiftir. SignalR bildirimleri de tenant bazlı gruplandırılır; bir tenant'ın bildirimi başka tenant'a iletilmez.</p>
+
+        <div class="warning tip">
+          <div class="tip-title">Dikkat</div>
+          Tenant ayarları yalnızca sistem yöneticisi (Super Admin) tarafından değiştirilebilir. Yanlış yapılandırma veri izolasyonunu bozabilir.
+        </div>
+      </section>
+
+      <!-- ======================================== -->
+      <!-- 9. SSS                                    -->
+      <!-- ======================================== -->
+      <section id="faq">
+        <h2>9. Sık Sorulan Sorular</h2>
+
+        <div class="card">
+          <h4>1. Şifremi unuttum, ne yapmalıyım?</h4>
+          <p>Giriş sayfasında <strong>Şifremi Unuttum</strong> bağlantısına tıklayın. E-posta adresinize şifre sıfırlama bağlantısı gönderilir. Bağlantı 24 saat geçerlidir.</p>
+        </div>
+
+        <div class="card">
+          <h4>2. Hesabım kilitlendi, ne kadar beklemeliyim?</h4>
+          <p>5 başarısız giriş denemesi sonrası hesap 15 dakika kilitlenir. Bu süre sonunda otomatik açılır. Acil durumda yöneticiden kilidi kaldırmasını isteyin.</p>
+        </div>
+
+        <div class="card">
+          <h4>3. Yeni bir rol nasıl oluştururum?</h4>
+          <p><strong>Ayarlar &gt; Roller &gt; + Yeni Rol</strong> yolunu izleyin. Her modül için Görüntüle/Kaydet/Sil izinlerini ayrı ayrı işaretleyin.</p>
+        </div>
+
+        <div class="card">
+          <h4>4. Sektör profilini değiştirmek verileri siler mi?</h4>
+          <p>Hayır. Veriler korunur. Ancak yeni sektöre ait olmayan modüller pasife alınabilir (veriler silinmez, erişim kapanır).</p>
+        </div>
+
+        <div class="card">
+          <h4>5. Bir kullanıcıyı silebilir miyim?</h4>
+          <p>Sistemde kaydı olan kullanıcılar (ör. iş emri oluşturmuş) silinemez, yalnızca pasife alınabilir. Hiç işlem yapmamış kullanıcılar silinebilir.</p>
+        </div>
+
+        <div class="card">
+          <h4>6. E-posta bildirimleri gelmiyor, ne yapmalıyım?</h4>
+          <p><strong>Ayarlar &gt; E-posta</strong> sayfasından SMTP ayarlarını kontrol edin. "Test E-posta Gönder" butonu ile bağlantıyı doğrulayabilirsiniz.</p>
+        </div>
+
+        <div class="card">
+          <h4>7. Logo yükleyemiyorum, hata alıyorum.</h4>
+          <p>Dosya boyutu 10MB'dan küçük olmalıdır. Desteklenen formatlar: PNG, SVG, JPG. Dosya adında Türkçe karakter veya boşluk olmamalıdır.</p>
+        </div>
+
+        <div class="card">
+          <h4>8. Denetim izi kayıtlarına nasıl ulaşırım?</h4>
+          <p><strong>Ayarlar &gt; Güvenlik &gt; Denetim İzi</strong> sayfasından tüm güvenlik olaylarını tarih ve kullanıcı bazlı filtreleyebilirsiniz.</p>
+        </div>
+
+        <div class="card">
+          <h4>9. Multi-tenancy aktif mi, nasıl anlarım?</h4>
+          <p>Giriş yaptığınızda sağ üst köşede firma adınız görünüyorsa multi-tenancy aktiftir. Tek firmalı kurulumlarda bu gösterilmez.</p>
+        </div>
+
+        <div class="card">
+          <h4>10. Sistem hangi tarayıcıları destekliyor?</h4>
+          <p>Chrome, Firefox, Edge ve Safari'nin son 2 versiyonu desteklenir. Internet Explorer desteklenmez.</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="doc-footer">
+    Quvex ERP &copy; 2026 &mdash; Sistem Ayarları Kullanıcı Kılavuzu v2.0
+  </div>
+
+</div>
+<script src="js/guide-enhancements.js"></script>
+</body>
+</html>

@@ -1,11 +1,11 @@
 # smallFactory Canli Analiz Raporu
 
 **Tarih:** 2026-03-08  
-**Analiz kapsami:** `C:\rynSoft\smallFactory`, `C:\rynSoft\smallFactoryApi`, `C:\rynSoft\smallFactoryUI`
+**Analiz kapsami:** `C:\rynSoft\quvex\quvex-docs`, `C:\rynSoft\quvex\smallFactoryApi`, `C:\rynSoft\quvex\smallFactoryUI`
 
 ## 1. Yonetici Ozeti
 
-`smallFactory`, kucuk ve orta olcekli uretim isletmeleri icin tekliften sevkiyata uzanan operasyonlari yoneten genis kapsamli bir ERP urunu. Ancak `C:\rynSoft\smallFactory` klasoru dogrudan uygulama kodu icermiyor; bu klasor su an analiz ve koordinasyon alanina donusmus durumda. Gercek calisan urun iki ayri repoda yasiyor:
+`smallFactory`, kucuk ve orta olcekli uretim isletmeleri icin tekliften sevkiyata uzanan operasyonlari yoneten genis kapsamli bir ERP urunu. Ancak `C:\rynSoft\quvex\quvex-docs` klasoru dogrudan uygulama kodu icermiyor; bu klasor su an analiz ve koordinasyon alanina donusmus durumda. Gercek calisan urun iki ayri repoda yasiyor:
 
 - `smallFactoryApi`: backend
 - `smallFactoryUI`: frontend

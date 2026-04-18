@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quvex ERP - Savunma Ozel Prosesler E2E Test Plani v1.0</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #1e3a5f;
+  --orange: #e85c2d;
+  --green: #16a34a;
+  --red: #dc2626;
+  --gray: #6b7280;
+  --light: #f4f7fb;
+  --border: #d0daea;
+  --pass-bg: #f0fdf4;
+  --fail-bg: #fef2f2;
+  --skip-bg: #f9fafb;
+  --violet-bg: #faf5ff;
+  --violet-border: #7c3aed;
+}
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 13px;
+  color: #1a1a1a;
+  background: #eef2f7;
+}
+.sticky-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--navy);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+.sticky-logo { font-size: 18px; font-weight: 900; letter-spacing: -1px; }
+.sticky-logo span { color: var(--orange); }
+.sticky-title { flex: 1; font-size: 12px; color: rgba(255, 255, 255, 0.78); }
+.sticky-stats { display: flex; gap: 12px; align-items: center; }
+.sticky-stat { text-align: center; min-width: 54px; }
+.sticky-stat .n { font-size: 20px; font-weight: 700; line-height: 1; }
+.sticky-stat .l { font-size: 10px; color: rgba(255, 255, 255, 0.62); }
+.stat-pass .n { color: #4ade80; }
+.stat-fail .n { color: #f87171; }
+.stat-skip .n { color: #e5e7eb; }
+.progress-wrap { width: 180px; }
+.progress-bar-bg {
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+}
+.progress-bar-fill {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #4ade80, #22c55e);
+  border-radius: 999px;
+}
+.progress-pct { margin-top: 4px; text-align: right; font-size: 11px; color: rgba(255, 255, 255, 0.72); }
+.btn-print, .btn-reset {
+  border: none;
+  border-radius: 999px;
+  padding: 7px 16px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.btn-print { background: var(--orange); color: #fff; font-weight: 600; }
+.btn-reset { background: rgba(255, 255, 255, 0.12); color: #fff; border: 1px solid rgba(255, 255, 255, 0.25); }
+.page-wrap { max-width: 980px; margin: 0 auto; padding: 24px 16px 48px; }
+.cover, .card, .summary-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+.cover {
+  text-align: center;
+  padding: 42px 42px 36px;
+  margin-bottom: 20px;
+}
+.cover-logo { font-size: 52px; font-weight: 900; color: var(--navy); letter-spacing: -3px; }
+.cover-logo span { color: var(--orange); }
+.cover-sub { font-size: 12px; color: #7b8794; letter-spacing: 3px; text-transform: uppercase; margin: 4px 0 24px; }
+.cover-title { font-size: 26px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+.cover-scenario { font-size: 15px; color: #555; margin-bottom: 24px; }
+.cover-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  max-width: 760px;
+  margin: 0 auto 20px;
+}
+.cover-card {
+  background: var(--light);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 18px;
+  text-align: left;
+}
+.cover-card .k {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #777;
+  margin-bottom: 5px;
+}
+.cover-card .v { font-size: 14px; font-weight: 600; color: var(--navy); }
+.cover-badge {
+  display: inline-block;
+  background: var(--orange);
+  color: #fff;
+  border-radius: 999px;
+  padding: 5px 16px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 14px;
+}
+.cover-warning {
+  display: inline-block;
+  max-width: 680px;
+  text-align: left;
+  background: #fffbeb;
+  border: 1px solid #fcd34d;
+  color: #92400e;
+  border-radius: 8px;
+  padding: 14px 16px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.card { margin-bottom: 16px; overflow: hidden; }
+.faz-header {
+  background: var(--navy);
+  color: #fff;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+.faz-badge {
+  background: var(--orange);
+  border-radius: 999px;
+  padding: 3px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+.faz-title { flex: 1; font-size: 15px; font-weight: 600; }
+.faz-meta { font-size: 11px; color: rgba(255, 255, 255, 0.65); }
+.faz-pct { min-width: 40px; text-align: right; color: #86efac; font-weight: 700; }
+.faz-toggle { transition: transform .25s; }
+.faz-header.collapsed .faz-toggle { transform: rotate(-90deg); }
+.step {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border);
+  transition: background .2s;
+}
+.step:last-child { border-bottom: none; }
+.step.passed { background: var(--pass-bg); }
+.step.failed { background: var(--fail-bg); }
+.step.skipped { background: var(--skip-bg); }
+.step-top { display: flex; align-items: flex-start; gap: 12px; }
+.step-num {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.step.passed .step-num { background: var(--green); }
+.step.failed .step-num { background: var(--red); }
+.step.skipped .step-num { background: var(--gray); }
+.step-content { flex: 1; }
+.step-title { font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+.step-role { font-size: 11px; color: #7a7a7a; margin-bottom: 10px; }
+.step-role strong { color: var(--navy); }
+.nav-box, .api-box, .box-info, .box-warn {
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin: 8px 0 12px;
+  font-size: 12px;
+}
+.nav-box {
+  background: #f0f7ff;
+  border: 1px solid #bfdbfe;
+}
+.api-box {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+}
+.box-info {
+  background: #eff6ff;
+  border-left: 4px solid #3b82f6;
+  color: #1d4ed8;
+}
+.box-warn {
+  background: #fffbeb;
+  border-left: 4px solid #f59e0b;
+  color: #92400e;
+}
+.nav-label, .api-label, .exp-title, .checklist-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+.nav-label { color: #1e40af; }
+.api-label { color: #334155; }
+.nav-step, .api-step {
+  display: flex;
+  gap: 8px;
+  margin: 4px 0;
+  color: #1e3a5f;
+}
+.nav-step .arrow, .api-step .arrow { color: var(--orange); flex-shrink: 0; }
+.nav-step code, .api-step code {
+  background: rgba(0, 0, 0, 0.06);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 11px;
+}
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8px 0 12px;
+  font-size: 12px;
+}
+.data-table th {
+  background: var(--navy);
+  color: #fff;
+  text-align: left;
+  padding: 8px 10px;
+  font-size: 11px;
+}
+.data-table td {
+  padding: 7px 10px;
+  border-bottom: 1px solid #e7edf6;
+  vertical-align: top;
+}
+.data-table tr:nth-child(even) td { background: #f8fafd; }
+.data-table .fn { width: 28%; font-weight: 600; color: var(--navy); }
+.data-table .fv { font-family: "Consolas", "Courier New", monospace; }
+.data-table .fd { color: #7b7b7b; font-size: 11px; }
+.expected {
+  background: var(--violet-bg);
+  border-left: 4px solid var(--violet-border);
+  border-radius: 0 6px 6px 0;
+  padding: 10px 14px;
+  margin: 10px 0;
+}
+.exp-title { color: #5b21b6; }
+.expected ul { padding-left: 18px; }
+.expected li { margin: 4px 0; }
+.checklist {
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  border-radius: 6px;
+  padding: 12px 14px;
+  margin: 10px 0;
+}
+.checklist-title { color: #166534; }
+.checklist label {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12px;
+  margin: 5px 0;
+  line-height: 1.45;
+}
+.checklist input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  margin-top: 1px;
+  accent-color: var(--green);
+}
+.result-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  border-top: 1px dashed var(--border);
+  padding-top: 12px;
+  margin-top: 14px;
+}
+.result-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.btn-result {
+  border: 2px solid transparent;
+  border-radius: 999px;
+  padding: 6px 18px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-pass { background: #dcfce7; color: var(--green); border-color: #86efac; }
+.btn-fail { background: #fee2e2; color: var(--red); border-color: #fca5a5; }
+.btn-skip { background: #f3f4f6; color: var(--gray); border-color: #d1d5db; }
+.btn-pass.active { background: var(--green); color: #fff; border-color: var(--green); }
+.btn-fail.active { background: var(--red); color: #fff; border-color: var(--red); }
+.btn-skip.active { background: var(--gray); color: #fff; border-color: var(--gray); }
+.result-status-tag {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  border-radius: 999px;
+  padding: 3px 12px;
+}
+.tag-pass { background: #dcfce7; color: var(--green); }
+.tag-fail { background: #fee2e2; color: var(--red); }
+.tag-skip { background: #f3f4f6; color: var(--gray); }
+.result-note-wrap { width: 100%; }
+.result-note {
+  width: 100%;
+  display: none;
+  min-height: 40px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 8px 10px;
+  font-size: 12px;
+  resize: vertical;
+  font-family: inherit;
+}
+.step.failed .result-note { display: block; border-color: #fca5a5; }
+.summary-card { padding: 28px; margin-top: 20px; }
+.summary-header { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 18px; }
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 22px;
+}
+.sum-box {
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+}
+.sum-box .n { font-size: 34px; font-weight: 800; line-height: 1; }
+.sum-box .l { font-size: 12px; margin-top: 5px; }
+.sum-total { background: #eff6ff; color: #1d4ed8; }
+.sum-pass { background: #dcfce7; color: var(--green); }
+.sum-fail { background: #fee2e2; color: var(--red); }
+.sum-skip { background: #f3f4f6; color: var(--gray); }
+.pass-rate-bar {
+  height: 14px;
+  border-radius: 999px;
+  background: #e5e7eb;
+  overflow: hidden;
+  margin-top: 8px;
+}
+.pass-rate-fill {
+  height: 100%;
+  width: 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #16a34a, #4ade80);
+}
+.fail-list {
+  margin-top: 18px;
+  border: 1px solid #fca5a5;
+  border-radius: 8px;
+  overflow: hidden;
+  display: none;
+}
+.fail-list-header {
+  background: #fee2e2;
+  color: var(--red);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 9px 14px;
+}
+.fail-item {
+  display: flex;
+  gap: 8px;
+  padding: 9px 14px;
+  border-top: 1px solid #fde8e8;
+  font-size: 12px;
+}
+.fi-num {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--red);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.note-block {
+  margin-top: 18px;
+  background: var(--light);
+  border-radius: 8px;
+  padding: 16px;
+}
+.note-block textarea {
+  width: 100%;
+  min-height: 72px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 8px 10px;
+  resize: vertical;
+  font-size: 12px;
+  font-family: inherit;
+}
+.sign-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 22px;
+}
+.sign-box {
+  border: 1px solid #b9c3d1;
+  border-radius: 8px;
+  padding: 14px;
+}
+.sign-box .sl { display: block; font-size: 10px; color: #777; margin-bottom: 30px; }
+.sign-box .sl2 { display: block; border-top: 1px solid #374151; padding-top: 5px; font-size: 10px; color: #777; }
+.kh-toggle {
+  background: #fef9c3;
+  border: 1px solid #fde047;
+  border-radius: 6px;
+  padding: 9px 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #854d0e;
+  user-select: none;
+}
+.kh-toggle:hover { background: #fef08a; }
+.kh-arr { margin-left: auto; transition: transform .25s; display: inline-block; }
+.kh-toggle.open .kh-arr { transform: rotate(180deg); }
+.kh-body {
+  display: none;
+  background: #fffef0;
+  border: 1px solid #fde047;
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+  padding: 12px 14px;
+}
+.kh-body.open { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.kh-item { padding: 10px 12px; border-radius: 6px; font-size: 12px; line-height: 1.5; }
+.kh-what { background: #eff6ff; border-left: 3px solid #3b82f6; }
+.kh-why { background: #f0fdf4; border-left: 3px solid #16a34a; }
+.kh-impact { background: #faf5ff; border-left: 3px solid #7c3aed; }
+.kh-error { background: #fff7ed; border-left: 3px solid #ea580c; }
+.kh-label {
+  font-weight: 700;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+}
+.kh-what .kh-label { color: #1d4ed8; }
+.kh-why .kh-label { color: #15803d; }
+.kh-impact .kh-label { color: #6d28d9; }
+.kh-error .kh-label { color: #c2410c; }
+@media print {
+  .sticky-bar, .btn-print, .btn-reset, .btn-result, .result-note, .kh-toggle, .kh-body { display: none !important; }
+  .faz-body { display: block !important; }
+  body { background: #fff; font-size: 11px; }
+  .page-wrap { max-width: 100%; padding: 0; }
+  .cover, .card, .summary-card { box-shadow: none; border: 1px solid #d1d5db; }
+  .cover { page-break-after: always; }
+  .summary-card { page-break-before: always; }
+  .result-status-tag { display: inline-block !important; }
+  @page { size: A4; margin: 14mm 12mm; }
+}
+</style>
+</head>
+<body>
+<div class="sticky-bar">
+  <div class="sticky-logo">QUVEX<span>.</span></div>
+  <div class="sticky-title">Savunma Ozel Prosesler - E2E Test Plani v1.0</div>
+  <div class="sticky-stats">
+    <div class="sticky-stat stat-pass"><div class="n" id="hdr-pass">0</div><div class="l">GECTI</div></div>
+    <div class="sticky-stat stat-fail"><div class="n" id="hdr-fail">0</div><div class="l">BASARISIZ</div></div>
+    <div class="sticky-stat stat-skip"><div class="n" id="hdr-skip">0</div><div class="l">ATLANDI</div></div>
+    <div class="progress-wrap">
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="prog-fill"></div></div>
+      <div class="progress-pct" id="prog-pct">0 / 18 adim</div>
+    </div>
+  </div>
+  <button class="btn-print" onclick="window.print()">Rapor Yazdir</button>
+  <button class="btn-reset" onclick="resetAll()">Sifirla</button>
+</div>
+
+<div class="page-wrap">
+  <div class="cover">
+    <div class="cover-logo">QUVEX<span>.</span></div>
+    <div class="cover-sub">ERP Platform - Test Plani ve Sonuc Raporu</div>
+    <div class="cover-badge">PLAYWRIGHT E2E SENARYO DOKUMANI</div>
+    <div class="cover-title">Savunma Ozel Prosesler</div>
+    <div class="cover-scenario">NDT, optik hassas montaj, hassas dokum ve kalip/takim imalati senaryolari icin veri girisi ve kritik kayit olusturma akislari</div>
+    <div class="cover-grid">
+      <div class="cover-card">
+        <div class="k">Kaynak Spec</div>
+        <div class="v">tests/e2e/savunma-ozel/savunma-ozel-data-entry-e2e.spec.js</div>
+      </div>
+      <div class="cover-card">
+        <div class="k">Playwright Profili</div>
+        <div class="v">Chromium, worker=1, retry=1 (CI=2), screenshot=only-on-failure</div>
+      </div>
+      <div class="cover-card">
+        <div class="k">Base URL</div>
+        <div class="v">https://quvex.io</div>
+      </div>
+      <div class="cover-card">
+        <div class="k">Rapor Klasoru</div>
+        <div class="v">playwright-report/savunma-ozel</div>
+      </div>
+      <div class="cover-card">
+        <div class="k">Toplam Bolum / Adim</div>
+        <div class="v" id="cv-total">18 adim - 5 bolum</div>
+      </div>
+      <div class="cover-card">
+        <div class="k">Auth On Kosulu</div>
+        <div class="v">auth-setup projesi ile aktif session ve accessToken olusmali</div>
+      </div>
+    </div>
+    <div class="cover-warning">
+      Bu plan, `savunma-ozel` klasorundeki Playwright akislarindan uretilmistir. UI uzerinden yapilan veri girislerine ek olarak BOM, Control Plan, Work Order Template, Production completion ve Certificate olusturma gibi API cagrilari da kapsam dahilindedir. Sonuc butonlari manuel isaretleme ve yazdirilabilir PDF ciktilari icin eklenmistir.
+    </div>
+  </div>
+
+  <div class="card" id="faz-A">
+    <div class="faz-header" onclick="toggleFaz(this)">
+      <span class="faz-badge">BOLUM 1</span>
+      <span class="faz-title">Senaryo 1 - NDT Hizmetleri</span>
+      <span class="faz-meta">NAS 410 / ASNT SNT-TC-1A - Ozdemir Kaynak Muhendislik</span>
+      <span class="faz-pct" id="pct-A">0%</span>
+      <span class="faz-toggle">▼</span>
+    </div>
+    <div class="faz-body">
+      <div class="step" id="step-A1">
+        <div class="step-top">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-title">A.1 - Musteri kaydi olustur: Ozdemir Kaynak Muhendislik</div>
+            <div class="step-role">Yapacak: <strong>CRM / Satis Operasyon</strong></div>
+            <div class="nav-box">
+              <div class="nav-label">UI Akisi</div>
+              <div class="nav-step"><span class="arrow">1.</span> <code>/customers/new</code> ekranina git</div>
+              <div class="nav-step"><span class="arrow">2.</span> Musteri bilgilerini doldur, Tipi alaninda <strong>Musteri</strong> sec</div>
+              <div class="nav-step"><span class="arrow">3.</span> <strong>Kaydet</strong> ile formu tamamla</div>
+            </div>
+            <table class="data-table">
+              <tr><th>Alan</th><th>Deger</th><th>Not</th></tr>
+              <tr><td class="fn">Ad</td><td class="fv">Ozdemir Kaynak Muhendislik Ltd.Sti.</td><td class="fd">Kaynak grubu NDT hizmet musterisi</td></tr>
+              <tr><td class="fn">Yetkili</td><td class="fv">Kemal Ozdemir</td><td class="fd"></td></tr>
+              <tr><td class="fn">E-posta</td><td class="fv">kemal@ozdemirkaynak.com.tr</td><td class="fd"></td></tr>
+              <tr><td class="fn">Telefon</td><td class="fv">3125554400</td><td class="fd"></td></tr>
+              <tr><td class="fn">Tip</td><td class="fv">Musteri</td><td class="fd">API dogrulamasi: <code>GET /Customer?type=customers</code></td></tr>
+            </table>
+            <div class="expected">
+              <div class="exp-title">Beklenen Sonuc</div>
+              <ul>
+                <li>Musteri kaydi basariyla olusur.</li>
+                <li>API listesinde Ozdemir/Kaynak iceren musteri geri doner.</li>
+                <li><code>S1.customerId</code> dolu hale gelir.</li>
+              </ul>
+            </div>
+            <div class="checklist">
+              <div class="checklist-title">Kontrol Listesi</div>
+              <label><input type="checkbox"> Form kaydi sonrasi hata bildirimi olmamali.</label>
+              <label><input type="checkbox"> Musteri tipi dogru secilmis olmali.</label>
+              <label><input type="checkbox"> API sonucunda olusan kayit bulunmali.</label>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Müşteri kartı, tüm ticari ve operasyonel sürecin bağlandığı ana kayıttır. Teklif, sipariş, fatura ve raporlar bu karta referans verir.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>NDT gibi özel proseslerde müşteri izlenebilirliği kritiktir. Hangi hizmetin kime verildiği ve hangi iletişim bilgileriyle açıldığı denetimde sorulur.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Teklif akışı, fatura kesimi, müşteri bazlı üretim raporları ve tahsilat takip ekranları bu kayda bağlı çalışır.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Müşteri tipi veya adı yanlış açılırsa teklif farklı cari altında kalır; sonraki adımlarda ürün ve evraklar yanlış müşteriyle eşleşir.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuc</span>
+              <button class="btn-result btn-pass" onclick="setResult('A1','pass')">GECTI</button>
+              <button class="btn-result btn-fail" onclick="setResult('A1','fail')">BASARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('A1','skip')">ATLANDI</button>
+              <span class="result-status-tag" id="tag-A1"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-A1" placeholder="Hata veya gozlem notu" oninput="saveNote('A1',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step" id="step-A2">
+        <div class="step-top">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title">A.2 - NDT ekipman makinelerini tanimla</div>
+            <div class="step-role">Yapacak: <strong>Uretim Muhendisligi</strong></div>
+            <div class="nav-box">
+              <div class="nav-label">UI Akisi</div>
+              <div class="nav-step"><span class="arrow">1.</span> <code>/machines</code> sayfasina git</div>
+              <div class="nav-step"><span class="arrow">2.</span> Her ekipman icin <strong>Yeni/Ekle</strong> modalini ac</div>
+              <div class="nav-step"><span class="arrow">3.</span> Kod, ad ve saatlik ucret alanlarini doldurup kaydet</div>
+            </div>
+            <table class="data-table">
+              <tr><th>Makine Kodu</th><th>Makine Adi</th><th>Saatlik Ucret</th></tr>
+              <tr><td class="fv">XRAY-01</td><td>RT X-Ray Tup 300kV Balteau</td><td>800</td></tr>
+              <tr><td class="fv">UT-01</td><td>UT Phased Array Olympus OmniScan MX2</td><td>500</td></tr>
+              <tr><td class="fv">PT-01</td><td>Sivi Penetrant Uygulama Kabini UV</td><td>200</td></tr>
+              <tr><td class="fv">MT-01</td><td>Manyetik Parcacik AC Yoke</td><td>150</td></tr>
+            </table>
+            <div class="expected">
+              <div class="exp-title">Beklenen Sonuc</div>
+              <ul>
+                <li>Dort NDT ekipmani listeye eklenir.</li>
+                <li>Modal kaydetme akisi tum ekipmanlar icin calisir.</li>
+                <li>Test logunda <code>[S1.2] 4 NDT ekipman eklendi</code> mesaji gorulur.</li>
+              </ul>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Makine kayıtları, ShopFloor ve maliyetlendirme tarafında kullanılacak kaynak tanımlarıdır. NDT cihazları üretim kaynağı olarak tutulur.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Özel proseslerde hangi cihazın kullanıldığı sertifika güvenirliği için önemlidir. RT, UT, PT ve MT aynı hizmet altında farklı yetkinlikleri temsil eder.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>İş emri planlaması, saatlik maliyet hesabı ve kapasite raporları makine kartlarından beslenir.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Kod veya saatlik ücret yanlış girilirse üretim planı ve maliyet çıktıları bozulur; sertifika notları ekipmanla tutarsız kalabilir.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuc</span>
+              <button class="btn-result btn-pass" onclick="setResult('A2','pass')">GECTI</button>
+              <button class="btn-result btn-fail" onclick="setResult('A2','fail')">BASARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('A2','skip')">ATLANDI</button>
+              <span class="result-status-tag" id="tag-A2"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-A2" placeholder="Hata veya gozlem notu" oninput="saveNote('A2',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step" id="step-A3">
+        <div class="step-top">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-title">A.3 - NDT muayene hizmeti urun kartini olustur</div>
+            <div class="step-role">Yapacak: <strong>Urun / Ticari Kart Yonetimi</strong></div>
+            <div class="nav-box">
+              <div class="nav-label">UI Akisi</div>
+              <div class="nav-step"><span class="arrow">1.</span> <code>/products/new</code> ekranini ac</div>
+              <div class="nav-step"><span class="arrow">2.</span> Kategori olarak <strong>Hizmet</strong>, birim olarak <strong>ADET</strong> sec</div>
+              <div class="nav-step"><span class="arrow">3.</span> Satis fiyatini girip kaydet</div>
+            </div>
+            <table class="data-table">
+              <tr><th>Alan</th><th>Deger</th><th>Not</th></tr>
+              <tr><td class="fn">Urun Kodu</td><td class="fv">SRV-NDT-PT-UT-RT</td><td class="fd"></td></tr>
+              <tr><td class="fn">Urun Adi</td><td class="fv">NDT Muayene Hizmeti PT+UT+RT Kombo (kaynak grubu basvuru)</td><td class="fd"></td></tr>
+              <tr><td class="fn">Kategori</td><td class="fv">Hizmet</td><td class="fd"></td></tr>
+              <tr><td class="fn">Birim</td><td class="fv">ADET</td><td class="fd"></td></tr>
+              <tr><td class="fn">Satis Fiyati</td><td class="fv">4500</td><td class="fd">Fallback API: <code>GET /Product?type=product</code></td></tr>
+            </table>
+            <div class="expected">
+              <div class="exp-title">Beklenen Sonuc</div>
+              <ul>
+                <li>Kayit sonrasi urun form URL'sinden veya API'den <code>serviceId</code> yakalanir.</li>
+                <li>NDT hizmet karti teklif ve fatura adimlarinda secilebilir hale gelir.</li>
+              </ul>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Bu kart fiziksel stok değil, ticari olarak satılan bir hizmet tanımıdır. PT+UT+RT kombinasyonu tek ürün olarak modellenir.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Hizmet kartı olmadan teklif satırı, fatura kalemi ve üretim emri ortak bir referansta birleşemez.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Satiş fiyatı, raporlama, hizmet bazlı gelir analizi ve sertifika ilişkilendirmesi bu ürün kartına bağlanır.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Kategori yanlış seçilirse ürün stok gibi davranabilir veya teklif ekranında listelenmeyebilir; satış fiyatı eksik olursa ticari kayıtlar bozulur.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuc</span>
+              <button class="btn-result btn-pass" onclick="setResult('A3','pass')">GECTI</button>
+              <button class="btn-result btn-fail" onclick="setResult('A3','fail')">BASARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('A3','skip')">ATLANDI</button>
+              <span class="result-status-tag" id="tag-A3"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-A3" placeholder="Hata veya gozlem notu" oninput="saveNote('A3',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step" id="step-A4">
+        <div class="step-top">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-title">A.4 - NDT teklif ve siparis akislarini olustur</div>
+            <div class="step-role">Yapacak: <strong>Satis Operasyon</strong></div>
+            <div class="nav-box">
+              <div class="nav-label">UI Akisi</div>
+              <div class="nav-step"><span class="arrow">1.</span> <code>/offers/new</code> ekraninda musteri olarak <strong>Ozdemir</strong> sec</div>
+              <div class="nav-step"><span class="arrow">2.</span> <strong>Kalem Ekle</strong> ile <code>SRV-NDT</code> urununu sec</div>
+              <div class="nav-step"><span class="arrow">3.</span> Miktari <strong>10</strong> gir, kaydet, sonra teklifi <strong>SENT</strong> ve <strong>ACCEPTED</strong> durumlarina cek</div>
+            </div>
+            <div class="api-box">
+              <div class="api-label">API Akisi</div>
+              <div class="api-step"><span class="arrow">1.</span> Teklif ID'si URL'den alinamazsa <code>GET /Offer?pageSize=5</code></div>
+              <div class="api-step"><span class="arrow">2.</span> Durum gecisleri: <code>PUT /Offer/{id}</code> - <code>SENT</code> ve <code>ACCEPTED</code></div>
+            </div>
+            <table class="data-table">
+              <tr><th>Alan</th><th>Deger</th><th>Not</th></tr>
+              <tr><td class="fn">Musteri</td><td class="fv">Ozdemir Kaynak</td><td class="fd"></td></tr>
+              <tr><td class="fn">Urun</td><td class="fv">SRV-NDT-PT-UT-RT</td><td class="fd">Arama kutusunda SRV-NDT ile bulunur</td></tr>
+              <tr><td class="fn">Miktar</td><td class="fv">10</td><td class="fd"></td></tr>
+              <tr><td class="fn">Durumlar</td><td class="fv">SENT -> ACCEPTED</td><td class="fd">Siparis olusumunu simgeler</td></tr>
+            </table>
+            <div class="expected">
+              <div class="exp-title">Beklenen Sonuc</div>
+              <ul>
+                <li>Teklif kaydi olusur ve <code>S1.offerId</code> set edilir.</li>
+                <li>Durum degisiklikleri API tarafinda hata vermeden tamamlanir.</li>
+                <li>Test, toast veya ID ile basarili kabul edilir.</li>
+              </ul>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Teklif, hizmetin ticari onay belgesidir. ACCEPTED durumuna geçmesi işin siparişe döndüğünü temsil eder.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Playwright senaryosunda sipariş için ayrı UI akışı yerine teklif durum geçişi kullanılıyor; bu yüzden durum adımı kritik.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Üretim açılması, gelir projeksiyonu ve müşteri taahhüt takibi bu kayda bağlıdır.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Ürün veya miktar yanlış seçilirse sonraki üretim ve fatura miktarları tutmaz; ACCEPTED olmadan sipariş mantığı eksik kalır.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuc</span>
+              <button class="btn-result btn-pass" onclick="setResult('A4','pass')">GECTI</button>
+              <button class="btn-result btn-fail" onclick="setResult('A4','fail')">BASARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('A4','skip')">ATLANDI</button>
+              <span class="result-status-tag" id="tag-A4"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-A4" placeholder="Hata veya gozlem notu" oninput="saveNote('A4',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step" id="step-A5">
+        <div class="step-top">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <div class="step-title">A.5 - Uretim emri, NDT sertifikasi ve fatura olustur</div>
+            <div class="step-role">Yapacak: <strong>Uretim / Kalite / Finans</strong></div>
+            <div class="nav-box">
+              <div class="nav-label">UI Akisi</div>
+              <div class="nav-step"><span class="arrow">1.</span> <code>/production/new</code> ekraninda <code>SRV-NDT</code> icin miktar <strong>10</strong> ile is emri olustur</div>
+              <div class="nav-step"><span class="arrow">2.</span> <code>/invoices/new</code> ekraninda ayni urun icin miktar <strong>9</strong> ile fatura kes</div>
+            </div>
+            <div class="api-box">
+              <div class="api-label">API Akisi</div>
+              <div class="api-step"><span class="arrow">1.</span> <code>POST /Certificate</code> - tip <code>NDT</code>, belge no <code>NDT-RPT-GT-2026-001</code></div>
+              <div class="api-step"><span class="arrow">2.</span> Not: 10 kaynak grubu, 9 kabul, 1 red, RT: lunker porozite</div>
+            </div>
+            <table class="data-table">
+              <tr><th>Kayit</th><th>Deger</th><th>Not</th></tr>
+              <tr><td class="fn">Uretim Miktari</td><td class="fv">10</td><td class="fd">Servis is emri olarak modelleniyor</td></tr>
+              <tr><td class="fn">Sertifika Tipi</td><td class="fv">NDT</td><td class="fd"></td></tr>
+              <tr><td class="fn">Sertifika No</td><td class="fv">NDT-RPT-GT-2026-001</td><td class="fd"></td></tr>
+              <tr><td class="fn">Fatura Miktari</td><td class="fv">9</td><td class="fd">1 red edilen parca faturalanmaz</td></tr>
+            </table>
+            <div class="box-warn"><strong>Dikkat:</strong> Uretim miktari 10 iken fatura miktari 9'dur; sertifika notundaki red edilen parca ile tutarlilik aranir.</div>
+            <div class="expected">
+              <div class="exp-title">Beklenen Sonuc</div>
+              <ul>
+                <li>Production, certificate ve invoice kayitlarindan en az biri olusur; ideal durumda ucunun de ID'si vardir.</li>
+                <li>Log ciktisinda <code>uretimEmri / sertifika / fatura</code> bilgileri gorulur.</li>
+              </ul>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Bu adım, NDT hizmetinin teknik tamamlanması ile ticari kapanışını aynı akışta birleştirir: üretim, sertifika ve fatura.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>NDT raporunda red edilen parça sayısı fatura miktarını doğrudan etkiler. Sertifika notu ile ticari kayıt aynı gerçeği göstermelidir.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Gelir kaydı, müşteri kabulü ve kalite raporları bu üç kaydın birbiriyle tutarlı olmasına bağlıdır.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>10 hizmet verilip 9 kabul edilmişken 10 adet fatura kesilirse müşteri itirazı ve denetim uyumsuzluğu doğar.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuc</span>
+              <button class="btn-result btn-pass" onclick="setResult('A5','pass')">GECTI</button>
+              <button class="btn-result btn-fail" onclick="setResult('A5','fail')">BASARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('A5','skip')">ATLANDI</button>
+              <span class="result-status-tag" id="tag-A5"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-A5" placeholder="Hata veya gozlem notu" oninput="saveNote('A5',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="faz-B">
+    <div class="faz-header" onclick="toggleFaz(this)">
+      <span class="faz-badge">BOLUM 2</span>
+      <span class="faz-title">Senaryo 2 - Optik Hassas Montaj</span>
+      <span class="faz-meta">AS9100D / MIL-PRF-13830 - ASELSAN termal kamera lens grubu</span>
+      <span class="faz-pct" id="pct-B">0%</span>
+      <span class="faz-toggle">▼</span>
+    </div>
+    <div class="faz-body">
+      <div class="step" id="step-B1">
+        <div class="step-top">
+          <div class="step-num">6</div>
+          <div class="step-content">
+            <div class="step-title">B.1 - ASELSAN musteri karti ve optik makine tanimi</div>
+            <div class="step-role">Yapacak: <strong>CRM / Uretim Muhendisligi</strong></div>
+            <div class="nav-box">
+              <div class="nav-label">UI Akisi</div>
+              <div class="nav-step"><span class="arrow">1.</span> <code>/customers/new</code> uzerinden ASELSAN kaydini olustur</div>
+              <div class="nav-step"><span class="arrow">2.</span> <code>/machines</code> ekraninda optik test makinesini ekle</div>
+            </div>
+            <table class="data-table">
+              <tr><th>Alan</th><th>Deger</th><th>Not</th></tr>
+              <tr><td class="fn">Musteri</td><td class="fv">ASELSAN Elektronik Sanayi ve Ticaret A.S.</td><td class="fd"></td></tr>
+              <tr><td class="fn">Yetkili</td><td class="fv">Ayse Optik</td><td class="fd"></td></tr>
+              <tr><td class="fn">Makine Kodu</td><td class="fv">INTERFEROMETRE-01</td><td class="fd"></td></tr>
+              <tr><td class="fn">Makine Adi</td><td class="fv">Zygo VERIFIRE Interferometre Optik Test</td><td class="fd"></td></tr>
+              <tr><td class="fn">Saatlik Ucret</td><td class="fv">600</td><td class="fd"></td></tr>
+            </table>
+            <div class="expected">
+              <div class="exp-title">Beklenen Sonuc</div>
+              <ul>
+                <li>ASELSAN kaydi API listesinden bulunur.</li>
+                <li>Interferometre makinasi basariyla tanimlanir.</li>
+                <li><code>S2.customerId</code> bos olmamali.</li>
+              </ul>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>ASELSAN müşteri kartı ve interferometre cihazı, optik hassas montaj senaryosunun ana ticari ve teknik başlangıç kayıtlarıdır.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Optik proseslerde ölçüm cihazı kritik proses parçasıdır; interferometre olmadan WFE doğrulaması anlamsız kalır.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Müşteri siparişi, üretim akışı ve control plan'daki ölçüm aracının tutarlılığı bu kayda dayanır.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Müşteri veya cihaz adı hatalıysa hem kalite dokümanları hem de teslimat evrakları yanlış referansla oluşur.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuc</span>
+              <button class="btn-result btn-pass" onclick="setResult('B1','pass')">GECTI</button>
+              <button class="btn-result btn-fail" onclick="setResult('B1','fail')">BASARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('B1','skip')">ATLANDI</button>
+              <span class="result-status-tag" id="tag-B1"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-B1" placeholder="Hata veya gozlem notu" oninput="saveNote('B1',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step" id="step-B2">
+        <div class="step-top">
+          <div class="step-num">7</div>
+          <div class="step-content">
+            <div class="step-title">B.2 - Germanium lens hammadde ve lens grubu mamul kartlari</div>
+            <div class="step-role">Yapacak: <strong>Stok / Urun Agaci Yonetimi</strong></div>
+            <table class="data-table">
+              <tr><th>Tip</th><th>Kod</th><th>Ad</th><th>Ek Bilgi</th></tr>
+              <tr><td>Hammadde</td><td class="fv">HM-GE-LENS-60MM</td><td>Germanium (Ge) LWIR Lens D60mm f/1.2 - Rohm &amp; Haas</td><td>Min. stok 10, birim ADET</td></tr>
+              <tr><td>Mamul</td><td class="fv">OPT-LG-THERMAL-ASEL-001</td><td>Termal Kamera Lens Grubu MWIR 50mm f/2 ASELSAN MIL-PRF-13830</td><td>Satis fiyati 75000</td></tr>
+            </table>
+            <div class="expected">
+              <div class="exp-title">Beklenen Sonuc</div>
+              <ul>
+                <li>Hem hammadde hem mamul urun kartlari olusur.</li>
+                <li><code>S2.stockId</code> ve/veya <code>S2.productId</code> set edilir.</li>
+                <li>Mamul karti BOM ve teklif adimlarinda secilebilir olur.</li>
+              </ul>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Germanium lens hammadde kartı ile termal kamera lens grubu mamul kartı arasındaki ilişki, ürün ağacının temelini oluşturur.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Optik montajda izlenebilirlik parça seviyesinde tutulmalıdır; kullanılan lens bileşeni ile teslim edilen set arasında bağ kurulmalıdır.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>BOM, stok düşümü, üretim planlama ve maliyet analizi bu iki ürün kartı üzerinden yürür.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Hammadde birimi veya mamul fiyatı yanlış olursa stok ve ticari rakamlar bozulur; üretim kartı bulunamayabilir.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuc</span>
+              <button class="btn-result btn-pass" onclick="setResult('B2','pass')">GECTI</button>
+              <button class="btn-result btn-fail" onclick="setResult('B2','fail')">BASARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('B2','skip')">ATLANDI</button>
+              <span class="result-status-tag" id="tag-B2"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-B2" placeholder="Hata veya gozlem notu" oninput="saveNote('B2',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step" id="step-B3">
+        <div class="step-top">
+          <div class="step-num">8</div>
+          <div class="step-content">
+            <div class="step-title">B.3 - BOM, kontrol plani ve is emri sablonu olustur</div>
+            <div class="step-role">Yapacak: <strong>Planlama / Kalite Muhendisligi</strong></div>
+            <div class="api-box">
+              <div class="api-label">API Akisi</div>
+              <div class="api-step"><span class="arrow">1.</span> <code>POST /Bom</code> - parent=<code>S2.productId</code>, child=<code>S2.stockId</code>, quantity=<code>2</code></div>
+              <div class="api-step"><span class="arrow">2.</span> <code>POST /ControlPlan</code> - MIL-PRF-13830 optik kalite kontrol plani</div>
+              <div class="api-step"><span class="arrow">3.</span> <code>POST /ControlPlan/items</code> - Interferometre testi, WFE &lt; 0.25 lambda RMS</div>
+              <div class="api-step"><span class="arrow">4.</span> <code>POST /WorkOrderTemplates</code> - OP10/20/30/40 clean room montaj sablonu</div>
+            </div>
+            <table class="data-table">
+              <tr><th>Kayit</th><th>Deger</th><th>Not</th></tr>
+              <tr><td class="fn">BOM Miktari</td><td class="fv">2</td><td class="fd">Her lens grubu icin 2 lens bileseni</td></tr>
+              <tr><td class="fn">Kontrol Plani</td><td class="fv">OPT-LG MIL-PRF-13830 Optik Kalite Kontrol</td><td class="fd">Scratch-dig 60-40, WFE &lt; 0.25 lambda</td></tr>
+              <tr><td class="fn">Sablon Operasyonlari</td><td class="fv">OP10 / OP20 / OP30 / OP40</td><td class="fd">Alignment, interferometre, MTF testi, paketleme</td></tr>
+            </table>
+            <div class="expected">
+              <div class="exp-title">Beklenen Sonuc</div>
+              <ul>
+                <li>BOM kaydi olusur.</li>
+                <li>Control Plan ve ilk item basariyla kaydedilir.</li>
+                <li>Work order template kaydi status 2xx ile tamamlanir.</li>
+              </ul>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>BOM reçeteyi, control plan kalite kriterlerini, work order template ise operasyon sırasını tanımlar.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Optik prosesler tolerans ve temiz oda disiplinine çok duyarlıdır; kontrol planı olmadan üretim tekrar edilebilir olmaz.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Planlama, ShopFloor operasyonları ve kalite ölçümleri bu tanımlardan otomatik beslenir.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Yanlış BOM miktarı stokları yanlış düşer; operasyon sırası yanlışsa alignment ve MTF testleri doğru sırada çalışmaz.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuc</span>
+              <button class="btn-result btn-pass" onclick="setResult('B3','pass')">GECTI</button>
+              <button class="btn-result btn-fail" onclick="setResult('B3','fail')">BASARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('B3','skip')">ATLANDI</button>
+              <span class="result-status-tag" id="tag-B3"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-B3" placeholder="Hata veya gozlem notu" oninput="saveNote('B3',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step" id="step-B4">
+        <div class="step-top">
+          <div class="step-num">9</div>
+          <div class="step-content">
+            <div class="step-title">B.4 - Teklif, uretim, CoC sertifikasi ve fatura</div>
+            <div class="step-role">Yapacak: <strong>Satis / Uretim / Kalite / Finans</strong></div>
+            <table class="data-table">
+              <tr><th>Kayit</th><th>Deger</th><th>Not</th></tr>
+              <tr><td class="fn">Teklif</td><td class="fv">20 lens grubu x 75000</td><td class="fd">Durum SENT -> ACCEPTED</td></tr>
+              <tr><td class="fn">Uretim Emri</td><td class="fv">20 adet</td><td class="fd"><code>/production/new</code></td></tr>
+              <tr><td class="fn">Sertifika</td><td class="fv">COC-OPT-LG-THERMAL-2026-001</td><td class="fd">MIL-PRF-13830B CoC</td></tr>
+              <tr><td class="fn">Sertifika Notu</td><td class="fv">WFE 0.18 lambda, MTF@50 0.52, Scratch-dig 40-20</td><td class="fd">20 adet uygun</td></tr>
+              <tr><td class="fn">Fatura</td><td class="fv">20 adet</td><td class="fd">ASELSAN musterisine</td></tr>
+            </table>
+            <div class="expected">
+              <div class="exp-title">Beklenen Sonuc</div>
+              <ul>
+                <li>Offer, production, certificate ve invoice ID'leri olusur.</li>
+                <li>Optik montaj senaryosu uctan uca tamamlanmis olur.</li>
+              </ul>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Bu adım, lens grubunun ticari tekliften CoC belgesine ve faturaya kadar uçtan uca tamamlanmasını temsil eder.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>MIL-PRF-13830 gibi optik standartlarda kalite notu sadece testte kalmaz; müşteri teslimat belgesine de yansır.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Sevkiyat dosyası, müşteri kabulü, muhasebe ve ürün performans kayıtları bu zincire bağlıdır.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>CoC notu ile üretim veya fatura miktarı uyumsuz kalırsa müşteri kabul süreci bloke olabilir.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuc</span>
+              <button class="btn-result btn-pass" onclick="setResult('B4','pass')">GECTI</button>
+              <button class="btn-result btn-fail" onclick="setResult('B4','fail')">BASARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('B4','skip')">ATLANDI</button>
+              <span class="result-status-tag" id="tag-B4"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-B4" placeholder="Hata veya gozlem notu" oninput="saveNote('B4',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="faz-C">
+    <div class="faz-header" onclick="toggleFaz(this)">
+      <span class="faz-badge">BOLUM 3</span>
+      <span class="faz-title">Senaryo 3 - Hassas Dokum Investment Casting</span>
+      <span class="faz-meta">AMS 5391 / NADCAP - TEI Inconel 713C turbin kanadi</span>
+      <span class="faz-pct" id="pct-C">0%</span>
+      <span class="faz-toggle">▼</span>
+    </div>
+    <div class="faz-body">
+      <div class="step" id="step-C1">
+        <div class="step-top">
+          <div class="step-num">10</div>
+          <div class="step-content">
+            <div class="step-title">C.1 - TEI musteri karti ve dokum ekipmanlari</div>
+            <div class="step-role">Yapacak: <strong>CRM / Uretim Muhendisligi</strong></div>
+            <table class="data-table">
+              <tr><th>Tip</th><th>Kod / Ad</th><th>Ek Bilgi</th></tr>
+              <tr><td>Musteri</td><td class="fv">TUSAS Motor Sanayii TEI A.S.</td><td>Yetkili Hasan Turbin, telefon 2224440000</td></tr>
+              <tr><td>Makine</td><td class="fv">VAK-DOK-01 - Vakum Dokum Firini 1600C 50kg Inconel</td><td>Saatlik 1500</td></tr>
+              <tr><td>Makine</td><td class="fv">SERAMIK-01 - Seramik Kabuk Hatti 8 Kat</td><td>Saatlik 400</td></tr>
+              <tr><td>Makine</td><td class="fv">IM-01 - Hassas Isleme CNC 5-Eksen Fanuc</td><td>Saatlik 600</td></tr>
+            </table>
+            <div class="expected">
+              <div class="exp-title">Beklenen Sonuc</div>
+              <ul>
+                <li>TEI musteri kaydi listeden bulunur.</li>
+                <li>Uc dokum/isleme ekipmani tanimlanir.</li>
+              </ul>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>TEI müşteri kaydı ile investment casting prosesinde kullanılacak fırın, seramik hat ve işleme kaynakları açılır.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Hassas döküm, makine ve proses parametresine çok bağımlıdır. Cihaz kaydı olmadan proses izlenebilirliği eksik kalır.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Kapasite planı, proses maliyeti ve kalite sertifikaları bu ekipman tanımlarına dayanır.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Yanlış ekipman veya saatlik maliyet ile açılan kayıtlar hem maliyet hesabını hem de proses doğruluğunu bozar.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuc</span>
+              <button class="btn-result btn-pass" onclick="setResult('C1','pass')">GECTI</button>
+              <button class="btn-result btn-fail" onclick="setResult('C1','fail')">BASARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('C1','skip')">ATLANDI</button>
+              <span class="result-status-tag" id="tag-C1"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-C1" placeholder="Hata veya gozlem notu" oninput="saveNote('C1',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step" id="step-C2">
+        <div class="step-top">
+          <div class="step-num">11</div>
+          <div class="step-content">
+            <div class="step-title">C.2 - Inconel 713C hammadde ve turbin kanadi mamul kartlari</div>
+            <div class="step-role">Yapacak: <strong>Stok / Urun Kart Yonetimi</strong></div>
+            <table class="data-table">
+              <tr><th>Tip</th><th>Kod</th><th>Ad</th><th>Ek Bilgi</th></tr>
+              <tr><td>Hammadde</td><td class="fv">HM-INCONEL-713C</td><td>Inconel 713C Nikel Alasimlari Dokum Hamili AMS 5391</td><td>Birim KG, min stok 50</td></tr>
+              <tr><td>Mamul</td><td class="fv">DOK-TURBIN-KANAT-713C</td><td>Inconel 713C Investment Cast Turbin Kanadi AMS 5391 NADCAP</td><td>Satis fiyati 185000</td></tr>
+            </table>
+            <div class="expected">
+              <div class="exp-title">Beklenen Sonuc</div>
+              <ul>
+                <li>Hammadde ve mamul kartlari olusur.</li>
+                <li>Mamul karti URL'den veya sistemden bulunur ve <code>S3.productId</code> set edilir.</li>
+              </ul>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Inconel 713C stok kartı ile turbin kanadı mamul kartı arasındaki ilişki, döküm reçetesinin ana veri setidir.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Yüksek sıcaklık alaşımları malzeme izlenebilirliği açısından kritik kabul edilir; yanlış alaşım kodu ağır kalite riski doğurur.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Malzeme tüketimi, teklif fiyatı, üretim planı ve NADCAP belgeleri bu ürün kartına bağlanır.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Birim KG yerine ADET seçilirse BOM matematiği bozulur; ürün bulunamazsa üretim ve sertifika adımları kırılır.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuc</span>
+              <button class="btn-result btn-pass" onclick="setResult('C2','pass')">GECTI</button>
+              <button class="btn-result btn-fail" onclick="setResult('C2','fail')">BASARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('C2','skip')">ATLANDI</button>
+              <span class="result-status-tag" id="tag-C2"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-C2" placeholder="Hata veya gozlem notu" oninput="saveNote('C2',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step" id="step-C3">
+        <div class="step-top">
+          <div class="step-num">12</div>
+          <div class="step-content">
+            <div class="step-title">C.3 - BOM ve NADCAP kontrol plani</div>
+            <div class="step-role">Yapacak: <strong>Kalite Muhendisligi</strong></div>
+            <div class="api-box">
+              <div class="api-label">API Akisi</div>
+              <div class="api-step"><span class="arrow">1.</span> <code>POST /Bom</code> - hammadde miktari <code>0.18 KG</code></div>
+              <div class="api-step"><span class="arrow">2.</span> <code>POST /ControlPlan</code> - proses: Kayip Mum / Seramik Kabuk / Vakum Dokum / NDT</div>
+              <div class="api-step"><span class="arrow">3.</span> Uc kontrol maddesi ekle: kabuk kalinligi, dokum sicakligi, RT+FPI muayenesi</div>
+            </div>
+            <table class="data-table">
+              <tr><th>Kontrol Adimi</th><th>Ozellik</th><th>Spesifikasyon</th></tr>
+              <tr><td>Seramik Kabuk</td><td>Kabuk kalinligi</td><td>4.0-6.0 mm, 8 kat</td></tr>
+              <tr><td>Vakum Dokum</td><td>Dokum sicakligi</td><td>1540C +/-15C</td></tr>
+              <tr><td>NDT Kontrol</td><td>RT + FPI muayene</td><td>AMS 2175 Class A - sifir lineer defect</td></tr>
+            </table>
+            <div class="expected">
+              <div class="exp-title">Beklenen Sonuc</div>
+              <ul>
+                <li>BOM ve kontrol plani 2xx status ile olusur.</li>
+                <li>NADCAP surecine uygun kritik proses girdileri sisteme kaydedilir.</li>
+              </ul>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>NADCAP odaklı control plan, hassas dökümde seramik kabuk, vakum döküm ve NDT aşamalarının kabul kriterlerini toplar.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Özel proses onayı, sadece final ürünü değil proses parametrelerinin de kayıt altına alınmasını ister.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Kalite kayıtları, proses audit hazırlığı ve üretim tekrar edilebilirliği bu planla güvence altına alınır.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Dokum sıcaklığı veya NDT kriterleri yanlış yazılırsa kabul edilen parça gerçek spesifikasyonu karşılamıyor olabilir.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuc</span>
+              <button class="btn-result btn-pass" onclick="setResult('C3','pass')">GECTI</button>
+              <button class="btn-result btn-fail" onclick="setResult('C3','fail')">BASARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('C3','skip')">ATLANDI</button>
+              <span class="result-status-tag" id="tag-C3"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-C3" placeholder="Hata veya gozlem notu" oninput="saveNote('C3',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step" id="step-C4">
+        <div class="step-top">
+          <div class="step-num">13</div>
+          <div class="step-content">
+            <div class="step-title">C.4 - Teklif, uretim, operasyon tamamlama, NADCAP sertifikasi ve fatura</div>
+            <div class="step-role">Yapacak: <strong>Satis / Uretim / Kalite / Finans</strong></div>
+            <table class="data-table">
+              <tr><th>Kayit</th><th>Deger</th><th>Not</th></tr>
+              <tr><td class="fn">Teklif</td><td class="fv">10 kanat x 185000</td><td class="fd">Musteri TEI</td></tr>
+              <tr><td class="fn">Uretim Emri</td><td class="fv">10 adet</td><td class="fd"></td></tr>
+              <tr><td class="fn">Operasyon Kapatma</td><td class="fv">OP10 / OP20 / OP30 / OP40 / OP50</td><td class="fd">OP50 scrapQty=1</td></tr>
+              <tr><td class="fn">NADCAP Sertifikasi</td><td class="fv">NADCAP-DOK-TEI-2026-001</td><td class="fd">9/10 parca kabul</td></tr>
+              <tr><td class="fn">Fatura</td><td class="fv">9 adet</td><td class="fd">Hurda dusulmus miktar</td></tr>
+            </table>
+            <div class="box-warn"><strong>Dikkat:</strong> OP50 asamasinda <code>scrapQty = 1</code> oldugu icin fatura miktari 9 olmalidir.</div>
+            <div class="expected">
+              <div class="exp-title">Beklenen Sonuc</div>
+              <ul>
+                <li>Offer ve production kayitlari olusur.</li>
+                <li>Bes operasyon tamamlama cagrisi basariyla doner.</li>
+                <li>NADCAP sertifikasi ve 9 adetlik fatura kaydi olusur.</li>
+              </ul>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Bu bölüm, döküm ürününün tekliften operasyon kapatmaya, NADCAP belgesinden faturaya kadar tüm kapanış akışını çalıştırır.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>OP50 aşamasındaki hurda bilgisinin finansal sonuca yansıması, test senaryosunun iş değeri açısından en kritik kısmıdır.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Üretim verimliliği, kalite kabul oranı ve müşteri faturası aynı veri seti üzerinde birleşir.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Hurda bilgisi faturaya yansımazsa müşteri fazladan ücretlendirilir; sertifika kabul sayısı ile mali kayıt çelişir.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuc</span>
+              <button class="btn-result btn-pass" onclick="setResult('C4','pass')">GECTI</button>
+              <button class="btn-result btn-fail" onclick="setResult('C4','fail')">BASARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('C4','skip')">ATLANDI</button>
+              <span class="result-status-tag" id="tag-C4"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-C4" placeholder="Hata veya gozlem notu" oninput="saveNote('C4',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="faz-D">
+    <div class="faz-header" onclick="toggleFaz(this)">
+      <span class="faz-badge">BOLUM 4</span>
+      <span class="faz-title">Senaryo 4 - Kalip ve Takim Imalati</span>
+      <span class="faz-meta">AS9100D / DIN 16750 - MKE 7.62mm fisek kovani kalibi</span>
+      <span class="faz-pct" id="pct-D">0%</span>
+      <span class="faz-toggle">▼</span>
+    </div>
+    <div class="faz-body">
+      <div class="step" id="step-D1">
+        <div class="step-top">
+          <div class="step-num">14</div>
+          <div class="step-content">
+            <div class="step-title">D.1 - MKE musteri karti ve kalip makineleri</div>
+            <div class="step-role">Yapacak: <strong>CRM / Uretim Muhendisligi</strong></div>
+            <table class="data-table">
+              <tr><th>Tip</th><th>Kod / Ad</th><th>Ek Bilgi</th></tr>
+              <tr><td>Musteri</td><td class="fv">MKE Makina ve Kimya Endustrisi A.S.</td><td>Yetkili Fatih Muhimmat</td></tr>
+              <tr><td>Makine</td><td class="fv">CNC-KALIP-01 - Makino V56 5-Eksen CNC Isleme Merkezi</td><td>Saatlik 700</td></tr>
+              <tr><td>Makine</td><td class="fv">WEDM-01 - Mitsubishi MV2400R Tel Erozyon</td><td>Saatlik 500</td></tr>
+              <tr><td>Makine</td><td class="fv">EDM-01 - Charmilles ROBOFORM 350 Dalma Erozyon</td><td>Saatlik 450</td></tr>
+            </table>
+            <div class="expected">
+              <div class="exp-title">Beklenen Sonuc</div>
+              <ul>
+                <li>MKE musteri kaydi bulunur.</li>
+                <li>Uc farkli kalip imalat makinesi eklenmis olur.</li>
+              </ul>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>MKE müşteri kaydı ile kalıp imalatında kullanılacak CNC, tel erozyon ve dalma erozyon kaynakları tanımlanır.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Kalıp imalatı çok operasyonlu bir süreçtir; hangi kaynaklarla çalışıldığı hem süre hem kalite tarafını belirler.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Planlama, maliyetlendirme ve operasyon sırası tanımları bu makine kayıtlarına göre şekillenir.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Makine tipi veya kapasitesi yanlış tanımlanırsa work order template sahadaki gerçek akışı yansıtmaz.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuc</span>
+              <button class="btn-result btn-pass" onclick="setResult('D1','pass')">GECTI</button>
+              <button class="btn-result btn-fail" onclick="setResult('D1','fail')">BASARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('D1','skip')">ATLANDI</button>
+              <span class="result-status-tag" id="tag-D1"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-D1" placeholder="Hata veya gozlem notu" oninput="saveNote('D1',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step" id="step-D2">
+        <div class="step-top">
+          <div class="step-num">15</div>
+          <div class="step-content">
+            <div class="step-title">D.2 - SKD11 hammadde ve progresif kalip mamul karti</div>
+            <div class="step-role">Yapacak: <strong>Stok / Urun Kart Yonetimi</strong></div>
+            <table class="data-table">
+              <tr><th>Tip</th><th>Kod</th><th>Ad</th><th>Ek Bilgi</th></tr>
+              <tr><td>Hammadde</td><td class="fv">HM-SKD11-200X200</td><td>SKD11 (D2) Takim Celigi Plaka 200x200x50mm</td><td>Birim ADET, min stok 5</td></tr>
+              <tr><td>Mamul</td><td class="fv">KALIP-762-KOVANI-PROG</td><td>7.62mm Fisek Kovani Progresif Sac Kalip SKD11 AS9100 DIN 16750</td><td>Satis fiyati 380000</td></tr>
+            </table>
+            <div class="expected">
+              <div class="exp-title">Beklenen Sonuc</div>
+              <ul>
+                <li>Kalip mamul karti olusur ve <code>S4.productId</code> dolu olur.</li>
+                <li>SKD11 stok karti BOM adiminda kullanilabilir.</li>
+              </ul>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>SKD11 takım çeliği hammaddesi ve progresif kalıp mamul kartı, kalıp üretim senaryosunun temel stok ve satış verisidir.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Kalıp projelerinde hammadde kalitesi ve mamul tanımı doğrudan tolerans ve ömür performansını etkiler.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>BOM, fiyatlandırma, üretim emri ve FAI belgesi bu ürün kartlarıyla bağlanır.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Yanlış malzeme veya satış fiyatı girilirse hem teknik uygunluk hem de ticari sözleşme hatalı yürür.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuc</span>
+              <button class="btn-result btn-pass" onclick="setResult('D2','pass')">GECTI</button>
+              <button class="btn-result btn-fail" onclick="setResult('D2','fail')">BASARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('D2','skip')">ATLANDI</button>
+              <span class="result-status-tag" id="tag-D2"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-D2" placeholder="Hata veya gozlem notu" oninput="saveNote('D2',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step" id="step-D3">
+        <div class="step-top">
+          <div class="step-num">16</div>
+          <div class="step-content">
+            <div class="step-title">D.3 - BOM, kontrol plani ve is emri sablonu</div>
+            <div class="step-role">Yapacak: <strong>Planlama / Kalite Muhendisligi</strong></div>
+            <div class="api-box">
+              <div class="api-label">API Akisi</div>
+              <div class="api-step"><span class="arrow">1.</span> <code>POST /Bom</code> - quantity=<code>12</code></div>
+              <div class="api-step"><span class="arrow">2.</span> <code>POST /ControlPlan</code> - ISO 2768-mK ve tryout odakli plan</div>
+              <div class="api-step"><span class="arrow">3.</span> <code>POST /ControlPlan/items</code> - CNC, WEDM ve Tryout olcumleri</div>
+              <div class="api-step"><span class="arrow">4.</span> <code>POST /WorkOrderTemplates</code> - OP10..OP50 kalip imalat akisi</div>
+            </div>
+            <table class="data-table">
+              <tr><th>Kontrol Adimi</th><th>Ozellik</th><th>Spesifikasyon</th></tr>
+              <tr><td>CNC Isleme</td><td>Zimba/Matris toleransi</td><td>+0/-0.005 mm</td></tr>
+              <tr><td>WEDM Isleme</td><td>Kesme yuzey puruzsuzlugu</td><td>Ra &lt; 0.4 um</td></tr>
+              <tr><td>Tryout</td><td>Kovan geometri</td><td>MKE cizim toleranslarinda</td></tr>
+            </table>
+            <div class="expected">
+              <div class="exp-title">Beklenen Sonuc</div>
+              <ul>
+                <li>BOM ve kontrol plani dogru teknik parametrelerle olusur.</li>
+                <li>Work order template OP10, OP20, OP30, OP40, OP50 operasyonlarini icerir.</li>
+              </ul>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Bu adım, kalıp imalatının teknik reçetesini, kalite kriterlerini ve operasyon sırasını bir araya getirir.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Tryout başarısı, ancak önceki operasyonların tolerans ve yüzey kalitesi hedefleri doğru tanımlanırsa mümkündür.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Operasyon süreleri, CMM ölçümleri, yüzey kalite raporları ve müşteri kabul testi bu yapıdan etkilenir.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Yanlış tolerans veya operasyon sırası ileride geri dönüşü pahalı üretim hatalarına sebep olur.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuc</span>
+              <button class="btn-result btn-pass" onclick="setResult('D3','pass')">GECTI</button>
+              <button class="btn-result btn-fail" onclick="setResult('D3','fail')">BASARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('D3','skip')">ATLANDI</button>
+              <span class="result-status-tag" id="tag-D3"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-D3" placeholder="Hata veya gozlem notu" oninput="saveNote('D3',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step" id="step-D4">
+        <div class="step-top">
+          <div class="step-num">17</div>
+          <div class="step-content">
+            <div class="step-title">D.4 - Teklif, uretim, FAI/tryout sertifikasi ve fatura</div>
+            <div class="step-role">Yapacak: <strong>Satis / Uretim / Kalite / Finans</strong></div>
+            <table class="data-table">
+              <tr><th>Kayit</th><th>Deger</th><th>Not</th></tr>
+              <tr><td class="fn">Teklif</td><td class="fv">2 kalip x 380000</td><td class="fd">MKE musterisine</td></tr>
+              <tr><td class="fn">Durum</td><td class="fv">SENT -> ACCEPTED</td><td class="fd"></td></tr>
+              <tr><td class="fn">Uretim Emri</td><td class="fv">2 adet</td><td class="fd"></td></tr>
+              <tr><td class="fn">FAI Belgesi</td><td class="fv">FAI-KALIP-762-MKE-2026-001</td><td class="fd">Tryout 5000 vurus tamamlandi</td></tr>
+              <tr><td class="fn">Fatura</td><td class="fv">2 adet</td><td class="fd">Musteri kabul imzasi sonrasi</td></tr>
+            </table>
+            <div class="expected">
+              <div class="exp-title">Beklenen Sonuc</div>
+              <ul>
+                <li>Offer ve production ID'leri olusur.</li>
+                <li>FAI/tryout sertifikasi kaydedilir.</li>
+                <li>2 adetlik fatura olusur.</li>
+              </ul>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Kalıp projesinin ticari, üretimsel ve kalite kapanışı bu adımda birleşir: teklif, üretim, FAI ve fatura.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Tryout tamamlanmadan kalıbın kabul edildiği varsayılamaz. FAI kaydı müşteri teslimi için kritik kapıdır.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Müşteri kabulü, gelir kaydı, servis ömrü takibi ve proje kapanışı bu belge zinciriyle tamamlanır.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>FAI kaydı olmadan fatura kesilmesi müşteri reddine neden olabilir; miktar uyuşmazlığı finans tarafında problem yaratır.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuc</span>
+              <button class="btn-result btn-pass" onclick="setResult('D4','pass')">GECTI</button>
+              <button class="btn-result btn-fail" onclick="setResult('D4','fail')">BASARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('D4','skip')">ATLANDI</button>
+              <span class="result-status-tag" id="tag-D4"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-D4" placeholder="Hata veya gozlem notu" oninput="saveNote('D4',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="faz-E">
+    <div class="faz-header" onclick="toggleFaz(this)">
+      <span class="faz-badge">BOLUM 5</span>
+      <span class="faz-title">Genel Ozet Dogrulamasi</span>
+      <span class="faz-meta">4 senaryodaki kritik kayitlarin dogrulanmasi</span>
+      <span class="faz-pct" id="pct-E">0%</span>
+      <span class="faz-toggle">▼</span>
+    </div>
+    <div class="faz-body">
+      <div class="step" id="step-E1">
+        <div class="step-top">
+          <div class="step-num">18</div>
+          <div class="step-content">
+            <div class="step-title">E.1 - Tum senaryolardaki kritik kayitlarin ozet dogrulamasi</div>
+            <div class="step-role">Yapacak: <strong>QA Lead / Test Koordinatoru</strong></div>
+            <div class="api-box">
+              <div class="api-label">Kontrol Mantigi</div>
+              <div class="api-step"><span class="arrow">1.</span> S1..S4 icin musteri ve production alanlarinin doluluk durumlari loglanir</div>
+              <div class="api-step"><span class="arrow">2.</span> <code>allIds.filter(Boolean).length</code> sonucu en az <strong>4</strong> olmali</div>
+              <div class="api-step"><span class="arrow">3.</span> Beklenen ciktida her senaryo icin Musteri/Uretim/Cert/Fatura durumlari gorunmeli</div>
+            </div>
+            <table class="data-table">
+              <tr><th>Senaryo</th><th>Kritik Kayitlar</th><th>Beklenti</th></tr>
+              <tr><td>S1 NDT</td><td class="fv">customerId, productionId, certId, invoiceId</td><td>En az musteri veya uretim kaydi mevcut</td></tr>
+              <tr><td>S2 Optik</td><td class="fv">customerId, productionId, certId, invoiceId</td><td>Uctan uca akis tamamlanmis olmali</td></tr>
+              <tr><td>S3 Dokum</td><td class="fv">customerId, productionId, certId, invoiceId</td><td>Hurda sonrasi 9 adet faturaya inilmeli</td></tr>
+              <tr><td>S4 Kalip</td><td class="fv">customerId, productionId, certId, invoiceId</td><td>Tryout ve fatura kayitlari olusmali</td></tr>
+            </table>
+            <div class="expected">
+              <div class="exp-title">Beklenen Sonuc</div>
+              <ul>
+                <li>Genel ozet testinde kritik kayit sayisi 4 veya uzeri olur.</li>
+                <li>Konsol ozeti manuel raporla tutarlidir.</li>
+              </ul>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Genel özet testi, tüm senaryolardan gelen kritik ID’lerin gerçekten oluştuğunu tek noktadan doğrulayan kapanış kontrolüdür.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Tek tek adımların geçti görünmesi yeterli değildir; veri zinciri en azından temel kayıt seviyesinde tamamlanmış olmalıdır.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Regression güveni, rapor paylaşımı ve sonraki demo/test turunun kalitesi bu özet kontrolün sonucuna bağlıdır.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Özet adımı atlanırsa ara kayıt eksikleri fark edilmez; test geçti sanılır ama veri zinciri kopuk kalabilir.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuc</span>
+              <button class="btn-result btn-pass" onclick="setResult('E1','pass')">GECTI</button>
+              <button class="btn-result btn-fail" onclick="setResult('E1','fail')">BASARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('E1','skip')">ATLANDI</button>
+              <span class="result-status-tag" id="tag-E1"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-E1" placeholder="Hata veya gozlem notu" oninput="saveNote('E1',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="summary-card" id="summary">
+    <div class="summary-header">Test Sonuc Raporu</div>
+    <div class="summary-grid">
+      <div class="sum-box sum-total"><div class="n" id="sum-total">18</div><div class="l">Toplam Adim</div></div>
+      <div class="sum-box sum-pass"><div class="n" id="sum-pass">0</div><div class="l">GECTI</div></div>
+      <div class="sum-box sum-fail"><div class="n" id="sum-fail">0</div><div class="l">BASARISIZ</div></div>
+      <div class="sum-box sum-skip"><div class="n" id="sum-skip">0</div><div class="l">ATLANDI</div></div>
+    </div>
+    <div style="margin-bottom: 18px;">
+      <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;">
+        <span style="font-weight:600">Basari Orani</span>
+        <span id="pass-rate-txt" style="font-weight:700;color:var(--green)">0%</span>
+      </div>
+      <div class="pass-rate-bar"><div class="pass-rate-fill" id="pass-rate-fill"></div></div>
+    </div>
+    <div class="fail-list" id="fail-list-wrap">
+      <div class="fail-list-header">Basarisiz Adimlar - Takip Gerekiyor</div>
+      <div id="fail-items"></div>
+    </div>
+    <div class="note-block">
+      <div style="font-weight:600;color:var(--navy);margin-bottom:8px;">Genel Test Yorumu</div>
+      <textarea id="general-note" placeholder="Calisma kosullari, bug referanslari, sonraki aksiyonlar veya manuel dogrulama notlari..." oninput="localStorage.setItem('qx_savunma_note',this.value)"></textarea>
+    </div>
+    <div class="sign-grid">
+      <div class="sign-box"><span class="sl">Test Eden Kisi</span><span class="sl2">Ad / Imza / Tarih</span></div>
+      <div class="sign-box"><span class="sl">Kalite Sorumlusu</span><span class="sl2">Ad / Imza / Tarih</span></div>
+      <div class="sign-box"><span class="sl">Test Koordinatoru</span><span class="sl2">Ad / Imza / Tarih</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const STEPS = ['A1','A2','A3','A4','A5','B1','B2','B3','B4','C1','C2','C3','C4','D1','D2','D3','D4','E1'];
+const STEP_TITLES = {
+  A1: 'Ozdemir Kaynak musteri kaydi',
+  A2: 'NDT ekipman tanimlari',
+  A3: 'NDT hizmet urun karti',
+  A4: 'NDT teklif ve siparis',
+  A5: 'NDT uretim + sertifika + fatura',
+  B1: 'ASELSAN ve optik makine tanimi',
+  B2: 'Ge lens ve lens grubu kartlari',
+  B3: 'Optik BOM ve kontrol plani',
+  B4: 'Optik teklif + uretim + COC + fatura',
+  C1: 'TEI ve dokum ekipmanlari',
+  C2: 'Inconel ve turbin kanadi kartlari',
+  C3: 'Dokum BOM ve NADCAP kontrol plani',
+  C4: 'Dokum teklif + uretim + NADCAP + fatura',
+  D1: 'MKE ve kalip makineleri',
+  D2: 'SKD11 ve kalip urun kartlari',
+  D3: 'Kalip BOM + kontrol plani + sablon',
+  D4: 'Kalip teklif + uretim + FAI + fatura',
+  E1: 'Genel ozet dogrulamasi'
+};
+const FAZ_STEPS = {
+  A: ['A1','A2','A3','A4','A5'],
+  B: ['B1','B2','B3','B4'],
+  C: ['C1','C2','C3','C4'],
+  D: ['D1','D2','D3','D4'],
+  E: ['E1']
+};
+const KEY = 'qx_savunma_ozel_test_plani_v1';
+
+function load() {
+  try { return JSON.parse(localStorage.getItem(KEY)) || {}; }
+  catch { return {}; }
+}
+
+function save(data) {
+  localStorage.setItem(KEY, JSON.stringify(data));
+}
+
+function setResult(id, result) {
+  const data = load();
+  data[id] = result;
+  save(data);
+  const step = document.getElementById('step-' + id);
+  step.className = 'step ' + (result === 'pass' ? 'passed' : result === 'fail' ? 'failed' : 'skipped');
+  ['pass', 'fail', 'skip'].forEach(kind => {
+    const btn = step.querySelector('.btn-' + kind);
+    if (btn) btn.classList.toggle('active', kind === result);
+  });
+  const tag = document.getElementById('tag-' + id);
+  if (tag) {
+    tag.className = 'result-status-tag ' + (result === 'pass' ? 'tag-pass' : result === 'fail' ? 'tag-fail' : 'tag-skip');
+    tag.textContent = result === 'pass' ? 'GECTI' : result === 'fail' ? 'BASARISIZ' : 'ATLANDI';
+  }
+  updateStats();
+}
+
+function saveNote(id, value) {
+  const data = load();
+  data['note_' + id] = value;
+  save(data);
+}
+
+function updateStats() {
+  const data = load();
+  let pass = 0;
+  let fail = 0;
+  let skip = 0;
+  const failItems = [];
+
+  STEPS.forEach(id => {
+    if (data[id] === 'pass') pass++;
+    else if (data[id] === 'fail') {
+      fail++;
+      failItems.push(id);
+    } else if (data[id] === 'skip') {
+      skip++;
+    }
+  });
+
+  const done = pass + fail + skip;
+  const total = STEPS.length;
+  const pct = total ? Math.round((pass / total) * 100) : 0;
+
+  document.getElementById('hdr-pass').textContent = pass;
+  document.getElementById('hdr-fail').textContent = fail;
+  document.getElementById('hdr-skip').textContent = skip;
+  document.getElementById('prog-fill').style.width = ((done / total) * 100) + '%';
+  document.getElementById('prog-pct').textContent = done + ' / ' + total + ' adim';
+  document.getElementById('sum-total').textContent = total;
+  document.getElementById('sum-pass').textContent = pass;
+  document.getElementById('sum-fail').textContent = fail;
+  document.getElementById('sum-skip').textContent = skip;
+  document.getElementById('pass-rate-txt').textContent = pct + '%';
+  document.getElementById('pass-rate-fill').style.width = pct + '%';
+
+  Object.entries(FAZ_STEPS).forEach(([faz, ids]) => {
+    const fazPass = ids.filter(id => data[id] === 'pass').length;
+    const fazPct = Math.round((fazPass / ids.length) * 100);
+    document.getElementById('pct-' + faz).textContent = fazPct + '%';
+  });
+
+  const failWrap = document.getElementById('fail-list-wrap');
+  const failItemsEl = document.getElementById('fail-items');
+  if (failItems.length) {
+    failWrap.style.display = 'block';
+    failItemsEl.innerHTML = failItems.map((id, index) => {
+      const note = (data['note_' + id] || '').trim();
+      return '<div class="fail-item"><div class="fi-num">' + (index + 1) + '</div><div><strong>' + id + '</strong> - ' + STEP_TITLES[id] + (note ? '<br><span style="color:#7b7b7b;font-size:11px">Not: ' + note + '</span>' : '') + '</div></div>';
+    }).join('');
+  } else {
+    failWrap.style.display = 'none';
+    failItemsEl.innerHTML = '';
+  }
+}
+
+function toggleKH(el) {
+  el.classList.toggle('open');
+  const body = el.nextElementSibling;
+  if (body) body.classList.toggle('open');
+}
+
+function toggleFaz(header) {
+  header.classList.toggle('collapsed');
+  const body = header.nextElementSibling;
+  if (!body) return;
+  body.style.display = header.classList.contains('collapsed') ? 'none' : 'block';
+}
+
+function resetAll() {
+  if (!confirm('Tum test sonuclari sifirlanacak. Emin misiniz?')) return;
+  localStorage.removeItem(KEY);
+  localStorage.removeItem('qx_savunma_note');
+  location.reload();
+}
+
+(function restore() {
+  const data = load();
+  STEPS.forEach(id => {
+    if (data[id]) setResult(id, data[id]);
+  });
+  STEPS.forEach(id => {
+    const note = data['note_' + id];
+    if (!note) return;
+    const el = document.getElementById('note-' + id);
+    if (el) el.value = note;
+  });
+  const generalNote = localStorage.getItem('qx_savunma_note');
+  if (generalNote) {
+    const el = document.getElementById('general-note');
+    if (el) el.value = generalNote;
+  }
+  updateStats();
+})();
+</script>
+</body>
+</html>

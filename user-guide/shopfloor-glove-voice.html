@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quvex ERP - Eldiven Modu ve Sesli Komut Rehberi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .step-card { background: var(--glass); backdrop-filter: blur(12px); border: 1px solid var(--glass-border); border-radius: var(--radius-sm); padding: 1.25rem 1.5rem; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(99,102,241,0.06); }
+  .step-num { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background: var(--gradient-subtle); color: var(--primary); font-weight: 800; font-size: 1.1rem; margin-right: 0.75rem; }
+  .cmd-table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+  .cmd-table th, .cmd-table td { padding: 0.85rem 1rem; text-align: left; border-bottom: 1px solid var(--border); }
+  .cmd-table th { background: var(--gradient-subtle); color: var(--text); font-weight: 700; }
+  .cmd-tag { display: inline-block; padding: 4px 12px; background: rgba(99,102,241,0.15); color: var(--primary); border-radius: 6px; font-weight: 600; font-family: monospace; }
+  .warn { background: #fff7e6; border-left: 4px solid #faad14; padding: 1rem 1.25rem; border-radius: 8px; margin: 1rem 0; }
+  .tip { background: #f6ffed; border-left: 4px solid #52c41a; padding: 1rem 1.25rem; border-radius: 8px; margin: 1rem 0; }
+  .icon-big { font-size: 1.6rem; vertical-align: middle; }
+</style>
+</head>
+<body>
+<div class="container">
+  <header style="margin-bottom: 2rem;">
+    <h1><span class="icon-big">🧤</span> Eldiven Modu ve <span class="icon-big">🎤</span> Sesli Komut</h1>
+    <p style="color: var(--text-secondary); font-size: 1.05rem;">Saha operatörleri için kısa kullanım rehberi — Sprint 12</p>
+  </header>
+
+  <section>
+    <h2>Eldiven Modu Nedir?</h2>
+    <p>Eldiven taktığınızda küçük butonlara basmak zor olur. <strong>Eldiven Modu</strong> tüm butonları, input'ları ve menüleri 2 katı büyütür. Bir kez açtığınızda sistem hatırlar — bir dahaki sefere otomatik açılır.</p>
+
+    <div class="step-card"><span class="step-num">1</span><strong>Operatör Terminaline gir.</strong> Soldan menüden "Üretim → Operatör Terminali" tıkla.</div>
+    <div class="step-card"><span class="step-num">2</span><strong>Sağ üstte "🧤 Eldiven Modu" butonu var.</strong> Dokun, butonun rengi yeşile döner.</div>
+    <div class="step-card"><span class="step-num">3</span><strong>Tüm ekran büyür.</strong> Artık eldivenle rahat çalışabilirsin.</div>
+    <div class="step-card"><span class="step-num">4</span><strong>Kapatmak için</strong> aynı butona tekrar dokun.</div>
+
+    <div class="tip"><strong>İpucu:</strong> Eldiven Modu açıkken modal pencereler de tam ekran açılır. Tablolar daha geniş, yazılar büyük olur.</div>
+  </section>
+
+  <section style="margin-top: 2.5rem;">
+    <h2>Sesli Komut Nedir?</h2>
+    <p>Ellerin doluyken veya kirliyken "üretim başlat" der gibi konuşarak işlem yapabilirsin. Sistem Türkçe anlar.</p>
+
+    <div class="step-card"><span class="step-num">1</span><strong>Sağ alt köşede gri mikrofon butonu var.</strong> Dokun.</div>
+    <div class="step-card"><span class="step-num">2</span><strong>Tarayıcı "Mikrofon kullanmasına izin ver" diye sorar.</strong> "İzin Ver" tıkla.</div>
+    <div class="step-card"><span class="step-num">3</span><strong>Buton kırmızı pulse'a döner — sistem dinliyor.</strong> Şimdi komut söyle.</div>
+    <div class="step-card"><span class="step-num">4</span><strong>Komut tanındığında "tamam" der ve işlem otomatik başlar.</strong></div>
+    <div class="step-card"><span class="step-num">5</span><strong>Kapatmak için</strong> mikrofona tekrar dokun.</div>
+
+    <h3>Kullanabileceğin Komutlar</h3>
+    <table class="cmd-table">
+      <thead><tr><th>Komut</th><th>Ne Yapar?</th></tr></thead>
+      <tbody>
+        <tr><td><span class="cmd-tag">üretim başlat</span></td><td>Seçili iş emrini başlatır</td></tr>
+        <tr><td><span class="cmd-tag">üretim durdur</span></td><td>Çalışan işi duraklatır</td></tr>
+        <tr><td><span class="cmd-tag">bir adet</span> / <span class="cmd-tag">tek ürün</span></td><td>Tamamlanan adedi 1 artırır</td></tr>
+        <tr><td><span class="cmd-tag">duruş sebebi malzeme</span></td><td>Duruş nedenini "Malzeme yok" olarak işaretler</td></tr>
+        <tr><td><span class="cmd-tag">yardım</span></td><td>Yardım panelini açar</td></tr>
+        <tr><td><span class="cmd-tag">sayfa yenile</span></td><td>Sayfayı tazeler</td></tr>
+        <tr><td><span class="cmd-tag">iptal</span></td><td>Açık modal'ı kapatır</td></tr>
+      </tbody>
+    </table>
+
+    <div class="tip"><strong>İpucu:</strong> Mikrofon yanındaki mavi "?" butonu komut listesini her zaman gösterir.</div>
+  </section>
+
+  <section style="margin-top: 2.5rem;">
+    <h2>Sık Sorulan Sorular</h2>
+    <h3>Sesli komut çalışmıyor?</h3>
+    <ul>
+      <li>Tarayıcı olarak <strong>Chrome veya Edge</strong> kullanmalısın. Firefox sesli komutu desteklemez.</li>
+      <li>Tarayıcı adres çubuğunda mikrofon ikonuna tıklayıp "İzin Ver" seçtiğinden emin ol.</li>
+      <li>Mikrofonun fiziksel olarak çalıştığından emin ol (Windows ses ayarları → Giriş).</li>
+      <li>Net konuş, gürültülü ortamda çalışmayabilir.</li>
+    </ul>
+
+    <h3>Eldiven Modu açılmıyor?</h3>
+    <ul>
+      <li>Butona tıkladığında sayfayı yenile — bazen tarayıcı cache'i sorun çıkarır.</li>
+      <li>Tarayıcı "Özel Mod" ise localStorage çalışmaz; normal modda dene.</li>
+    </ul>
+
+    <h3>Sesli komut yanlış anladı?</h3>
+    <ul>
+      <li>Sistem "anlamadım, tekrar" der — komutu daha net tekrar söyle.</li>
+      <li>Komut listesinde olmayan bir şey söyledysen tanımaz.</li>
+    </ul>
+
+    <div class="warn"><strong>Önemli:</strong> Sesli komut <strong>HTTPS</strong> üzerinden çalışır. Yerel test (localhost) hariç HTTP siteler mikrofon iznini alamaz.</div>
+  </section>
+
+  <footer style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.9rem;">
+    <p>Bir şey çalışmıyorsa vardiya amirine haber ver veya <strong>destek@quvex.io</strong> adresine yaz.</p>
+    <p>Quvex ERP — Sprint 12 (2026-04-12)</p>
+  </footer>
+</div>
+</body>
+</html>

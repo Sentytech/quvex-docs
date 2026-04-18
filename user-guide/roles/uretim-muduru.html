@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Üretim Müdürü Kılavuzu - Quvex ERP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="container">
+
+  <a href="../index.html" class="nav-back">&#8592; Ana Sayfa</a>
+
+  <div class="doc-header">
+    <span class="version-badge">v1.5</span>
+    <div class="breadcrumb"><a href="../index.html">Kullanıcı Kılavuzu</a> / <a href="../index.html">Rol Kılavuzlari</a> / Üretim Müdürü</div>
+    <h1>Üretim Müdürü Kılavuzu</h1>
+    <p>Siz üretim müdürüsunuz. Fabrikadaki tüm üretim süreçlerinden, makine kapasitesinden ve zamaninda teslimatten siz sorumlusunuz.</p>
+  </div>
+
+  <div class="two-col">
+
+    <aside>
+      <nav class="nav-sidebar">
+        <a href="#bakis">Genel Bakis</a>
+        <a href="#sabah">Sabah Rutini</a>
+        <a href="#günlük">Gun Ici Gorevler</a>
+        <a href="#haftalık">Haftalik Gorevler</a>
+        <a href="#tipik-gun">Tipik Bir Gun</a>
+        <a href="#ekranlar">Önemli Ekranlar</a>
+        <a href="#ipuçları">İpuçları ve Hatalar</a>
+      </nav>
+    </aside>
+
+    <main>
+
+      <section id="bakis">
+        <h2>Genel Bakis</h2>
+        <p>Üretim müdürü olarak sizin goreviniz <strong>is emirlerinin zamaninda, kaliteli ve minimum fire ile tamamlanmasi</strong>dir. Bunun için günlük planlama, kapasite kontrolü ve operatorlerle koordinasyon gerekir.</p>
+
+        <div class="card-grid">
+          <div class="card">
+            <h4>Planlama</h4>
+            <p>Is emri acma, Gantt güncelleme, makine atama</p>
+          </div>
+          <div class="card">
+            <h4>Takip</h4>
+            <p>Is emri ilerleme, fire bildirimi, darbogaz tespiti</p>
+          </div>
+          <div class="card">
+            <h4>Kapasite</h4>
+            <p>Makine doluluk orani, vardiya planlama, fazla mesai</p>
+          </div>
+          <div class="card">
+            <h4>Koordinasyon</h4>
+            <p>Fason is emirleri, operator atamalari, malzeme talepleri</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="sabah">
+        <h2>Sabah Rutini (07:30 - 08:30)</h2>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Geciken Is Emirlerini Kontrol Edin</h4>
+              <p><strong>Üretim &gt; Is Emirleri</strong> ekraninda "Geciken" filtresini aktif edin. Kirmizi satirlari inceleyin &mdash; bunlar plan tarihini geçmiş is emirleridir.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Kapasite Durumunu Gorun</h4>
+              <p><strong>Üretim &gt; Kapasite Planlama</strong> ekraninda bugunun makine doluluk oranlarini kontrol edin. %100 dolu makinelerde darbogaz riski var.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Vardiya Planini Dogrulayin</h4>
+              <p>Bugun hangi operatorler hangi makinelerde calisacak? IK &gt; Vardiya ekranindan kontrol edin. Devamsizlik varsa yedek operator atayin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>Malzeme Durumunu Kontrol Edin</h4>
+              <p><strong>Stok &gt; Stok Alarmlari</strong> ekraninda bugunun is emirleri için gereken malzemelerin stok durumunu dogrulayin. Eksik malzeme varsa satınalma talep edin.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="günlük">
+        <h2>Gun Ici Gorevler</h2>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Görev</th><th>Ekran</th><th>Saat</th><th>Açıklama</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Is emri acma/güncelleme</td><td>Üretim &gt; Is Emirleri</td><td>09:00</td><td>Yeni siparişler için is emri olustürün, oncelikleri belirleyin</td></tr>
+            <tr><td>Gantt güncelleme</td><td>Üretim &gt; Gantt</td><td>09:30</td><td>Surukle-birak ile is emirlerini yeniden planlayin</td></tr>
+            <tr><td>Ture cikin</td><td>&mdash;</td><td>10:00</td><td>Fabrika türünda operatorlerle konusun, sorunlari yerinde gorun</td></tr>
+            <tr><td>Fire inceleme</td><td>Üretim &gt; Is Emri Detay</td><td>11:00</td><td>Operator tarafindan bildirilen fireleri inceleyin, NCR gerekiyorsa açın</td></tr>
+            <tr><td>Fason koordinasyonu</td><td>Üretim &gt; Fason</td><td>13:30</td><td>Disarida isletilen parcalarin durumunu takip edin</td></tr>
+            <tr><td>OEE kontrol</td><td>Raporlar &gt; OEE</td><td>15:00</td><td>Makinelerin günlük OEE değerlerini kontrol edin</td></tr>
+            <tr><td>Yarin plani</td><td>Üretim &gt; Gantt</td><td>16:30</td><td>Yarin baslayacak is emirlerini kesinlestirin</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="haftalık">
+        <h2>Haftalik Gorevler</h2>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Haftalik OEE Analizi</h4>
+              <p>Her Cuma <strong>Raporlar &gt; OEE</strong> ekraninda haftalık trendi inceleyin. Düşük OEE'li makineleri belirleyin ve koku neden analizini baslatin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Fire Analizi</h4>
+              <p>Haftalik fire raporunu kontrol edin. Fire orani %3'u geciyorsa kalite müdürü ile görüşme yapın.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Darbogaz Tespiti</h4>
+              <p>Kapasite planlama ekraninda surekli %90+ dolu olan makineleri belirleyin. Yatirm veya fason alternatifi değerlendirin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>Gelecek Hafta Planlama</h4>
+              <p>Gantt ekraninda gelecek haftanin is emirlerini yerlesirin. Malzeme ihtiyaç listesini satınalmaya iletin.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="tipik-gun">
+        <h2>Tipik Bir Gun Senaryosu</h2>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Saat</th><th>Aktivite</th><th>Quvex Ekrani</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>07:30</td><td>Fabrikaya gelin. Geciken is emirlerini kontrol edin.</td><td>Üretim &gt; Is Emirleri</td></tr>
+            <tr><td>07:45</td><td>Kapasite durumunu gorun. CNC-3 makinesi arizali &mdash; bos kapasite CNC-1'e aktarilacak.</td><td>Üretim &gt; Kapasite</td></tr>
+            <tr><td>08:00</td><td>Vardiya başlangıçinida operatorlere gunun planini anlatin.</td><td>&mdash;</td></tr>
+            <tr><td>08:30</td><td>Yeni gelen sipariş için is emri açın. 3 adimlik işlem rotasi tanımlayin.</td><td>Üretim &gt; Is Emri Oluştur</td></tr>
+            <tr><td>09:00</td><td>Gantt ekraninda is emirlerini makine bazlı yerlesirin.</td><td>Üretim &gt; Gantt</td></tr>
+            <tr><td>10:00</td><td>Fabrika turu. Operator CNC-2'de fire bildirdi &mdash; 5 parça hatali.</td><td>&mdash;</td></tr>
+            <tr><td>10:30</td><td>Fire bildirimini sisteme girin. Kalite ekibini bilgilendirin.</td><td>Üretim &gt; Is Emri Detay</td></tr>
+            <tr><td>11:30</td><td>Fason firma aradi, parcalar yarin hazır olacak.</td><td>Üretim &gt; Fason</td></tr>
+            <tr><td>13:00</td><td>Ogle sonrasi: ShopFloor terminallerden operatorlerin ilerleme durumunu takip edin.</td><td>Dashboard</td></tr>
+            <tr><td>14:00</td><td>Fabrika sahibi ile toplanti. Geciken siparişlerin nedenlerini sunun.</td><td>Raporlar</td></tr>
+            <tr><td>15:00</td><td>OEE raporunu inceleyin. CNC-1 %72, arastirma gerekiyor.</td><td>Raporlar &gt; OEE</td></tr>
+            <tr><td>16:30</td><td>Yarin için Gantt'i güncelleyin. Oncelikli is emirlerini sabaha alın.</td><td>Üretim &gt; Gantt</td></tr>
+            <tr><td>17:00</td><td>Gun sonu. Acik konulari not alın.</td><td>&mdash;</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="ekranlar">
+        <h2>En Önemli Ekranlar</h2>
+
+        <div class="card-grid">
+          <div class="card">
+            <h4>Üretim &gt; Is Emirleri</h4>
+            <p>Is emirlerinin tamamini gorur, filtreler ve yonetirsiniz. Sabah ilk bakacaginiz ekran.</p>
+            <p><a href="../uretim.html">Üretim Kılavuzu &rarr;</a></p>
+          </div>
+          <div class="card">
+            <h4>Üretim &gt; Gantt</h4>
+            <p>Zaman cizelgesinde is emirlerini surukle-birak ile planlayin. Cakismalari aninda gorun.</p>
+            <p><a href="../uretim.html#gantt">Gantt Kılavuzu &rarr;</a></p>
+          </div>
+          <div class="card">
+            <h4>Üretim &gt; Kapasite</h4>
+            <p>Makinelerin doluluk oranlarini gorun. Darbogaz olan makineleri hemen fark edin.</p>
+            <p><a href="../uretim.html#kapasite">Kapasite Kılavuzu &rarr;</a></p>
+          </div>
+          <div class="card">
+            <h4>Raporlar &gt; OEE</h4>
+            <p>Makine bazlı Overall Equipment Effectiveness. Verimlilik, kalite ve kullanilabilirlik.</p>
+            <p><a href="../raporlar.html">Raporlar Kılavuzu &rarr;</a></p>
+          </div>
+        </div>
+      </section>
+
+      <section id="ipuçları">
+        <h2>İpuçları ve Yaygin Hatalar</h2>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> Gantt ekraninda is emirlerini surukle-birak ile tasirken, sistem otomatik olarak cakismalari uyarır. Sari uyarı = dikkat, kirmizi = çakışma.
+        </div>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> Is emri acerken "Şablon Kullan" butonunu tıklayin. Benzer ürünler için şablonlar olusturursaniz her seferinde adimlari tekrar girmenize gerek kalmaz.
+        </div>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> Fason is emirlerinde "Beklenen Teslim Tarihi" alanıni mutlaka doldürün. Sistem bu tarihe gore gecikme uyarısi gonderir.
+        </div>
+
+        <div class="callout callout-warn">
+          <strong>Dikkat:</strong> Is emri durumunu "Tamamlandi" yapmadan once kalite kontrolun gectiginden emin olun. Kalite kapisi aktifse sistem zaten izin vermez.
+        </div>
+
+        <div class="callout callout-warn">
+          <strong>Dikkat:</strong> Kapasite planlama ekranindaki yuzdelere bakarken "planli bakım" surelerinin dahil edildigini unutmayin. Gerçek bos kapasite gosterilenden az olabilir.
+        </div>
+
+        <div class="callout callout-warn">
+          <strong>Dikkat:</strong> Fire bildirimi yapilmadan is emri tamamlanirsa, fire orani yanlis hesaplanir. Operatorlerin her fireyi aninda bildirmesini saglayin.
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="doc-footer">
+    <p>Quvex ERP &mdash; Üretim Müdürü Kılavuzu &middot; v1.5 &middot; Mart 2026</p>
+  </div>
+
+</div>
+<script src="../js/guide-enhancements.js"></script>
+</body>
+</html>

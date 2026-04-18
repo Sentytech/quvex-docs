@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stok &amp; Depo - Quvex ERP Kullanıcı Kılavuzu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+
+  <a href="index.html" class="nav-back">&#8592; Ana Sayfa</a>
+
+  <div class="doc-header">
+    <span class="version-badge">v2.0</span>
+    <div class="breadcrumb"><a href="index.html">Kullanıcı Kılavuzu</a> / Stok &amp; Depo</div>
+    <h1>Stok &amp; Depo Yönetimi</h1>
+    <p>Stok karti, depo, lokasyon, barkod, sayım, lot takibi, ABC analizi, min/max uyarıları &mdash; tam kılavuz</p>
+  </div>
+
+  <!-- Sprint 11 Yenilikleri Callout -->
+  <div class="card" style="border-left:4px solid #f59e0b;background:linear-gradient(135deg,#fffbeb,#fef3c7);">
+    <div class="tip-title" style="color:#92400e;font-size:1rem;font-weight:700;margin-bottom:0.5rem;">Sprint 11 Yenilikleri (Nisan 2026)</div>
+    <ul style="margin:0 0 0 1.2rem;color:var(--text-secondary);line-height:1.7;">
+      <li><strong>ProductVariant (Urun Varyanti):</strong> Beden, renk, model gibi oznitelikler ile tek urunden yuzlerce SKU olusturun. Ayrinti: <a href="#varyant">Varyant Matrisi</a>.</li>
+      <li><strong>SKU Matrisi:</strong> Tum beden/renk kombinasyonlarini tek ekranda gorun, stoklari toplu girin.</li>
+      <li><strong>Sektor Sablonlari:</strong> Tekstil, gida, medikal gibi 8 hazir sektor icin demo veri ve ozel dashboard. Bkz: <a href="ilk-adimlar.html#5-dakika">5 Dakikada Hazir</a>.</li>
+    </ul>
+  </div>
+
+  <div class="two-col">
+
+    <aside>
+      <nav class="nav-sidebar">
+        <a href="#tanitim">Modül Tanitimi</a>
+        <a href="#hızlı-başlangıç">Hızlı Başlangıç</a>
+        <a href="#stok-karti">Stok Karti Yönetimi</a>
+        <a href="#hareketler">Stok Hareketleri</a>
+        <a href="#depolar">Depo Yönetimi</a>
+        <a href="#lokasyonlar">Depo Lokasyonları</a>
+        <a href="#transfer">Depolar Arasi Transfer</a>
+        <a href="#sayım">Stok Sayım</a>
+        <a href="#lot">Lot / Parti Takibi</a>
+        <a href="#barkod">Barkod İşlemleri</a>
+        <a href="#uyarılar">Min/Max Uyarıları</a>
+        <a href="#abc">ABC Analizi</a>
+        <a href="#sorun-giderme">Sorun Giderme</a>
+        <a href="#sss">Sik Sorulan Sorular</a>
+      </nav>
+    </aside>
+
+    <main>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 1. MODUL TANITIMI                          -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="tanitim">
+        <h2>1. Modül Tanitimi</h2>
+        <p>Stok &amp; Depo modülü, işletmenizin tüm hammadde, yari mamul ve mamul stoklarini tek merkezden yonetmenizi saglar. Depoya giren her malzeme, cikan her ürün, her hareket bu modülde kayıt altina alınir.</p>
+
+        <h3>Kim Kullanir?</h3>
+        <div class="card-grid">
+          <div class="card">
+            <h4>Depo Sorumlusu</h4>
+            <p>Mal kabul, sevkiyat, sayım, lokasyon atama işlemlerini yapar.</p>
+          </div>
+          <div class="card">
+            <h4>Satin Alma Birimi</h4>
+            <p>Minimum stok uyarılarıni takip eder, sipariş kararlarini verir.</p>
+          </div>
+          <div class="card">
+            <h4>Üretim Planlama</h4>
+            <p>Malzeme mevcudiyetini kontrol eder, üretim emri oluşturur.</p>
+          </div>
+          <div class="card">
+            <h4>Kalite Kontrol</h4>
+            <p>Lot/parti bazinda izlenebilirlik, son kullanma tarih kontrolleri yapar.</p>
+          </div>
+        </div>
+
+        <h3>Diger Modüllerle Iliski</h3>
+        <table>
+          <tr><th>Modül</th><th>Iliski</th></tr>
+          <tr><td>Üretim</td><td>Is emri malzeme tuketimi stoktan duser; mamul çıkışi stoga girer</td></tr>
+          <tr><td>Satin Alma</td><td>Satin alma irsaliyesi otomatik stok girişi oluşturur</td></tr>
+          <tr><td>Satış</td><td>Satış irsaliyesi stoktan duser, miktar kontrolü yapılır</td></tr>
+          <tr><td>Kalite</td><td>Muayene sonucu lot durumunu (kabul/red/sartli) belirler</td></tr>
+          <tr><td>Finans</td><td>Stok değerlemesi maliyet hesaplamasina akar</td></tr>
+        </table>
+
+        <div class="tip info">
+          <div class="tip-title">&#128161; İpucu</div>
+          <p>Stok modülü diger tüm modüllerin temel verisidir. Once stok kartlarınizi eksiksiz tanımlayin, sonra diger modülleri kullanmaya baslayin.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 2. HIZLI BASLANGIC                         -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="hızlı-başlangıç">
+        <h2>2. Hızlı Başlangıç &mdash; 5 Adimda İlk Stok Karti</h2>
+
+        <div class="flow">
+          <div class="flow-step active">1. Birim Tanimla</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">2. Kategori Oluştur</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">3. Depo Ekle</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">4. Stok Karti Ac</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">5. Giriş Fisi Kes</div>
+        </div>
+
+        <div class="card">
+          <h4>Adim 1 &mdash; Birim Tanimla</h4>
+          <p><strong>Ayarlar &rarr; Birimler</strong> ekranina gidin. "Yeni Birim" butonuna tıklayin. Örnek: <code>KG</code>, <code>ADET</code>, <code>METRE</code>. En az bir birim olmadan stok karti acilamaz.</p>
+        </div>
+        <div class="card">
+          <h4>Adim 2 &mdash; Kategori Oluştur</h4>
+          <p><strong>Ayarlar &rarr; Kategoriler</strong> ekraninda ürün gruplarini tanımlayin. Örnek: "Hammadde", "Yari Mamul", "Mamul". Kategoriler raporlamada filtreleme saglar.</p>
+        </div>
+        <div class="card">
+          <h4>Adim 3 &mdash; Depo Ekle</h4>
+          <p><strong>Stok &rarr; Depolar</strong> ekraninda en az bir depo tanımlayin. Her depoya bir sorumlu atayin.</p>
+        </div>
+        <div class="card">
+          <h4>Adim 4 &mdash; Stok Karti Ac</h4>
+          <p><strong>Stok &rarr; Ürünler</strong> ekraninda "Yeni Ürün" butonuna tıklayin. Ürün adi, kodu, birimi, kategorisi, depo bilgisi girin ve kaydedin.</p>
+        </div>
+        <div class="card">
+          <h4>Adim 5 &mdash; Giriş Fisi Kes</h4>
+          <p><strong>Stok &rarr; Hareketler</strong> ekraninda "Giriş Fisi" olustürün, ilgili ürünu secin, miktari girin. Kaydettikten sonra stok bakiyesi otomatik güncellenir.</p>
+        </div>
+
+        <div class="tip">
+          <div class="tip-title">&#128161; İpucu</div>
+          <p>Bu 5 adimi tamamladiktan sonra stok kaydıni gormeye baslayabilirsiniz. Detayli alan açıklamaları için aşağıdaki bolumleri okuyun.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 3. STOK KARTI YONETIMI                     -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="stok-karti">
+        <h2>3. Stok Karti Yönetimi <code>/stocks</code></h2>
+        <p>Stok karti, bir malzeme veya ürünun tüm tanımlayici bilgilerini iceren ana kayıttir. Her ürün için tek bir stok karti bulunur.</p>
+
+        <h3>Alan Tablosu</h3>
+        <table class="field-table">
+          <tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th><th>Örnek</th></tr>
+          <tr><td class="required">Ürün Adi</td><td>Ürünun tüm adi</td><td><span class="badge badge-danger">Evet</span></td><td>Paslanmaz Celik Boru DN50</td></tr>
+          <tr><td class="required">Ürün Kodu</td><td>Benzersiz stok kodu</td><td><span class="badge badge-danger">Evet</span></td><td>HM-PAS-050</td></tr>
+          <tr><td class="required">Birim</td><td>Ölçüm birimi</td><td><span class="badge badge-danger">Evet</span></td><td>METRE</td></tr>
+          <tr><td class="required">Kategori</td><td>Ürün grubu</td><td><span class="badge badge-danger">Evet</span></td><td>Hammadde</td></tr>
+          <tr><td>Barkod</td><td>EAN-13 veya özel barkod</td><td><span class="badge badge-default">Hayir</span></td><td>8690123456789</td></tr>
+          <tr><td>Depo</td><td>Varsayılan depo</td><td><span class="badge badge-default">Hayir</span></td><td>Ana Depo</td></tr>
+          <tr><td>Min. Stok</td><td>Minimum stok miktari</td><td><span class="badge badge-default">Hayir</span></td><td>100</td></tr>
+          <tr><td>Max. Stok</td><td>Maksimum stok miktari</td><td><span class="badge badge-default">Hayir</span></td><td>5000</td></tr>
+          <tr><td>Alis Fiyati</td><td>Birim maliyet</td><td><span class="badge badge-default">Hayir</span></td><td>24.50 TL</td></tr>
+          <tr><td>Satış Fiyati</td><td>Birim satış fiyati</td><td><span class="badge badge-default">Hayir</span></td><td>38.00 TL</td></tr>
+          <tr><td>KDV Orani</td><td>Vergi orani (%)</td><td><span class="badge badge-default">Hayir</span></td><td>%20</td></tr>
+          <tr><td>Açıklama</td><td>Ek notlar</td><td><span class="badge badge-default">Hayir</span></td><td>ASTM A312 standardi</td></tr>
+          <tr><td>Lot Takibi</td><td>Lot/parti zorunlulugu</td><td><span class="badge badge-default">Hayir</span></td><td>Acik / Kapali</td></tr>
+          <tr><td>Seri No Takibi</td><td>Seri numara zorunlulugu</td><td><span class="badge badge-default">Hayir</span></td><td>Acik / Kapali</td></tr>
+        </table>
+
+        <h3>CRUD İşlemleri</h3>
+        <h4>Yeni Ürün Ekleme</h4>
+        <p><strong>Stok &rarr; Ürünler &rarr; Yeni Ürün</strong> butonuna tıklayin. Zorunlu alanları doldürün ve <strong>Kaydet</strong> butonuna basin.</p>
+
+        <h4>Ürün Düzenleme</h4>
+        <p>Listede ilgili ürün satirindaki <strong>kalem ikonu</strong>na tıklayin. Degisiklikleri yapın ve kaydedin.</p>
+
+        <h4>Ürün Silme</h4>
+        <p>Satirda <strong>cop kutusu ikonu</strong>na tıklayin. Sistem onay sorar. Uzerinde hareket olan ürünler silinemez.</p>
+
+        <div class="tip warning">
+          <div class="tip-title">&#9888;&#65039; Dikkat</div>
+          <p>Stok hareketi olan bir ürünu silmeye calistiginizda "Bu ürünun stok hareketi bulunmaktadir" hatasi alirsiniz. Once hareketleri silmeniz veya ürünu pasife cevirmeniz gerekir.</p>
+        </div>
+
+        <h4>Toplu Import (CSV/Excel)</h4>
+        <p>Cok sayida ürün eklemek için <strong>Iceaktar</strong> butonunu kullanın. CSV veya Excel şablonu indirin, doldürün, yükleyin. Sistem eslesmeyen alanları raporlar.</p>
+
+        <div class="tip info">
+          <div class="tip-title">&#128161; İpucu</div>
+          <p>Ürün kodu benzersiz olmalidir. Ayni kodla ikinci bir kayıt acilamaz. Kod oluşturma standardi belirleyin: ornegin hammadde için <code>HM-</code>, mamul için <code>MA-</code> on eki kullanın.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 4. STOK HAREKETLERI                        -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="hareketler">
+        <h2>4. Stok Hareketleri <code>/stock/movements</code></h2>
+        <p>Stok hareketleri, depoya giren veya cikan her malzemeyi kayıt altina alir. Iki ana fis tipi vardir: <strong>Giriş Fisi</strong> ve <strong>Çıkış Fisi</strong>.</p>
+
+        <h3>Giriş Fisi Oluşturma</h3>
+        <div class="flow">
+          <div class="flow-step active">Yeni Giriş Fisi</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Depo Sec</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Kalem Ekle</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Miktar Gir</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Kaydet</div>
+        </div>
+
+        <h4>Kalem Ekleme</h4>
+        <p>Fis açıldıktan sonra alt kisimda ürün secimi yapın. <strong>ürün arama kutusu</strong> sayesinde ürün adi veya kodunun ilk 3 karakterini yazip hizla bulabilirsiniz.</p>
+
+        <div class="tip info">
+          <div class="tip-title">&#128161; İpucu &mdash; Enter ile Hızlı Giriş</div>
+          <p>Miktar alanına değer girdikten sonra <strong>Enter</strong> tusuna basarsaniz kalem otomatik listeye eklenir ve imleciniz bir sonraki ürün secim alanına atlar. Bu sayede fareye dokunmadan onlarca kalem girebilirsiniz.</p>
+        </div>
+
+        <h3>Çıkış Fisi Oluşturma</h3>
+        <p>Ayni akis gecerlidir; tek fark "Çıkış" secilir. Çıkış fisinde stok bakiyesi yetersizse sistem uyarı verir ve kaydı engelleyebilir (ayarlara bagli).</p>
+
+        <h3>Hareket Tipleri</h3>
+        <table>
+          <tr><th>Tip</th><th>Yon</th><th>Açıklama</th></tr>
+          <tr><td>Satin Alma Girişi</td><td>&#8593; Giriş</td><td>Tedarikciden gelen mal</td></tr>
+          <tr><td>Üretim Girişi</td><td>&#8593; Giriş</td><td>Üretim sonucu mamul</td></tr>
+          <tr><td>Sayım Farki (+)</td><td>&#8593; Giriş</td><td>Sayımda fazla bulunan</td></tr>
+          <tr><td>Satış Çıkışi</td><td>&#8595; Çıkış</td><td>Müşteriye sevkiyat</td></tr>
+          <tr><td>Üretim Sarf</td><td>&#8595; Çıkış</td><td>Is emri malzeme tuketimi</td></tr>
+          <tr><td>Sayım Farki (-)</td><td>&#8595; Çıkış</td><td>Sayımda eksik bulunan</td></tr>
+          <tr><td>Fire/Hurda</td><td>&#8595; Çıkış</td><td>Kullanilmaz malzeme</td></tr>
+          <tr><td>Transfer</td><td>&#8596; Her iki</td><td>Depolar arası tasima</td></tr>
+        </table>
+
+        <div class="tip warning">
+          <div class="tip-title">&#9888;&#65039; Dikkat</div>
+          <p>Onaylanmis bir fisi düzenlemeniz gerekirsa, once fisi iptal edin (ters kayıt olusturulur), sonra yeni fis kesin. Dogrudan düzenleme veri butunlugunu bozabilir.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 5. DEPO YONETIMI                           -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="depolar">
+        <h2>5. Depo Yönetimi <code>/warehouses</code></h2>
+        <p>Her işletme en az bir depoya sahip olmalidir. Birden fazla tesisiniz veya farklı amacli depo alanıniz varsa her birini ayri kayıt olarak tanımlayin.</p>
+
+        <h3>Alan Tablosu</h3>
+        <table class="field-table">
+          <tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th><th>Örnek</th></tr>
+          <tr><td class="required">Depo Adi</td><td>Deponu tanımlayici adi</td><td><span class="badge badge-danger">Evet</span></td><td>Ana Depo</td></tr>
+          <tr><td class="required">Depo Kodu</td><td>Benzersiz kisa kod</td><td><span class="badge badge-danger">Evet</span></td><td>DEP-01</td></tr>
+          <tr><td>Sorumlu</td><td>Depo sorumlusu (kullanıcı)</td><td><span class="badge badge-default">Hayir</span></td><td>Ahmet Yilmaz</td></tr>
+          <tr><td>Adres</td><td>Fiziksel konum</td><td><span class="badge badge-default">Hayir</span></td><td>Organize Sanayi B Blok</td></tr>
+          <tr><td>Açıklama</td><td>Ek bilgi</td><td><span class="badge badge-default">Hayir</span></td><td>Soguk hava deposu</td></tr>
+          <tr><td>Aktif</td><td>Depo kullanilabilir mi?</td><td><span class="badge badge-default">Hayir</span></td><td>Evet</td></tr>
+        </table>
+
+        <h3>Depo Oluşturma</h3>
+        <p><strong>Stok &rarr; Depolar &rarr; Yeni Depo</strong> butonuna tıklayin. Depo adi ve kodunu girin. Sorumlu atayin. Kaydedin.</p>
+
+        <h3>Sorumlu Atama</h3>
+        <p>Depo düzenleme ekraninda <strong>Sorumlu</strong> alanında personel secimi yapın. Bir depoya birden fazla sorumlu atanabilir. Sorumlular depo işlemlerinde bilgilendirilir.</p>
+
+        <div class="tip info">
+          <div class="tip-title">&#128161; İpucu</div>
+          <p>Kullanilmayan bir depoyu silmek yerine <strong>Pasif</strong> yapmaniz önerilir. Boylece geçmiş hareketler korunur.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 6. DEPO LOKASYONLARI                       -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="lokasyonlar">
+        <h2>6. Depo Lokasyonları <code>/warehouse-locations</code></h2>
+        <p>Lokasyonlar, depo içindeki fiziksel yerleri temsil eder. Bes seviyeli bir hiyerarsi kullanilir:</p>
+
+        <div class="flow">
+          <div class="flow-step active">Zone (Bolge)</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Aisle (Koridor)</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Rack (Raf)</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Shelf (Kat)</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Bin (Goz)</div>
+        </div>
+
+        <h3>Otomatik Kod Oluşturma</h3>
+        <p>Lokasyon kodlari sectiginiz hiyerarsi seviyelerine gore otomatik olusturulur. Ornegin:</p>
+        <table>
+          <tr><th>Seviye</th><th>Secim</th><th>Otomatik Kod</th></tr>
+          <tr><td>Zone</td><td>A Bolgesi</td><td><code>A</code></td></tr>
+          <tr><td>Aisle</td><td>Koridor 3</td><td><code>A-03</code></td></tr>
+          <tr><td>Rack</td><td>Raf 7</td><td><code>A-03-07</code></td></tr>
+          <tr><td>Shelf</td><td>Kat 2</td><td><code>A-03-07-02</code></td></tr>
+          <tr><td>Bin</td><td>Goz 5</td><td><code>A-03-07-02-05</code></td></tr>
+        </table>
+
+        <h3>Lokasyon Atama</h3>
+        <p>Stok karti veya stok hareketi sirasinda <strong>Lokasyon</strong> alanında ilgili bin (goz) secilir. Barkod okutarak da lokasyon secimi yapilabilir.</p>
+
+        <div class="tip info">
+          <div class="tip-title">&#128161; İpucu</div>
+          <p>Lokasyon kullanmak zorunlu degildir. Küçük depolarda sadece depo seviyesinde calisabilirsiniz. İşletmeniz buyudukce lokasyon hiyerarsisini aktif edin.</p>
+        </div>
+
+        <div class="tip warning">
+          <div class="tip-title">&#9888;&#65039; Dikkat</div>
+          <p>Ustune malzeme atanmis bir lokasyonu silmeye calistiginizda hata alirsiniz. Once malzemeyi baska lokasyona tasimalisiniz.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 7. DEPOLAR ARASI TRANSFER                  -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="transfer">
+        <h2>7. Depolar Arasi Transfer <code>/stock/transfers</code></h2>
+        <p>Bir depodan baska bir depoya malzeme tasinmasi gerektiginde transfer fisi kullanilir.</p>
+
+        <h3>Transfer Akisi</h3>
+        <div class="flow">
+          <div class="flow-step active">Transfer Talebi</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Kaynak Depo Sec</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Hedef Depo Sec</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Ürünleri Ekle</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Onay</div>
+        </div>
+
+        <h3>Adim Adim</h3>
+        <ol style="margin-left:1.5rem;color:var(--text-secondary);">
+          <li><strong>Stok &rarr; Transferler &rarr; Yeni Transfer</strong> butonuna tıklayin.</li>
+          <li><strong>Kaynak Depo</strong> alanında malzemenin bulundugu depoyu secin.</li>
+          <li><strong>Hedef Depo</strong> alanında malzemenin gidecegi depoyu secin.</li>
+          <li>Alt satirlarda ürünleri ve miktarlarini girin.</li>
+          <li><strong>Kaydet</strong> ile taslak olustürün.</li>
+          <li>Yetkili kisi <strong>Onayla</strong> butonuna bastiginda stok bakiyeleri güncellenir (kaynak duser, hedef artar).</li>
+        </ol>
+
+        <div class="tip warning">
+          <div class="tip-title">&#9888;&#65039; Dikkat</div>
+          <p>Kaynak depodaki stok miktari yetersizse transfer onaylanamaz. Once stok durumunu kontrol edin.</p>
+        </div>
+
+        <div class="tip info">
+          <div class="tip-title">&#128161; İpucu</div>
+          <p>Transfer onaylanmadan once her iki depo sorumlusu bilgilendirilir (anlık bildirim sistemi). Boylece surpriz tasima olmaz.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 8. STOK SAYIM                              -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="sayım">
+        <h2>8. Stok Sayım <code>/stock/count</code></h2>
+        <p>Periyodik veya ani stok sayımlari ile sistem kayıtları ve fiili stok arasındaki farklari tespit edin.</p>
+
+        <h3>Sayım Süreçi</h3>
+        <div class="flow">
+          <div class="flow-step active">Sayım Emri</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Sayım Listesi</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Fiili Sayım</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Fark Raporu</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Onay</div>
+        </div>
+
+        <h4>Adim 1 &mdash; Sayım Emri Oluştur</h4>
+        <p><strong>Stok &rarr; Sayım &rarr; Yeni Sayım</strong>. Depo, tarih ve sayım tipi (tam sayım / bolgesel / kısmi) secin.</p>
+
+        <h4>Adim 2 &mdash; Sayım Listesi İndir</h4>
+        <p>Sistem secilen depodaki tüm ürünlerin listesini oluşturur. Bu listeyi yazdirilabilir veya tablete indirilebilir.</p>
+
+        <h4>Adim 3 &mdash; Fiili Sayım Gir</h4>
+        <p>Depo personeli her ürünun gerçek miktarini girer. Barkod okuyucu ile hızlı giriş yapilabilir: ürün barkodunu okutun, miktar girin, Enter basin.</p>
+
+        <h4>Adim 4 &mdash; Fark Raporu</h4>
+        <p>Sistem otomatik olarak "kayıtli miktar" ile "sayilan miktar" arasındaki farki hesaplar. Fark olan satirlar kirmizi/yesil renk ile isarektlenir.</p>
+
+        <h4>Adim 5 &mdash; Onay</h4>
+        <p>Yetkili kisi farklari inceler ve <strong>Onayla</strong> butonuna basar. Onay sonrasinda sistem otomatik düzeltme fişleri (artis/azalis) oluşturur.</p>
+
+        <div class="tip info">
+          <div class="tip-title">&#128161; İpucu</div>
+          <p>Sayım sirasinda stok hareketlerini dondurabilirsiniz (Ayarlar). Boylece sayım esnasinda giriş/çıkış yapilmaz ve farklar daha dogru olur.</p>
+        </div>
+
+        <div class="tip warning">
+          <div class="tip-title">&#9888;&#65039; Dikkat</div>
+          <p>Onaylanmis bir sayımi geri almak mümkün degildir. Hatali onay durumunda manuel düzeltme fisi kesilmelidir.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 9. LOT / PARTI TAKIBI                      -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="lot">
+        <h2>9. Lot / Parti Takibi <code>/stock/lots</code></h2>
+        <p>Lot (parti) takibi, ayni ürünun farklı üretim/tedarik partilerini birbirinden ayirmak için kullanilir. Özellikle gida, ilac, havacilik ve savunma sanayinde zorunludur.</p>
+
+        <h3>Lot Oluşturma</h3>
+        <table class="field-table">
+          <tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th><th>Örnek</th></tr>
+          <tr><td class="required">Lot No</td><td>Benzersiz parti numarası</td><td><span class="badge badge-danger">Evet</span></td><td>LOT-2026-0042</td></tr>
+          <tr><td class="required">Ürün</td><td>Hangi ürüne ait</td><td><span class="badge badge-danger">Evet</span></td><td>Paslanmaz Celik Boru</td></tr>
+          <tr><td>Tedarikçi Lot No</td><td>Tedarikçinin parti numarası</td><td><span class="badge badge-default">Hayir</span></td><td>SUP-B2026-119</td></tr>
+          <tr><td>Üretim Tarihi</td><td>Lotun uretildigi tarih</td><td><span class="badge badge-default">Hayir</span></td><td>15.03.2026</td></tr>
+          <tr><td>Son Kullanma Tarihi</td><td>SKT (varsa)</td><td><span class="badge badge-default">Hayir</span></td><td>15.03.2027</td></tr>
+          <tr><td>Miktar</td><td>Lot miktari</td><td><span class="badge badge-default">Hayir</span></td><td>500 KG</td></tr>
+          <tr><td>Durum</td><td>Kalite durumu</td><td><span class="badge badge-default">Hayir</span></td><td>Kabul / Red / Beklemede</td></tr>
+        </table>
+
+        <h3>Tedarikçi Lot Eslestirme</h3>
+        <p>Satin alma girişinde tedarikçi lot numarası ile ic lot numaranizi eslestirin. Boylece bir kalite problemi durumunda tedarikciye kadar izlenebilirlik saglanir.</p>
+
+        <h3>Son Kullanma Uyarısi</h3>
+        <p>Son kullanma tarihi yaklasan lotlar için sistem otomatik uyarı uretir. <strong>Stok &rarr; Uyarılar</strong> ekraninda ve anlık bildirimlerde görüntülenir.</p>
+
+        <div class="flow">
+          <div class="flow-step">SKT Yaklasma (30 gun)</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step active">Sari Uyarı</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">SKT Gecme</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step" style="border-color:var(--danger);color:var(--danger);">Kirmizi Alarm</div>
+        </div>
+
+        <div class="tip info">
+          <div class="tip-title">&#128161; İpucu</div>
+          <p>Stok kartinda "Lot Takibi" secenegini actiginizda, o ürüne ait tüm giriş/çıkış işlemlerinde lot secimi zorunlu hale gelir. FIFO (ilk giren ilk cikar) prensibi otomatik önerilir.</p>
+        </div>
+
+        <div class="tip warning">
+          <div class="tip-title">&#9888;&#65039; Dikkat</div>
+          <p>Reddedilmis (red durumlu) lottaki malzeme üretimde kullanilamaz. Once kalite biriminden onay alın veya MRB süreçi baslatın.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 10. BARKOD ISLEMLERI                       -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="barkod">
+        <h2>10. Barkod İşlemleri <code>/stock/barcode</code></h2>
+        <p>Barkod sistemi stok işlemlerini hizlandirir ve hata oranini dusurur. Quvex uc farklı barkod okuma yontemini destekler.</p>
+
+        <h3>Desteklenen Cihazlar</h3>
+        <table>
+          <tr><th>Cihaz Tipi</th><th>Baglanti</th><th>Kullanim Alani</th></tr>
+          <tr><td>USB Barkod Okuyucu</td><td>Kablolu USB</td><td>Masa basi işlemler, depo girişi</td></tr>
+          <tr><td>Bluetooth Okuyucu</td><td>Kablosuz BT</td><td>Mobil sayım, depoda gezici işlem</td></tr>
+          <tr><td>Kamera (WebCam/Telefon)</td><td>Tarayici API</td><td>Kamera olan her cihaz, acil durumlar</td></tr>
+        </table>
+
+        <h3>Etiket Yazdirma</h3>
+        <p>Her stok karti için barkod etiketi yazdirabilirsiniz. <strong>Stok Karti &rarr; Barkod Yazdir</strong> butonuna tıklayin.</p>
+
+        <h4>Desteklenen Etiket Boyutlari</h4>
+        <table>
+          <tr><th>Boyut</th><th>Kullanim</th></tr>
+          <tr><td>30x20 mm</td><td>Küçük parcalar, vidalar, civatalar</td></tr>
+          <tr><td>50x30 mm</td><td>Standart ürün etiketleri</td></tr>
+          <tr><td>100x50 mm</td><td>Koli/palet etiketleri</td></tr>
+          <tr><td>100x150 mm</td><td>Sevkiyat etiketleri (adres bilgisi dahil)</td></tr>
+        </table>
+
+        <h3>Barkod ile Hızlı İşlem</h3>
+        <p>Stok hareketi, sayım ve transfer ekranlarinda barkod alanına imleci koyun, okuyucu ile barkodu okutun. Ürün otomatik secilir, siz sadece miktar girip Enter'a basin.</p>
+
+        <div class="tip info">
+          <div class="tip-title">&#128161; İpucu</div>
+          <p>Barkod okuyucunuz "Enter ile bitir" modunda ayarli olmalidir. Boylece barkod okutulduktan sonra otomatik bir sonraki alana gecilir.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 11. MIN/MAX STOK UYARILARI                 -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="uyarılar">
+        <h2>11. Min/Max Stok Uyarıları <code>/stock/alerts</code></h2>
+        <p>Stok seviyesi belirlenen esik değerlerin altina dustugunde veya ustune ciktiginda sistem otomatik uyarı oluşturur.</p>
+
+        <h3>Uyarı Tipleri</h3>
+        <table>
+          <tr><th>Uyarı</th><th>Kosul</th><th>Bildirim</th></tr>
+          <tr><td><span class="badge badge-danger">Minimum Stok</span></td><td>Bakiye &lt; Min. Stok</td><td>Kirmizi uyarı + anlık bildirim</td></tr>
+          <tr><td><span class="badge badge-warning">Maksimum Stok</span></td><td>Bakiye &gt; Max. Stok</td><td>Sari uyarı</td></tr>
+          <tr><td><span class="badge badge-warning">Son Kullanma Yaklasma</span></td><td>SKT &lt; 30 gun</td><td>Sari uyarı + bildirim</td></tr>
+          <tr><td><span class="badge badge-danger">Son Kullanma Gecme</span></td><td>SKT geçmiş</td><td>Kirmizi alarm + bildirim</td></tr>
+          <tr><td><span class="badge badge-info">Hareketsiz Stok</span></td><td>90+ gun hareket yok</td><td>Bilgi notu</td></tr>
+        </table>
+
+        <h3>Anlık Bildirim Sistemi</h3>
+        <p>Min. stok uyarıları anlık olarak tüm yetkili kullanıcılarin ekranina iletilir (sag üst kose bildirim ikonu). Uyarı turleri ozellistirilebilir: e-posta, ses bilgisi, ekran bildirimi.</p>
+
+        <div class="tip info">
+          <div class="tip-title">&#128161; İpucu</div>
+          <p>Min/Max değerleri stok kartinda tanımlanir. Degerleri tanımlamadiginiz ürünler için uyarı uretilmez. Önemli ürünlerde mutlaka min. stok belirleyin.</p>
+        </div>
+
+        <div class="tip warning">
+          <div class="tip-title">&#9888;&#65039; Dikkat</div>
+          <p>Cok düşük minimum stok değeri belirlerseniz uyarı gec gelir ve üretim aksamasina neden olabilir. Tedarik süresi ve günlük tuketim miktarini dikkate alarak belirleyin.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 12. ABC ANALIZI                            -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="abc">
+        <h2>12. ABC Analizi <code>/stock/abc-analysis</code></h2>
+        <p>ABC analizi, Pareto ilkesine (80/20 kurali) dayanir. Ürünlerinizi değer ve hareket sikligi acisindan sınıflandırır.</p>
+
+        <h3>Siniflandirma</h3>
+        <table>
+          <tr><th>Sınıf</th><th>Oran</th><th>Özellik</th><th>Yönetim Stratejisi</th></tr>
+          <tr><td><span class="badge badge-danger">A Sınıfı</span></td><td>%20 ürün &rarr; %80 değer</td><td>Yüksek değerli, kritik</td><td>Siki kontrol, düşük emniyet stoku, sik sayım</td></tr>
+          <tr><td><span class="badge badge-warning">B Sınıfı</span></td><td>%30 ürün &rarr; %15 değer</td><td>Orta değerli</td><td>Normal kontrol, orta emniyet stoku</td></tr>
+          <tr><td><span class="badge badge-info">C Sınıfı</span></td><td>%50 ürün &rarr; %5 değer</td><td>Düşük değerli, cok çeşitli</td><td>Basit kontrol, yüksek emniyet stoku</td></tr>
+        </table>
+
+        <h3>Rapor Oluşturma</h3>
+        <p><strong>Stok &rarr; ABC Analizi</strong> ekranina gidin. Donemi secin (ornegin son 12 ay). <strong>Analiz Oluştur</strong> butonuna basin. Sonuclar tablo ve grafik olarak gosterilir.</p>
+
+        <h3>CSV Export</h3>
+        <p>Analiz sonuclarini <strong>CSV İndir</strong> butonu ile disari aktarabilirsiniz. Excel'de acip ek işlemler yapabilirsiniz.</p>
+
+        <div class="tip info">
+          <div class="tip-title">&#128161; İpucu</div>
+          <p>ABC analizini ceyreklik (3 ayda bir) tekrarlayin. Ürün talepleri degistikce siniflar da degisir. A sinifindaki ürünlerinize özel dikkat gosterin.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 13. SORUN GIDERME                          -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="sorun-giderme">
+        <h2>13. Sorun Giderme</h2>
+
+        <div class="card">
+          <h4>"Stok bakiyesi negatif gosteriliyor"</h4>
+          <p><strong>Sebep:</strong> Çıkış fisi, mevcut stoktan fazla kesilmis olabilir (eski kayıtlarda bu mumkundu).</p>
+          <p><strong>Çözüm:</strong> Stok &rarr; Hareketler ekraninda ilgili ürünun tüm hareketlerini filtreleyin. Hatali fişleri bulup düzeltme fisi kesin. Ayarlar'da "Negatif stoka izin verme" secenegini aktif edin.</p>
+        </div>
+
+        <div class="card">
+          <h4>"Depo silinemiyorum"</h4>
+          <p><strong>Sebep:</strong> Depoda hala stok bakiyesi var veya onaylanmamis işlem bulunuyor.</p>
+          <p><strong>Çözüm:</strong> Once depodaki tüm stoklari baska depoya transfer edin. Bekleyen işlemleri tamamlayin veya iptal edin. Sonra depoyu silebilirsiniz. Alternatif olarak depoyu pasife cekin.</p>
+        </div>
+
+        <div class="card">
+          <h4>"Lot zorunlu mu?"</h4>
+          <p><strong>Sebep:</strong> Stok kartinda "Lot Takibi" aktif edilmis.</p>
+          <p><strong>Çözüm:</strong> Lot takibi istenmiyorsa, ilgili stok kartini düzenleyin ve "Lot Takibi" secenegini kapatin. Ancak AS9100 veya izlenebilirlik gereksinimi varsa acik birakmaniz onemle onereilir.</p>
+        </div>
+
+        <div class="card">
+          <h4>"Barkod okuyucu calismıyor"</h4>
+          <p><strong>Sebep:</strong> Okuyucu baglanmamis veya yanlis modda.</p>
+          <p><strong>Çözüm:</strong> USB baglantiyi kontrol edin. Okuyucunun "Klavye Emulasyonu (HID)" modunda oldugunu dogrulayin. Bluetooth için eslestirmeyi yenileyin. Kamera modu için tarayıcı izinlerini kontrol edin.</p>
+        </div>
+
+        <div class="card">
+          <h4>"Transfer onaylanamıyor"</h4>
+          <p><strong>Sebep:</strong> Kaynak depoda yeterli stok yok veya yetkiniz bulunmuyor.</p>
+          <p><strong>Çözüm:</strong> Stok bakiyesini kontrol edin. Yetki sorunu varsa yönetiçinizden "Stok Transfer Onay" yetkisi isteyin.</p>
+        </div>
+
+        <div class="card">
+          <h4>"Sayım farki cok buyuk cikiyor"</h4>
+          <p><strong>Sebep:</strong> Sayım sirasinda giriş/çıkış işlemi yapılmış olabilir.</p>
+          <p><strong>Çözüm:</strong> Sayıma baslamadan once stok hareketlerini dondürün. Sayım sirasinda giriş/çıkış işlemi yapilmamasini saglayin.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 14. SSS                                    -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="sss">
+        <h2>14. Sik Sorulan Sorular (SSS)</h2>
+
+        <div class="card">
+          <h4>S1: Stok bakiyesi negatif olabilir mi?</h4>
+          <p>Varsayılan olarak hayir. Ancak ayarlardan "Negatif stoka izin ver" acilabilir. Üretim ortamlarinda bu secenegin kapali tutulmasi önerilir.</p>
+        </div>
+        <div class="card">
+          <h4>S2: Kac depo tanımlayabilirim?</h4>
+          <p>Sinir yoktur. İhtiyaçiniz kadar depo tanımlayabilirsiniz. Her tesis, alan veya amac için ayri depo acmaniz önerilir.</p>
+        </div>
+        <div class="card">
+          <h4>S3: Ürün kodu sonradan değiştirilebilir mi?</h4>
+          <p>Evet, ancak hareket geçmişi olan ürünlerin kodunu değiştirmek raporlarda tutarsizliga neden olabilir. Yeni bir kod ile yeni kart acmak daha guvenlidir.</p>
+        </div>
+        <div class="card">
+          <h4>S4: Farkli birimlerdeki ürünleri nasil yonetirim?</h4>
+          <p>Her ürünun bir ana birimi vardir. Ayarlar &rarr; Birimler ekraninda cevirme orani tanımlayabilirsiniz (ornegin 1 KOLI = 12 ADET).</p>
+        </div>
+        <div class="card">
+          <h4>S5: Barkod olmadan ürün tanımlanabilir mi?</h4>
+          <p>Evet. Barkod zorunlu degil, istege baglidir. Ancak barkod kullanmak işlemleri ciddi olcude hizlandirir.</p>
+        </div>
+        <div class="card">
+          <h4>S6: Stok sayımi ne siklikta yapilmali?</h4>
+          <p>A sinifi ürünler için aylik, B sinifi için ceyreklik, C sinifi için yıllık sayım önerilir. ABC analizinizi referans alın.</p>
+        </div>
+        <div class="card">
+          <h4>S7: Transfer fisi ile çıkış fisinin farki nedir?</h4>
+          <p>Transfer fisinde malzeme işletme içinde kalir (depo degisir). Çıkış fisinde malzeme işletmeden cikar (satış, fire vb.).</p>
+        </div>
+        <div class="card">
+          <h4>S8: Lot numarasıni ben mi veriyorum?</h4>
+          <p>Otomatik veya manuel olusturabilirsiniz. Ayarlarda "Otomatik Lot No" secenegi vardir. Manuel girişte benzersiz olmalidir.</p>
+        </div>
+        <div class="card">
+          <h4>S9: Son kullanma tarihi uyarısi kac gun once gelir?</h4>
+          <p>Varsayılan 30 gundur. Ayarlardan değiştirebilirsiniz (ornegin 60 gun veya 90 gun).</p>
+        </div>
+        <div class="card">
+          <h4>S10: Min/max stok ayarini tüm ürünlere toplu yapabilir miyim?</h4>
+          <p>Evet. CSV import ile toplu güncelleme yapabilirsiniz. Ürün kodu ve min/max değerlerini iceren dosya yükleyin.</p>
+        </div>
+        <div class="card">
+          <h4>S11: Depolar arası transfer ucreti tanımlanabilir mi?</h4>
+          <p>Transfer işlemleri maliyet ogeleri icermez. Nakliye maliyetini ayri bir masraf kalemi olarak finans modülünde takip edebilirsiniz.</p>
+        </div>
+        <div class="card">
+          <h4>S12: Birden fazla barkod ayni ürüne tanımlanabilir mi?</h4>
+          <p>Evet. Stok kartinda birden fazla barkod alanı bulunur. Tedarikçi barkodu ve kendi iç barkodunuzu ayri ayri tanımlayabilirsiniz.</p>
+        </div>
+        <div class="card">
+          <h4>S13: Stok raporu Excel'e aktarilabilir mi?</h4>
+          <p>Evet. Tüm liste ekranlarinda sag ustte <strong>Excel İndir</strong> veya <strong>CSV İndir</strong> butonu bulunur.</p>
+        </div>
+        <div class="card">
+          <h4>S14: Lokasyon sistemi zorunlu mu?</h4>
+          <p>Hayir. Lokasyon kullanmak istege baglidir. Küçük depolar için sadece depo seviyesinde calisabilirsiniz.</p>
+        </div>
+        <div class="card">
+          <h4>S15: Silinen stok karti geri getirilebilir mi?</h4>
+          <p>Hayir, silinen kayıt kalici olarak kaldirilir. Bu yuzden silmek yerine "Pasif" yapmak önerilir. Pasif ürünler raporlarda gorunmez ama veritabaninda durur.</p>
+        </div>
+        <div class="card">
+          <h4>S16: Hareketsiz stok uyarısi nedir?</h4>
+          <p>90 gundur hicbir giriş/çıkış hareketi olmayan ürünler için bilgi notu uretilir. Bu ürünleri incelemeniz ve gerekiyorsa fire/hurda işlemine almaniz önerilir.</p>
+        </div>
+        <div class="card">
+          <h4>S17: Ayni anda birden fazla kullanıcı ayni depoda işlem yapabilir mi?</h4>
+          <p>Evet. Sistem es zamanli çalışmaya uygundur. Ayni ürüne ayni anda giriş/çıkış yapılırsa sıralama sistemi sirayla işler.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- ILGILI EKRANLAR                            -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section>
+        <h2>Ilgili Ekranlar</h2>
+        <div class="card-grid">
+          <a href="uretim.html" class="card module-card üretim-border">
+            <div class="card-icon üretim">&#9881;</div>
+            <h4>Üretim Modülü</h4>
+            <p>Is emri, malzeme tuketimi, mamul girişi</p>
+          </a>
+          <a href="satinalma.html" class="card module-card satınalma-border">
+            <div class="card-icon satınalma">&#128230;</div>
+            <h4>Satin Alma</h4>
+            <p>Tedarikçi siparişleri, mal kabul</p>
+          </a>
+          <a href="satis.html" class="card module-card satış-border">
+            <div class="card-icon satış">&#128176;</div>
+            <h4>Satış</h4>
+            <p>Satış irsaliyesi, sevkiyat</p>
+          </a>
+          <a href="kalite.html" class="card module-card kalite-border">
+            <div class="card-icon kalite">&#9989;</div>
+            <h4>Kalite</h4>
+            <p>Giriş muayene, lot onay/red</p>
+          </a>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="doc-footer">
+    Quvex ERP &copy; 2026 &mdash; Stok &amp; Depo Kullanıcı Kılavuzu v2.0
+  </div>
+
+</div>
+<script src="js/guide-enhancements.js"></script>
+</body>
+</html>

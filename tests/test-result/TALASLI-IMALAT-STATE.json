@@ -1,0 +1,300 @@
+{
+  "lastUpdated": "2026-04-16T12:00:00Z",
+  "superAdmin": {
+    "email": "admin@quvex.com",
+    "password": "Admin123!@#$"
+  },
+  "tenant1": {
+    "name": "Demir CNC Hassas Isleme",
+    "subdomain": "demircnc",
+    "tenantId": "5fb33e6f-30da-46b9-9f66-23de4dc41a58",
+    "tenantToken": "4TK35PvdWv4vFxOzK1HOHqXBZD3k_AT5wFeZ1ENclCnt7oDuz9ixnc2arxVgiFjkhkm5wd5i_eSu8q4E-nBSJw",
+    "ids": {
+      "warehouse": "89b8c372-4d0e-48c6-b9c0-becd4028a0dc",
+      "machines": {
+        "T01": "efa8bd85-02a0-4f56-8dca-d6aa092a74f4",
+        "T02": "0a046886-0300-4192-99e8-f5f50ac7e0d6",
+        "F01": "f3cd6ad4-deaa-474d-ba64-2b0e0dbccbbd",
+        "F02": "93fefe13-1321-48f3-9d37-8d4e391d0649",
+        "TAS": "54385521-2b46-4af9-87da-ef36fece98c7"
+      },
+      "workOrderSteps": {
+        "OP10": "f6a1bd33-4130-4f17-bd49-d1e81198d361",
+        "OP20": "c78d9b78-522c-418a-a0c3-8d51d80d30f7",
+        "OP30": "03f130d9-c23e-483d-9f82-8a0dda014cf3",
+        "OP40": "596d6d0a-9a7d-4d38-b489-3a958b3fac62",
+        "OP50": "9691a3a0-7292-443e-8afd-9683125b9da8"
+      },
+      "calibrationEquipment": {
+        "MIK01": "0b7a50ed-f7a9-4d6f-91fd-2bc1918ac69c",
+        "KAL01": "812dbf92-b9ef-43cd-8a0f-7a44041bde74",
+        "UC01": "ff2a0e91-746a-4291-b352-86ac3ee25ef4"
+      },
+      "customer_aselsan": "9f787a2d-06c8-4848-8eab-3c2cdeab845c",
+      "product_hammadde": "6f35739f-276f-4586-a620-4baa311e49c5",
+      "product_pin": "41f5c5dd-3213-4a56-bd9c-254e64de222c",
+      "bom": "5050836b-4fa9-4179-9dd7-73cd7b29ae44",
+      "controlPlan": "c916d8d2-8f63-4180-b2df-97940ed0cfa0",
+      "controlPlanItems": {
+        "item1": "e2f3c964-8e68-4629-818c-f32ac94a05a4",
+        "item2": "c91b11cf-c3ff-4be1-bc7b-a754cf9e4437",
+        "item3": "cb62bd3a-d1a7-4635-80e6-e79d15c38dbb"
+      },
+      "offer": "05e9e9be-37c1-4b09-aef9-7453e58e4bf8",
+      "offerProduct": "7170248f-ef6b-45b0-8be4-c0d5febb6338",
+      "sales": "94a6dc30-e916-49b8-83f4-b8fcc578182f",
+      "stockReceipt": "ecf74db6-213b-477f-a8d6-565d34c85f04",
+      "inspection": "f06110a1-c9c4-4dc8-b2a5-927b219d8cd7",
+      "certificates": {
+        "MTR": "11f4b537-477f-43e5-865c-d2576ae6c17b",
+        "CoC": "3969140b-c510-4296-adeb-d8b1837eee6f"
+      },
+      "workOrderTemplate": "879a5804-a272-446c-87d3-e3775af25e84",
+      "production": "fe733054-d711-48b0-876b-f3bfd6339a4d",
+      "productionTemplate": "e6dd8b3e-3653-4521-9056-9477f11d21fc",
+      "workOrders": {
+        "OP10": "f8389eda-2a6e-474b-9606-03b871b78656",
+        "OP20": "d23a60a2-1111-4c0a-9a67-f37cc152cab4",
+        "OP30": "5538b6ab-e2c4-4c0e-a60e-31ca4751a8b5",
+        "OP40": "02458293-e057-44a0-93f1-d96291701968",
+        "OP50": "9244c9a7-d77f-4642-a5f1-9a8e8d193b3c"
+      },
+      "workOrderLogs": {
+        "OP10_log1": "17c9d6a3-09d7-4a29-aa65-00efb818e89f",
+        "OP10_log2": "06d02fab-4b5f-426f-bb40-ac75d214bdbe"
+      },
+      "measurements": {
+        "OP10": "979a64f5-0a4c-4a99-bcd4-8b8f11a7b100",
+        "OP20": "eac02399-87b4-4ffc-8882-1ae51259f50d",
+        "OP30": "ae9af161-690f-4400-8a1b-008eebdf4180",
+        "OP50": "94896a50-2fa1-4a43-af08-c2f93bff1329"
+      },
+      "ncr": "36b1653b-1888-44fd-9eee-cd879d31fdbd",
+      "ncr_number": "NCR-2026-000001",
+      "ncr_negative_test": "5377f0ad-6cc4-4b0b-a77a-a30fd5e04f30",
+      "capa": "3c471c7c-df2f-4e51-b2cd-4f9978d4e3c7",
+      "capa_number": "CA-202604-001",
+      "supplier_isil_islem": "8d52a026-9561-42da-b496-be5bdfbbb382",
+      "subcontract": "e0086740-38c0-4a55-8cc5-13944aae6377",
+      "subcontract_number": "FSN-202604-0001",
+      "final_inspection": "20c01427-3f12-4d94-91d6-c8116b5b5d2c",
+      "shipping": "a7ea4b10-654d-410b-bf3a-87cc666eaa6b",
+      "invoice": "b32e06c0-51de-4d4f-a42e-7ca022e0244a",
+      "invoice_number": "FTR-2026-00001"
+    }
+  },
+  "tenant2": {
+    "name": "RynSoft Hassas Makine San. A.S.",
+    "subdomain": "rynsofthm",
+    "tenantId": "26c1da34-d9c3-471a-ad0a-cb044270c557",
+    "tenantToken": "ImRKs6cnKs4VjULAADmt0cLfrRPECDG7tqgX1inON73ubIxjwgo1pw6sPMAa0rN0wEhu_enED2LLCdlvLJGlyw",
+    "ids": {
+      "warehouse": "00a38c6e-6f61-4590-b95d-182c14dc8462",
+      "machines": {
+        "CNC-T01": "69fe6bc0-28f4-4af1-bbb2-af6136a8b3fb",
+        "CNC-T02": "5033fa48-ce56-43d9-b419-6d551506c52c",
+        "CNC-F01": "76385dad-cd20-44ad-865e-c541ab1e30e4",
+        "CNC-F02": "bb3189f3-4354-4997-ae92-cce4f4e92bef",
+        "TAS-01": "4f3679ac-59d1-4af2-93a7-2da3514ceda7",
+        "TAS-02": "01c7051d-5b63-4426-bc9a-53a721f7745a"
+      },
+      "workOrderSteps": {
+        "OP10": "d043a023-cc78-42b6-9b2d-1f440d1134d5",
+        "OP20": "0131079d-69ab-493b-ad2a-1a7a968ca672",
+        "OP30": "7557ab74-e601-4d23-9c6c-88795f7103ad",
+        "OP40": "5f8015e0-02a0-4d6f-bd9a-8fcda266dc93",
+        "OP50": "9d086f08-8b8b-45d2-beef-ff101cadbdcb",
+        "OP60": "cf71ff7a-767d-4d3e-9f3e-174adc31f7c7",
+        "OP70": "73e571e7-deef-4c87-81b6-4973bfecb387"
+      },
+      "calibrationEquipment": {
+        "MIK-001": "c9c69676-cb90-46f8-a6b2-3e1d57716882",
+        "MIK-002": "50546c5f-50c1-43cd-b942-ebaa0c7cc87d",
+        "KAL-001": "46be08c4-7545-425d-a1a6-b4d8e7766c0c",
+        "UC-001": "215618be-9149-4c74-9a91-b289c5d85f77",
+        "CMM-001": "4e538e4f-fe46-4c68-bbd1-f72a82ac81c3",
+        "YUZ-001": "6ffc00df-84c2-4e0c-a531-6a4e96ff213d"
+      },
+      "supplier_alcoa": "68676bbf-0225-4a86-b79c-258581ecc908",
+      "customer_tai": "d3a57880-8545-47ce-bccc-f071eeeb138d",
+      "product_hammadde": "03ec55e9-eae8-41f0-a4e1-029c268fc75a",
+      "product_manifold": "fc514fdc-d9f0-47b8-8e6b-bc10ceeea322",
+      "bom": "ce12188d-06f0-4843-8f92-df6a12dd1ace",
+      "controlPlan": "1d2ded49-e20e-4603-91ce-8f45eff7e325",
+      "workOrderTemplate": "e924f518-3890-44e7-82f2-b06513583838",
+      "offer": "38c87520-b20c-4153-9cf7-29621aebc847",
+      "offerProduct": "38762daa-7141-458a-b2fa-8d3654ca2497",
+      "sales": "908f7a94-fe0e-4aaf-82dd-99cce5914396",
+      "stockReceipt": "aeac3a5f-c06e-4b74-8ddb-8bdedd3b6924",
+      "inspection": "d2bccdb5-d738-492b-a5cd-3a4773c535b9",
+      "certificates": {
+        "MTR": "541a6b56-a5a8-4487-b27f-03641be11888",
+        "CoC": "51d5439c-b641-4709-9599-62edfdc170ca"
+      },
+      "production": "c8db67a5-4fd1-4de1-b2af-cfa03790401b",
+      "workOrders": {
+        "OP10": "b7015d55-928a-42c4-a7fc-0ddf075f6b39",
+        "OP20": "8c8acac4-2b16-4f37-9559-9836f4d48052",
+        "OP30": "59b0b5fd-833a-403b-a16e-08dea33869ba",
+        "OP40": "9a1f217a-6969-4e64-a5a9-c646b12fc492",
+        "OP50": "3f523f71-a753-4feb-b8cb-513123cbf942",
+        "OP60": "7f3fc895-e742-480d-9e95-23757442c1ca",
+        "OP70": "2ef69d36-eb25-4016-9b99-d2020b09e619"
+      },
+      "fai": "b1b70eb2-d1a0-45b5-8784-16b7df8b4249",
+      "fai_number": "FAI-00002",
+      "spcInspection": "4501a3db-3c72-43f3-8ed0-eba5bba0cd85",
+      "spc_cp": 1.42,
+      "spc_cpk": 1.35,
+      "ncr": "8b0e6b30-0418-4af4-bed6-c645f92cfc23",
+      "ncr_number": "NCR-2026-000001",
+      "capa": "798b1660-84e6-42ab-8516-efcbcca51a85",
+      "capa_number": "CA-202604-001",
+      "subcontract": "af9ff81c-30fe-4d19-9381-4fa4d04a3a4b",
+      "subcontract_number": "FSN-202604-0002",
+      "invoice": "4fe4f239-878b-430b-9c77-ef7f68842812",
+      "invoice_number": "FTR-2026-00001"
+    }
+  },
+  "bugs": [
+    {
+      "id": "B06",
+      "section": "Bolum 1 - Kimlik Dogrulama",
+      "description": "JWT token alındığında (POST /Account/authenticate) dönen jwToken, tenant endpoint'lerine yapılan isteklerde 400 hatası veriyor: 'Bu islem bir tenant kapsaminda calisir — super admin public tarafta calistiramaz.' Sadece STATE.json'daki tenantToken çalışıyor.",
+      "endpoint": "POST /Customer (Bearer jwToken)",
+      "expectedStatus": 201,
+      "actualStatus": 400,
+      "severity": "MEDIUM",
+      "workaround": "STATE.json'daki kayıtlı tenantToken kullanılarak devam edildi",
+      "date": "2026-04-15"
+    },
+    {
+      "id": "B07",
+      "section": "Bolum 2-3 - Urun Olusturma",
+      "description": "POST /Product endpoint'i 'name', 'code', 'minStockLevel', 'salePrice', 'requiresQualityControl', 'lotTracking', 'serialTracking' alanlarını kabul etmiyor. Doğru alan isimleri: 'productName', 'productNumber', 'minStock', 'salesPrice', 'requiresQualityCheck', 'requiresLotTracking', 'requiresSerialTracking'.",
+      "endpoint": "POST /Product",
+      "expectedStatus": 201,
+      "actualStatus": "400 (ilk denemede)",
+      "severity": "LOW",
+      "workaround": "Kaynak kodundan doğru alan isimleri tespit edilerek düzeltildi",
+      "date": "2026-04-15"
+    },
+    {
+      "id": "B08",
+      "section": "Bolum 4 - BOM",
+      "description": "POST /Product/{id}/bom endpoint'i mevcut değil (boş yanıt). Gerçek BOM endpoint'i POST /Bom olup body: {parentProductId, childProductId, quantity} bekliyor.",
+      "endpoint": "POST /Product/{id}/bom",
+      "expectedStatus": 200,
+      "actualStatus": "Empty response (404)",
+      "severity": "LOW",
+      "workaround": "POST /Bom endpoint'i kullanıldı",
+      "date": "2026-04-15"
+    },
+    {
+      "id": "B09",
+      "section": "Bolum 5 - Kontrol Plani",
+      "description": "POST /ControlPlan endpoint'i 'planNumber' ve 'status' alanlarını kabul etmiyor. CreateControlPlanRequest sadece: title, description, productId, processName alanlarına sahip. planNumber otomatik üretiliyor (CP-0001).",
+      "endpoint": "POST /ControlPlan",
+      "expectedStatus": 201,
+      "actualStatus": "N/A (düzeltildi)",
+      "severity": "LOW",
+      "workaround": "Doğru DTO alanları kullanıldı",
+      "date": "2026-04-15"
+    },
+    {
+      "id": "B10",
+      "section": "Bolum 6 - Kontrol Plani Kalemleri",
+      "description": "POST /ControlPlan/{id}/items endpoint'i yok. Doğru endpoint: POST /ControlPlan/items (body: {controlPlanId, ...}). Alanlar farklı: stepNumber→stepOrder, upperTolerance→tolerancePlus, lowerTolerance→toleranceMinus, measurementMethod→method+measurementTool ayrı alanlar.",
+      "endpoint": "POST /ControlPlan/{id}/items",
+      "expectedStatus": 200,
+      "actualStatus": "N/A (düzeltildi)",
+      "severity": "LOW",
+      "workaround": "POST /ControlPlan/items doğru body ile kullanıldı",
+      "date": "2026-04-15"
+    },
+    {
+      "id": "B11",
+      "section": "Bolum 8 - Atölye Yürütme",
+      "description": "POST /ShopFloor/start-work raw SQL INSERT ile WorkOrderLogs kaydı oluşturuyor ancak TenantId sütunu INSERT sorgusuna dahil edilmemiş. Sonuç: log TenantId=NULL ile oluşuyor, HasQueryFilter(TenantId==CurrentTenantId) nedeniyle PUT /ShopFloor/complete-work/{logId} ve PUT /ShopFloor/pause-work/{logId} log kaydını bulamıyor → 404. Workaround: eski Production/completion/{id} endpoint'i kullanıldı.",
+      "endpoint": "PUT /ShopFloor/complete-work/{logId} ve PUT /ShopFloor/pause-work/{logId}",
+      "expectedStatus": 200,
+      "actualStatus": 404,
+      "severity": "HIGH",
+      "rootCause": "ShopFloorController.cs satır 240-242: INSERT INTO WorkOrderLogs eksik TenantId sütunu",
+      "fix": "INSERT sorgusuna TenantId parametresi eklenmeli: ...VALUES ({logId}, ..., {tenantId})",
+      "workaround": "POST /Production/completion/{id} ile rowNo bazlı tamamlama kullanıldı",
+      "date": "2026-04-16"
+    },
+    {
+      "id": "B12",
+      "section": "Bolum 8 - Atölye Yürütme",
+      "description": "PUT /Production/{id}/assign-template endpoint'i 404 döndürüyor. Bu endpoint kaynak kodda yok. Doğru yol: POST /WorkOrderTemplates ile {forProduction:true, productionId:'...'} kullanmak.",
+      "endpoint": "PUT /Production/{id}/assign-template",
+      "expectedStatus": 200,
+      "actualStatus": 404,
+      "severity": "MEDIUM",
+      "workaround": "POST /WorkOrderTemplates ile forProduction:true ve productionId ile template oluşturuldu",
+      "date": "2026-04-16"
+    },
+    {
+      "id": "B13",
+      "section": "Bolum 8 - Atölye Yürütme",
+      "description": "POST /Production/completion/{id} ile rowNo=-1 yapıldığında beklenmedik davranış: productionQuantity artırımı yerine productionCompleteQuantity de artırıyor ve production status'ını DONE yapıyor. rowNo=-1 belgede 'üretim başlatma' (productionQuantity artırma) olarak geçiyor ama kod 'son adım tamamlama' gibi davranıyor (workOrderNext=null → productionCompleteQuantity+=qty). Bu durum iş emirleri (OP10-OP50) Quantity=0 kalırken üretimin DONE olmasına yol açıyor.",
+      "endpoint": "POST /Production/completion/{id} (rowNo=-1)",
+      "expectedStatus": "productionQuantity artar, productionCompleteQuantity değişmez",
+      "actualStatus": "productionCompleteQuantity artar, status DONE olur",
+      "severity": "HIGH",
+      "workaround": "Üretim DONE olduğu için OP10-OP50 ölçümleri submit-measurements endpoint'i ile ayrıca gönderildi",
+      "date": "2026-04-16"
+    },
+    {
+      "id": "B14",
+      "section": "Bolum 4 - İş Emri Şablonu",
+      "description": "POST /WorkOrderTemplates body'sindeki steps[] alanı kabul edilmiyor. Doğru alan adı workOrders[] olup içinde workOrderStepId değil, rowNo ve code kullanılmalı. WorkOrderTemplatesController.cs createWorkOrderTemplate() sadece RowNo, Code, MachineId, EstimatedMinutes, RequiresQualityCheck, PrerequisiteRowNo alanlarını işliyor.",
+      "endpoint": "POST /WorkOrderTemplates",
+      "expectedStatus": "steps[] ile 201",
+      "actualStatus": "workOrders[] ile 200 OK (alan adı farklı)",
+      "severity": "LOW",
+      "workaround": "workOrders[] ile rowNo/code formatı kullanıldı",
+      "date": "2026-04-16"
+    },
+    {
+      "id": "B15",
+      "section": "Bolum 5 (CAPA) - CAPA Status Enum Farklılığı",
+      "description": "CAPA workflow dokümantasyonunda OPEN → ROOT_CAUSE olarak geçiyor ama gerçek CapaStatus enum değeri ROOT_CAUSE_ANALYSIS. PUT /Capa/{id} ile 'status':'ROOT_CAUSE' gönderildiğinde 500 Internal Server Error dönüyor (Enum.Parse exception). Enum: OPEN, ROOT_CAUSE_ANALYSIS, ACTION_PLANNED, IN_PROGRESS, VERIFICATION, CLOSED, CANCELLED.",
+      "endpoint": "PUT /Capa/{id}",
+      "expectedStatus": 200,
+      "actualStatus": 500,
+      "severity": "MEDIUM",
+      "rootCause": "Enum.Parse<CapaStatus>('ROOT_CAUSE') throws ArgumentException — 'ROOT_CAUSE' enum value yok, doğrusu 'ROOT_CAUSE_ANALYSIS'",
+      "fix": "Dokümantasyonu ROOT_CAUSE_ANALYSIS olarak güncellemeli veya API'ye ROOT_CAUSE alias eklemeli",
+      "workaround": "ROOT_CAUSE_ANALYSIS kullanıldı",
+      "date": "2026-04-15"
+    },
+    {
+      "id": "B16",
+      "section": "Bolum 6 (Fason) - SubcontractOrder OrderNumber Zorunlu",
+      "description": "POST /SubcontractOrder controller'ı order.OrderNumber'ı otomatik oluşturuyor (kod satır 92-93) ama SubcontractOrder entity'sinde OrderNumber required validation var. Model binder, body'de OrderNumber olmayınca 400 validation error dönüyor. Controller override ediyor ama binder daha önce devreye giriyor.",
+      "endpoint": "POST /SubcontractOrder",
+      "expectedStatus": "200 (OrderNumber otomatik üretilmeli)",
+      "actualStatus": "400: The OrderNumber field is required",
+      "severity": "LOW",
+      "rootCause": "SubcontractOrder entity'sinde [Required] attribute veya non-nullable string OrderNumber var. Controller yeniden atasına rağmen model validation önce çalışıyor.",
+      "fix": "SubcontractOrder.OrderNumber'ı nullable yapmalı veya [IgnoreDataMember] eklemeli, ya da DTO kullanılmalı",
+      "workaround": "Body'ye 'orderNumber':'DRAFT' placeholder eklendi, controller bunu 'FSN-202604-0001' ile override etti",
+      "date": "2026-04-15"
+    },
+    {
+      "id": "B17",
+      "section": "Bolum 10 - Maliyet Analizi (Estimate)",
+      "description": "GET /PartCost/estimate?productId=&quantity=500 her zaman 0 döndürüyor (materialCost:0, laborCost:0, machineCost:0, totalCost:0, lineItems:[]). Gerçek üretim maliyeti /PartCost/{productionId} ile hesaplanıyor: 91,250 TL (makine bazlı). Estimate endpoint'i BOM veya work order template datasını kullanmıyor.",
+      "endpoint": "GET /PartCost/estimate",
+      "expectedStatus": "Maliyet kırılımı (malzeme + makine + işçilik)",
+      "actualStatus": "totalCost: 0, tüm kalemler 0",
+      "severity": "MEDIUM",
+      "rootCause": "ICostCalculationService.EstimateAsync() implementasyonu eksik veya BOM/template bağlantısı yok",
+      "workaround": "GET /PartCost/{productionId} kullanıldı — gerçek maliyet: 91,250 TL (makine), unitCost: 182.5 TL/adet",
+      "date": "2026-04-15"
+    }
+  ]
+}

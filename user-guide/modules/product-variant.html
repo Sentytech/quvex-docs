@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ürün Varyantları &mdash; Quvex ERP Kullanıcı Kılavuzu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="container">
+
+  <a href="../index.html" class="nav-back">&#8592; Ana Sayfa</a>
+
+  <div class="doc-header">
+    <span class="version-badge">v3.0 &middot; Sprint 11 &middot; YENİ</span>
+    <div class="breadcrumb"><a href="../index.html">Kullanıcı Kılavuzu</a> / Sektör Modülleri / Ürün Varyantları</div>
+    <h1>Ürün Varyantları &mdash; Beden &times; Renk Matrisi</h1>
+    <p>Tekstil &amp; Hazır Giyim sektörü için ürün varyantı yönetimi &mdash; toplu oluşturma, stok matrisi, Pantone kodları, lot eşleştirme</p>
+  </div>
+
+  <div class="two-col">
+
+    <aside>
+      <nav class="nav-sidebar">
+        <a href="#tanitim">Ne İşe Yarar?</a>
+        <a href="#senaryo">Örnek Senaryo</a>
+        <a href="#urun-olustur">1. Ana Ürün Oluştur</a>
+        <a href="#varyant-tab">2. Varyantlar Tabı</a>
+        <a href="#toplu-olustur">3. Toplu Oluşturma</a>
+        <a href="#pantone">4. Pantone Kodları</a>
+        <a href="#stok-matrisi">5. Stok Matrisi</a>
+        <a href="#lot">Lot Eşleştirme</a>
+        <a href="#ipuclari">Faydalı İpuçları</a>
+        <a href="#sss">Sık Sorulan Sorular</a>
+      </nav>
+    </aside>
+
+    <main>
+
+      <section id="tanitim">
+        <h2>1. Ne İşe Yarar?</h2>
+        <p>Ürün Varyantları modülü, <strong>aynı ürünün farklı beden ve renk kombinasyonlarını tek bir ana ürün altında yönetmenizi</strong> sağlar. Tekstil, hazır giyim, ayakkabı gibi sektörlerde bir ürünün onlarca varyantı olabilir; her birini ayrı stok kartı olarak açmak yerine, Quvex size tek ekrandan matris halinde yönetme imkânı sunar.</p>
+
+        <div class="tip info">
+          <div class="tip-title">&#128161; Klasik Örnek</div>
+          <p>Bir erkek gömlek düşünün: <strong>4 beden (S, M, L, XL) &times; 3 renk (Beyaz, Mavi, Siyah) = 12 varyant</strong>. Eski usulde 12 ayrı stok kartı açmanız gerekirdi. Quvex'te tek ana ürün açıp, "Toplu Oluştur" butonuyla 12 varyantı saniyeler içinde oluşturursunuz.</p>
+        </div>
+
+        <h3>Kim Kullanır?</h3>
+        <div class="card-grid">
+          <div class="card">
+            <h4>Tekstil Üretici</h4>
+            <p>Gömlek, pantolon, tişört üretiminde beden/renk bazlı stok takibi.</p>
+          </div>
+          <div class="card">
+            <h4>Hazır Giyim Mağazası</h4>
+            <p>Her beden ve rengin ayrı ayrı satış ve sipariş yönetimi.</p>
+          </div>
+          <div class="card">
+            <h4>Ayakkabı Üreticisi</h4>
+            <p>Numara (36-45) &times; Renk kombinasyonları.</p>
+          </div>
+          <div class="card">
+            <h4>Aksesuar Üreticisi</h4>
+            <p>Çanta, cüzdan renk varyantları.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="senaryo">
+        <h2>2. Örnek Senaryo</h2>
+        <p><strong>Mehmet Bey'in durumu:</strong> "TX-001 Erkek Klasik Gömlek" ürününü 4 bedende (S, M, L, XL) ve 3 renkte (Beyaz, Mavi, Siyah) üretiyor. Her biri için ayrı SKU, ayrı stok, ayrı lot takibi istiyor ama 12 ayrı stok kartı açmak istemiyor.</p>
+
+        <div class="flow">
+          <div class="flow-step active">1. Ana Ürün</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">2. Varyant Tabı</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">3. Toplu Oluştur</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">4. 12 SKU Hazır</div>
+        </div>
+      </section>
+
+      <section id="urun-olustur">
+        <h2>3. Ana Ürün Oluştur</h2>
+        <p>Önce standart prosedür ile ana ürünü oluşturun:</p>
+        <ol>
+          <li>Menü: <strong>Stok &rarr; Ürünler &rarr; + Yeni</strong></li>
+          <li>Ürün kodu: <code>TX-001</code></li>
+          <li>Ürün adı: <code>Erkek Klasik Gömlek</code></li>
+          <li>Kategori: <code>Tekstil / Gömlek</code></li>
+          <li>Birim: <code>Adet</code></li>
+          <li><strong>Varyantlı Ürün</strong> kutusunu işaretleyin &#9989;</li>
+          <li>Kaydet</li>
+        </ol>
+
+        <div class="tip warning">
+          <div class="tip-title">&#9888; Dikkat</div>
+          <p>"Varyantlı Ürün" kutusunu işaretlemeden kaydederseniz, varyant tabı görünmez. Sonradan işaretlemek için ürünü düzenleyip kaydetmeniz yeterli.</p>
+        </div>
+      </section>
+
+      <section id="varyant-tab">
+        <h2>4. Varyantlar Tabına Git</h2>
+        <p>Ana ürünü kaydettikten sonra, ürün detay ekranında yeni bir sekme görürsünüz: <strong>Varyantlar</strong>.</p>
+        <ol>
+          <li>Ürün detayında <strong>Varyantlar</strong> tabına tıklayın</li>
+          <li>Boş bir matris görürsünüz</li>
+          <li>Sağ üstte iki buton vardır: <code>+ Tekil Ekle</code> ve <code>&#9881; Toplu Oluştur</code></li>
+        </ol>
+      </section>
+
+      <section id="toplu-olustur">
+        <h2>5. Toplu Oluşturma Sihirbazı</h2>
+        <p>Tek tek eklemek yerine sihirbazla saniyeler içinde oluşturun:</p>
+
+        <ol>
+          <li><strong>Toplu Oluştur</strong> butonuna tıklayın</li>
+          <li>Açılan dialog: <strong>"Attribute (Özellik) Seç"</strong>
+            <ul>
+              <li>Beden: S, M, L, XL (virgülle)</li>
+              <li>Renk: Beyaz, Mavi, Siyah</li>
+            </ul>
+          </li>
+          <li><strong>Önizleme</strong> butonuna basın &mdash; 12 satırlık tablo oluşur</li>
+          <li>Her satırda otomatik SKU görürsünüz: <code>TX-001-S-BEYAZ</code>, <code>TX-001-M-MAVI</code>, ...</li>
+          <li>İstediğiniz satırın başlangıç stok miktarını girebilirsiniz (opsiyonel)</li>
+          <li><strong>Oluştur</strong> butonuna basın &rarr; 12 varyant aynı anda kaydedilir</li>
+        </ol>
+
+        <div class="tip success">
+          <div class="tip-title">&#9989; İpucu &mdash; SKU Formatı</div>
+          <p>SKU formatını ayarlardan özelleştirebilirsiniz. Varsayılan: <code>{AnaKod}-{Beden}-{Renk}</code>. Alternatifler: <code>{Kod}_{Renk}_{Beden}</code>, <code>{Kod}.{Beden}.{Renk}</code>.</p>
+        </div>
+      </section>
+
+      <section id="pantone">
+        <h2>6. Pantone Renk Kodları</h2>
+        <p>Tekstil sektöründe renk tutarlılığı kritiktir. Quvex, her renk varyantına <strong>Pantone kodu</strong> eklemenize izin verir.</p>
+        <ol>
+          <li>Varyantlar tabında bir varyant satırına tıklayın</li>
+          <li>Detay ekranında <strong>Renk Özellikleri</strong> bölümü açılır</li>
+          <li>Pantone kodunu girin: örn. <code>11-0601 TCX</code> (Bright White)</li>
+          <li>Renk önizleme otomatik görünür (Pantone kütüphanesinden)</li>
+          <li>HEX kodu da ekleyebilirsiniz: <code>#F4F5F0</code></li>
+        </ol>
+
+        <table>
+          <thead><tr><th>Pantone</th><th>Renk Adı</th><th>HEX</th></tr></thead>
+          <tbody>
+            <tr><td>11-0601 TCX</td><td>Bright White</td><td>#F4F5F0</td></tr>
+            <tr><td>19-4052 TCX</td><td>Classic Blue</td><td>#0F4C81</td></tr>
+            <tr><td>19-0303 TCX</td><td>Jet Black</td><td>#2B2B2B</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="stok-matrisi">
+        <h2>7. Stok Matrisi &mdash; Renkli Isı Haritası</h2>
+        <p>Varyantlar tabının en güçlü özelliği <strong>Stok Matrisi</strong> görünümüdür. Tek ekranda tüm varyantların stoklarını renkli bir tablo halinde görürsünüz.</p>
+
+        <table>
+          <thead><tr><th></th><th>S</th><th>M</th><th>L</th><th>XL</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Beyaz</strong></td><td style="background:#dcfce7;">45</td><td style="background:#dcfce7;">62</td><td style="background:#fef3c7;">8</td><td style="background:#fee2e2;">0</td></tr>
+            <tr><td><strong>Mavi</strong></td><td style="background:#dcfce7;">30</td><td style="background:#dcfce7;">55</td><td style="background:#dcfce7;">28</td><td style="background:#fef3c7;">5</td></tr>
+            <tr><td><strong>Siyah</strong></td><td style="background:#dcfce7;">40</td><td style="background:#dcfce7;">48</td><td style="background:#dcfce7;">35</td><td style="background:#dcfce7;">22</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Renk Kodları</h3>
+        <ul>
+          <li><span style="background:#dcfce7;padding:2px 8px;">YEŞİL</span> &mdash; Stok yeterli (min seviyenin üstünde)</li>
+          <li><span style="background:#fef3c7;padding:2px 8px;">SARI</span> &mdash; Minimum seviyenin altında, sipariş önerilir</li>
+          <li><span style="background:#fee2e2;padding:2px 8px;">KIRMIZI</span> &mdash; Stok sıfır, acil üretim/sipariş</li>
+        </ul>
+
+        <div class="tip info">
+          <div class="tip-title">&#128161; Hızlı Aksiyon</div>
+          <p>Kırmızı hücreye sağ tıklayıp <strong>"Üretim Emri Aç"</strong> veya <strong>"Satın Alma Talebi Oluştur"</strong> seçebilirsiniz.</p>
+        </div>
+      </section>
+
+      <section id="lot">
+        <h2>8. Lot / Parti Eşleştirme</h2>
+        <p>Her varyantın kendi lot numarası olabilir. Aynı gömleğin Beyaz-M varyantı farklı lotlarda gelebilir (farklı kumaş parti, farklı üretim tarihi).</p>
+        <ol>
+          <li>Varyant detayında <strong>Lotlar</strong> sekmesine gidin</li>
+          <li>Her lot için: Lot No, Miktar, Üretim Tarihi, SKT, Tedarikçi bilgisi görünür</li>
+          <li>FIFO/LIFO veya manuel seçimle sevkiyat yapabilirsiniz</li>
+          <li>Kumaş partisi değiştiğinde yeni lot otomatik açılır</li>
+        </ol>
+      </section>
+
+      <section id="ipuclari">
+        <h2>9. Faydalı İpuçları</h2>
+        <div class="card-grid">
+          <div class="card">
+            <h4>&#128204; Mevsim Yönetimi</h4>
+            <p>İlkbahar/Yaz ve Sonbahar/Kış koleksiyonlarınızı ayrı ana ürünlerde değil, etiketleyerek aynı ürünün altında tutun. Raporlar modülünden sezonel analiz yapın.</p>
+          </div>
+          <div class="card">
+            <h4>&#128204; Barkod Etiketleri</h4>
+            <p>Her varyantın kendi barkodu otomatik üretilir. Etiket yazıcıdan toplu çıktı alıp, mal kabul sırasında tek tek okutabilirsiniz.</p>
+          </div>
+          <div class="card">
+            <h4>&#128204; Fiyat Farklılaştırma</h4>
+            <p>Örneğin XL beden %5 daha pahalı ise, varyant bazında fiyat override yapabilirsiniz.</p>
+          </div>
+          <div class="card">
+            <h4>&#128204; Ölü Stok Tespiti</h4>
+            <p>Matris görünümünde 90+ gün hareketsiz varyantlar gri renkte gösterilir. İndirim veya kampanya kararı verin.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="sss">
+        <h2>10. Sık Sorulan Sorular</h2>
+
+        <div class="card">
+          <h4>Beden ve renk dışında başka özellik ekleyebilir miyim?</h4>
+          <p>Evet. Örneğin "Kumaş Tipi" (Pamuk, Polyester) veya "Kol Boyu" (Kısa, Uzun) gibi attribute'lar ekleyebilirsiniz. Ayarlar &rarr; Sektör Profili &rarr; Ürün Attribute'ları bölümünden yönetilir.</p>
+        </div>
+
+        <div class="card">
+          <h4>Bir varyantı silebilir miyim?</h4>
+          <p>Eğer o varyantın stok hareketi yoksa silebilirsiniz. Hareketi varsa sadece "Pasif" yapabilirsiniz &mdash; bu satış ekranlarında görünmemesini sağlar ama geçmiş kayıtlar korunur.</p>
+        </div>
+
+        <div class="card">
+          <h4>Varyant bazında reçete (BOM) tanımlayabilir miyim?</h4>
+          <p>Evet. Örneğin Beyaz-M için 1.2m beyaz kumaş, Mavi-XL için 1.5m mavi kumaş. Üretim emri otomatik doğru reçeteyi seçer.</p>
+        </div>
+
+        <div class="card">
+          <h4>E-ticaret entegrasyonunda varyantlar nasıl görünür?</h4>
+          <p>Sprint 12 ile gelecek olan Shopify/WooCommerce entegrasyonunda her varyant ayrı SKU olarak API'ye gönderilir. Müşteri mağazada beden/renk seçimi yaptığında doğru SKU bulunur.</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="doc-footer">
+    &copy; 2026 Quvex &mdash; Ürün Varyantları &middot; Sprint 11 &middot; v3.0<br>
+    <small style="color:var(--text-muted);">destek@quvex.io</small>
+  </div>
+
+</div>
+<script src="../js/guide-enhancements.js"></script>
+</body>
+</html>

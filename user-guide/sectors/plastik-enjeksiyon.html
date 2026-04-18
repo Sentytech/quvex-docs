@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plastik Enjeksiyon Sektörü - Quvex ERP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="container">
+
+  <a href="../index.html" class="nav-back">&#8592; Ana Sayfa</a>
+
+  <div class="doc-header">
+    <span class="version-badge">v1.5</span>
+    <div class="breadcrumb"><a href="../index.html">Kullanıcı Kılavuzu</a> / <a href="../index.html">Sektör Rehberleri</a> / Plastik Enjeksiyon</div>
+    <h1>Plastik Enjeksiyon Sektörü Rehberi</h1>
+    <p>Kalıp yönetimi, shot sayacı, çevrim süresi takibi, granül lot izleme, fire/hurda analizi ve periyodik kalıp bakım uyarıları. Enjeksiyon atölyenizi Quvex ile yönetin.</p>
+  </div>
+
+  <div class="two-col">
+
+    <aside>
+      <nav class="nav-sidebar">
+        <a href="#zorunluluklar">Sektör Gereksinimleri</a>
+        <a href="#modüller">Quvex Modül Eşleşmesi</a>
+        <a href="#onboarding">Onboarding Adımları</a>
+        <a href="#senaryo">Örnek Senaryo</a>
+        <a href="#kurulum">Tipik Atölye Kurulumu</a>
+        <a href="#başlangıç">Başlangıç Adımları</a>
+      </nav>
+    </aside>
+
+    <main>
+
+      <section id="zorunluluklar">
+        <h2>Sektör Gereksinimleri</h2>
+        <p>Plastik enjeksiyon üreticileri için kritik gereksinimler: kalıp envanteri ve shot takibi, çevrim süresi optimizasyonu, granül lot izlenebilirlik, fire/çapak analizi ve periyodik kalıp bakımıdır.</p>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Gereksinim</th><th>Öncelik</th><th>Açıklama</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Kalıp Yönetimi</td><td><span class="badge badge-new">KRİTİK</span></td><td>Kalıp envanteri, göz sayısı, ömür takibi, bakım eşiği</td></tr>
+            <tr><td>Shot Sayacı</td><td><span class="badge badge-new">KRİTİK</span></td><td>Her kalıp için toplam shot sayısı, bakım eşiği karşılaştırma</td></tr>
+            <tr><td>Çevrim Süresi Takibi</td><td><span class="badge badge-new">KRİTİK</span></td><td>Cycle time ölçümü, hedef vs gerçekleşen, sapma analizi</td></tr>
+            <tr><td>Granül Lot İzleme</td><td><span class="badge badge-new">KRİTİK</span></td><td>PP, PE, ABS, masterbatch lot takibi, renk sapması önleme</td></tr>
+            <tr><td>Fire/Hurda Analizi</td><td>Yüksek</td><td>Çapak, çekme, yanık, kısa dolum, boşluk, renk kategorileri</td></tr>
+            <tr><td>BOM ve MRP</td><td>Yüksek</td><td>Ana reçine + masterbatch + katkı maddeleri</td></tr>
+            <tr><td>Periyodik Kalıp Bakımı</td><td>Yüksek</td><td>50K shot &gt; temizlik, 500K shot &gt; büyük bakım</td></tr>
+            <tr><td>Makine Tonaj Eşleştirme</td><td>Orta</td><td>Kalıp-makine uyumluluğu (100ton, 250ton, 500ton)</td></tr>
+            <tr><td>Paketleme</td><td>Orta</td><td>Çuval/koli bazlı paketleme, etiket</td></tr>
+            <tr><td>Malzeme Sertifikası</td><td>Orta</td><td>Gıda temaslı ürünlerde malzeme sertifikası takibi</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="modüller">
+        <h2>Quvex Modül Eşleşmesi</h2>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Gereksinim</th><th>Quvex Modülü</th><th>Ekran</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Kalıp Yönetimi</td><td>Kalıp Envanteri</td><td><a href="../modules/mold-inventory.html">Üretim &gt; Kalıp Envanteri</a></td></tr>
+            <tr><td>Shot Sayacı</td><td>Kalıp Envanteri</td><td>Kalıp &gt; Shot Geçmişi</td></tr>
+            <tr><td>Çevrim Süresi Takibi</td><td>Üretim</td><td>Üretim &gt; İş Emri &gt; Cycle Time</td></tr>
+            <tr><td>Granül Lot İzleme</td><td>Stok</td><td>Stok &gt; Lot Takibi</td></tr>
+            <tr><td>Fire/Hurda Analizi</td><td>Üretim + Kalite</td><td>Üretim &gt; Fire Bildirimi</td></tr>
+            <tr><td>BOM ve MRP</td><td>Üretim</td><td>Üretim &gt; BOM, MRP</td></tr>
+            <tr><td>Periyodik Bakım</td><td>Bakım</td><td>Bakım &gt; Koruyucu Bakım</td></tr>
+            <tr><td>Makine Yönetimi</td><td>Ayarlar</td><td>Ayarlar &gt; Makineler</td></tr>
+            <tr><td>Kalite Kontrol</td><td>Kalite</td><td>Kalite &gt; Son Kontrol</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="onboarding">
+        <h2>Onboarding: Otomatik Yapılandırma</h2>
+        <p>"Plastik Enjeksiyon" sektör profilini seçtiğinizde:</p>
+
+        <div class="card-grid">
+          <div class="card">
+            <h4>Kalıp Envanteri Aktif</h4>
+            <p>MoldInventory modülü açılır, shot sayacı ve bakım eşikleri tanımlanabilir.</p>
+          </div>
+          <div class="card">
+            <h4>Enjeksiyon Fire Kategorileri</h4>
+            <p>Çapak, çekme, yanık, kısa dolum, boşluk, renk sapması kategorileri eklenir.</p>
+          </div>
+          <div class="card">
+            <h4>Granül Lot Zorunlu</h4>
+            <p>Tüm reçine ve masterbatch'lerde lot takibi aktif hale gelir.</p>
+          </div>
+          <div class="card">
+            <h4>Çevrim Süresi Alanı</h4>
+            <p>İş emirlerinde hedef cycle time ve gerçekleşen cycle time alanları açılır.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="senaryo">
+        <h2>Örnek Senaryo: Özkan Bey'in Plastik Kasa Üretimi</h2>
+        <p>Özkan Bey, tarım sektörüne plastik meyve kasası üreten bir atölye işletiyor. 3 enjeksiyon makinesi (150t, 250t, 400t), 12 aktif kalıp var.</p>
+
+        <h3>Kurulum</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Hammadde Tanımı</h4>
+              <p>Stok &gt; Ürünler'den PP kopolimer, beyaz masterbatch, UV stabilizatör, dolgu maddesi tanımlanır. Her biri lot zorunlu.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Kalıp Tanımı</h4>
+              <p>Üretim &gt; Kalıp Envanteri'nden "K-001 Meyve Kasası 15kg" kalıbı açılır. 4 göz, 28 sn cycle, 500ton makine gerekli, toplam ömür 2.000.000 shot, bakım eşiği 50.000 shot.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Ürün ve BOM</h4>
+              <p>"Plastik Meyve Kasası 15kg" ürünü açılır. BOM: 850gr PP + 20gr masterbatch + 10gr UV = 880gr shot ağırlığı. 4 gözlük kalıpla shot başına 4 adet.</p>
+            </div>
+          </div>
+        </div>
+
+        <h3>Üretim</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>İş Emri Açma</h4>
+              <p>20.000 adet sipariş için iş emri açılır. Sistem 5000 shot hesaplar. Cycle 28 sn × 5000 = ~39 saat üretim süresi.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <h4>Makine Atama</h4>
+              <p>K-001 kalıbı 400ton makineye takılır. Lot seçimi: PP LOT-2026-03-A, masterbatch LOT-MB-WHT-12.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">6</div>
+            <div class="step-content">
+              <h4>Shot Sayacı</h4>
+              <p>Her vuruş otomatik sayılır (PLC'den veri okunursa). Manuel takipte operatör saatlik 128 shot girer.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">7</div>
+            <div class="step-content">
+              <h4>Cycle Time İzleme</h4>
+              <p>Hedef 28sn, gerçekleşen 31sn çıkıyor. Sistem %10 sapma uyarısı verir. Ayar: soğutma süresi uzatılmış, operatör düzeltir.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">8</div>
+            <div class="step-content">
+              <h4>Fire Bildirimi</h4>
+              <p>100 shot'ta 3 parça çapaklı çıkıyor. Operatör fire bildiriminden "Çapak - 3 adet" girer. Sistem çapak trendini kaydeder.</p>
+            </div>
+          </div>
+        </div>
+
+        <h3>Bakım Uyarısı</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">9</div>
+            <div class="step-content">
+              <h4>Shot Eşik Uyarısı</h4>
+              <p>K-001 kalıp toplam 49.800 shot'a ulaştı. Sistem "Bakım eşiğine 200 shot kaldı" uyarısı verir.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">10</div>
+            <div class="step-content">
+              <h4>Bakım İş Emri</h4>
+              <p>Bakım &gt; Koruyucu Bakım'dan K-001 için temizlik ve kontrol iş emri otomatik oluşur. Bakım sonrası shot sayacı korunur ama bakım tarihi güncellenir.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="kurulum">
+        <h2>Tipik Enjeksiyon Atölyesi Kurulumu</h2>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Tanımlanacak Veri</th><th>Ekran</th><th>Örnek</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Makineler</td><td>Ayarlar &gt; Makineler</td><td>ENJ-150t, ENJ-250t, ENJ-400t</td></tr>
+            <tr><td>Kalıplar</td><td>Üretim &gt; Kalıp Envanteri</td><td>K-001 kasa, K-002 kapak, K-003 bidon</td></tr>
+            <tr><td>Hammaddeler</td><td>Stok &gt; Ürünler</td><td>PP kopo, HDPE, ABS, masterbatch</td></tr>
+            <tr><td>Ürünler</td><td>Stok &gt; Ürünler</td><td>Meyve kasası, bidon kapağı, çöp kovası</td></tr>
+            <tr><td>Fire Kategorileri</td><td>Ayarlar &gt; Tanımlar</td><td>Çapak, çekme, yanık, kısa dolum, boşluk</td></tr>
+            <tr><td>Bakım Eşikleri</td><td>Kalıp Detayı</td><td>Temizlik 50K, küçük bakım 250K, büyük 500K shot</td></tr>
+            <tr><td>BOM</td><td>Üretim &gt; BOM</td><td>Shot ağırlığı + masterbatch oranı</td></tr>
+            <tr><td>Müşteriler</td><td>Satış &gt; Müşteriler</td><td>Tarım kooperatifleri, market zincirleri</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="başlangıç">
+        <h2>Önerilen Başlangıç Adımları</h2>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Sektör Profilini Seçin</h4>
+              <p>Onboarding wizard'da "Plastik Enjeksiyon" profilini seçin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Kalıp Envanterini Tanımlayın</h4>
+              <p>Tüm aktif kalıplarınızı shot geçmişi ile sisteme girin. Geçmiş shot sayısını bilmiyorsanız tahmin girin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Bakım Eşiklerini Belirleyin</h4>
+              <p>Her kalıp için periyodik bakım eşiklerini tanımlayın (50K temizlik, 500K büyük bakım gibi).</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>BOM'ları Hazırlayın</h4>
+              <p>Her ürün için shot ağırlığı ve masterbatch oranını BOM olarak tanımlayın.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <h4>Pilot İş Emri</h4>
+              <p>Bir kalıp ile küçük bir iş emri açın, shot sayaç ve cycle time takibini test edin.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> Mümkünse enjeksiyon makinelerinin PLC'lerinden otomatik shot sayısı ve cycle time çekin. Manuel takip hatalı olur, operatör unutur.
+        </div>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> Kalıp bakım eşiğini geçirmek kalıp kırılmasına yol açabilir. Eşik uyarısını ciddiye alın, bakımı geciktirmeyin.
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="doc-footer">
+    <p>Quvex ERP &mdash; Plastik Enjeksiyon Sektörü Rehberi &middot; v1.5 &middot; Nisan 2026</p>
+  </div>
+
+</div>
+<script src="../js/guide-enhancements.js"></script>
+</body>
+</html>

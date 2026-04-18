@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fabrika Sahibi Kılavuzu - Quvex ERP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="container">
+
+  <a href="../index.html" class="nav-back">&#8592; Ana Sayfa</a>
+
+  <div class="doc-header">
+    <span class="version-badge">v1.5</span>
+    <div class="breadcrumb"><a href="../index.html">Kullanıcı Kılavuzu</a> / <a href="../index.html">Rol Kılavuzlari</a> / Fabrika Sahibi</div>
+    <h1>Fabrika Sahibi / Genel Müdür Kılavuzu</h1>
+    <p>Siz fabrikanin genel müdürü veya sahibisiniz. Bu kılavuz, Quvex ERP uzerinden işletmenizi nasil yonetebileceginizi adim adim anlatir.</p>
+  </div>
+
+  <div class="two-col">
+
+    <aside>
+      <nav class="nav-sidebar">
+        <a href="#bakis">Genel Bakis</a>
+        <a href="#sabah">Sabah Rutini</a>
+        <a href="#günlük">Gunluk Gorevler</a>
+        <a href="#haftalık">Haftalik Gorevler</a>
+        <a href="#aylik">Aylik Gorevler</a>
+        <a href="#tipik-gun">Tipik Bir Gun</a>
+        <a href="#ekranlar">Önemli Ekranlar</a>
+        <a href="#ipuçları">İpuçları ve Hatalar</a>
+      </nav>
+    </aside>
+
+    <main>
+
+      <!-- Genel Bakis -->
+      <section id="bakis">
+        <h2>Genel Bakis</h2>
+        <p>Fabrika sahibi olarak sizin onceliginiz <strong>buyuk resmi gormek</strong>tir. Detaylara degil, trendlere ve sapmadlara odaklanirsiniz. Quvex, bunu Dashboard, AI Insights ve Raporlar modülleri ile saglar.</p>
+
+        <div class="card-grid">
+          <div class="card">
+            <h4>Gunluk Odak</h4>
+            <p>Dashboard KPI'lari, kritik uyarılar, nakit durumu</p>
+          </div>
+          <div class="card">
+            <h4>Haftalik Odak</h4>
+            <p>Sipariş durumu, OEE trendi, kar-zarar ozeti</p>
+          </div>
+          <div class="card">
+            <h4>Aylik Odak</h4>
+            <p>Maliyet analizi, tedarikçi performansi, kalite trendi</p>
+          </div>
+          <div class="card">
+            <h4>Karar Destek</h4>
+            <p>AI Insights tahminleri, raporlar, karşılaştırmalar</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sabah Rutini -->
+      <section id="sabah">
+        <h2>Sabah Rutini (08:00 - 08:30)</h2>
+        <p>Her sabah ise basladiginizda aşağıdaki adimlari izleyin:</p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Dashboard'u Acin</h4>
+              <p>Giriş yaptiktan sonra ana ekranda KPI kartlarıni kontrol edin. Kirmizi renkli kartlar acil dikkat gerektiren alanları gösterir.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Bildirimleri Okuyun</h4>
+              <p>Sag üst kosedeki bildirim ikonuna tıklayin. Gece gelen uyarıları (geciken is emirleri, stok alarmlari, kalite NCR'leri) gozdel gecirin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Nakit Durumunu Kontrol Edin</h4>
+              <p>Finans &gt; Kasa/Banka ekraninda güncel kasa ve banka bakiyelerini goruntuleyin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>Geciken Siparişleri Gorun</h4>
+              <p>Dashboard'daki "Geciken Is Emirleri" widgetini inceleyin. Kirmizi olan satirlarda üretim müdürüne sormalisiniz.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Gunluk Gorevler -->
+      <section id="günlük">
+        <h2>Gunluk Gorevler</h2>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Görev</th><th>Ekran</th><th>Açıklama</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>KPI kontrolü</td><td>Dashboard</td><td>Üretim verimliligi, fire orani, sipariş dolulugu</td></tr>
+            <tr><td>Nakit akisi</td><td>Finans &gt; Kasa/Banka</td><td>Gunluk gelen/giden para, kasa bakiye</td></tr>
+            <tr><td>Kritik uyarılar</td><td>Bildirimler</td><td>Stok minimum, geciken is emri, kalite sapmalari</td></tr>
+            <tr><td>Onay bekleyen işlemler</td><td>Bildirimler / Kalite</td><td>Fiyat onaylari, NCR onaylari, sevkiyat onaylari</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Haftalik Gorevler -->
+      <section id="haftalık">
+        <h2>Haftalik Gorevler (Her Pazartesi)</h2>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Sipariş Durumu Ozeti</h4>
+              <p><strong>Satış &gt; Siparişler</strong> ekraninda "Bu Hafta Teslim" filtresini kullanın. Geciken siparişleri kirmizi uyarı ile goreceksiniz.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>OEE Özet Raporu</h4>
+              <p><strong>Raporlar &gt; OEE</strong> ekraninda haftalık trendi inceleyin. %85 altindaki makineleri üretim müdürü ile konusun.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Kar-Zarar Ozeti</h4>
+              <p><strong>Finans &gt; Raporlar</strong> bolumundan haftalık gelir-gider ozetini cikartin. Beklenmeyen gider kalemlerini inceleyin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>Kasa Bakiyesi</h4>
+              <p><strong>Finans &gt; Kasa/Banka</strong> ekraninda tüm hesapların toplam bakiyesini kontrol edin. Nakit akis tahmini ile karsilastirin.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Aylik Gorevler -->
+      <section id="aylik">
+        <h2>Aylik Gorevler (Her Ay Basi)</h2>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Maliyet Analizi</h4>
+              <p>Raporlar bolumunden ürün bazlı maliyet raporunu cikartin. Hammadde, işçilik ve genel gider oranlarini karsilastirin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Tedarikçi Performans Değerlendirmesi</h4>
+              <p><strong>Satınalma &gt; Tedarikçi DeÄŸerlendirme</strong> ekraninda kalite, teslim süresi ve fiyat puanlarini inceleyin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Kalite Trendi</h4>
+              <p>Kalite modülünden aylik NCR/CAPA trendi, fire orani trendi ve müşteri şikâyet sayisini inceleyin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>AI Insights</h4>
+              <p>Dashboard &gt; AI Insights panelinde tahminleme sonuclarini okuyun. Anomali tespitlerini ve önerilen aksiyonlari değerlendirin.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tipik Bir Gun -->
+      <section id="tipik-gun">
+        <h2>Tipik Bir Gun Senaryosu</h2>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Saat</th><th>Aktivite</th><th>Quvex Ekrani</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>08:00</td><td>Ise geldiniz. Quvex Dashboard'u açın, KPI'lari tarayin.</td><td>Dashboard</td></tr>
+            <tr><td>08:10</td><td>Bildirimleri okuyun. Gece gelen 2 NCR var, biri kritik.</td><td>Bildirimler</td></tr>
+            <tr><td>08:20</td><td>Kasa bakiyesini kontrol edin. Bugun 3 ödeme yapılacak.</td><td>Finans &gt; Kasa/Banka</td></tr>
+            <tr><td>08:30</td><td>Üretim müdürü ile kisa toplanti. Geciken is emirlerini konusun.</td><td>Üretim &gt; Is Emirleri</td></tr>
+            <tr><td>09:00</td><td>Müşteri aramalari ve teklifler.</td><td>Satış &gt; Teklifler</td></tr>
+            <tr><td>10:30</td><td>Yeni gelen sipariş fiyat onayini yaptin.</td><td>Bildirimler &gt; Onay</td></tr>
+            <tr><td>12:00</td><td>Ogle arası</td><td>&mdash;</td></tr>
+            <tr><td>13:00</td><td>Tedarikçi görüşmesi. Tedarikçi performans puanini kontrol edin.</td><td>Satınalma &gt; Tedarikciler</td></tr>
+            <tr><td>14:30</td><td>Haftalik OEE raporunu inceleyin.</td><td>Raporlar &gt; OEE</td></tr>
+            <tr><td>15:30</td><td>Muhasebeci ile KDV mutabakati.</td><td>Finans &gt; Raporlar</td></tr>
+            <tr><td>16:30</td><td>AI Insights panelinde yarin için tahminleri okuyun.</td><td>Dashboard &gt; AI Insights</td></tr>
+            <tr><td>17:00</td><td>Gun sonu. Yarin için notlarinizi alın.</td><td>&mdash;</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Önemli Ekranlar -->
+      <section id="ekranlar">
+        <h2>En Önemli Ekranlar</h2>
+
+        <div class="card-grid">
+          <div class="card">
+            <h4>Dashboard</h4>
+            <p>Tüm KPI'lar tek ekranda. Üretim, finans, kalite, stok ozeti. Burasi sizin ana ekraniniz.</p>
+            <p><a href="../uretim.html">Üretim Kılavuzu &rarr;</a></p>
+          </div>
+          <div class="card">
+            <h4>Finans &gt; Kasa/Banka</h4>
+            <p>Nakit akisi, kasa bakiyesi, banka hesapları. Gunluk kontrol edilmeli.</p>
+            <p><a href="../finans.html">Finans Kılavuzu &rarr;</a></p>
+          </div>
+          <div class="card">
+            <h4>Raporlar</h4>
+            <p>OEE, maliyet, kar-zarar, sipariş durum raporları. Haftalik ve aylik inceleme.</p>
+            <p><a href="../raporlar.html">Raporlar Kılavuzu &rarr;</a></p>
+          </div>
+          <div class="card">
+            <h4>AI Insights</h4>
+            <p>Yapay zeka tahminleri, anomali tespiti, öneriler. Karar destek araci.</p>
+          </div>
+        </div>
+
+        <div class="callout callout-tip">
+          <strong>Kısayol:</strong> Dashboard'da her KPI kartina tıkladiginizda ilgili modülün detay ekranina gidersiniz. Hızlı erişim için favori ekranlarınızi sol menude sabitleyebilirsiniz.
+        </div>
+      </section>
+
+      <!-- İpuçları -->
+      <section id="ipuçları">
+        <h2>İpuçları ve Yaygin Hatalar</h2>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> Dashboard'u ana ekran olarak ayarlayin. Her giriş yaptiginizda dogrudan burada baslayacaksiniz.
+        </div>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> Haftalik toplanti oncesi Raporlar ekranindan PDF ciktisi alın. "Disari Aktar" butonuyla Excel ve PDF formatinda indirebilirsiniz.
+        </div>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> AI Insights panelindeki uyarıları ciddiye alın. Sistem geçmiş verilere dayanarak tahmin yaptigindan, erken müdahale firsati saglar.
+        </div>
+
+        <div class="callout callout-warn">
+          <strong>Dikkat:</strong> Fiyat onaylarini beklemeyin. Onay bekleyen işlemler 48 saat içinde otomatik iptal edilir. Bildirimleri günlük kontrol edin.
+        </div>
+
+        <div class="callout callout-warn">
+          <strong>Dikkat:</strong> Nakit akisini sadece kasa ekranindan takip etmeyin. Vadesi gelen faturalar için Finans &gt; Alacaklar/Borc ekranini da kontrol edin.
+        </div>
+
+        <div class="callout callout-warn">
+          <strong>Dikkat:</strong> Dashboard KPI'lari anlıktir ama raporlar tarihe gore filtrelenir. KPI ile rapor arasında fark gorurseniz tarih araligini kontrol edin.
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="doc-footer">
+    <p>Quvex ERP &mdash; Fabrika Sahibi Kılavuzu &middot; v1.5 &middot; Mart 2026</p>
+  </div>
+
+</div>
+<script src="../js/guide-enhancements.js"></script>
+</body>
+</html>

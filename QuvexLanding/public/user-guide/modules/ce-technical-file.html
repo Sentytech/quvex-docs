@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CE Teknik Dosya &mdash; Quvex ERP Kullanıcı Kılavuzu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="container">
+
+  <a href="../index.html" class="nav-back">&#8592; Ana Sayfa</a>
+
+  <div class="doc-header">
+    <span class="version-badge">v3.0 &middot; Sprint 11 &middot; YENİ</span>
+    <div class="breadcrumb"><a href="../index.html">Kullanıcı Kılavuzu</a> / Sektör Modülleri / CE Teknik Dosya</div>
+    <h1>CE Teknik Dosya Yönetimi</h1>
+    <p>Makine direktifi 2006/42/EC uyumu, 19 alanlı teknik dosya, risk değerlendirme, notified body süreci &mdash; makine imalatı için tam kılavuz</p>
+  </div>
+
+  <div class="two-col">
+
+    <aside>
+      <nav class="nav-sidebar">
+        <a href="#ce-nedir">CE Nedir?</a>
+        <a href="#19-alan">19 Alan Açıklaması</a>
+        <a href="#risk">Risk Değerlendirme</a>
+        <a href="#dokuman">Doküman Referansları</a>
+        <a href="#notified">Onaylanmış Kuruluş</a>
+        <a href="#durum">Dosya Durumları</a>
+        <a href="#onay">Onay Süreci</a>
+        <a href="#sss">SSS</a>
+      </nav>
+    </aside>
+
+    <main>
+
+      <section id="ce-nedir">
+        <h2>1. CE Nedir? Makine Direktifi 2006/42/EC</h2>
+        <p><strong>CE işareti</strong>, bir ürünün Avrupa Birliği'nin sağlık, güvenlik ve çevre gereksinimlerine uygun olduğunu belgeler. Makine imalatçıları için geçerli direktif <strong>Machinery Directive 2006/42/EC</strong>'dir ve Türkiye'de <strong>"Makina Emniyeti Yönetmeliği"</strong> adıyla aynı hükümleri uygular.</p>
+        <p>Direktif kapsamına giren her makine için üretici <strong>Teknik Dosya (Technical File)</strong> hazırlamak zorundadır. Bu dosya CE işareti için delil niteliğindedir ve denetimde istenir.</p>
+
+        <div class="tip warning">
+          <div class="tip-title">&#9888; Zorunluluk</div>
+          <p>Makine AB pazarına satılıyorsa teknik dosya 10 yıl saklanmak zorundadır. Türkiye iç pazarda da aynı kurallar Bakanlık denetiminde uygulanır.</p>
+        </div>
+      </section>
+
+      <section id="19-alan">
+        <h2>2. Teknik Dosyanın 19 Alanı</h2>
+        <p>Quvex, direktif ek VII'ye göre 19 alan içeren bir form sunar. <strong>Kalite &rarr; CE Teknik Dosya &rarr; + Yeni</strong>.</p>
+
+        <table>
+          <thead><tr><th>#</th><th>Alan</th><th>Açıklama</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Genel Tanım</td><td>Makine adı, modeli, tip</td></tr>
+            <tr><td>2</td><td>Üretici Bilgileri</td><td>Firma, adres, yetkili temsilci</td></tr>
+            <tr><td>3</td><td>Genel Çizim</td><td>Makinenin genel görünüm çizimi</td></tr>
+            <tr><td>4</td><td>Detay Çizimleri</td><td>Alt montaj, parça çizimleri</td></tr>
+            <tr><td>5</td><td>Hesaplamalar</td><td>Gerilme, mukavemet, tork hesapları</td></tr>
+            <tr><td>6</td><td>Test Sonuçları</td><td>Fabrikada yapılan testler</td></tr>
+            <tr><td>7</td><td>Risk Değerlendirme</td><td>EN ISO 12100 metodolojisi</td></tr>
+            <tr><td>8</td><td>Uygulanan Standartlar</td><td>Harmonize standartlar listesi</td></tr>
+            <tr><td>9</td><td>Teknik Raporlar</td><td>Üçüncü taraf laboratuvar raporları</td></tr>
+            <tr><td>10</td><td>Kullanım Kılavuzu</td><td>Yerel dilde (Türkçe + hedef dil)</td></tr>
+            <tr><td>11</td><td>Uygunluk Beyanı</td><td>Declaration of Conformity (DoC)</td></tr>
+            <tr><td>12</td><td>Elektrik Şeması</td><td>Güç + kontrol devresi</td></tr>
+            <tr><td>13</td><td>Pnömatik/Hidrolik Şema</td><td>Varsa</td></tr>
+            <tr><td>14</td><td>BOM (Parça Listesi)</td><td>Tüm bileşenler, tedarikçi</td></tr>
+            <tr><td>15</td><td>Bileşen Sertifikaları</td><td>Motor, sensör, PLC CE sertifikaları</td></tr>
+            <tr><td>16</td><td>Emisyon Ölçümleri</td><td>Gürültü, titreşim</td></tr>
+            <tr><td>17</td><td>Koruma Sistemleri</td><td>Acil stop, kilit, ışık perdeleri</td></tr>
+            <tr><td>18</td><td>Kalite Kontrol Planı</td><td>İç muayene prosedürü</td></tr>
+            <tr><td>19</td><td>Revizyon Geçmişi</td><td>Tüm değişikliklerin log'u</td></tr>
+          </tbody>
+        </table>
+
+        <div class="tip info">
+          <div class="tip-title">&#128161; Hepsi Tek Seferde Gerekmez</div>
+          <p>Taslak aşamasında boş bırakabilirsiniz. Quvex her alan için "Eksik / Taslak / Onaylı" durumu tutar, dosya ancak tüm alanlar "Onaylı" olduğunda yayına hazır olur.</p>
+        </div>
+      </section>
+
+      <section id="risk">
+        <h2>3. Risk Değerlendirme (EN ISO 12100)</h2>
+        <p>Direktifin kalbi risk değerlendirmedir. <strong>EN ISO 12100</strong> standardı metodolojiyi tanımlar.</p>
+
+        <h3>Risk Değerlendirme Adımları</h3>
+        <div class="flow">
+          <div class="flow-step active">1. Tehlike Tespit</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">2. Risk Analizi</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">3. Risk Değerlendirme</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">4. Önlem</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">5. Tekrar Et</div>
+        </div>
+
+        <h3>Örnek Tehlike Matrisi</h3>
+        <table>
+          <thead><tr><th>Tehlike</th><th>Şiddet</th><th>Olasılık</th><th>Risk</th><th>Önlem</th></tr></thead>
+          <tbody>
+            <tr><td>Kesici bıçak temas</td><td>Ağır yaralanma</td><td>Orta</td><td style="background:#fee2e2;">Yüksek</td><td>Işık perdesi + acil stop</td></tr>
+            <tr><td>Elektrik çarpması</td><td>Ölüm</td><td>Düşük</td><td style="background:#fef3c7;">Orta</td><td>IP54 pano, toprak hattı</td></tr>
+            <tr><td>Sıkışma (hareketli parça)</td><td>Orta yaralanma</td><td>Düşük</td><td style="background:#dcfce7;">Düşük</td><td>Kilit mekanizması</td></tr>
+          </tbody>
+        </table>
+
+        <p>Her satır için <strong>önlem sonrası rezidüel risk</strong> da hesaplanır. Quvex otomatik skor verir.</p>
+      </section>
+
+      <section id="dokuman">
+        <h2>4. Doküman Referansları</h2>
+        <p>Teknik dosya birçok referans dokümana bağlanır. Quvex döküman modülüyle entegredir.</p>
+        <ul>
+          <li><strong>Tasarım çizimleri</strong> &mdash; CAD sistem dışa aktarımı (PDF/DWG)</li>
+          <li><strong>Elektrik şeması</strong> &mdash; EPLAN / AutoCAD Electrical export</li>
+          <li><strong>Kullanım kılavuzu</strong> &mdash; Türkçe + EN (zorunlu)</li>
+          <li><strong>Bakım kılavuzu</strong> &mdash; Periyodik bakım prosedürleri</li>
+          <li><strong>Bileşen sertifikaları</strong> &mdash; Motor, sensör, kontaktör PDF'leri</li>
+          <li><strong>Test raporları</strong> &mdash; Üçüncü taraf laboratuvar raporları</li>
+        </ul>
+
+        <div class="tip info">
+          <div class="tip-title">&#128161; Versiyonlama</div>
+          <p>Her doküman versiyonlanır. Rev 1.0, 1.1, 2.0... Makine revize edildiğinde tek tıkla dosya revize edilir, eski revizyon arşive kalır.</p>
+        </div>
+      </section>
+
+      <section id="notified">
+        <h2>5. Onaylanmış Kuruluş (Notified Body)</h2>
+        <p>Bazı makine kategorileri (Ek IV) <strong>Notified Body</strong> onayı gerektirir. Örneğin:</p>
+        <ul>
+          <li>Daire testereleri (taşınabilir)</li>
+          <li>Pres makineleri</li>
+          <li>Yer altı çalışma ekipmanları</li>
+          <li>Vurucu makineler</li>
+          <li>Taşınabilir yakıt enjeksiyonlu aletler</li>
+        </ul>
+
+        <p>Quvex'te Notified Body bilgileri:</p>
+        <ol>
+          <li>Kuruluş adı: TÜV SÜD, TÜV Rheinland, BSI vb.</li>
+          <li>ID numarası: 4 haneli (örn. 0123)</li>
+          <li>Sertifika numarası</li>
+          <li>Geçerlilik tarihleri</li>
+          <li>Sertifika PDF</li>
+        </ol>
+
+        <p>Bu bilgiler uygunluk beyanı (DoC) üzerine otomatik basılır.</p>
+      </section>
+
+      <section id="durum">
+        <h2>6. Dosya Durumları</h2>
+        <ul>
+          <li><span style="background:#e5e7eb;padding:2px 8px;">TASLAK</span> &mdash; Tasarım aşaması, alanlar dolduruluyor</li>
+          <li><span style="background:#fef3c7;padding:2px 8px;">İNCELEMEDE</span> &mdash; Tüm alanlar dolu, onay bekliyor</li>
+          <li><span style="background:#dcfce7;padding:2px 8px;">ONAYLI</span> &mdash; Yayında, CE işareti basılabilir</li>
+          <li><span style="background:#fed7aa;padding:2px 8px;">REVİZYON</span> &mdash; Makine değişti, dosya güncelleniyor</li>
+          <li><span style="background:#e5e7eb;padding:2px 8px;">ARŞİV</span> &mdash; Makine üretimi bitti, 10 yıl saklamada</li>
+        </ul>
+      </section>
+
+      <section id="onay">
+        <h2>7. Onay Süreci</h2>
+        <ol>
+          <li><strong>Tasarımcı</strong> alanları doldurur, dokümanları yükler</li>
+          <li>Dosya "İncelemede" durumuna alınır</li>
+          <li><strong>Kalite Müdürü</strong> 19 alanı kontrol eder, eksikse geri gönderir</li>
+          <li><strong>Teknik Müdür</strong> risk değerlendirmeyi onaylar</li>
+          <li><strong>Genel Müdür</strong> uygunluk beyanını imzalar (elektronik imza)</li>
+          <li>Dosya "Onaylı" olur, CE etiketi üretime gönderilir</li>
+          <li>Her revize için süreç tekrarlanır</li>
+        </ol>
+
+        <div class="tip success">
+          <div class="tip-title">&#9989; Uygunluk Beyanı</div>
+          <p>Dosya onaylandığında Quvex otomatik olarak <strong>Declaration of Conformity (DoC)</strong> PDF'i üretir. Makine ile birlikte müşteriye verilir, kullanım kılavuzunun ekinde olmalıdır.</p>
+        </div>
+      </section>
+
+      <section id="sss">
+        <h2>8. Sık Sorulan Sorular</h2>
+
+        <div class="card">
+          <h4>Kullanım kılavuzu hangi dilde olmalı?</h4>
+          <p>Makinenin kullanılacağı ülkenin resmi dilinde. Türkiye iç satışta Türkçe zorunlu. AB'ye ihracatta hedef ülke dili zorunlu. Quvex çoklu dil yükleme destekler.</p>
+        </div>
+
+        <div class="card">
+          <h4>Her makine için yeni dosya mı açmalıyım?</h4>
+          <p>Hayır. <strong>Tip</strong> bazında açılır. Aynı model makineden 100 tane ürettiyseniz tek dosya yeterli. Seri numaraları ilgili dosyaya linklenir.</p>
+        </div>
+
+        <div class="card">
+          <h4>Makine yıllar sonra değiştirilirse?</h4>
+          <p>"Önemli değişiklik" (substantial modification) ise yeni risk analizi ve dosya revize edilmeli. Önemsiz değişiklik ise sadece revizyon notu eklenir.</p>
+        </div>
+
+        <div class="card">
+          <h4>Dosya denetimde istenirse ne kadar sürede teslim etmeliyim?</h4>
+          <p>Direktif "makul süre" der; pratikte 7-14 gün beklenir. Quvex'te tek tık ile tüm dosya PDF olarak dışa aktarılır, hızlı yanıt verebilirsiniz.</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="doc-footer">
+    &copy; 2026 Quvex &mdash; CE Teknik Dosya &middot; Sprint 11 &middot; v3.0<br>
+    <small style="color:var(--text-muted);">destek@quvex.io</small>
+  </div>
+
+</div>
+<script src="../js/guide-enhancements.js"></script>
+</body>
+</html>

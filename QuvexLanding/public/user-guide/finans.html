@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finans - Quvex ERP Kullanıcı Kılavuzu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+
+  <a href="index.html" class="nav-back">&#8592; Ana Sayfa</a>
+
+  <div class="doc-header">
+    <span class="version-badge">v2.0</span>
+    <div class="breadcrumb"><a href="index.html">Kullanıcı Kılavuzu</a> / Finans</div>
+    <h1>Muhasebe, Kasa &amp; Banka Yönetimi</h1>
+    <p>Fatura, ödeme, cari hesap, kasa/banka, hesaplar arası transfer, banka mutabakat, döviz kurları, kar-zarar analizi</p>
+  </div>
+
+  <!-- Stats Bar -->
+  <div class="stats-bar">
+    <div class="stat-item"><div class="stat-value">11</div><div class="stat-label">Alt Modül</div></div>
+    <div class="stat-item"><div class="stat-value">TRY/USD/EUR</div><div class="stat-label">Çoklu Döviz</div></div>
+    <div class="stat-item"><div class="stat-value">TCMB</div><div class="stat-label">Otomatik Kur</div></div>
+    <div class="stat-item"><div class="stat-value">PDF</div><div class="stat-label">Ekstre Cikti</div></div>
+  </div>
+
+  <!-- Sprint 11 Yenilikleri Callout -->
+  <div class="card" style="border-left:4px solid #f59e0b;background:linear-gradient(135deg,#fffbeb,#fef3c7);">
+    <div class="tip-title" style="color:#92400e;font-size:1rem;font-weight:700;margin-bottom:0.5rem;">Sprint 11 Yenilikleri (Nisan 2026)</div>
+    <ul style="margin:0 0 0 1.2rem;color:var(--text-secondary);line-height:1.7;">
+      <li><strong>Varyant Bazli Gelir Analizi:</strong> Varyantli urunlerin (beden/renk) fatura satirlarinda SKU detayi ile raporlama.</li>
+      <li><strong>WhatsApp Odeme Hatirlatma:</strong> Vadesi gelen faturalar icin musteriye WhatsApp uzerinden otomatik hatirlatma mesaji.</li>
+      <li><strong>Recall Maliyet Takibi:</strong> Geri cagirma kapsaminda iade, imha ve yeniden uretim maliyeti ayri muhasebe hesabi olarak izlenir. <a href="modules/haccp-recall.html">Recall Modulu</a>.</li>
+    </ul>
+  </div>
+
+  <div class="two-col">
+
+    <aside>
+      <nav class="nav-sidebar">
+        <a href="#tanitim">Tanitim</a>
+        <a href="#fatura">Fatura Yönetimi</a>
+        <a href="#ödeme">Ödeme Takibi</a>
+        <a href="#cari">Cari Hesap</a>
+        <a href="#kasa">Kasa Yönetimi</a>
+        <a href="#banka">Banka Yönetimi</a>
+        <a href="#transfer">Kasa &harr; Banka Transfer</a>
+        <a href="#mutabakat">Banka Mutabakat</a>
+        <a href="#döviz">Döviz Kuru</a>
+        <a href="#kar-zarar">Kar-Zarar Analizi</a>
+        <a href="#faq">Sorun Giderme &amp; SSS</a>
+      </nav>
+    </aside>
+
+    <main>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 1. TANITIM -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="tanitim">
+        <h2>1. Tanitim</h2>
+        <p>Finans modülü, fabrikanizdaki tüm para hareketlerini yonetir. Fatura kesiminden ödeme takibine, kasa ve banka işlemlerinden döviz kurlarına kadar mali süreçlerin tamamini kapsar.</p>
+
+        <h3>Modül Yapisi</h3>
+        <table>
+          <thead><tr><th>Alan</th><th>Alt Modüller</th><th>Açıklama</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Fatura &amp; Ödeme</strong></td><td>Faturalar, Ödeme Kayıt, Cari Hesap</td><td>Satış/alis faturalari, ödeme takibi, cari bakiye</td></tr>
+            <tr><td><strong>Kasa &amp; Banka</strong></td><td>Kasa, Banka, Transfer, Mutabakat</td><td>Nakit ve banka hesabı yönetimi</td></tr>
+            <tr><td><strong>Döviz &amp; Analiz</strong></td><td>Döviz Kurlari, Kar-Zarar</td><td>TCMB kur takibi, mali analiz</td></tr>
+          </tbody>
+        </table>
+
+        <div class="flow">
+          <div class="flow-step">Fatura</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step active">Cari Guncelle</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Ödeme Al/Yap</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Kasa/Banka Guncelle</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Mutabakat</div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 2. FATURA YONETIMI -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="fatura">
+        <h2>2. Fatura Yönetimi</h2>
+        <p><strong>Sayfa:</strong> <code>/invoices</code></p>
+        <p>Satış faturasi, alis faturasi ve iade faturalari bu modülden yonetilir. Fatura kesildiginde cari hesap otomatik güncellenir.</p>
+
+        <h3>Fatura Tipleri</h3>
+        <table>
+          <thead><tr><th>Tip</th><th>Açıklama</th><th>Cari Etki</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge badge-primary">Satış Faturasi</span></td><td>Müşteriye kesilen fatura</td><td>Müşteri borcu artar (+)</td></tr>
+            <tr><td><span class="badge badge-info">Alis Faturasi</span></td><td>Tedarikicden alınan fatura</td><td>Tedarikiciye borcumuz artar (+)</td></tr>
+            <tr><td><span class="badge badge-danger">Satış İade</span></td><td>Müşteriden iade</td><td>Müşteri borcu azalir (-)</td></tr>
+            <tr><td><span class="badge badge-warning">Alis İade</span></td><td>Tedarikiciye iade</td><td>Tedarikiciye borcumuz azalir (-)</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Fatura Formu Alanlari</h3>
+        <table class="field-table">
+          <thead><tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th></tr></thead>
+          <tbody>
+            <tr><td>Fatura No</td><td>Otomatik seri numarası</td><td>Otomatik</td></tr>
+            <tr><td class="required">Fatura Tipi</td><td>Satış / Alis / Satış İade / Alis İade</td><td>Evet</td></tr>
+            <tr><td class="required">Müşteri/Tedarikçi</td><td>Cari hesap sahibi</td><td>Evet</td></tr>
+            <tr><td class="required">Fatura Tarihi</td><td>Kesim tarihi</td><td>Evet</td></tr>
+            <tr><td>Vade Tarihi</td><td>Ödeme vadesi</td><td>Hayir</td></tr>
+            <tr><td>Para Birimi</td><td>TRY, USD, EUR</td><td>Hayir</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Fatura Kalemleri</h3>
+        <table class="field-table">
+          <thead><tr><th>Alan</th><th>Açıklama</th></tr></thead>
+          <tbody>
+            <tr><td class="required">Ürün/Hizmet</td><td>Ürün arama ile secim</td></tr>
+            <tr><td class="required">Miktar</td><td>Fatura edilen adet</td></tr>
+            <tr><td class="required">Birim Fiyat</td><td>Birim basi tutar</td></tr>
+            <tr><td>KDV Orani</td><td>%1, %10, %20 (varsayılan: ürün kartindan gelir)</td></tr>
+            <tr><td>Iskonto (%)</td><td>Kalem bazinda iskonto</td></tr>
+            <tr><td>Tevkifat</td><td>Gerektiginde tevkifat orani</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Otomatik Cari Güncelleme</h3>
+        <div class="tip">
+          <div class="tip-title">İpucu: Otomatik İşlem</div>
+          <p>Fatura "KESILDI" durumuna gectiginde cari hesap otomatik güncellenir. Manuel cari işlem girmenize gerek yoktur.</p>
+        </div>
+
+        <h3>Fatura Durum Akisi</h3>
+        <div class="flow">
+          <div class="flow-step active">TASLAK</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">KESILDI</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">KISMI ODEME</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">ODENDI</div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 3. ODEME TAKIBI -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="ödeme">
+        <h2>3. Ödeme Takibi</h2>
+        <p><strong>Sayfa:</strong> <code>/payments</code></p>
+        <p>Müşteri tahsilatlarinizi ve tedarikçi odemelerinizi kaydedin. Kismi ödeme destegi vardir.</p>
+
+        <h3>Ödeme Kayıt Formu</h3>
+        <table class="field-table">
+          <thead><tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th></tr></thead>
+          <tbody>
+            <tr><td class="required">Ödeme Tipi</td><td>Tahsilat (müşteriden) veya Ödeme (tedarikiciye)</td><td>Evet</td></tr>
+            <tr><td class="required">Müşteri/Tedarikçi</td><td>Cari hesap sahibi</td><td>Evet</td></tr>
+            <tr><td class="required">Tutar</td><td>Ödeme tutari</td><td>Evet</td></tr>
+            <tr><td class="required">Ödeme Tarihi</td><td>Odemenin yapildigi tarih</td><td>Evet</td></tr>
+            <tr><td>Ödeme Yontemi</td><td>Nakit, Havale/EFT, Kredi Karti, Cek</td><td>Hayir</td></tr>
+            <tr><td>Hedef Hesap</td><td>Kasa veya banka hesabı</td><td>Hayir</td></tr>
+            <tr><td>İlişkili Fatura</td><td>Hangi faturaya istinaden odeniyor</td><td>Hayir</td></tr>
+            <tr><td>Açıklama</td><td>Ödeme notu</td><td>Hayir</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Vade Takibi</h3>
+        <table>
+          <thead><tr><th>Durum</th><th>Renk</th><th>Açıklama</th></tr></thead>
+          <tbody>
+            <tr><td>Vadesi Gelmemis</td><td><span class="badge badge-success">Yesil</span></td><td>Vade tarihi henuz gelmemis</td></tr>
+            <tr><td>Vadesi Yaklasan (7 gun)</td><td><span class="badge badge-warning">Sari</span></td><td>Vadeye 7 gundem az kalmis</td></tr>
+            <tr><td>Vadesi Gecmis</td><td><span class="badge badge-danger">Kirmizi</span></td><td>Vade tarihi geçmiş, odenmemis</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Kismi Ödeme</h3>
+        <p>Bir fatura birden fazla taksitte odenebilir. Her ödeme kaydedildiginde fatura kalan tutari otomatik güncellenir:</p>
+        <ul>
+          <li>Kalan &gt; 0 ise fatura durumu <span class="badge badge-warning">KISMI ODEME</span></li>
+          <li>Kalan = 0 ise fatura durumu <span class="badge badge-success">ODENDI</span></li>
+        </ul>
+
+        <div class="tip info">
+          <div class="tip-title">Bilgi: Otomatik Eslesme</div>
+          <p>Ödeme kaydedildiginde "İlişkili Fatura" secilmisse, fatura bakiyesi ve cari hesap otomatik güncellenir. Hedef hesap secilmisse kasa/banka bakiyesi de güncellenir.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 4. CARI HESAP -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="cari">
+        <h2>4. Cari Hesap</h2>
+        <p><strong>Sayfa:</strong> <code>/customer-statement</code></p>
+        <p>Müşteri veya tedarikiçinin tüm mali hareketlerini tek sayfada goruntuleyin.</p>
+
+        <h3>Bakiye Özet Kartları</h3>
+        <table>
+          <thead><tr><th>Kart</th><th>Açıklama</th></tr></thead>
+          <tbody>
+            <tr><td>Toplam Borc</td><td>Faturalarin toplami</td></tr>
+            <tr><td>Toplam Alacak</td><td>Odemelerin toplami</td></tr>
+            <tr><td>Bakiye</td><td>Borc - Alacak</td></tr>
+            <tr><td>Son İşlem</td><td>En son hareket tarihi</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Ekstre Goruntuleme</h3>
+        <table>
+          <thead><tr><th>Kolon</th><th>Açıklama</th></tr></thead>
+          <tbody>
+            <tr><td>Tarih</td><td>İşlem tarihi</td></tr>
+            <tr><td>Belge No</td><td>Fatura/makbuz numarası</td></tr>
+            <tr><td>Açıklama</td><td>İşlem detayi</td></tr>
+            <tr><td>Borc</td><td>Fatura tutari</td></tr>
+            <tr><td>Alacak</td><td>Ödeme tutari</td></tr>
+            <tr><td>Bakiye</td><td>Kumulatif bakiye</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Bakiye Mutabakat</h3>
+        <p>Müşteri/tedarikçi ile bakiye uyusmazligi oldugunda mutabakat yapilabilir:</p>
+        <ol>
+          <li>Cari hesap ekstrasinizi PDF olarak indirin</li>
+          <li>Karsi tarafin ekstresiyle karsilastirin</li>
+          <li>Fark varsa eksik fatura veya ödeme kaydıni tespit edin</li>
+          <li>Gerekli duzeltmeleri yapın</li>
+        </ol>
+
+        <div class="tip">
+          <div class="tip-title">İpucu: Tarih Filtresi</div>
+          <p>Ekstre varsayılan olarak son 12 ayi gösterir. Tarih araligini değiştirerek istediginiz donemi secebilirsiniz.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 5. KASA YONETIMI -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="kasa">
+        <h2>5. Kasa Yönetimi</h2>
+        <p><strong>Sayfa:</strong> <code>/cash-accounts</code></p>
+        <p>Fabrikadaki nakit para hareketlerini takip edin. Birden fazla kasa tanımlanabilir (örnek: Ana Kasa, Üretim Kasa).</p>
+
+        <h3>Kasa Tanimlama</h3>
+        <table class="field-table">
+          <thead><tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th></tr></thead>
+          <tbody>
+            <tr><td class="required">Kasa Adi</td><td>Tanimlayici isim (örnek: "Ana Kasa")</td><td>Evet</td></tr>
+            <tr><td class="required">Para Birimi</td><td>TRY, USD, EUR</td><td>Evet</td></tr>
+            <tr><td>Acilis Bakiyesi</td><td>Başlangıç tutari</td><td>Hayir</td></tr>
+            <tr><td>Açıklama</td><td>Kasa hakkinda not</td><td>Hayir</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Kasa İşlemleri</h3>
+        <table>
+          <thead><tr><th>İşlem</th><th>Açıklama</th><th>Bakiye Etkisi</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge badge-success">Yatirma (Giriş)</span></td><td>Kasaya para girişi</td><td>Bakiye artar (+)</td></tr>
+            <tr><td><span class="badge badge-danger">Cekme (Çıkış)</span></td><td>Kasadan para çıkışi</td><td>Bakiye azalir (-)</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Kasa İşlem Formu</h3>
+        <table class="field-table">
+          <thead><tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th></tr></thead>
+          <tbody>
+            <tr><td class="required">İşlem Tipi</td><td>Yatirma veya Cekme</td><td>Evet</td></tr>
+            <tr><td class="required">Tutar</td><td>İşlem tutari</td><td>Evet</td></tr>
+            <tr><td class="required">Tarih</td><td>İşlem tarihi</td><td>Evet</td></tr>
+            <tr><td>Açıklama</td><td>İşlem notu (örnek: "Müşteri X nakit ödeme")</td><td>Hayir</td></tr>
+            <tr><td>Belge No</td><td>Makbuz veya referans numarası</td><td>Hayir</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Kasa Defteri</h3>
+        <p>Her kasanin günlük, haftalık veya aylik hareket dokumleri görüntülenir. Giriş-çıkış toplami ve kapanmis bakiye otomatik hesaplanir.</p>
+
+        <div class="tip warning">
+          <div class="tip-title">Dikkat: Negatif Bakiye</div>
+          <p>Kasa bakiyesi negatife dusüreçek cekme işlemleri sisteme izin verilmez. Once yatirma yapın veya baska kasadan transfer yapın.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 6. BANKA YONETIMI -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="banka">
+        <h2>6. Banka Yönetimi</h2>
+        <p><strong>Sayfa:</strong> <code>/bank-accounts</code></p>
+        <p>Sirket banka hesaplarıni tanımlayin ve hareketlerini takip edin.</p>
+
+        <h3>Banka Hesabi Tanimlama</h3>
+        <table class="field-table">
+          <thead><tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th></tr></thead>
+          <tbody>
+            <tr><td class="required">Hesap Adi</td><td>Tanimlayici isim (örnek: "Is Bankasi TRY")</td><td>Evet</td></tr>
+            <tr><td class="required">Banka Adi</td><td>Banka adi</td><td>Evet</td></tr>
+            <tr><td>Sube</td><td>Sube adi</td><td>Hayir</td></tr>
+            <tr><td class="required">IBAN</td><td>TR + 24 haneli IBAN numarası</td><td>Evet</td></tr>
+            <tr><td class="required">Para Birimi</td><td>TRY, USD, EUR</td><td>Evet</td></tr>
+            <tr><td>Acilis Bakiyesi</td><td>Başlangıç tutari</td><td>Hayir</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Banka İşlemleri</h3>
+        <table>
+          <thead><tr><th>İşlem</th><th>Açıklama</th><th>Örnek</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge badge-success">Giriş (Havale/EFT)</span></td><td>Hesaba gelen para</td><td>Müşteri havale ödeme</td></tr>
+            <tr><td><span class="badge badge-danger">Çıkış (Virman/Havale)</span></td><td>Hesaptan cikan para</td><td>Tedarikçi ödeme, fatura</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Banka Ekstre Goruntuleme</h3>
+        <p>Her banka hesabınin hareket listesi tarih araligina gore filtrelenir. Giriş/çıkış toplamini ve güncel bakiyeyi goruntuleyin. PDF cikti alın.</p>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 7. KASA <-> BANKA TRANSFER -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="transfer">
+        <h2>7. Kasa &harr; Banka Transfer</h2>
+        <p><strong>Sayfa:</strong> <code>/transfers</code></p>
+        <p>Kasa ile banka arasında veya iki banka hesabı arasında para transferi yapın.</p>
+
+        <h3>Transfer Tipleri</h3>
+        <table>
+          <thead><tr><th>Transfer</th><th>Kaynak</th><th>Hedef</th><th>Örnek</th></tr></thead>
+          <tbody>
+            <tr><td>Kasa &rarr; Banka</td><td>Kasa</td><td>Banka hesabı</td><td>Kasadaki nakdi bankaya yatirma</td></tr>
+            <tr><td>Banka &rarr; Kasa</td><td>Banka hesabı</td><td>Kasa</td><td>Bankadan nakit cekme</td></tr>
+            <tr><td>Banka &rarr; Banka</td><td>Banka hesabı A</td><td>Banka hesabı B</td><td>Hesaplar arası virman</td></tr>
+            <tr><td>Kasa &rarr; Kasa</td><td>Kasa A</td><td>Kasa B</td><td>Kasalar arası transfer</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Transfer Formu</h3>
+        <table class="field-table">
+          <thead><tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th></tr></thead>
+          <tbody>
+            <tr><td class="required">Kaynak Hesap</td><td>Paranin cikacagi kasa veya banka</td><td>Evet</td></tr>
+            <tr><td class="required">Hedef Hesap</td><td>Paranin yatacagi kasa veya banka</td><td>Evet</td></tr>
+            <tr><td class="required">Tutar</td><td>Transfer tutari</td><td>Evet</td></tr>
+            <tr><td class="required">Tarih</td><td>Transfer tarihi</td><td>Evet</td></tr>
+            <tr><td>Açıklama</td><td>Transfer notu</td><td>Hayir</td></tr>
+          </tbody>
+        </table>
+
+        <div class="tip info">
+          <div class="tip-title">Bilgi: Cift Tarafli Kayıt</div>
+          <p>Transfer kaydedildiginde kaynak hesaptan duser, hedef hesaba eklenir. Tek işlemde iki hesap otomatik güncellenir.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 8. BANKA MUTABAKAT -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="mutabakat">
+        <h2>8. Banka Mutabakat</h2>
+        <p><strong>Sayfa:</strong> <code>/bank-reconciliation</code></p>
+        <p>Banka ekstresi ile sistemdeki kayıtları karsilastirin. Uyusmazliklari tespit edin.</p>
+
+        <h3>Mutabakat Süreçi</h3>
+        <div class="flow">
+          <div class="flow-step active">Banka Ekstresi Yukle</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Otomatik Eslestirme</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Manuel Düzeltme</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Mutabakat Onayla</div>
+        </div>
+
+        <h3>Otomatik Eslestirme Kriterleri</h3>
+        <table>
+          <thead><tr><th>Kriter</th><th>Açıklama</th></tr></thead>
+          <tbody>
+            <tr><td>Tutar</td><td>Banka işlem tutari = sistem işlem tutari</td></tr>
+            <tr><td>Tarih</td><td>İşlem tarihi &plusmn;2 gun tolerans</td></tr>
+            <tr><td>Açıklama</td><td>Benzer açıklama metni (fuzzy matching)</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Eslesmeme Durumunda</h3>
+        <table>
+          <thead><tr><th>Durum</th><th>Açıklama</th><th>Aksiyon</th></tr></thead>
+          <tbody>
+            <tr><td>Bankada var, sistemde yok</td><td>Banka hareketi kayıtli degil</td><td>Eksik kaydı sisteme girin</td></tr>
+            <tr><td>Sistemde var, bankada yok</td><td>Sistem kaydınin bankada karşılığı yok</td><td>Kaydi kontrol edin, gerekirse duzletin</td></tr>
+            <tr><td>Tutar farklı</td><td>Ayni işlem, farklı tutar</td><td>Komisyon, masraf farki olabilir</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 9. DOVIZ KURU -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="döviz">
+        <h2>9. Döviz Kuru Yönetimi</h2>
+        <p><strong>Sayfa:</strong> <code>/exchange-rates</code></p>
+        <p>TCMB günlük kurlarıni otomatik cekin. Döviz cinsinden fatura ve ödeme işlemlerinde güncel kurlar kullanilir.</p>
+
+        <h3>Otomatik Kur Cekme</h3>
+        <table>
+          <thead><tr><th>Özellik</th><th>Açıklama</th></tr></thead>
+          <tbody>
+            <tr><td>Kaynak</td><td>TCMB (Turkiye Cumhuriyet Merkez Bankasi) XML servisi</td></tr>
+            <tr><td>Frekans</td><td>Gunluk (is gunleri), saat 15:30 sonrasi</td></tr>
+            <tr><td>Para Birimleri</td><td>USD, EUR, GBP ve diger TCMB destekli birimler</td></tr>
+            <tr><td>Fallback</td><td>TCMB erişim hatasi durumunda son 5 günlük kur kullanilir</td></tr>
+          </tbody>
+        </table>
+
+        <h3>5 Gunluk Fallback Mekanizmasi</h3>
+        <p>TCMB sunucusuna erisilmediginde (tatil, teknik arıza vb.) sistem son 5 gun içindeki en güncel kuru kullanir. 5 gunden eski kur kullanilmaz, bu durumda manuel kur girişi gerekir.</p>
+
+        <h3>Kur Kullanim Alanlari</h3>
+        <ul>
+          <li>Döviz cinsinden fatura kesimi ve TRY karslik hesaplama</li>
+          <li>Döviz cinsinden ödeme kaydı</li>
+          <li>Döviz hesabı bakiye hesaplama</li>
+          <li>Döviz kazanci/kaybi analizi</li>
+        </ul>
+
+        <div class="tip">
+          <div class="tip-title">İpucu: Manuel Kur</div>
+          <p>Özel anlasma kuru kullanmak istiyorsaniz fatura/ödeme formunda kuru manuel değiştirebilirsiniz. TCMB kuru sadece varsayılan değer olarak kullanilir.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 10. KAR-ZARAR ANALIZI -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="kar-zarar">
+        <h2>10. Kar-Zarar Analizi</h2>
+        <p><strong>Sayfa:</strong> <code>/profit-loss</code></p>
+        <p>Secilen donemde fabrikanizin mali performansini goruntuleyin.</p>
+
+        <h3>Özet Tablolar</h3>
+        <table>
+          <thead><tr><th>Kalem</th><th>Kaynak</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Gelirler</strong></td><td>Satış faturalari toplami</td></tr>
+            <tr><td><strong>Satış Maliyeti</strong></td><td>Satilan ürünlerin malzeme + işçilik maliyeti</td></tr>
+            <tr><td><strong>Brut Kar</strong></td><td>Gelirler - Satış Maliyeti</td></tr>
+            <tr><td><strong>Genel Giderler</strong></td><td>Kira, enerji, personel vb. sabit giderler</td></tr>
+            <tr><td><strong>Net Kar/Zarar</strong></td><td>Brut Kar - Genel Giderler</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Analiz Özellikleri</h3>
+        <ul>
+          <li><strong>Dönem Karşılaştırma:</strong> Secilen donemi onceki donemle kiyaslayin</li>
+          <li><strong>Kategori Bazlı:</strong> Ürün grubu veya müşteri bazlı kar analizi</li>
+          <li><strong>Trend Grafiği:</strong> Aylik kar/zarar trendi</li>
+          <li><strong>PDF Rapor:</strong> Dönem raporunu PDF olarak indirin</li>
+        </ul>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- SSS -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="faq">
+        <h2>Sorun Giderme &amp; Sik Sorulan Sorular</h2>
+
+        <div class="card">
+          <h4>1. Fatura kestikten sonra düzeltme yapabilir miyim?</h4>
+          <p>"KESILDI" durumundaki fatura düzenlenemez. Once faturaya iptal edin (iptal fisi olusur), sonra yeni fatura kesin.</p>
+        </div>
+
+        <div class="card">
+          <h4>2. Kismi ödeme nasil kaydediyorum?</h4>
+          <p>Ödeme kayıt ekraninda fatura toplamindan az tutar girin. Fatura durumu "KISMI ODEME" olur. Kalan tutar fatura detayinda görüntülenir.</p>
+        </div>
+
+        <div class="card">
+          <h4>3. Cari bakiye neden yanlis gorunuyor?</h4>
+          <p>Taslak faturalari cari bakiyeye yansimaz. Faturanin "KESILDI" oldugundan emin olun. Ayrica ödeme kayıtlarıni kontrol edin.</p>
+        </div>
+
+        <div class="card">
+          <h4>4. Kasa bakiyesi negatife dusebilir mi?</h4>
+          <p>Hayir. Sistem negatif bakiyeye dusecek cekme işlemlerine izin vermez. Once yatirma veya transfer yapın.</p>
+        </div>
+
+        <div class="card">
+          <h4>5. Bankadan kasa'ya nasil para aktariyorum?</h4>
+          <p>Transfer sayfasina gidin. Kaynak: banka hesabı, hedef: kasa secin. Tutari girin ve kaydedin. Her iki hesap otomatik güncellenir.</p>
+        </div>
+
+        <div class="card">
+          <h4>6. Döviz kuru otomatik gelmiyor, ne yapayim?</h4>
+          <p>TCMB erişim sorunu olabilir (tatil, bakım). Sistem son 5 günlük kuru kullanir. 5 gunden eskiyse Döviz Kurlari sayfasindan manuel giriş yapın.</p>
+        </div>
+
+        <div class="card">
+          <h4>7. Döviz faturasinda TRY karsligini nereden goruyorum?</h4>
+          <p>Fatura detayinda "TRY Karsilik" alanı görüntülenir. Fatura tarihindeki TCMB kuru ile hesaplanir.</p>
+        </div>
+
+        <div class="card">
+          <h4>8. Banka mutabakat nasil yapılır?</h4>
+          <p>Banka Mutabakat sayfasindan banka ekstresini yükleyin. Sistem otomatik eslestirme yapar. Eslesmeyen kayıtları manuel inceleyin ve duzoltin.</p>
+        </div>
+
+        <div class="card">
+          <h4>9. Birden fazla kasa/banka hesabı tanımlayabilir miyim?</h4>
+          <p>Evet. Istediginiz kadar kasa ve banka hesabı tanımlayin. Her birinin bakiyesi ayri takip edilir. Transfer ile aralaarinda para aktarabilirsiniz.</p>
+        </div>
+
+        <div class="card">
+          <h4>10. Vade takibini nasil yapiyorum?</h4>
+          <p>Ödeme listesinde "Vadesi Yaklasan" ve "Vadesi Gecmis" filtreleri kullanın. Dashboard'da da vade uyarı kartları görüntülenir.</p>
+        </div>
+
+        <div class="card">
+          <h4>11. Fatura ile odemeyi nasil eslestiriyorum?</h4>
+          <p>Ödeme kaydederken "İlişkili Fatura" alanında fatura secin. Sistem fatura bakiyesini otomatik duser. Birden fazla ödeme ayni faturaya baglanabilir.</p>
+        </div>
+
+        <div class="card">
+          <h4>12. Kar-zarar raporunda hangi donemi gorebiliyorum?</h4>
+          <p>Dönem secici ile günlük, haftalık, aylik veya yıllık analiz goruntuleyin. Tarih araligini serbest secebilirsiniz. Onceki donemle karşılaştırma desteklenir.</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="doc-footer">
+    Quvex ERP &mdash; Kullanıcı Kılavuzu &copy; 2026
+  </footer>
+
+</div>
+<script src="js/guide-enhancements.js"></script>
+</body>
+</html>

@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Satınalma - Quvex ERP Kullanıcı Kılavuzu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+
+  <a href="index.html" class="nav-back">&#8592; Ana Sayfa</a>
+
+  <div class="doc-header">
+    <span class="version-badge">v2.0</span>
+    <div class="breadcrumb"><a href="index.html">Kullanıcı Kılavuzu</a> / Satınalma</div>
+    <h1>Satınalma Modülü</h1>
+    <p>Talep, teklif, sipariş, mal alım, fason sipariş ve otomatik satınalma önerisi -- uçtan uca tedarik yönetimi</p>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-value">6</div>
+      <div class="stat-label">Alt Modül</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">4</div>
+      <div class="stat-label">Onay Aşaması</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">Otomatik</div>
+      <div class="stat-label">Stok Uyarısı</div>
+    </div>
+  </div>
+
+  <!-- Sprint 11 Yenilikleri Callout -->
+  <div class="card" style="border-left:4px solid #f59e0b;background:linear-gradient(135deg,#fffbeb,#fef3c7);">
+    <div class="tip-title" style="color:#92400e;font-size:1rem;font-weight:700;margin-bottom:0.5rem;">Sprint 11 Yenilikleri (Nisan 2026)</div>
+    <ul style="margin:0 0 0 1.2rem;color:var(--text-secondary);line-height:1.7;">
+      <li><strong>Malzeme Sertifikasi Takibi:</strong> Savunma/havacilik ve medikal icin girdi malzemelerinin 3.1 sertifikasi satinalma sirasinda sisteme yuklenir ve lota baglanir.</li>
+      <li><strong>Kaynak Sarf Malzemesi:</strong> WPS'e bagli elektrot, tel ve gaz siparislerinde WPS referansiyla tedarikciye teknik sartname gonderilir. <a href="modules/wps-wpqr.html">WPS Modulu</a>.</li>
+      <li><strong>Varyantli Malzeme Alimi:</strong> Kumas, deri gibi beden/renk bazinda satinalma. <a href="modules/product-variant.html">ProductVariant</a>.</li>
+    </ul>
+  </div>
+
+  <div class="two-col">
+
+    <aside>
+      <nav class="nav-sidebar">
+        <a href="#tanitim">Tanıtım</a>
+        <a href="#hızlı-başlangıç">Hızlı Başlangıç</a>
+        <a href="#tedarikçi">Tedarikçi Yönetimi</a>
+        <a href="#talep">Satınalma Talebi</a>
+        <a href="#sipariş">Satınalma Siparişi</a>
+        <a href="#mal-alim">Mal Alım</a>
+        <a href="#fason">Fason Sipariş</a>
+        <a href="#otomatik">Otomatik Öneri</a>
+        <a href="#faq">SSS</a>
+      </nav>
+    </aside>
+
+    <main>
+
+      <!-- ======================================== -->
+      <!-- 1. TANITIM                               -->
+      <!-- ======================================== -->
+      <section id="tanitim">
+        <h2>1. Tanıtım</h2>
+        <p>Satınalma modülü, fabrikanızın hammadde ve malzeme ihtiyacını en başından en sonuna kadar yönetmenizi sağlar. Döngü şu şekilde ilerler:</p>
+
+        <h3>Satınalma Döngüsü</h3>
+        <div class="flow">
+          <div class="flow-step active">Talep</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Teklif Toplama</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Karşılaştırma</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">PO Oluşturma</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Mal Alım</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Fatura Eşleştirme</div>
+        </div>
+
+        <p>Her aşamada kayıt otomatik olarak bir sonraki adıma bağlanır. Böylece bir talebin hangi siparişe dönüştüğünü, hangi teslimatla karşılandığını kolayca takip edebilirsiniz.</p>
+
+        <div class="tip">
+          <div class="tip-title">Bilgi</div>
+          Satınalma modülü stok modülüyle entegredir. Mal alım yapıldığında stok miktarları otomatik güncellenir.
+        </div>
+      </section>
+
+      <!-- ======================================== -->
+      <!-- 2. HIZLI BAŞLANGIÇ                       -->
+      <!-- ======================================== -->
+      <section id="hızlı-başlangıç">
+        <h2>2. Hızlı Başlangıç -- İlk Satınalma Siparişi</h2>
+        <p>Sistemi ilk kez kullanıyorsanız aşağıdaki adımları takip ederek 5 dakika içinde ilk siparişinizi oluşturabilirsiniz.</p>
+
+        <div class="card">
+          <h4>Adım 1: Tedarikçi Ekleyin</h4>
+          <p>Sol menüden <strong>Müşteriler / Tedarikçiler</strong> sayfasına gidin. Sağ üstteki <strong>+ Yeni Tedarikçi</strong> butonuna tıklayın. Firma adı, vergi no ve iletişim bilgilerini doldurup kaydedin.</p>
+        </div>
+        <div class="card">
+          <h4>Adım 2: Satınalma Talebi Oluştürün</h4>
+          <p><strong>Satınalma &gt; Talepler</strong> menüsünden yeni talep açın. Ürün seçin, miktar girin, ihtiyaç tarihini belirleyin ve kaydedin.</p>
+        </div>
+        <div class="card">
+          <h4>Adım 3: Talebi Onaylayın</h4>
+          <p>Talep durumu "Beklemede" olur. Yetkili kişi <strong>Onayla</strong> butonuna tıklayarak talebi onaylar.</p>
+        </div>
+        <div class="card">
+          <h4>Adım 4: Sipariş (PO) Oluştürün</h4>
+          <p>Onaylanan talepten <strong>Siparişe Dönüştür</strong> butonuyla otomatik sipariş oluştürün. Tedarikçi ve fiyat bilgilerini girin.</p>
+        </div>
+        <div class="card">
+          <h4>Adım 5: Mal Alım Yapın</h4>
+          <p>Malzeme geldiğinde <strong>Mal Alım</strong> ekranından teslim alınan miktarı girin. Stok otomatik güncellenir.</p>
+        </div>
+
+        <div class="tip">
+          <div class="tip-title">İpucu</div>
+          Hızlı başlangıç için en az bir ürün kartı ve bir tedarikçi tanımlı olmalıdır.
+        </div>
+      </section>
+
+      <!-- ======================================== -->
+      <!-- 3. TEDARİKÇİ YÖNETİMİ                   -->
+      <!-- ======================================== -->
+      <section id="tedarikçi">
+        <h2>3. Tedarikçi Yönetimi</h2>
+        <p>Tedarikçiler, <code>/suppliers</code> sayfasından yönetilir. Müşteri ve tedarikçi kayıtları aynı tabloda tutulur; <code>?type=suppliers</code> filtresiyle yalnızca tedarikçiler listelenir.</p>
+
+        <h3>Tedarikçi Kartı Alanları</h3>
+        <table class="field-table">
+          <thead><tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th></tr></thead>
+          <tbody>
+            <tr><td class="required">Firma Adı</td><td>Tedarikçinin ticari unvanı</td><td>Evet</td></tr>
+            <tr><td class="required">Vergi No / TC</td><td>10 haneli vergi veya 11 haneli TC kimlik numarası</td><td>Evet</td></tr>
+            <tr><td>Vergi Dairesi</td><td>Bağlı olduğu vergi dairesi adı</td><td>Hayır</td></tr>
+            <tr><td>Telefon</td><td>Birincil iletişim numarası</td><td>Hayır</td></tr>
+            <tr><td>E-posta</td><td>Sipariş ve fatura yazışma adresi</td><td>Hayır</td></tr>
+            <tr><td>Adres</td><td>Açık adres (il / ilçe / detay)</td><td>Hayır</td></tr>
+            <tr><td>İletişim Kişisi</td><td>Satınalma için yetkili kişi adı ve telefonu</td><td>Hayır</td></tr>
+            <tr><td>Ödeme Vadesi</td><td>Varsayılan vade günü (ör. 30, 60, 90)</td><td>Hayır</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Tedarikçi Değerlendirme</h3>
+        <p>Her mal alım sonrasında tedarikçi otomatik puanlanır. Değerlendirme kriterleri:</p>
+        <table>
+          <thead><tr><th>Kriter</th><th>Ağırlık</th><th>Açıklama</th></tr></thead>
+          <tbody>
+            <tr><td>Zamanında Teslimat</td><td>%40</td><td>Söz verilen tarihe uygünlük</td></tr>
+            <tr><td>Kalite Uygunluğu</td><td>%30</td><td>Giriş kontrol red oranı</td></tr>
+            <tr><td>Fiyat Rekabetçiliği</td><td>%20</td><td>Piyasa ortalamasına göre fiyat</td></tr>
+            <tr><td>İletişim / Destek</td><td>%10</td><td>Sorun çözüm hızı</td></tr>
+          </tbody>
+        </table>
+
+        <div class="warning tip">
+          <div class="tip-title">Dikkat</div>
+          Tedarikçi silme işlemi geri alınamaz. Geçmiş sipariş kaydı olan tedarikçiler pasife alınır, silinemez.
+        </div>
+      </section>
+
+      <!-- ======================================== -->
+      <!-- 4. SATINALMA TALEBİ                      -->
+      <!-- ======================================== -->
+      <section id="talep">
+        <h2>4. Satınalma Talebi</h2>
+        <p>İç birimlerden gelen malzeme ihtiyaçları satınalma talebi olarak sisteme girilir. Üretim, depo veya bakım birimleri talep oluşturabilir.</p>
+
+        <h3>Talep Formu Alanları</h3>
+        <table class="field-table">
+          <thead><tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th></tr></thead>
+          <tbody>
+            <tr><td class="required">Talep Eden Birim</td><td>Talebi oluşturan departman</td><td>Evet</td></tr>
+            <tr><td class="required">Ürün / Malzeme</td><td>AutoComplete ile ürün seçimi (Quvex ürün arama kutusu)</td><td>Evet</td></tr>
+            <tr><td class="required">Miktar</td><td>Talep edilen adet veya birim</td><td>Evet</td></tr>
+            <tr><td class="required">İhtiyaç Tarihi</td><td>Malzemenin gerekli olduğu tarih</td><td>Evet</td></tr>
+            <tr><td>Öncelik</td><td>Düşük / Normal / Yüksek / Acil</td><td>Hayır</td></tr>
+            <tr><td>Açıklama</td><td>Talep sebebi veya ek bilgi</td><td>Hayır</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Onay Akışı</h3>
+        <div class="flow">
+          <div class="flow-step">Taslak</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step active">Onay Bekliyor</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Onaylandı</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Siparişe Dönüştü</div>
+        </div>
+
+        <p><strong>Onay yetkisi:</strong> Satınalma sorumlusu veya üretim müdürü rolündeki kullanıcılar talebi onaylayabilir. "Acil" öncelikli talepler bildirim olarak anında iletilir.</p>
+
+        <div class="tip">
+          <div class="tip-title">İpucu</div>
+          Reddedilen taleplere açıklama eklenmesi zorunludur. Talep eden kişi red sebebini görebilir ve gerekirse yeni talep oluşturabilir.
+        </div>
+      </section>
+
+      <!-- ======================================== -->
+      <!-- 5. SATINALMA SİPARİŞİ (PO)               -->
+      <!-- ======================================== -->
+      <section id="sipariş">
+        <h2>5. Satınalma Siparişi (PO)</h2>
+        <p>Onaylanan taleplerden satınalma siparişi oluşturulur. <code>/purchase-orders</code> sayfasından tüm siparişleri görebilirsiniz.</p>
+
+        <h3>Sipariş Oluşturma</h3>
+        <table class="field-table">
+          <thead><tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th></tr></thead>
+          <tbody>
+            <tr><td class="required">Sipariş No</td><td>Sistem tarafından otomatik üretilir (PO-2026-0001)</td><td>Otomatik</td></tr>
+            <tr><td class="required">Tedarikçi</td><td>Malzemenin satın alınacağı firma</td><td>Evet</td></tr>
+            <tr><td class="required">Sipariş Tarihi</td><td>Siparişin verildiği tarih</td><td>Evet</td></tr>
+            <tr><td>Teslim Tarihi</td><td>Beklenen teslim tarihi</td><td>Hayır</td></tr>
+            <tr><td>Para Birimi</td><td>TRY / USD / EUR (TCMB kuru otomatik)</td><td>Hayır</td></tr>
+            <tr><td>Ödeme Koşulu</td><td>Peşin / 30 gün / 60 gün / 90 gün</td><td>Hayır</td></tr>
+            <tr><td>Not</td><td>Tedarikçiye iletilecek ek bilgi</td><td>Hayır</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Sipariş Kalemleri</h3>
+        <p>Her siparişe bir veya birden fazla kalem eklenebilir:</p>
+        <table class="field-table">
+          <thead><tr><th>Alan</th><th>Açıklama</th></tr></thead>
+          <tbody>
+            <tr><td class="required">Ürün</td><td>AutoComplete ile ürün seçimi</td></tr>
+            <tr><td class="required">Miktar</td><td>Sipariş miktarı</td></tr>
+            <tr><td class="required">Birim Fiyat</td><td>KDV hariç birim fiyat</td></tr>
+            <tr><td>KDV Oranı</td><td>%0, %1, %10, %20</td></tr>
+            <tr><td>İskonto</td><td>Kalem bazlı iskonto oranı (%)</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Sipariş Onayı</h3>
+        <div class="flow">
+          <div class="flow-step">Taslak</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step active">Onay Bekliyor</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Onaylandı</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Kısmi Teslim</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Tamamlandı</div>
+        </div>
+
+        <div class="warning tip">
+          <div class="tip-title">Dikkat</div>
+          Onaylanan siparişler düzenlenemez. Değişiklik gerekiyorsa siparişi iptal edip yenisini oluşturmanız gerekir.
+        </div>
+      </section>
+
+      <!-- ======================================== -->
+      <!-- 6. MAL ALIM                               -->
+      <!-- ======================================== -->
+      <section id="mal-alim">
+        <h2>6. Mal Alım</h2>
+        <p>Tedarikçiden gelen malzeme fabrikaya ulaştığında mal alım kaydı oluşturulur. Bu işlem stok miktarını otomatik artırır.</p>
+
+        <h3>Mal Alım Süreci</h3>
+        <div class="flow">
+          <div class="flow-step active">Teslimat Geldi</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Miktar Kontrolü</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Giriş Kontrol (Kalite)</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Stok Girişi</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Fatura Eşleştirme</div>
+        </div>
+
+        <h3>Mal Alım Formu</h3>
+        <table class="field-table">
+          <thead><tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th></tr></thead>
+          <tbody>
+            <tr><td class="required">Sipariş No</td><td>Hangi PO'ya ait teslimat</td><td>Evet</td></tr>
+            <tr><td class="required">Teslim Tarihi</td><td>Malzemenin teslim alındığı tarih</td><td>Evet</td></tr>
+            <tr><td class="required">Teslim Miktarı</td><td>Fiili teslim edilen miktar (kalem bazlı)</td><td>Evet</td></tr>
+            <tr><td>İrsaliye No</td><td>Tedarikçinin irsaliye numarası</td><td>Hayır</td></tr>
+            <tr><td>Depo / Lokasyon</td><td>Malzemenin yerleştirileceği depo veya raf</td><td>Hayır</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Kısmi Teslimat</h3>
+        <p>Bir sipariş birden fazla teslimatla karşılanabilir. Her teslimat ayrı mal alım kaydı olarak girilir. Sistem kalan miktarı otomatik hesaplar.</p>
+
+        <div class="card">
+          <h4>Giriş Kontrol Bağlantısı</h4>
+          <p>Kalite modülü aktifse, mal alım sonrası otomatik olarak <strong>Giriş Kontrol</strong> kaydı oluşturulur. Kalite ekibi ürünü kontrol edene kadar malzeme "Karantina" durumunda kalır.</p>
+        </div>
+
+        <div class="tip">
+          <div class="tip-title">Bilgi</div>
+          Siparişteki tüm kalemler tam olarak teslim alındığında sipariş durumu otomatik olarak "Tamamlandı" olur.
+        </div>
+      </section>
+
+      <!-- ======================================== -->
+      <!-- 7. FASON SİPARİŞ                          -->
+      <!-- ======================================== -->
+      <section id="fason">
+        <h2>7. Fason Sipariş</h2>
+        <p>Fabrika içinde yapılamayan işlemler (ısıl işlem, kaplama, talaşlı imalat vb.) için fason siparişler oluşturulur. <code>/subcontract-orders</code> sayfasından yönetilir.</p>
+
+        <h3>Fason Sipariş Akışı</h3>
+        <div class="flow">
+          <div class="flow-step active">İş Emri</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Fason Sipariş</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Malzeme Gönderimi</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">İşlem</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Teslim Alma</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Kalite Kontrol</div>
+        </div>
+
+        <h3>Fason Sipariş Alanları</h3>
+        <table class="field-table">
+          <thead><tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th></tr></thead>
+          <tbody>
+            <tr><td class="required">Fasoncu</td><td>İşlemi yapacak tedarikçi</td><td>Evet</td></tr>
+            <tr><td class="required">İşlem Türü</td><td>Yapılacak operasyon (ör. Isıl İşlem)</td><td>Evet</td></tr>
+            <tr><td class="required">Ürün / Parça</td><td>Gönderilecek malzeme</td><td>Evet</td></tr>
+            <tr><td class="required">Miktar</td><td>Gönderilecek adet</td><td>Evet</td></tr>
+            <tr><td>Beklenen Tarih</td><td>İşlemin tamamlanması gereken tarih</td><td>Hayır</td></tr>
+            <tr><td>Birim Maliyet</td><td>İşlem başına ücret</td><td>Hayır</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Maliyet Takibi</h3>
+        <p>Fason maliyet, ilgili iş emrinin maliyet hesaplamasına otomatik eklenir. Raporlarda "fason maliyet" kalemi olarak ayrıca görüntülenir.</p>
+
+        <div class="warning tip">
+          <div class="tip-title">Dikkat</div>
+          Fasoncuya gönderilen malzeme stoktan düşer. Teslim alındığında tekrar stoka girer. Aradaki miktar farkı varsa fire olarak kaydedilir.
+        </div>
+      </section>
+
+      <!-- ======================================== -->
+      <!-- 8. OTOMATİK SATINALMA ÖNERİSİ            -->
+      <!-- ======================================== -->
+      <section id="otomatik">
+        <h2>8. Otomatik Satınalma Önerisi</h2>
+        <p>Sistem, ürün kartlarında tanımlanan minimum stok seviyelerini sürekli kontrol eder. Stok bu seviyenin altına düştüğünde otomatik satınalma talebi önerisi oluşturur.</p>
+
+        <h3>Nasıl Çalışır?</h3>
+        <div class="card">
+          <h4>1. Minimum Stok Tanımı</h4>
+          <p><strong>Stok &gt; Ürün Kartı</strong> ekranında her ürün için "Min. Stok" ve "Yeniden Sipariş Miktarı" alanlarını doldürün.</p>
+        </div>
+        <div class="card">
+          <h4>2. Otomatik Kontrol</h4>
+          <p>Sistem periyodik olarak mevcut stoğu minimum stok seviyesiyle karşılaştırır.</p>
+        </div>
+        <div class="card">
+          <h4>3. Öneri Oluşturma</h4>
+          <p>Stok minimumun altındaysa, "Yeniden Sipariş Miktarı" kadar satınalma talebi önerisi oluşturulur.</p>
+        </div>
+        <div class="card">
+          <h4>4. Onay ve Dönüştürme</h4>
+          <p>Satınalma sorumlusu önerileri inceler, uygun olanları tek tıkla satınalma talebine dönüştürür.</p>
+        </div>
+
+        <div class="tip">
+          <div class="tip-title">İpucu</div>
+          Önerilerin doğru çalışması için ürün kartlarındaki minimum stok ve yeniden sipariş miktarı alanlarını mutlaka doldürün.
+        </div>
+      </section>
+
+      <!-- ======================================== -->
+      <!-- 9. SSS                                    -->
+      <!-- ======================================== -->
+      <section id="faq">
+        <h2>9. Sık Sorulan Sorular</h2>
+
+        <div class="card">
+          <h4>1. Tedarikçi listesine nasıl ulaşırım?</h4>
+          <p>Sol menüden <strong>Müşteriler / Tedarikçiler</strong> sayfasına gidin. Sayfa otomatik olarak <code>?type=suppliers</code> filtresiyle açılır ve yalnızca tedarikçileri gösterir.</p>
+        </div>
+
+        <div class="card">
+          <h4>2. Bir talep nasıl siparişe dönüşür?</h4>
+          <p>Talep onaylandıktan sonra talep detay sayfasında <strong>Siparişe Dönüştür</strong> butonu aktif olur. Bu butona tıklayarak otomatik sipariş oluşturabilirsiniz.</p>
+        </div>
+
+        <div class="card">
+          <h4>3. Kısmi teslimat yapabilir miyim?</h4>
+          <p>Evet. Mal alım ekranında teslim edilen miktarı girin. Kalan miktar için sipariş açık kalır ve yeni teslimat kaydı girebilirsiniz.</p>
+        </div>
+
+        <div class="card">
+          <h4>4. Dövizli sipariş verebilir miyim?</h4>
+          <p>Evet. Sipariş oluştururken para birimi olarak USD veya EUR seçin. TCMB kuru otomatik olarak çekilir.</p>
+        </div>
+
+        <div class="card">
+          <h4>5. Onaylanan siparişi değiştirebilir miyim?</h4>
+          <p>Hayır. Onaylanan siparişler kilitlenir. Değişiklik için siparişi iptal edip yenisini oluşturmanız gerekir.</p>
+        </div>
+
+        <div class="card">
+          <h4>6. Fason sipariş ile normal sipariş arasındaki fark nedir?</h4>
+          <p>Normal sipariş malzeme satın alma içindir. Fason sipariş ise mevcut malzemenizi dışarıda bir işlemden geçirmek (ör. kaplama, ısıl işlem) içindir.</p>
+        </div>
+
+        <div class="card">
+          <h4>7. Otomatik satınalma önerisi gelmiyor, ne yapmalıyım?</h4>
+          <p>Ürün kartında "Min. Stok" alanının dolu olduğundan emin olun. Bu alan boşsa sistem öneri oluşturmaz.</p>
+        </div>
+
+        <div class="card">
+          <h4>8. Tedarikçi puanını nereden görebilirim?</h4>
+          <p>Tedarikçi detay sayfasında "Değerlendirme" sekmesinden geçmiş puanları ve trend grafiğini görebilirsiniz.</p>
+        </div>
+
+        <div class="card">
+          <h4>9. Mal alım sonrası stok neden güncellenmiyor?</h4>
+          <p>Kalite modülü aktifse, giriş kontrol tamamlanmadan stok güncellenmez. Kalite ekranından onay verildikten sonra stok otomatik artar.</p>
+        </div>
+
+        <div class="card">
+          <h4>10. Bir tedarikçiyi silebilir miyim?</h4>
+          <p>Geçmiş siparişi olan tedarikçiler silinemez, yalnızca pasife alınabilir. Hiç siparişi olmayan tedarikçiler tamamen silinebilir.</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="doc-footer">
+    Quvex ERP &copy; 2026 &mdash; Satınalma Modülü Kullanıcı Kılavuzu v2.0
+  </div>
+
+</div>
+<script src="js/guide-enhancements.js"></script>
+</body>
+</html>

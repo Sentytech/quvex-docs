@@ -112,13 +112,13 @@ Siparişin satış tarafında kaybolmadan, üretime kontrollü, sade ve ölçül
 - `ProductionController` içinde ayrıca `/Production/transfer-from-sale/{salesId}` çağrısı ile gerçek üretim kayıtları oluşturuluyor ve satış `IN_PRODUCTION` durumuna çekiliyor.
 
 **Etkilenen Dosyalar**
-- `C:\rynSoft\smallFactoryApi\Industry.API\Constants\SalesStatus.cs`
-- `C:\rynSoft\smallFactoryApi\Industry.API\Controllers\SalesController.cs`
-- `C:\rynSoft\smallFactoryApi\Industry.API\Controllers\ProductionController.cs`
-- `C:\rynSoft\smallFactoryUI\src\utility\Constants.js`
-- `C:\rynSoft\smallFactoryUI\src\views\modul\sale\Sale.js`
-- `C:\rynSoft\smallFactoryUI\src\views\modul\sale\SaleDetail.js`
-- `C:\rynSoft\smallFactoryUI\src\views\modul\customer\CustomerPortal.js`
+- `C:\rynSoft\quvex\smallFactoryApi\Industry.API\Constants\SalesStatus.cs`
+- `C:\rynSoft\quvex\smallFactoryApi\Industry.API\Controllers\SalesController.cs`
+- `C:\rynSoft\quvex\smallFactoryApi\Industry.API\Controllers\ProductionController.cs`
+- `C:\rynSoft\quvex\smallFactoryUI\src\utility\Constants.js`
+- `C:\rynSoft\quvex\smallFactoryUI\src\views\modul\sale\Sale.js`
+- `C:\rynSoft\quvex\smallFactoryUI\src\views\modul\sale\SaleDetail.js`
+- `C:\rynSoft\quvex\smallFactoryUI\src\views\modul\customer\CustomerPortal.js`
 
 **İlk Karar**
 - Bu task diğer sprint tasklarının temel bağımlılığıdır.
@@ -148,7 +148,7 @@ Siparişin satış tarafında kaybolmadan, üretime kontrollü, sade ve ölçül
 - Senaryo: Satış durumu sözlüğünün backend ve frontend tarafında tutarlı olup olmadığını doğrula.
 - Komut:
   - `npm test -- --run src/utility/__tests__/Constants.test.js`
-  - `dotnet test C:\rynSoft\smallFactoryApi\Industry.API.Tests\Industry.API.Tests.csproj --filter "FullyQualifiedName~EnumSerializationTests"`
+  - `dotnet test C:\rynSoft\quvex\smallFactoryApi\Industry.API.Tests\Industry.API.Tests.csproj --filter "FullyQualifiedName~EnumSerializationTests"`
 - Beklenen Sonuç: Backend ve UI aynı durumları kullanmalı veya farklar açıkça gerekçelendirilmiş olmalı.
 - Gerçek Sonuç:
   - İlk fark kapatıldı: UI artık `SHIPPED` durumunu da içeriyor.
@@ -157,9 +157,9 @@ Siparişin satış tarafında kaybolmadan, üretime kontrollü, sade ve ölçül
 - Durum: PASSED
 
 **Değişen Dosyalar**
-- `C:\rynSoft\smallFactoryUI\src\utility\Constants.js`
-- `C:\rynSoft\smallFactoryUI\src\utility\__tests__\Constants.test.js`
-- `C:\rynSoft\smallFactoryApi\Industry.API.Tests\Constants\EnumSerializationTests.cs`
+- `C:\rynSoft\quvex\smallFactoryUI\src\utility\Constants.js`
+- `C:\rynSoft\quvex\smallFactoryUI\src\utility\__tests__\Constants.test.js`
+- `C:\rynSoft\quvex\smallFactoryApi\Industry.API.Tests\Constants\EnumSerializationTests.cs`
 
 ---
 
@@ -200,8 +200,8 @@ Siparişin satış tarafında kaybolmadan, üretime kontrollü, sade ve ölçül
 - Bu durum aynı teklif kaleminden mükerrer sipariş açılmasına ve sipariş listesinde belirsizliğe yol açıyordu.
 
 **Etkilenen Dosyalar**
-- `C:\rynSoft\smallFactoryApi\Industry.API\Controllers\OfferController.cs`
-- `C:\rynSoft\smallFactoryApi\Industry.API\Controllers\SalesController.cs`
+- `C:\rynSoft\quvex\smallFactoryApi\Industry.API\Controllers\OfferController.cs`
+- `C:\rynSoft\quvex\smallFactoryApi\Industry.API\Controllers\SalesController.cs`
 - teklif ve satış UI ekranları
 
 **Uygulanan İlk İyileştirme**
@@ -245,7 +245,7 @@ Siparişin satış tarafında kaybolmadan, üretime kontrollü, sade ve ölçül
 **Test Senaryosu**
 - Senaryo: Kabul edilen tekliften sipariş oluşumu tekil ve izlenebilir olmalı.
 - Komut:
-  - `dotnet test C:\rynSoft\smallFactoryApi\Industry.API.Tests\Industry.API.Tests.csproj --filter "FullyQualifiedName~SalesOrderCreationWorkflowTests"`
+  - `dotnet test C:\rynSoft\quvex\smallFactoryApi\Industry.API.Tests\Industry.API.Tests.csproj --filter "FullyQualifiedName~SalesOrderCreationWorkflowTests"`
   - `npm test -- --run src/utility/__tests__/offerSalesActions.test.js src/utility/__tests__/salesStatus.test.js src/utility/__tests__/warehouseOptions.test.js src/utility/__tests__/Constants.test.js`
   - `$env:NODE_OPTIONS='--openssl-legacy-provider'; npm run build`
 - Beklenen Sonuç: Kabul edilen teklif kalemi için sipariş oluşturma kuralı net ve mükerrer üretime kapalı olmalı.
@@ -267,15 +267,15 @@ Siparişin satış tarafında kaybolmadan, üretime kontrollü, sade ve ölçül
 - Durum: PASSED
 
 **Değişen Dosyalar**
-- `C:\rynSoft\smallFactoryApi\Industry.API\Controllers\SalesController.cs`
-- `C:\rynSoft\smallFactoryApi\Industry.API\Controllers\OfferProductController.cs`
-- `C:\rynSoft\smallFactoryApi\Industry.API.Tests\Controllers\SalesOrderCreationWorkflowTests.cs`
-- `C:\rynSoft\smallFactoryUI\src\utility\offerSalesActions.js`
-- `C:\rynSoft\smallFactoryUI\src\utility\__tests__\offerSalesActions.test.js`
-- `C:\rynSoft\smallFactoryUI\src\utility\offerProductActions.js`
-- `C:\rynSoft\smallFactoryUI\src\utility\__tests__\offerProductActions.test.js`
-- `C:\rynSoft\smallFactoryUI\src\views\modul\offer\OfferFormItemsAdditionInfo.js`
-- `C:\rynSoft\smallFactoryUI\src\views\modul\offer\OfferFormItemsPreview.js`
+- `C:\rynSoft\quvex\smallFactoryApi\Industry.API\Controllers\SalesController.cs`
+- `C:\rynSoft\quvex\smallFactoryApi\Industry.API\Controllers\OfferProductController.cs`
+- `C:\rynSoft\quvex\smallFactoryApi\Industry.API.Tests\Controllers\SalesOrderCreationWorkflowTests.cs`
+- `C:\rynSoft\quvex\smallFactoryUI\src\utility\offerSalesActions.js`
+- `C:\rynSoft\quvex\smallFactoryUI\src\utility\__tests__\offerSalesActions.test.js`
+- `C:\rynSoft\quvex\smallFactoryUI\src\utility\offerProductActions.js`
+- `C:\rynSoft\quvex\smallFactoryUI\src\utility\__tests__\offerProductActions.test.js`
+- `C:\rynSoft\quvex\smallFactoryUI\src\views\modul\offer\OfferFormItemsAdditionInfo.js`
+- `C:\rynSoft\quvex\smallFactoryUI\src\views\modul\offer\OfferFormItemsPreview.js`
 
 ---
 
@@ -371,8 +371,8 @@ Siparişin satış tarafında kaybolmadan, üretime kontrollü, sade ve ölçül
   - `npm test -- --run src/utility/__tests__/Constants.test.js src/utility/__tests__/salesStatus.test.js`
   - `npm test -- --run src/utility/__tests__/salesStatus.test.js src/utility/__tests__/warehouseOptions.test.js src/utility/__tests__/Constants.test.js`
   - `$env:NODE_OPTIONS='--openssl-legacy-provider'; npm run build`
-  - `dotnet test C:\rynSoft\smallFactoryApi\Industry.API.Tests\Industry.API.Tests.csproj --filter "FullyQualifiedName~ProductionTransferWorkflowTests"`
-  - `dotnet test C:\rynSoft\smallFactoryApi\Industry.API.Tests\Industry.API.Tests.csproj --filter "FullyQualifiedName~SalesOrderCreationWorkflowTests"`
+  - `dotnet test C:\rynSoft\quvex\smallFactoryApi\Industry.API.Tests\Industry.API.Tests.csproj --filter "FullyQualifiedName~ProductionTransferWorkflowTests"`
+  - `dotnet test C:\rynSoft\quvex\smallFactoryApi\Industry.API.Tests\Industry.API.Tests.csproj --filter "FullyQualifiedName~SalesOrderCreationWorkflowTests"`
 - Beklenen Sonuç: Tek ve anlaşılır bir geçiş.
 - Gerçek Sonuç:
   - durum dili kullanıcı tarafında daha açık hale getirildi
@@ -399,19 +399,19 @@ Siparişin satış tarafında kaybolmadan, üretime kontrollü, sade ve ölçül
 - Durum: PASSED
 
 **Değişen Dosyalar**
-- `C:\rynSoft\smallFactoryUI\src\utility\Constants.js`
-- `C:\rynSoft\smallFactoryUI\src\utility\__tests__\Constants.test.js`
-- `C:\rynSoft\smallFactoryUI\src\utility\salesStatus.js`
-- `C:\rynSoft\smallFactoryUI\src\utility\__tests__\salesStatus.test.js`
-- `C:\rynSoft\smallFactoryUI\src\views\modul\sale\SalesForm.js`
-- `C:\rynSoft\smallFactoryUI\src\views\modul\sale\SaleDetail.js`
-- `C:\rynSoft\smallFactoryUI\src\views\modul\customer\CustomerPortal.js`
-- `C:\rynSoft\smallFactoryApi\Industry.API\Models\DTOs\TransferValidationErrorDTO.cs`
-- `C:\rynSoft\smallFactoryApi\Industry.API\Helpers\HttpContextUtilities.cs`
-- `C:\rynSoft\smallFactoryApi\Industry.API\Controllers\ProductionController.cs`
-- `C:\rynSoft\smallFactoryApi\Industry.API\Controllers\SalesController.cs`
-- `C:\rynSoft\smallFactoryApi\Industry.API.Tests\Controllers\ProductionTransferWorkflowTests.cs`
-- `C:\rynSoft\smallFactoryApi\Industry.API.Tests\Controllers\SalesOrderCreationWorkflowTests.cs`
+- `C:\rynSoft\quvex\smallFactoryUI\src\utility\Constants.js`
+- `C:\rynSoft\quvex\smallFactoryUI\src\utility\__tests__\Constants.test.js`
+- `C:\rynSoft\quvex\smallFactoryUI\src\utility\salesStatus.js`
+- `C:\rynSoft\quvex\smallFactoryUI\src\utility\__tests__\salesStatus.test.js`
+- `C:\rynSoft\quvex\smallFactoryUI\src\views\modul\sale\SalesForm.js`
+- `C:\rynSoft\quvex\smallFactoryUI\src\views\modul\sale\SaleDetail.js`
+- `C:\rynSoft\quvex\smallFactoryUI\src\views\modul\customer\CustomerPortal.js`
+- `C:\rynSoft\quvex\smallFactoryApi\Industry.API\Models\DTOs\TransferValidationErrorDTO.cs`
+- `C:\rynSoft\quvex\smallFactoryApi\Industry.API\Helpers\HttpContextUtilities.cs`
+- `C:\rynSoft\quvex\smallFactoryApi\Industry.API\Controllers\ProductionController.cs`
+- `C:\rynSoft\quvex\smallFactoryApi\Industry.API\Controllers\SalesController.cs`
+- `C:\rynSoft\quvex\smallFactoryApi\Industry.API.Tests\Controllers\ProductionTransferWorkflowTests.cs`
+- `C:\rynSoft\quvex\smallFactoryApi\Industry.API.Tests\Controllers\SalesOrderCreationWorkflowTests.cs`
 
 ---
 
@@ -444,8 +444,8 @@ Siparişin satış tarafında kaybolmadan, üretime kontrollü, sade ve ölçül
 - Kullanıcı iş emri var mı bilgisini görüyor, ama hangi şablonun bağlı olduğunu anlamak için modal açmak zorunda kalıyordu.
 
 **Etkilenen Dosyalar**
-- `C:\rynSoft\smallFactoryUI\src\views\modul\settings\workOrderTemplates\WorkOrderTemplates.js`
-- `C:\rynSoft\smallFactoryUI\src\views\modul\settings\workOrderSteps\WorkOrderSteps.js`
+- `C:\rynSoft\quvex\smallFactoryUI\src\views\modul\settings\workOrderTemplates\WorkOrderTemplates.js`
+- `C:\rynSoft\quvex\smallFactoryUI\src\views\modul\settings\workOrderSteps\WorkOrderSteps.js`
 - ilgili backend controller dosyaları
 
 **Uygulanan İlk İyileştirme**
@@ -457,7 +457,7 @@ Siparişin satış tarafında kaybolmadan, üretime kontrollü, sade ve ölçül
 **Test Senaryosu**
 - Senaryo: Temel ürün aileleri için gereksiz adım içermeyen iş emri şablonu seçilebilmeli.
 - Komut:
-  - `dotnet test C:\rynSoft\smallFactoryApi\Industry.API.Tests\Industry.API.Tests.csproj --filter "FullyQualifiedName~ProductionTemplateVisibilityTests"`
+  - `dotnet test C:\rynSoft\quvex\smallFactoryApi\Industry.API.Tests\Industry.API.Tests.csproj --filter "FullyQualifiedName~ProductionTemplateVisibilityTests"`
   - `$env:NODE_OPTIONS='--openssl-legacy-provider'; npm run build`
 - Beklenen Sonuç: Kullanıcı doğru şablonu az seçimle bulmalı.
 - Gerçek Sonuç:
@@ -467,13 +467,13 @@ Siparişin satış tarafında kaybolmadan, üretime kontrollü, sade ve ölçül
 - Durum: PASSED
 
 **Değişen Dosyalar**
-- `C:\rynSoft\smallFactoryApi\Industry.API\Models\DTOs\ProductionListDTO.cs`
-- `C:\rynSoft\smallFactoryApi\Industry.API\Models\DTOs\ProductionDTO.cs`
-- `C:\rynSoft\smallFactoryApi\Industry.API\Controllers\ProductionController.cs`
-- `C:\rynSoft\smallFactoryApi\Industry.API.Tests\Controllers\ProductionTemplateVisibilityTests.cs`
-- `C:\rynSoft\smallFactoryUI\src\views\modul\production\Production.js`
-- `C:\rynSoft\smallFactoryUI\src\views\modul\production\ProductionDetail.js`
-- `C:\rynSoft\smallFactoryUI\src\views\modul\production\ProductionItem.js`
+- `C:\rynSoft\quvex\smallFactoryApi\Industry.API\Models\DTOs\ProductionListDTO.cs`
+- `C:\rynSoft\quvex\smallFactoryApi\Industry.API\Models\DTOs\ProductionDTO.cs`
+- `C:\rynSoft\quvex\smallFactoryApi\Industry.API\Controllers\ProductionController.cs`
+- `C:\rynSoft\quvex\smallFactoryApi\Industry.API.Tests\Controllers\ProductionTemplateVisibilityTests.cs`
+- `C:\rynSoft\quvex\smallFactoryUI\src\views\modul\production\Production.js`
+- `C:\rynSoft\quvex\smallFactoryUI\src\views\modul\production\ProductionDetail.js`
+- `C:\rynSoft\quvex\smallFactoryUI\src\views\modul\production\ProductionItem.js`
 
 ---
 
@@ -522,9 +522,9 @@ Siparişin satış tarafında kaybolmadan, üretime kontrollü, sade ve ölçül
 - Durum: PASSED
 
 **Değişen Dosyalar**
-- `C:\rynSoft\smallFactoryUI\src\utility\warehouseOptions.js`
-- `C:\rynSoft\smallFactoryUI\src\utility\__tests__\warehouseOptions.test.js`
-- `C:\rynSoft\smallFactoryUI\src\views\modul\sale\SalesForm.js`
+- `C:\rynSoft\quvex\smallFactoryUI\src\utility\warehouseOptions.js`
+- `C:\rynSoft\quvex\smallFactoryUI\src\utility\__tests__\warehouseOptions.test.js`
+- `C:\rynSoft\quvex\smallFactoryUI\src\views\modul\sale\SalesForm.js`
 
 ---
 
@@ -556,8 +556,8 @@ Siparişin satış tarafında kaybolmadan, üretime kontrollü, sade ve ölçül
 - Bu da operasyonun günlük takibini dashboard/rapor ile satış listesi arasında bölüyor.
 
 **Etkilenen Dosyalar**
-- `C:\rynSoft\smallFactoryUI\src\views\modul\sale\Sale.js`
-- `C:\rynSoft\smallFactoryUI\src\views\modul\dashboard\Dashboard.js`
+- `C:\rynSoft\quvex\smallFactoryUI\src\views\modul\sale\Sale.js`
+- `C:\rynSoft\quvex\smallFactoryUI\src\views\modul\dashboard\Dashboard.js`
 - rapor ekranları
 
 **Uygulanan İlk İyileştirme**
@@ -588,10 +588,10 @@ Siparişin satış tarafında kaybolmadan, üretime kontrollü, sade ve ölçül
 - Durum: PASSED
 
 **Değişen Dosyalar**
-- `C:\rynSoft\smallFactoryUI\src\utility\salesStatus.js`
-- `C:\rynSoft\smallFactoryUI\src\utility\__tests__\salesStatus.test.js`
-- `C:\rynSoft\smallFactoryUI\src\views\modul\sale\Sale.js`
-- `C:\rynSoft\smallFactoryUI\src\views\modul\sale\SaleDetail.js`
+- `C:\rynSoft\quvex\smallFactoryUI\src\utility\salesStatus.js`
+- `C:\rynSoft\quvex\smallFactoryUI\src\utility\__tests__\salesStatus.test.js`
+- `C:\rynSoft\quvex\smallFactoryUI\src\views\modul\sale\Sale.js`
+- `C:\rynSoft\quvex\smallFactoryUI\src\views\modul\sale\SaleDetail.js`
 
 ---
 
@@ -632,7 +632,7 @@ Siparişin satış tarafında kaybolmadan, üretime kontrollü, sade ve ölçül
 **Test Senaryosu**
 - Senaryo: Tekliften üretime kadar ana akış kopmadan çalışmalı.
 - Komut:
-  - `dotnet test C:\rynSoft\smallFactoryApi\Industry.API.Tests\Industry.API.Tests.csproj --filter "FullyQualifiedName~OfferToProductionAcceptanceTests"`
+  - `dotnet test C:\rynSoft\quvex\smallFactoryApi\Industry.API.Tests\Industry.API.Tests.csproj --filter "FullyQualifiedName~OfferToProductionAcceptanceTests"`
 - Beklenen Sonuç: Tek akış, net durum geçişleri, tutarlı kayıtlar.
 - Gerçek Sonuç:
   - teklif oluşturma, teklif kalemi ekleme, teklif kabulü, sipariş oluşturma ve üretime aktarım aynı backend senaryoda çalıştırıldı
@@ -644,8 +644,8 @@ Siparişin satış tarafında kaybolmadan, üretime kontrollü, sade ve ölçül
 - Durum: PASSED
 
 **Değişen Dosyalar**
-- `C:\rynSoft\smallFactoryApi\Industry.API\Helpers\HttpContextUtilities.cs`
-- `C:\rynSoft\smallFactoryApi\Industry.API.Tests\Controllers\OfferToProductionAcceptanceTests.cs`
+- `C:\rynSoft\quvex\smallFactoryApi\Industry.API\Helpers\HttpContextUtilities.cs`
+- `C:\rynSoft\quvex\smallFactoryApi\Industry.API.Tests\Controllers\OfferToProductionAcceptanceTests.cs`
 
 ---
 
@@ -720,10 +720,10 @@ Siparişin satış tarafında kaybolmadan, üretime kontrollü, sade ve ölçül
 - Durum: PASSED
 
 **Değişen Dosyalar**
-- `C:\rynSoft\smallFactoryApi\Industry.API\Controllers\ProductionController.cs`
-- `C:\rynSoft\smallFactoryApi\Industry.API.Tests\Controllers\ProductionCompletionStockEntryTests.cs` (YENİ)
-- `C:\rynSoft\smallFactoryUI\src\views\modul\production\EnterCompletion.js`
-- `C:\rynSoft\smallFactoryUI\src\views\modul\production\__tests__\completionStockEntry.test.js` (YENİ)
+- `C:\rynSoft\quvex\smallFactoryApi\Industry.API\Controllers\ProductionController.cs`
+- `C:\rynSoft\quvex\smallFactoryApi\Industry.API.Tests\Controllers\ProductionCompletionStockEntryTests.cs` (YENİ)
+- `C:\rynSoft\quvex\smallFactoryUI\src\views\modul\production\EnterCompletion.js`
+- `C:\rynSoft\quvex\smallFactoryUI\src\views\modul\production\__tests__\completionStockEntry.test.js` (YENİ)
 
 ---
 
@@ -776,13 +776,13 @@ Siparişin satış tarafında kaybolmadan, üretime kontrollü, sade ve ölçül
 - Durum: PASSED
 
 **Değişen Dosyalar**
-- `C:\rynSoft\smallFactoryApi\Industry.API\Models\DTOs\CompletionRequestDTO.cs`
-- `C:\rynSoft\smallFactoryApi\Industry.API\Models\DTOs\ProductionDTO.cs`
-- `C:\rynSoft\smallFactoryApi\Industry.API\Controllers\ProductionController.cs`
-- `C:\rynSoft\smallFactoryApi\Industry.API.Tests\Controllers\ProductionCompletionStockEntryTests.cs`
-- `C:\rynSoft\smallFactoryUI\src\views\modul\production\EnterCompletion.js`
-- `C:\rynSoft\smallFactoryUI\src\views\modul\production\ProductionWorkOrderStatus.js`
-- `C:\rynSoft\smallFactoryUI\src\views\modul\production\ProductionItem.js`
+- `C:\rynSoft\quvex\smallFactoryApi\Industry.API\Models\DTOs\CompletionRequestDTO.cs`
+- `C:\rynSoft\quvex\smallFactoryApi\Industry.API\Models\DTOs\ProductionDTO.cs`
+- `C:\rynSoft\quvex\smallFactoryApi\Industry.API\Controllers\ProductionController.cs`
+- `C:\rynSoft\quvex\smallFactoryApi\Industry.API.Tests\Controllers\ProductionCompletionStockEntryTests.cs`
+- `C:\rynSoft\quvex\smallFactoryUI\src\views\modul\production\EnterCompletion.js`
+- `C:\rynSoft\quvex\smallFactoryUI\src\views\modul\production\ProductionWorkOrderStatus.js`
+- `C:\rynSoft\quvex\smallFactoryUI\src\views\modul\production\ProductionItem.js`
 
 ---
 
@@ -826,8 +826,8 @@ Siparişin satış tarafında kaybolmadan, üretime kontrollü, sade ve ölçül
 - Durum: PASSED
 
 **Değişen Dosyalar**
-- `C:\rynSoft\smallFactoryApi\Industry.API\Controllers\ProductionController.cs`
-- `C:\rynSoft\smallFactoryApi\Industry.API.Tests\Controllers\ProductionCompletionStockEntryTests.cs`
+- `C:\rynSoft\quvex\smallFactoryApi\Industry.API\Controllers\ProductionController.cs`
+- `C:\rynSoft\quvex\smallFactoryApi\Industry.API.Tests\Controllers\ProductionCompletionStockEntryTests.cs`
 
 ---
 
@@ -862,7 +862,7 @@ Siparişin satış tarafında kaybolmadan, üretime kontrollü, sade ve ölçül
 - Durum: PASSED
 
 **Değişen Dosyalar**
-- `C:\rynSoft\smallFactoryApi\Industry.API.Tests\Services\StockCountServiceTests.cs`
+- `C:\rynSoft\quvex\smallFactoryApi\Industry.API.Tests\Services\StockCountServiceTests.cs`
 
 ---
 
@@ -892,7 +892,7 @@ Siparişin satış tarafında kaybolmadan, üretime kontrollü, sade ve ölçül
 - Durum: PASSED
 
 **Değişen Dosyalar**
-- `C:\rynSoft\smallFactoryApi\Industry.API.Tests\Controllers\StockTransferControllerTests.cs`
+- `C:\rynSoft\quvex\smallFactoryApi\Industry.API.Tests\Controllers\StockTransferControllerTests.cs`
 
 ---
 
@@ -927,8 +927,8 @@ Siparişin satış tarafında kaybolmadan, üretime kontrollü, sade ve ölçül
 - Durum: PASSED
 
 **Değişen Dosyalar**
-- `C:\rynSoft\smallFactoryUI\src\views\modul\stock\Stock.js`
-- `C:\rynSoft\smallFactoryUI\src\views\modul\stock\__tests__\movementSource.test.js` (YENİ)
+- `C:\rynSoft\quvex\smallFactoryUI\src\views\modul\stock\Stock.js`
+- `C:\rynSoft\quvex\smallFactoryUI\src\views\modul\stock\__tests__\movementSource.test.js` (YENİ)
 
 ---
 
@@ -953,7 +953,7 @@ Siparişin satış tarafında kaybolmadan, üretime kontrollü, sade ve ölçül
 - Durum: PASSED
 
 **Değişen Dosyalar**
-- `C:\rynSoft\smallFactoryApi\Industry.API.Tests\Controllers\Sprint2AcceptanceTests.cs` (YENİ)
+- `C:\rynSoft\quvex\smallFactoryApi\Industry.API.Tests\Controllers\Sprint2AcceptanceTests.cs` (YENİ)
 
 ---
 

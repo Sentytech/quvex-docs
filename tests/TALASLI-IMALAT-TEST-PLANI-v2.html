@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quvex ERP — Talaşlı İmalat E2E Test Planı v2.0</title>
+<style>
+/* ══════════════════════════════════════════════════════
+   TEMEL
+══════════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy:   #1e3a5f;
+  --orange: #e85c2d;
+  --green:  #16a34a;
+  --red:    #dc2626;
+  --yellow: #d97706;
+  --gray:   #6b7280;
+  --light:  #f4f7fb;
+  --border: #d0daea;
+  --pass-bg: #f0fdf4;
+  --fail-bg: #fef2f2;
+  --skip-bg: #f9fafb;
+}
+body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #1a1a1a; background: #f0f2f5; }
+
+/* ══════════════════════════════════════════════════════
+   YAPISTIRILMIŞ ÜSTTÜST (sadece ekran)
+══════════════════════════════════════════════════════ */
+.sticky-bar {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--navy); color: #fff;
+  display: flex; align-items: center; gap: 16px;
+  padding: 10px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.sticky-logo { font-weight: 900; font-size: 18px; letter-spacing: -1px; }
+.sticky-logo span { color: var(--orange); }
+.sticky-title { font-size: 12px; color: rgba(255,255,255,0.75); flex: 1; }
+.sticky-stats { display: flex; gap: 12px; align-items: center; }
+.sticky-stat { text-align: center; }
+.sticky-stat .n { font-size: 20px; font-weight: 700; line-height: 1; }
+.sticky-stat .l { font-size: 10px; color: rgba(255,255,255,0.6); }
+.stat-pass .n { color: #4ade80; }
+.stat-fail .n { color: #f87171; }
+.stat-skip .n { color: #fbbf24; }
+.progress-wrap { width: 180px; }
+.progress-bar-bg { background: rgba(255,255,255,0.2); border-radius: 6px; height: 8px; overflow: hidden; }
+.progress-bar-fill { height: 100%; background: linear-gradient(90deg,#4ade80,#22c55e); border-radius: 6px; transition: width .4s; }
+.progress-pct { font-size: 11px; color: rgba(255,255,255,0.7); margin-top: 3px; text-align: right; }
+.btn-print { background: var(--orange); color: #fff; border: none; padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; }
+.btn-print:hover { background: #c94c1e; }
+.btn-reset { background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.3); padding: 6px 14px; border-radius: 20px; font-size: 11px; cursor: pointer; }
+
+/* ══════════════════════════════════════════════════════
+   SAYFA İÇERİĞİ
+══════════════════════════════════════════════════════ */
+.page-wrap { max-width: 960px; margin: 0 auto; padding: 24px 16px 60px; }
+
+/* ══════════════════════════════════════════════════════
+   KAPAK
+══════════════════════════════════════════════════════ */
+.cover {
+  background: #fff; border-radius: 10px; padding: 48px 48px 40px;
+  text-align: center; margin-bottom: 24px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.08);
+}
+.cover-logo { font-size: 52px; font-weight: 900; color: var(--navy); letter-spacing: -3px; }
+.cover-logo span { color: var(--orange); }
+.cover-sub { font-size: 12px; color: #888; letter-spacing: 3px; text-transform: uppercase; margin: 4px 0 28px; }
+.cover-title { font-size: 26px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+.cover-scenario { font-size: 15px; color: #555; margin-bottom: 32px; }
+.cover-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 640px; margin: 0 auto 24px; }
+.cover-card { background: var(--light); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; text-align: left; }
+.cover-card .k { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+.cover-card .v { font-size: 14px; font-weight: 600; color: var(--navy); }
+.cover-badge { display: inline-block; background: var(--orange); color: #fff; font-weight: 700; font-size: 11px; padding: 5px 18px; border-radius: 20px; letter-spacing: 1px; margin-bottom: 16px; }
+.cover-warning { display: inline-block; border: 2px solid #f0a500; background: #fffbf0; border-radius: 8px; padding: 14px 20px; font-size: 12px; color: #7a4900; max-width: 520px; text-align: left; }
+
+/* ══════════════════════════════════════════════════════
+   KART — genel wrapper
+══════════════════════════════════════════════════════ */
+.card { background: #fff; border-radius: 8px; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,.07); overflow: hidden; }
+
+/* ══════════════════════════════════════════════════════
+   FAZ BAŞLIĞI
+══════════════════════════════════════════════════════ */
+.faz-header {
+  background: var(--navy); color: #fff; padding: 14px 20px;
+  display: flex; align-items: center; gap: 12px; cursor: pointer;
+  user-select: none;
+}
+.faz-badge { background: var(--orange); font-size: 11px; font-weight: 700; padding: 3px 12px; border-radius: 20px; letter-spacing: 1px; white-space: nowrap; }
+.faz-title { font-size: 15px; font-weight: 600; flex: 1; }
+.faz-meta { font-size: 11px; color: rgba(255,255,255,0.6); }
+.faz-pct { font-size: 12px; font-weight: 700; color: #4ade80; min-width: 36px; text-align: right; }
+.faz-toggle { font-size: 16px; transition: transform .25s; }
+.faz-header.collapsed .faz-toggle { transform: rotate(-90deg); }
+.faz-body { border-top: 1px solid rgba(255,255,255,0.08); }
+
+/* ══════════════════════════════════════════════════════
+   ADIM
+══════════════════════════════════════════════════════ */
+.step {
+  padding: 18px 20px; border-bottom: 1px solid var(--border);
+  transition: background .2s;
+}
+.step:last-child { border-bottom: none; }
+.step.passed  { background: var(--pass-bg); }
+.step.failed  { background: var(--fail-bg); }
+.step.skipped { background: var(--skip-bg); }
+
+.step-top { display: flex; align-items: flex-start; gap: 12px; }
+.step-num {
+  background: var(--navy); color: #fff; width: 30px; height: 30px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 12px; flex-shrink: 0; margin-top: 1px;
+}
+.step.passed  .step-num { background: var(--green); }
+.step.failed  .step-num { background: var(--red); }
+.step.skipped .step-num { background: var(--gray); }
+
+.step-content { flex: 1; }
+.step-title { font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+.step-role  { font-size: 11px; color: #888; margin-bottom: 10px; }
+.step-role strong { color: var(--navy); }
+
+/* NAVİGASYON */
+.nav-box {
+  background: #f0f7ff; border: 1px solid #bfdbfe; border-radius: 6px;
+  padding: 10px 14px; margin: 8px 0 12px; font-size: 12px;
+}
+.nav-box .nav-label { font-weight: 700; color: #1e40af; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.nav-step { display: flex; align-items: center; gap: 8px; margin: 4px 0; color: #1e3a5f; }
+.nav-step .arrow { color: var(--orange); font-size: 14px; flex-shrink: 0; }
+.nav-step code { background: rgba(0,0,0,.06); padding: 1px 6px; border-radius: 3px; font-size: 11px; }
+
+/* VERİ GİRİŞ TABLOSU */
+.data-table { width: 100%; border-collapse: collapse; margin: 8px 0 12px; font-size: 12px; }
+.data-table th { background: var(--navy); color: #fff; padding: 7px 10px; text-align: left; font-size: 11px; font-weight: 600; }
+.data-table td { padding: 6px 10px; border-bottom: 1px solid #e8edf5; vertical-align: top; }
+.data-table tr:nth-child(even) td { background: #f8fafd; }
+.data-table .fn { font-weight: 600; color: var(--navy); width: 28%; white-space: nowrap; }
+.data-table .fv { font-family: 'Courier New', monospace; }
+.data-table .fd { color: #888; font-size: 11px; font-style: italic; }
+.data-table .req { color: var(--red); font-size: 10px; }
+
+/* BEKLENEN SONUÇ */
+.expected {
+  background: #faf5ff; border-left: 4px solid #7c3aed;
+  padding: 10px 14px; margin: 10px 0; border-radius: 0 6px 6px 0;
+}
+.expected .exp-title { font-size: 11px; font-weight: 700; color: #5b21b6; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.expected ul { padding-left: 18px; font-size: 12px; }
+.expected li { margin: 3px 0; }
+
+/* KUTULAR */
+.box-info { background: #eff6ff; border-left: 4px solid #3b82f6; padding: 8px 12px; margin: 8px 0; border-radius: 0 4px 4px 0; font-size: 12px; color: #1e40af; }
+.box-warn { background: #fffbeb; border-left: 4px solid #f59e0b; padding: 8px 12px; margin: 8px 0; border-radius: 0 4px 4px 0; font-size: 12px; color: #92400e; }
+.box-ok   { background: #f0fdf4; border-left: 4px solid var(--green); padding: 8px 12px; margin: 8px 0; border-radius: 0 4px 4px 0; font-size: 12px; color: #14532d; }
+.box-err  { background: #fef2f2; border-left: 4px solid var(--red);   padding: 8px 12px; margin: 8px 0; border-radius: 0 4px 4px 0; font-size: 12px; color: #7f1d1d; }
+
+/* KONTROL LİSTESİ */
+.checklist { background: #f0fdf4; border: 1px solid #86efac; border-radius: 6px; padding: 12px 14px; margin: 10px 0; }
+.checklist-title { font-size: 11px; font-weight: 700; color: #14532d; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.checklist label { display: flex; align-items: flex-start; gap: 8px; margin: 5px 0; font-size: 12px; cursor: pointer; line-height: 1.4; }
+.checklist input[type="checkbox"] { width: 15px; height: 15px; margin-top: 1px; flex-shrink: 0; accent-color: var(--green); }
+
+/* SONUÇ BUTONLARI */
+.result-bar {
+  display: flex; align-items: center; gap: 10px; margin-top: 14px;
+  padding-top: 12px; border-top: 1px dashed var(--border);
+  flex-wrap: wrap;
+}
+.result-label { font-size: 11px; color: #888; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+.btn-result {
+  padding: 6px 18px; border-radius: 20px; font-size: 12px; font-weight: 600;
+  border: 2px solid transparent; cursor: pointer; transition: all .15s;
+  display: flex; align-items: center; gap: 6px;
+}
+.btn-pass  { background: #dcfce7; color: var(--green);  border-color: #86efac; }
+.btn-fail  { background: #fee2e2; color: var(--red);    border-color: #fca5a5; }
+.btn-skip  { background: #f3f4f6; color: var(--gray);   border-color: #d1d5db; }
+.btn-pass:hover  { background: var(--green); color: #fff; }
+.btn-fail:hover  { background: var(--red);   color: #fff; }
+.btn-skip:hover  { background: var(--gray);  color: #fff; }
+.btn-pass.active  { background: var(--green); color: #fff; border-color: var(--green); }
+.btn-fail.active  { background: var(--red);   color: #fff; border-color: var(--red); }
+.btn-skip.active  { background: var(--gray);  color: #fff; border-color: var(--gray); }
+
+.result-note-wrap { width: 100%; }
+.result-note {
+  width: 100%; border: 1px solid var(--border); border-radius: 4px;
+  padding: 6px 10px; font-size: 12px; resize: vertical; min-height: 38px;
+  font-family: inherit; color: #333; margin-top: 6px; display: none;
+}
+.step.failed .result-note { display: block; border-color: #fca5a5; }
+.result-status-tag {
+  margin-left: auto; font-size: 11px; font-weight: 700; padding: 3px 12px;
+  border-radius: 20px; letter-spacing: 1px;
+}
+.tag-pass  { background: #dcfce7; color: var(--green); }
+.tag-fail  { background: #fee2e2; color: var(--red); }
+.tag-skip  { background: #f3f4f6; color: var(--gray); }
+
+/* SCREENSHOT ALANI */
+.screenshot-box {
+  border: 2px dashed #c4b5fd; border-radius: 6px; padding: 16px;
+  text-align: center; color: #7c3aed; font-size: 11px; margin: 10px 0;
+  background: #faf5ff; cursor: pointer;
+}
+.screenshot-box:hover { background: #f3e8ff; }
+
+/* ══════════════════════════════════════════════════════
+   ÖZET RAPOR
+══════════════════════════════════════════════════════ */
+.summary-card { background: #fff; border-radius: 10px; padding: 28px 28px 24px; margin-top: 24px; box-shadow: 0 1px 4px rgba(0,0,0,.07); }
+.summary-header { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+.summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
+.sum-box { border-radius: 8px; padding: 16px; text-align: center; }
+.sum-box .n { font-size: 36px; font-weight: 800; line-height: 1; }
+.sum-box .l { font-size: 12px; margin-top: 4px; }
+.sum-total  { background: #eff6ff; color: #1e40af; }
+.sum-pass   { background: #dcfce7; color: var(--green); }
+.sum-fail   { background: #fee2e2; color: var(--red); }
+.sum-skip   { background: #f3f4f6; color: var(--gray); }
+.pass-rate-bar { background: #e5e7eb; border-radius: 8px; height: 14px; overflow: hidden; margin: 8px 0; }
+.pass-rate-fill { height: 100%; background: linear-gradient(90deg, var(--green), #4ade80); border-radius: 8px; transition: width .6s; }
+.fail-list { border: 1px solid #fca5a5; border-radius: 6px; overflow: hidden; }
+.fail-list-header { background: #fee2e2; padding: 8px 14px; font-size: 12px; font-weight: 600; color: var(--red); }
+.fail-item { padding: 8px 14px; border-top: 1px solid #fde8e8; font-size: 12px; display: flex; gap: 8px; }
+.fail-item .fi-num { background: var(--red); color: #fff; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0; }
+
+/* PERSONEL TABLOSU */
+.personnel-section { background: #fff; border-radius: 8px; padding: 20px; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,.07); }
+.section-title { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+.section-title::before { content: ''; width: 4px; height: 18px; background: var(--orange); border-radius: 2px; display: inline-block; }
+
+/* İMZA */
+.sign-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 20px; }
+.sign-box { border: 1px solid #aaa; border-radius: 6px; padding: 14px; }
+.sign-box .sl { font-size: 10px; color: #888; display: block; margin-bottom: 28px; }
+.sign-box .sl2 { border-top: 1px solid #333; padding-top: 4px; font-size: 10px; color: #888; }
+
+/* ══════════════════════════════════════════════════════
+   KNOW-HOW ACCORDION
+══════════════════════════════════════════════════════ */
+.kh-toggle {
+  background: #fef9c3; border: 1px solid #fde047; border-radius: 6px;
+  padding: 9px 14px; cursor: pointer; display: flex; align-items: center;
+  gap: 8px; margin: 10px 0 0; font-size: 12px; font-weight: 600; color: #854d0e;
+  user-select: none;
+}
+.kh-toggle:hover { background: #fef08a; }
+.kh-arr { margin-left: auto; transition: transform .25s; display: inline-block; }
+.kh-toggle.open .kh-arr { transform: rotate(180deg); }
+.kh-body { display: none; background: #fffef0; border: 1px solid #fde047;
+  border-top: none; border-radius: 0 0 6px 6px; padding: 12px 14px; }
+.kh-body.open { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.kh-item { padding: 10px 12px; border-radius: 6px; font-size: 12px; line-height: 1.5; }
+.kh-what   { background: #eff6ff; border-left: 3px solid #3b82f6; }
+.kh-why    { background: #f0fdf4; border-left: 3px solid #16a34a; }
+.kh-impact { background: #faf5ff; border-left: 3px solid #7c3aed; }
+.kh-error  { background: #fff7ed; border-left: 3px solid #ea580c; }
+.kh-label  { font-weight: 700; font-size: 10px; text-transform: uppercase;
+  letter-spacing: 1px; margin-bottom: 5px; }
+.kh-what .kh-label   { color: #1d4ed8; }
+.kh-why .kh-label    { color: #15803d; }
+.kh-impact .kh-label { color: #6d28d9; }
+.kh-error .kh-label  { color: #c2410c; }
+
+/* ══════════════════════════════════════════════════════
+   BASKIYA ÖZGÜ
+══════════════════════════════════════════════════════ */
+@media print {
+  .sticky-bar, .btn-result, .result-note, .screenshot-box, .btn-print, .btn-reset { display: none !important; }
+  .faz-body.collapsed { display: block !important; }
+  body { background: #fff; font-size: 11px; }
+  .page-wrap { max-width: 100%; padding: 0; }
+  .cover { box-shadow: none; border: 1px solid #ddd; page-break-after: always; }
+  .card { box-shadow: none; border: 1px solid #ddd; page-break-inside: avoid; margin-bottom: 8px; }
+  .summary-card { page-break-before: always; }
+  .faz-toggle { display: none; }
+  .step { padding: 10px 14px; }
+  .step.passed  { border-left: 4px solid var(--green); }
+  .step.failed  { border-left: 4px solid var(--red);   }
+  .step.skipped { border-left: 4px solid var(--gray);  }
+  .result-status-tag { display: inline-block !important; }
+  @page { size: A4; margin: 15mm 12mm; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════ YAPISTIRILMIŞ BAR ════ -->
+<div class="sticky-bar no-print">
+  <div class="sticky-logo">QUVEX<span>.</span></div>
+  <div class="sticky-title">Talaşlı İmalat — E2E Test Planı v2.0</div>
+  <div class="sticky-stats">
+    <div class="sticky-stat stat-pass"><div class="n" id="hdr-pass">0</div><div class="l">GEÇTİ</div></div>
+    <div class="sticky-stat stat-fail"><div class="n" id="hdr-fail">0</div><div class="l">BAŞARISIZ</div></div>
+    <div class="sticky-stat stat-skip"><div class="n" id="hdr-skip">0</div><div class="l">ATLANDI</div></div>
+    <div class="progress-wrap">
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="prog-fill" style="width:0%"></div></div>
+      <div class="progress-pct" id="prog-pct">0 / 0 adım</div>
+    </div>
+  </div>
+  <button class="btn-print" onclick="window.print()">🖨 Rapor Yazdır</button>
+  <button class="btn-reset" onclick="resetAll()">Sıfırla</button>
+</div>
+
+<!-- ════ SAYFA ════ -->
+<div class="page-wrap">
+
+<!-- ════ KAPAK ════ -->
+<div class="cover">
+  <div class="cover-logo">QUVEX<span>.</span></div>
+  <div class="cover-sub">ERP Platform · Test Planı &amp; Sonuç Raporu</div>
+  <div class="cover-title">Talaşlı İmalat — Uçtan Uca Veri Giriş Testi</div>
+  <div class="cover-scenario">Karadağ Hassas İşleme A.Ş. &nbsp;→&nbsp; ASELSAN Gyro Sensör Gövdesi<br>
+  AS9100D · 50 Adet · AL 7075-T6 · Teklif 230.000₺</div>
+  <div class="cover-grid">
+    <div class="cover-card"><div class="k">Doküman No</div><div class="v">TI-TEST-2026-002</div></div>
+    <div class="cover-card"><div class="k">Versiyon</div><div class="v">v2.0 — İnteraktif</div></div>
+    <div class="cover-card"><div class="k">Test Ortamı</div><div class="v">https://quvex.io</div></div>
+    <div class="cover-card"><div class="k">Tarayıcı</div><div class="v">Chrome / Edge (güncel)</div></div>
+    <div class="cover-card"><div class="k">Toplam Adım</div><div class="v" id="cv-total">—</div></div>
+    <div class="cover-card"><div class="k">Standart</div><div class="v">AS9100D Rev D</div></div>
+    <div class="cover-card" style="grid-column:1/-1"><div class="k">Test Tarihi &amp; Tester</div>
+      <div class="v">
+        <input type="date" id="test-date" style="border:none;background:transparent;font-size:14px;font-weight:600;color:var(--navy);font-family:inherit;">
+        &nbsp; / &nbsp;
+        <input type="text" id="tester-name" placeholder="Adınızı girin…" style="border:none;border-bottom:2px solid var(--border);background:transparent;font-size:14px;font-weight:600;color:var(--navy);font-family:inherit;width:220px;padding:2px 4px;">
+      </div>
+    </div>
+  </div>
+  <div class="cover-badge">DAHİLİ KULLANIM — GİZLİ DEĞİL</div><br><br>
+  <div class="cover-warning">
+    <strong>⚠️ BAŞLAMADAN ÖNCE OKUYUN:</strong><br>
+    • Adımları <strong>sırasıyla</strong> yapın — her adım bir sonrakine bağlıdır.<br>
+    • Her adım bitince <strong>GEÇTİ / BAŞARISIZ / ATLANDI</strong> butonuna tıklayın.<br>
+    • Sorun yaşarsanız hemen bir sonraki bölümü okuyun.<br>
+    • Çözemediğiniz sorunu <strong>test koordinatörüne</strong> bildirin.
+  </div>
+</div>
+
+<!-- ════ PERSONEL & GİRİŞ ════ -->
+<div class="personnel-section">
+  <div class="section-title">Personel Görev Dağılımı</div>
+  <table class="data-table">
+    <tr><th>Personel</th><th>Rol</th><th>Sorumlu Bölümler</th><th>Tahmini Süre</th><th style="width:100px">İmza</th></tr>
+    <tr><td><strong>P-01</strong></td><td>Sistem Yöneticisi</td><td>Bölüm 1 — Sistem Kurulumu</td><td>45 dk</td><td style="border-bottom:1px solid #333">&nbsp;</td></tr>
+    <tr><td><strong>P-02</strong></td><td>Satış Temsilcisi</td><td>Bölüm 2 — Müşteri &amp; Tedarikçi</td><td>20 dk</td><td style="border-bottom:1px solid #333">&nbsp;</td></tr>
+    <tr><td><strong>P-03</strong></td><td>Stok / Depo Sorumlusu</td><td>Bölüm 3 — Stok Kartları</td><td>30 dk</td><td style="border-bottom:1px solid #333">&nbsp;</td></tr>
+    <tr><td><strong>P-04</strong></td><td>Kalite Mühendisi</td><td>Bölüm 4 — BOM &amp; Kontrol Planı</td><td>40 dk</td><td style="border-bottom:1px solid #333">&nbsp;</td></tr>
+    <tr><td><strong>P-05</strong></td><td>Üretim Planlama</td><td>Bölüm 5 — İş Emri Şablonu</td><td>25 dk</td><td style="border-bottom:1px solid #333">&nbsp;</td></tr>
+    <tr><td><strong>P-06</strong></td><td>Satış / Teklif</td><td>Bölüm 6 — Teklif &amp; Sipariş</td><td>30 dk</td><td style="border-bottom:1px solid #333">&nbsp;</td></tr>
+    <tr><td><strong>P-07</strong></td><td>Üretim Sorumlusu</td><td>Bölüm 7 — Üretim Emri</td><td>20 dk</td><td style="border-bottom:1px solid #333">&nbsp;</td></tr>
+    <tr><td><strong>P-08</strong></td><td>CNC Operatör</td><td>Bölüm 8 — Atölye Yürütme</td><td>35 dk</td><td style="border-bottom:1px solid #333">&nbsp;</td></tr>
+    <tr><td><strong>P-09</strong></td><td>Kalite / NCR Sorumlusu</td><td>Bölüm 9 — Kalite &amp; NCR &amp; CAPA</td><td>35 dk</td><td style="border-bottom:1px solid #333">&nbsp;</td></tr>
+    <tr><td><strong>P-10</strong></td><td>Muhasebe / Finans</td><td>Bölüm 10 — Fatura &amp; Maliyet</td><td>25 dk</td><td style="border-bottom:1px solid #333">&nbsp;</td></tr>
+  </table>
+  <div class="box-info">Her personel <strong>yalnızca kendi bölümünü</strong> yapar. Bir önceki bölümün bittiğini koordinatörden teyit alarak başlayın.</div>
+
+  <div class="section-title" style="margin-top:20px">Giriş Bilgileri</div>
+  <table class="data-table">
+    <tr><td class="fn">Site Adresi</td><td class="fv">https://quvex.io</td><td class="fd">Chrome adres çubuğuna yazın</td></tr>
+    <tr><td class="fn">Giriş Sayfası</td><td class="fv">https://quvex.io/login</td><td class="fd"></td></tr>
+    <tr><td class="fn">E-posta</td><td class="fv">Koordinatörden alın</td><td class="fd">Not defterinize yazın</td></tr>
+    <tr><td class="fn">Şifre</td><td class="fv">Koordinatörden alın</td><td class="fd">En az 12 karakter, büyük harf + rakam + özel karakter</td></tr>
+    <tr><td class="fn">Tarayıcı</td><td class="fv">Google Chrome veya Microsoft Edge</td><td class="fd">Güncel sürüm — <em>Internet Explorer kullanmayın</em></td></tr>
+  </table>
+
+  <div class="section-title" style="margin-top:20px">Bilinen Sorunlar &amp; Çözümler</div>
+  <table class="data-table">
+    <tr><th>Kod</th><th>Sorun Açıklaması</th><th>Yapılacak İşlem</th></tr>
+    <tr><td><strong style="color:var(--red)">B-01</strong></td><td>Giriş sonrası ekrana <strong>"Turu Başlat"</strong> penceresi gelir → tüm tıklamaları engeller</td><td>Pencerenin sağ altındaki <strong>"Atla"</strong> düğmesine tıklayın</td></tr>
+    <tr><td><strong style="color:var(--red)">B-02</strong></td><td>Birim seçimi <strong>büyük harf</strong> gerektirir (ADET, KG, METRE)</td><td>Büyük harfle yazın ya da listeden seçin</td></tr>
+    <tr><td><strong style="color:var(--red)">B-03</strong></td><td>Ürün kartı kaydedilince URL değişir</td><td>URL'deki kodu not edin — sonraki adımlarda gerekebilir</td></tr>
+    <tr><td><strong style="color:var(--red)">B-04</strong></td><td>ShopFloor "İş Tamamla" düğmesi bazen hata gösterir</td><td>Koordinatörü bilgilendirin, sonraki adıma geçin</td></tr>
+    <tr><td><strong style="color:var(--red)">B-05</strong></td><td>CAPA durumunu "ROOT_CAUSE" yazmak hata verir</td><td>Mutlaka <strong>"ROOT_CAUSE_ANALYSIS"</strong> seçin</td></tr>
+    <tr><td><strong style="color:var(--red)">B-06</strong></td><td>Teklif tutarı ondalıklı çıkıyor (ör. 230000.00)</td><td>Normal — backend formatı, görsel sorun değil</td></tr>
+  </table>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     BÖLÜM 1 — SİSTEM KURULUMU (FAZ A)
+════════════════════════════════════════════════════════════ -->
+<div class="card" id="faz-A">
+  <div class="faz-header" onclick="toggleFaz(this)">
+    <span class="faz-badge">BÖLÜM 1</span>
+    <span class="faz-title">Sistem Kurulumu — Birimler &amp; Temel Ayarlar</span>
+    <span class="faz-meta">P-01 · Sistem Yöneticisi · ~45 dk</span>
+    <span class="faz-pct" id="pct-A">—</span>
+    <span class="faz-toggle">▼</span>
+  </div>
+  <div class="faz-body">
+
+  <!-- A1 -->
+  <div class="step" id="step-A1">
+    <div class="step-top">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <div class="step-title">A.1 — Sisteme giriş yap</div>
+        <div class="step-role">Yapacak: <strong>P-01 — Sistem Yöneticisi</strong></div>
+        <div class="nav-box">
+          <div class="nav-label">Nasıl Gidilir?</div>
+          <div class="nav-step"><span class="arrow">①</span> Chrome'u açın → adres çubuğuna <code>https://quvex.io/login</code> yazın</div>
+          <div class="nav-step"><span class="arrow">②</span> <strong>E-posta</strong> kutusuna koordinatörden aldığınız e-postayı girin</div>
+          <div class="nav-step"><span class="arrow">③</span> <strong>Şifre</strong> kutusuna şifreyi girin → <strong>"Giriş Yap"</strong> düğmesine tıklayın</div>
+          <div class="nav-step"><span class="arrow">④</span> "Turu Başlat" penceresi çıkarsa sağ alttaki <strong>"Atla"</strong> düğmesine tıklayın</div>
+        </div>
+        <div class="expected">
+          <div class="exp-title">✅ Beklenen Sonuç</div>
+          <ul>
+            <li>URL <code>https://quvex.io/home</code> veya <code>/dashboard</code> oldu</li>
+            <li>Sol menüde menü seçenekleri göründü</li>
+            <li>"Turu Başlat" penceresi kapandı</li>
+          </ul>
+        </div>
+        <div class="box-warn">Giriş başarısız olursa: şifrenizi kontrol edin. 5 başarısız deneme sonrası hesap 15 dakika kilitlenir.</div>
+        <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+        <div class="kh-body">
+          <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Sistemin kimlik doğrulama (authentication) sürecidir. Şifrenizle kimliğinizi kanıtlar, sisteme erişim tokenı alırsınız.</div>
+          <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Her kayıt "kim oluşturdu / kim değiştirdi" bilgisini taşır. AS9100D denetimlerinde kayıt sahipliği sorgulanır.</div>
+          <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Tüm kayıtlar (ürün, sipariş, NCR, fatura) girişi yapan kullanıcıya atanır. Denetim izleri (audit trail) bu bilgiye dayanır.</div>
+          <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Yanlış kullanıcıyla girerseniz kayıtlar o adına oluşur. 5 hatalı deneme = 15 dk kilit. Koordinatörü bilgilendirin.</div>
+        </div>
+        <div class="result-bar">
+          <span class="result-label">Sonuç:</span>
+          <button class="btn-result btn-pass" onclick="setResult('A1','pass')">✔ GEÇTİ</button>
+          <button class="btn-result btn-fail" onclick="setResult('A1','fail')">✘ BAŞARISIZ</button>
+          <button class="btn-result btn-skip" onclick="setResult('A1','skip')">— ATLANDI</button>
+          <span class="result-status-tag" id="tag-A1"></span>
+          <div class="result-note-wrap">
+            <textarea class="result-note" id="note-A1" placeholder="Hata açıklaması veya notunuz…" oninput="saveNote('A1',this.value)"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /step A1 -->
+
+  <!-- A2 -->
+  <div class="step" id="step-A2">
+    <div class="step-top">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <div class="step-title">A.2 — Ölçü birimlerini ekle (13 birim)</div>
+        <div class="step-role">Yapacak: <strong>P-01 — Sistem Yöneticisi</strong></div>
+        <div class="nav-box">
+          <div class="nav-label">Nasıl Gidilir?</div>
+          <div class="nav-step"><span class="arrow">①</span> Sol menüden <strong>Ayarlar</strong> → <strong>Birimler</strong></div>
+          <div class="nav-step"><span class="arrow">②</span> Sağ üstteki <strong>"+  Ekle"</strong> düğmesine tıklayın</div>
+          <div class="nav-step"><span class="arrow">③</span> Aşağıdaki birimleri tek tek ekleyin (her birim için açılan forma adı yazın → Kaydet)</div>
+        </div>
+        <table class="data-table">
+          <tr><th>#</th><th>Birim Adı (BÜYÜK HARF ile girin)</th><th>Eklendi mi?</th></tr>
+          <tr><td>1</td><td class="fv">ADET</td><td><input type="checkbox"></td></tr>
+          <tr><td>2</td><td class="fv">KG</td><td><input type="checkbox"></td></tr>
+          <tr><td>3</td><td class="fv">METRE</td><td><input type="checkbox"></td></tr>
+          <tr><td>4</td><td class="fv">LİTRE</td><td><input type="checkbox"></td></tr>
+          <tr><td>5</td><td class="fv">M²</td><td><input type="checkbox"></td></tr>
+          <tr><td>6</td><td class="fv">M³</td><td><input type="checkbox"></td></tr>
+          <tr><td>7</td><td class="fv">PAKET</td><td><input type="checkbox"></td></tr>
+          <tr><td>8</td><td class="fv">KUTU</td><td><input type="checkbox"></td></tr>
+          <tr><td>9</td><td class="fv">SET</td><td><input type="checkbox"></td></tr>
+          <tr><td>10</td><td class="fv">TON</td><td><input type="checkbox"></td></tr>
+          <tr><td>11</td><td class="fv">CM</td><td><input type="checkbox"></td></tr>
+          <tr><td>12</td><td class="fv">MM</td><td><input type="checkbox"></td></tr>
+          <tr><td>13</td><td class="fv">GR</td><td><input type="checkbox"></td></tr>
+        </table>
+        <div class="expected">
+          <div class="exp-title">✅ Beklenen Sonuç</div>
+          <ul><li>Birimler listesinde 13 kayıt göründü</li><li>Her birim büyük harfle listelendi</li></ul>
+        </div>
+        <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+        <div class="kh-body">
+          <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Ölçü birimleri; stok, BOM ve faturadaki tüm miktar ifadelerinin dayandığı referans tablodur (ADET, KG, METRE…).</div>
+          <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Birim tutarsızlığı BOM hesaplamalarını bozar: "0.85 KG" yerine "0.85 ADET" seçilirse maliyet tamamen hatalı çıkar.</div>
+          <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Stok kartları, BOM kalemleri, satın alma siparişleri, fatura kalemleri — hepsi bu tablodaki birimlere bağlanır.</div>
+          <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Küçük harfle ("kg") girilirse ürün formunda bulunamaz. Sonradan birim silmek bağlı kayıtları bozar — dikkatli olun.</div>
+        </div>
+        <div class="result-bar">
+          <span class="result-label">Sonuç:</span>
+          <button class="btn-result btn-pass" onclick="setResult('A2','pass')">✔ GEÇTİ</button>
+          <button class="btn-result btn-fail" onclick="setResult('A2','fail')">✘ BAŞARISIZ</button>
+          <button class="btn-result btn-skip" onclick="setResult('A2','skip')">— ATLANDI</button>
+          <span class="result-status-tag" id="tag-A2"></span>
+          <div class="result-note-wrap"><textarea class="result-note" id="note-A2" placeholder="Hata açıklaması…" oninput="saveNote('A2',this.value)"></textarea></div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /A2 -->
+
+  </div><!-- /faz-body A -->
+</div><!-- /faz A -->
+
+<!-- ════════════════════════════════════════════════════════════
+     BÖLÜM 2 — MÜŞTERİ & TEDARİKÇİ (FAZ B)
+════════════════════════════════════════════════════════════ -->
+<div class="card" id="faz-B">
+  <div class="faz-header" onclick="toggleFaz(this)">
+    <span class="faz-badge">BÖLÜM 2</span>
+    <span class="faz-title">Müşteri &amp; Tedarikçi Kayıtları</span>
+    <span class="faz-meta">P-02 · Satış Temsilcisi · ~20 dk</span>
+    <span class="faz-pct" id="pct-B">—</span>
+    <span class="faz-toggle">▼</span>
+  </div>
+  <div class="faz-body">
+
+  <!-- B1 -->
+  <div class="step" id="step-B1">
+    <div class="step-top">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <div class="step-title">B.1 — Müşteri kaydı oluştur (ASELSAN)</div>
+        <div class="step-role">Yapacak: <strong>P-02 — Satış Temsilcisi</strong></div>
+        <div class="nav-box">
+          <div class="nav-label">Nasıl Gidilir?</div>
+          <div class="nav-step"><span class="arrow">①</span> Sol menü → <strong>Müşteriler</strong> → sağ üst <strong>"+ Yeni Müşteri"</strong></div>
+          <div class="nav-step"><span class="arrow">②</span> Aşağıdaki bilgileri doldurun → <strong>"Kaydet"</strong></div>
+        </div>
+        <table class="data-table">
+          <tr><th>Alan</th><th>Girilecek Değer</th><th>Not</th></tr>
+          <tr><td class="fn">Firma Adı <span class="req">*</span></td><td class="fv">ASELSAN A.Ş.</td><td class="fd">Zorunlu alan</td></tr>
+          <tr><td class="fn">Yetkili Kişi</td><td class="fv">Mühendis Ahmet Kaya</td><td class="fd"></td></tr>
+          <tr><td class="fn">E-posta</td><td class="fv">tedarik@aselsan.com.tr</td><td class="fd"></td></tr>
+          <tr><td class="fn">Telefon</td><td class="fv">03123445500</td><td class="fd">Başında 0 ile yazın</td></tr>
+          <tr><td class="fn">Vergi Numarası</td><td class="fv">1234567890</td><td class="fd">10 haneli</td></tr>
+          <tr><td class="fn">Tür</td><td class="fv">Müşteri</td><td class="fd">Açılır listeden seçin</td></tr>
+        </table>
+        <div class="expected">
+          <div class="exp-title">✅ Beklenen Sonuç</div>
+          <ul>
+            <li>"Kayıt oluşturuldu" veya benzeri yeşil mesaj göründü</li>
+            <li>ASELSAN, müşteri listesinde göründü</li>
+          </ul>
+        </div>
+        <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+        <div class="kh-body">
+          <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>ASELSAN gibi kurumsal alıcıların sisteme kaydıdır. Vergi numarası, yetkili kişi ve tür (Müşteri/Tedarikçi) burada tutulur.</div>
+          <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Teklif, sipariş ve fatura oluşturmak için mutlaka bir müşteri kaydı gerekir. Kayıt olmadan bu belgelerin hiçbiri açılamaz.</div>
+          <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Teklifler, satış siparişleri, faturalar, e-posta bildirimleri ve teslimat belgeleri bu kayda bağlanır.</div>
+          <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Yanlış vergi numarası e-Fatura sisteminde redde yol açar. "Müşteri" yerine "Tedarikçi" seçilirse sipariş modülünde firma görünmez.</div>
+        </div>
+        <div class="result-bar">
+          <span class="result-label">Sonuç:</span>
+          <button class="btn-result btn-pass" onclick="setResult('B1','pass')">✔ GEÇTİ</button>
+          <button class="btn-result btn-fail" onclick="setResult('B1','fail')">✘ BAŞARISIZ</button>
+          <button class="btn-result btn-skip" onclick="setResult('B1','skip')">— ATLANDI</button>
+          <span class="result-status-tag" id="tag-B1"></span>
+          <div class="result-note-wrap"><textarea class="result-note" id="note-B1" placeholder="Hata açıklaması…" oninput="saveNote('B1',this.value)"></textarea></div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /B1 -->
+
+  <!-- B2 -->
+  <div class="step" id="step-B2">
+    <div class="step-top">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <div class="step-title">B.2 — Tedarikçi kaydı oluştur (Çelik Çelik A.Ş.)</div>
+        <div class="step-role">Yapacak: <strong>P-02 — Satış Temsilcisi</strong></div>
+        <div class="nav-box">
+          <div class="nav-label">Nasıl Gidilir?</div>
+          <div class="nav-step"><span class="arrow">①</span> Sol menü → <strong>Müşteriler</strong> → <strong>"+ Yeni Müşteri"</strong></div>
+          <div class="nav-step"><span class="arrow">②</span> <strong>Tür</strong> alanında <strong>"Tedarikçi"</strong> seçin</div>
+        </div>
+        <table class="data-table">
+          <tr><th>Alan</th><th>Girilecek Değer</th><th>Not</th></tr>
+          <tr><td class="fn">Firma Adı <span class="req">*</span></td><td class="fv">Çelik Çelik Malzeme A.Ş.</td><td class="fd"></td></tr>
+          <tr><td class="fn">Yetkili Kişi</td><td class="fv">Satış Müdürü Veli Demir</td><td class="fd"></td></tr>
+          <tr><td class="fn">E-posta</td><td class="fv">satis@celikcelik.com.tr</td><td class="fd"></td></tr>
+          <tr><td class="fn">Telefon</td><td class="fv">02162345678</td><td class="fd"></td></tr>
+          <tr><td class="fn">Tür</td><td class="fv">Tedarikçi</td><td class="fd">Açılır listeden TEDARİKÇİ seçin</td></tr>
+        </table>
+        <div class="expected">
+          <div class="exp-title">✅ Beklenen Sonuç</div>
+          <ul><li>Yeşil başarı mesajı göründü</li><li>Tedarikçi listesinde göründü</li></ul>
+        </div>
+        <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+        <div class="kh-body">
+          <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Hammadde tedarik ettiğiniz firmaların (Çelik Çelik A.Ş.) sistem kaydıdır. Satın alma siparişleri bu kayda bağlanır.</div>
+          <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>AS9100D maddesi 8.4 — onaylı tedarikçi listesi (ASL) zorunludur. Denetçi tedarikçi yönetimi kayıtlarını ister.</div>
+          <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Satın alma siparişleri, giriş muayene kayıtları, tedarikçi performans raporları bu kayda bağlanır.</div>
+          <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div">"Tedarikçi" yerine "Müşteri" seçilirse satın alma modülünde firma görünmez. NCR tedarikçiye bağlanamaz.</div>
+        </div>
+        <div class="result-bar">
+          <span class="result-label">Sonuç:</span>
+          <button class="btn-result btn-pass" onclick="setResult('B2','pass')">✔ GEÇTİ</button>
+          <button class="btn-result btn-fail" onclick="setResult('B2','fail')">✘ BAŞARISIZ</button>
+          <button class="btn-result btn-skip" onclick="setResult('B2','skip')">— ATLANDI</button>
+          <span class="result-status-tag" id="tag-B2"></span>
+          <div class="result-note-wrap"><textarea class="result-note" id="note-B2" placeholder="Hata açıklaması…" oninput="saveNote('B2',this.value)"></textarea></div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /B2 -->
+
+  </div>
+</div><!-- /faz B -->
+
+<!-- ════════════════════════════════════════════════════════════
+     BÖLÜM 3 — MAKİNE & STOK KARTLARI (FAZ C-D)
+════════════════════════════════════════════════════════════ -->
+<div class="card" id="faz-C">
+  <div class="faz-header" onclick="toggleFaz(this)">
+    <span class="faz-badge">BÖLÜM 3</span>
+    <span class="faz-title">Makine Tanımları &amp; Stok Kartları</span>
+    <span class="faz-meta">P-03 · Stok Sorumlusu · ~30 dk</span>
+    <span class="faz-pct" id="pct-C">—</span>
+    <span class="faz-toggle">▼</span>
+  </div>
+  <div class="faz-body">
+
+  <!-- C1 -->
+  <div class="step" id="step-C1">
+    <div class="step-top">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <div class="step-title">C.1 — Makineleri tanımla (3 CNC tezgah)</div>
+        <div class="step-role">Yapacak: <strong>P-03 — Stok Sorumlusu</strong></div>
+        <div class="nav-box">
+          <div class="nav-label">Nasıl Gidilir?</div>
+          <div class="nav-step"><span class="arrow">①</span> Sol menü → <strong>Üretim</strong> → <strong>Makineler</strong></div>
+          <div class="nav-step"><span class="arrow">②</span> Her makine için <strong>"+ Ekle"</strong> → doldurun → <strong>"Kaydet"</strong></div>
+        </div>
+        <table class="data-table">
+          <tr><th>#</th><th>Makine Kodu</th><th>Makine Adı</th><th>Marka</th><th>Saatlik Ücret (₺)</th><th>Eklendi?</th></tr>
+          <tr><td>1</td><td class="fv">CNC-VMC-001</td><td>DMG Mori CMX 600V</td><td>DMG Mori</td><td class="fv">850</td><td><input type="checkbox"></td></tr>
+          <tr><td>2</td><td class="fv">CNC-TORNA-001</td><td>Mazak Quick Turn 250</td><td>Mazak</td><td class="fv">650</td><td><input type="checkbox"></td></tr>
+          <tr><td>3</td><td class="fv">CNC-EDM-001</td><td>Mitsubishi EA28V EDM</td><td>Mitsubishi</td><td class="fv">550</td><td><input type="checkbox"></td></tr>
+        </table>
+        <div class="expected">
+          <div class="exp-title">✅ Beklenen Sonuç</div>
+          <ul><li>3 makine listede göründü</li><li>Her makine "Aktif" durumunda</li></ul>
+        </div>
+        <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+        <div class="kh-body">
+          <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Fabrikadaki fiziksel CNC tezgahlarının dijital kartıdır. Kod, ad, marka ve saatlik maliyet buraya girilir.</div>
+          <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Operasyon bazlı maliyet hesabının temelidir. Saatlik ücret yanlışsa tüm üretim maliyet raporu gerçeği yansıtmaz.</div>
+          <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Üretim emirleri, ShopFloor operasyon atamaları, makine bazlı süre/maliyet analizi ve kapasite planlama.</div>
+          <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Makine kodu yanlışsa operasyon ataması yapılamaz. Saatlik ücret 0 bırakılırsa üretim maliyeti gerçekçi hesaplanamaz.</div>
+        </div>
+        <div class="result-bar">
+          <span class="result-label">Sonuç:</span>
+          <button class="btn-result btn-pass" onclick="setResult('C1','pass')">✔ GEÇTİ</button>
+          <button class="btn-result btn-fail" onclick="setResult('C1','fail')">✘ BAŞARISIZ</button>
+          <button class="btn-result btn-skip" onclick="setResult('C1','skip')">— ATLANDI</button>
+          <span class="result-status-tag" id="tag-C1"></span>
+          <div class="result-note-wrap"><textarea class="result-note" id="note-C1" placeholder="Hata açıklaması…" oninput="saveNote('C1',this.value)"></textarea></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- C2 -->
+  <div class="step" id="step-C2">
+    <div class="step-top">
+      <div class="step-num">6</div>
+      <div class="step-content">
+        <div class="step-title">C.2 — Hammadde stok kartlarını oluştur (3 malzeme)</div>
+        <div class="step-role">Yapacak: <strong>P-03 — Stok Sorumlusu</strong></div>
+        <div class="nav-box">
+          <div class="nav-label">Nasıl Gidilir?</div>
+          <div class="nav-step"><span class="arrow">①</span> Sol menü → <strong>Stok</strong> → <strong>Ürünler</strong> → <strong>"+ Yeni Ürün"</strong></div>
+          <div class="nav-step"><span class="arrow">②</span> <strong>Kategori</strong> alanında <strong>"Hammadde"</strong> seçin</div>
+          <div class="nav-step"><span class="arrow">③</span> Aşağıdaki 3 hammaddeyi ekleyin</div>
+        </div>
+        <table class="data-table">
+          <tr><th>#</th><th>Ürün Kodu</th><th>Ürün Adı</th><th>Birim</th><th>Alış Fiyatı (₺)</th><th>Eklendi?</th></tr>
+          <tr><td>1</td><td class="fv">HM-AL7075-001</td><td>AL 7075-T6 Çubuk ∅80mm</td><td class="fv">KG</td><td class="fv">185</td><td><input type="checkbox"></td></tr>
+          <tr><td>2</td><td class="fv">HM-SOGUTMA-001</td><td>Kesme Soğutma Yağı Blaser</td><td class="fv">LİTRE</td><td class="fv">42</td><td><input type="checkbox"></td></tr>
+          <tr><td>3</td><td class="fv">HM-FREZE-001</td><td>Sandvik Freze Takımı R390</td><td class="fv">ADET</td><td class="fv">1250</td><td><input type="checkbox"></td></tr>
+        </table>
+        <div class="box-warn">Birim seçerken açılır listeden <strong>KG</strong>, <strong>LİTRE</strong>, <strong>ADET</strong> seçin. Küçük harfle aramayın — büyük harfle arayın.</div>
+        <div class="expected">
+          <div class="exp-title">✅ Beklenen Sonuç</div>
+          <ul><li>3 hammadde stok listesinde göründü</li><li>Kategori: Hammadde, Birim doğru seçildi</li></ul>
+        </div>
+        <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+        <div class="kh-body">
+          <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Depodaki fiziksel hammaddelerin (AL çubuk, kesme yağı, freze takımı) sistemdeki stok kartıdır.</div>
+          <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>BOM hesaplamaları, satın alma önerileri ve üretim maliyeti bu kartlara bağlıdır. Kart yoksa sistem stok takibi yapamaz.</div>
+          <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>BOM kalemleri, satın alma önerileri, giriş muayenesi, depo hareketleri ve maliyet hesabı.</div>
+          <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Birim yanlış (KG yerine ADET) seçilirse maliyet anlamsızlaşır. Kategori "Mamul" seçilirse BOM'a hammadde olarak eklenemez.</div>
+        </div>
+        <div class="result-bar">
+          <span class="result-label">Sonuç:</span>
+          <button class="btn-result btn-pass" onclick="setResult('C2','pass')">✔ GEÇTİ</button>
+          <button class="btn-result btn-fail" onclick="setResult('C2','fail')">✘ BAŞARISIZ</button>
+          <button class="btn-result btn-skip" onclick="setResult('C2','skip')">— ATLANDI</button>
+          <span class="result-status-tag" id="tag-C2"></span>
+          <div class="result-note-wrap"><textarea class="result-note" id="note-C2" placeholder="Hata açıklaması…" oninput="saveNote('C2',this.value)"></textarea></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- C3 -->
+  <div class="step" id="step-C3">
+    <div class="step-top">
+      <div class="step-num">7</div>
+      <div class="step-content">
+        <div class="step-title">C.3 — Mamul ürün kartı oluştur (Gyro Sensör Gövdesi)</div>
+        <div class="step-role">Yapacak: <strong>P-03 — Stok Sorumlusu</strong></div>
+        <div class="nav-box">
+          <div class="nav-label">Nasıl Gidilir?</div>
+          <div class="nav-step"><span class="arrow">①</span> Sol menü → <strong>Stok</strong> → <strong>Ürünler</strong> → <strong>"+ Yeni Ürün"</strong></div>
+          <div class="nav-step"><span class="arrow">②</span> <strong>Kategori</strong> alanında <strong>"Mamul"</strong> seçin</div>
+        </div>
+        <table class="data-table">
+          <tr><th>Alan</th><th>Girilecek Değer</th><th>Not</th></tr>
+          <tr><td class="fn">Ürün Kodu <span class="req">*</span></td><td class="fv">ASL-GYRO-GOV-001</td><td class="fd">Tam olarak bu kodu girin</td></tr>
+          <tr><td class="fn">Ürün Adı <span class="req">*</span></td><td class="fv">ASELSAN Gyro Sensör Gövdesi AL7075</td><td class="fd"></td></tr>
+          <tr><td class="fn">Kategori <span class="req">*</span></td><td class="fv">Mamul</td><td class="fd">Açılır listeden seçin</td></tr>
+          <tr><td class="fn">Birim <span class="req">*</span></td><td class="fv">ADET</td><td class="fd">Büyük harfle arayın</td></tr>
+          <tr><td class="fn">Satış Fiyatı</td><td class="fv">4600</td><td class="fd">₺ — KDV hariç birim fiyat</td></tr>
+          <tr><td class="fn">Min. Stok</td><td class="fv">5</td><td class="fd">Uyarı eşiği</td></tr>
+          <tr><td class="fn">Açıklama</td><td class="fv">AS9100D Rev D — AL 7075-T6 — ∅60h6 tolerans</td><td class="fd"></td></tr>
+        </table>
+        <div class="expected">
+          <div class="exp-title">✅ Beklenen Sonuç</div>
+          <ul>
+            <li>ASL-GYRO-GOV-001 ürün listesinde göründü</li>
+            <li>URL değişti — URL'deki ID'yi not edin</li>
+          </ul>
+        </div>
+        <div class="box-info">📝 Not: URL'den ürün ID'sini not edin. Örnek: <code>/products/form/<strong>xxxxxxxx-xxxx…</strong></code></div>
+        <div class="result-bar">
+          <span class="result-label">Sonuç:</span>
+          <button class="btn-result btn-pass" onclick="setResult('C3','pass')">✔ GEÇTİ</button>
+          <button class="btn-result btn-fail" onclick="setResult('C3','fail')">✘ BAŞARISIZ</button>
+          <button class="btn-result btn-skip" onclick="setResult('C3','skip')">— ATLANDI</button>
+          <span class="result-status-tag" id="tag-C3"></span>
+          <div class="result-note-wrap"><textarea class="result-note" id="note-C3" placeholder="Hata açıklaması…" oninput="saveNote('C3',this.value)"></textarea></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+</div><!-- /faz C -->
+
+<!-- ════════════════════════════════════════════════════════════
+     BÖLÜM 4 — BOM & KONTROL PLANI (FAZ D-E)
+════════════════════════════════════════════════════════════ -->
+<div class="card" id="faz-D">
+  <div class="faz-header" onclick="toggleFaz(this)">
+    <span class="faz-badge">BÖLÜM 4</span>
+    <span class="faz-title">Malzeme Listesi (BOM) &amp; Kontrol Planı</span>
+    <span class="faz-meta">P-04 · Kalite Mühendisi · ~40 dk</span>
+    <span class="faz-pct" id="pct-D">—</span>
+    <span class="faz-toggle">▼</span>
+  </div>
+  <div class="faz-body">
+
+  <div class="step" id="step-D1">
+    <div class="step-top">
+      <div class="step-num">8</div>
+      <div class="step-content">
+        <div class="step-title">D.1 — BOM (Malzeme Listesi) oluştur</div>
+        <div class="step-role">Yapacak: <strong>P-04 — Kalite Mühendisi</strong></div>
+        <div class="nav-box">
+          <div class="nav-label">Nasıl Gidilir?</div>
+          <div class="nav-step"><span class="arrow">①</span> Sol menü → <strong>Stok</strong> → <strong>Ürünler</strong> → <code>ASL-GYRO-GOV-001</code> ürününü bulun → tıklayın</div>
+          <div class="nav-step"><span class="arrow">②</span> Ürün detay sayfasında <strong>"BOM"</strong> veya <strong>"Malzeme Listesi"</strong> sekmesine tıklayın</div>
+          <div class="nav-step"><span class="arrow">③</span> <strong>"+ Kalem Ekle"</strong> ile aşağıdaki 3 kalemi ekleyin</div>
+        </div>
+        <table class="data-table">
+          <tr><th>#</th><th>Alt Malzeme Kodu</th><th>Miktar</th><th>Birim</th><th>Eklendi?</th></tr>
+          <tr><td>1</td><td class="fv">HM-AL7075-001</td><td class="fv">0.85</td><td class="fv">KG</td><td><input type="checkbox"></td></tr>
+          <tr><td>2</td><td class="fv">HM-SOGUTMA-001</td><td class="fv">0.5</td><td class="fv">LİTRE</td><td><input type="checkbox"></td></tr>
+          <tr><td>3</td><td class="fv">HM-FREZE-001</td><td class="fv">0.1</td><td class="fv">ADET</td><td><input type="checkbox"></td></tr>
+        </table>
+        <div class="expected">
+          <div class="exp-title">✅ Beklenen Sonuç</div>
+          <ul><li>3 BOM kalemi listede göründü</li><li>Miktar ve birimler doğru kaydedildi</li></ul>
+        </div>
+        <div class="result-bar">
+          <span class="result-label">Sonuç:</span>
+          <button class="btn-result btn-pass" onclick="setResult('D1','pass')">✔ GEÇTİ</button>
+          <button class="btn-result btn-fail" onclick="setResult('D1','fail')">✘ BAŞARISIZ</button>
+          <button class="btn-result btn-skip" onclick="setResult('D1','skip')">— ATLANDI</button>
+          <span class="result-status-tag" id="tag-D1"></span>
+          <div class="result-note-wrap"><textarea class="result-note" id="note-D1" placeholder="Hata açıklaması…" oninput="saveNote('D1',this.value)"></textarea></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step" id="step-D2">
+    <div class="step-top">
+      <div class="step-num">9</div>
+      <div class="step-content">
+        <div class="step-title">D.2 — AS9100D Kontrol Planı oluştur (5 kalem)</div>
+        <div class="step-role">Yapacak: <strong>P-04 — Kalite Mühendisi</strong></div>
+        <div class="nav-box">
+          <div class="nav-label">Nasıl Gidilir?</div>
+          <div class="nav-step"><span class="arrow">①</span> Sol menü → <strong>Kalite</strong> → <strong>Kontrol Planları</strong> → <strong>"+ Yeni"</strong></div>
+          <div class="nav-step"><span class="arrow">②</span> Plan başlığını girin → ürün olarak <code>ASL-GYRO-GOV-001</code> seçin</div>
+          <div class="nav-step"><span class="arrow">③</span> <strong>"Kalem Ekle"</strong> ile aşağıdaki 5 kontrol kalemini ekleyin</div>
+        </div>
+        <table class="data-table">
+          <tr><th>#</th><th>Kontrol Kalemi</th><th>Tolerans / Spec</th><th>Ölçüm Aleti</th><th>Eklendi?</th></tr>
+          <tr><td>1</td><td>Çap ∅60h6</td><td>∅60.000 / ∅59.981 mm</td><td>Mikrometre</td><td><input type="checkbox"></td></tr>
+          <tr><td>2</td><td>Yüzey Pürüzlülüğü</td><td>Ra ≤ 0.8 μm</td><td>Pürüzölçer</td><td><input type="checkbox"></td></tr>
+          <tr><td>3</td><td>Diklik toleransı</td><td>⊥ 0.01 mm / 100 mm</td><td>Dijital açı</td><td><input type="checkbox"></td></tr>
+          <tr><td>4</td><td>Gözenek / Çatlak</td><td>Gözenek yok</td><td>Görsel + LP</td><td><input type="checkbox"></td></tr>
+          <tr><td>5</td><td>Ağırlık</td><td>142 g ± 3 g</td><td>Hassas terazi</td><td><input type="checkbox"></td></tr>
+        </table>
+        <div class="expected">
+          <div class="exp-title">✅ Beklenen Sonuç</div>
+          <ul><li>Kontrol planı kaydedildi</li><li>5 kalem listede göründü</li></ul>
+        </div>
+        <div class="result-bar">
+          <span class="result-label">Sonuç:</span>
+          <button class="btn-result btn-pass" onclick="setResult('D2','pass')">✔ GEÇTİ</button>
+          <button class="btn-result btn-fail" onclick="setResult('D2','fail')">✘ BAŞARISIZ</button>
+          <button class="btn-result btn-skip" onclick="setResult('D2','skip')">— ATLANDI</button>
+          <span class="result-status-tag" id="tag-D2"></span>
+          <div class="result-note-wrap"><textarea class="result-note" id="note-D2" placeholder="Hata açıklaması…" oninput="saveNote('D2',this.value)"></textarea></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+</div><!-- /faz D -->
+
+<!-- ════════════════════════════════════════════════════════════
+     BÖLÜM 5 — TEKLİF & SİPARİŞ (FAZ E-F)
+════════════════════════════════════════════════════════════ -->
+<div class="card" id="faz-E">
+  <div class="faz-header" onclick="toggleFaz(this)">
+    <span class="faz-badge">BÖLÜM 5</span>
+    <span class="faz-title">Teklif Oluşturma &amp; Sipariş Dönüşümü</span>
+    <span class="faz-meta">P-06 · Satış / Teklif · ~30 dk</span>
+    <span class="faz-pct" id="pct-E">—</span>
+    <span class="faz-toggle">▼</span>
+  </div>
+  <div class="faz-body">
+
+  <div class="step" id="step-E1">
+    <div class="step-top">
+      <div class="step-num">10</div>
+      <div class="step-content">
+        <div class="step-title">E.1 — Teklif oluştur (50 adet × 4.600₺ = 230.000₺)</div>
+        <div class="step-role">Yapacak: <strong>P-06 — Satış / Teklif</strong></div>
+        <div class="nav-box">
+          <div class="nav-label">Nasıl Gidilir?</div>
+          <div class="nav-step"><span class="arrow">①</span> Sol menü → <strong>Satış</strong> → <strong>Teklifler</strong> → <strong>"+ Yeni Teklif"</strong></div>
+          <div class="nav-step"><span class="arrow">②</span> Müşteri alanına <code>ASELSAN</code> yazın → listeden seçin</div>
+          <div class="nav-step"><span class="arrow">③</span> <strong>"+ Ürün Ekle"</strong> → <code>ASL-GYRO-GOV-001</code> seçin → miktar: <strong>50</strong>, birim fiyat: <strong>4600</strong></div>
+          <div class="nav-step"><span class="arrow">④</span> <strong>"Kaydet"</strong> → ardından <strong>"Gönder"</strong> düğmesine tıklayın</div>
+        </div>
+        <table class="data-table">
+          <tr><th>Alan</th><th>Girilecek Değer</th><th>Not</th></tr>
+          <tr><td class="fn">Müşteri <span class="req">*</span></td><td class="fv">ASELSAN A.Ş.</td><td class="fd">Açılır listeden seçin</td></tr>
+          <tr><td class="fn">Ürün</td><td class="fv">ASL-GYRO-GOV-001</td><td class="fd">Ürün adını veya kodunu arayın</td></tr>
+          <tr><td class="fn">Miktar</td><td class="fv">50</td><td class="fd">ADET</td></tr>
+          <tr><td class="fn">Birim Fiyat</td><td class="fv">4600</td><td class="fd">₺ — KDV hariç</td></tr>
+          <tr><td class="fn">Toplam</td><td class="fv">230.000 ₺</td><td class="fd">Sistem otomatik hesaplamalı</td></tr>
+          <tr><td class="fn">Not</td><td class="fv">AS9100D sertifikası ektedir</td><td class="fd">İsteğe bağlı</td></tr>
+        </table>
+        <div class="expected">
+          <div class="exp-title">✅ Beklenen Sonuç</div>
+          <ul>
+            <li>Teklif kaydedildi — durum: <strong>HAZIRLANDI</strong></li>
+            <li>"Gönder" sonrası durum: <strong>GÖNDERİLDİ</strong></li>
+            <li>Toplam tutar 230.000₺ göründü</li>
+          </ul>
+        </div>
+        <div class="result-bar">
+          <span class="result-label">Sonuç:</span>
+          <button class="btn-result btn-pass" onclick="setResult('E1','pass')">✔ GEÇTİ</button>
+          <button class="btn-result btn-fail" onclick="setResult('E1','fail')">✘ BAŞARISIZ</button>
+          <button class="btn-result btn-skip" onclick="setResult('E1','skip')">— ATLANDI</button>
+          <span class="result-status-tag" id="tag-E1"></span>
+          <div class="result-note-wrap"><textarea class="result-note" id="note-E1" placeholder="Hata açıklaması…" oninput="saveNote('E1',this.value)"></textarea></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step" id="step-E2">
+    <div class="step-top">
+      <div class="step-num">11</div>
+      <div class="step-content">
+        <div class="step-title">E.2 — Teklifi onayla ve satış siparişine dönüştür</div>
+        <div class="step-role">Yapacak: <strong>P-06 — Satış / Teklif</strong></div>
+        <div class="nav-box">
+          <div class="nav-label">Nasıl Gidilir?</div>
+          <div class="nav-step"><span class="arrow">①</span> Oluşturulan teklifi açın → <strong>"Onayla"</strong> veya <strong>"Kabul Et"</strong> düğmesi</div>
+          <div class="nav-step"><span class="arrow">②</span> Durum <strong>ONAYLANDI</strong> olduktan sonra → <strong>"Siparişe Dönüştür"</strong></div>
+          <div class="nav-step"><span class="arrow">③</span> Sol menü → <strong>Satış Siparişleri</strong> → yeni siparişin oluştuğunu teyit edin</div>
+        </div>
+        <div class="expected">
+          <div class="exp-title">✅ Beklenen Sonuç</div>
+          <ul>
+            <li>Teklif durumu: <strong>ONAYLANDI</strong></li>
+            <li>Satış siparişleri listesinde yeni kayıt göründü</li>
+            <li>Sipariş tutarı 230.000₺</li>
+          </ul>
+        </div>
+        <div class="result-bar">
+          <span class="result-label">Sonuç:</span>
+          <button class="btn-result btn-pass" onclick="setResult('E2','pass')">✔ GEÇTİ</button>
+          <button class="btn-result btn-fail" onclick="setResult('E2','fail')">✘ BAŞARISIZ</button>
+          <button class="btn-result btn-skip" onclick="setResult('E2','skip')">— ATLANDI</button>
+          <span class="result-status-tag" id="tag-E2"></span>
+          <div class="result-note-wrap"><textarea class="result-note" id="note-E2" placeholder="Hata açıklaması…" oninput="saveNote('E2',this.value)"></textarea></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+</div><!-- /faz E -->
+
+<!-- ════════════════════════════════════════════════════════════
+     BÖLÜM 6 — ÜRETİM (FAZ G-H-I)
+════════════════════════════════════════════════════════════ -->
+<div class="card" id="faz-F">
+  <div class="faz-header" onclick="toggleFaz(this)">
+    <span class="faz-badge">BÖLÜM 6</span>
+    <span class="faz-title">Üretim Emri &amp; Atölye Yürütme</span>
+    <span class="faz-meta">P-07 &amp; P-08 · Üretim + CNC · ~55 dk</span>
+    <span class="faz-pct" id="pct-F">—</span>
+    <span class="faz-toggle">▼</span>
+  </div>
+  <div class="faz-body">
+
+  <div class="step" id="step-F1">
+    <div class="step-top">
+      <div class="step-num">12</div>
+      <div class="step-content">
+        <div class="step-title">F.1 — Üretim emri oluştur</div>
+        <div class="step-role">Yapacak: <strong>P-07 — Üretim Sorumlusu</strong></div>
+        <div class="nav-box">
+          <div class="nav-label">Nasıl Gidilir?</div>
+          <div class="nav-step"><span class="arrow">①</span> Sol menü → <strong>Üretim</strong> → <strong>Üretim Emirleri</strong> → <strong>"+ Yeni"</strong></div>
+          <div class="nav-step"><span class="arrow">②</span> Ürün: <code>ASL-GYRO-GOV-001</code> seçin, Miktar: <strong>50</strong></div>
+          <div class="nav-step"><span class="arrow">③</span> İlgili satış siparişini bağlayın (açılır listeden seçin)</div>
+          <div class="nav-step"><span class="arrow">④</span> <strong>"Kaydet"</strong> → <strong>"Başlat"</strong></div>
+        </div>
+        <div class="expected">
+          <div class="exp-title">✅ Beklenen Sonuç</div>
+          <ul><li>Üretim emri oluştu — durum: <strong>DEVAM EDİYOR</strong></li><li>50 adet üretim hedefi göründü</li></ul>
+        </div>
+        <div class="result-bar">
+          <span class="result-label">Sonuç:</span>
+          <button class="btn-result btn-pass" onclick="setResult('F1','pass')">✔ GEÇTİ</button>
+          <button class="btn-result btn-fail" onclick="setResult('F1','fail')">✘ BAŞARISIZ</button>
+          <button class="btn-result btn-skip" onclick="setResult('F1','skip')">— ATLANDI</button>
+          <span class="result-status-tag" id="tag-F1"></span>
+          <div class="result-note-wrap"><textarea class="result-note" id="note-F1" placeholder="Hata açıklaması…" oninput="saveNote('F1',this.value)"></textarea></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step" id="step-F2">
+    <div class="step-top">
+      <div class="step-num">13</div>
+      <div class="step-content">
+        <div class="step-title">F.2 — Atölye operasyonları gir (OP10-OP40)</div>
+        <div class="step-role">Yapacak: <strong>P-08 — CNC Operatör</strong></div>
+        <div class="nav-box">
+          <div class="nav-label">Nasıl Gidilir?</div>
+          <div class="nav-step"><span class="arrow">①</span> Sol menü → <strong>Üretim</strong> → <strong>Atölye (ShopFloor)</strong></div>
+          <div class="nav-step"><span class="arrow">②</span> Üretim emrini bulun → her operasyon için <strong>"Tamamla"</strong> düğmesi</div>
+        </div>
+        <table class="data-table">
+          <tr><th>Operasyon</th><th>Makine</th><th>Açıklama</th><th>Tamamlandı?</th></tr>
+          <tr><td class="fv">OP10</td><td>CNC-VMC-001</td><td>Kaba talaş kaldırma — ∅62mm ye</td><td><input type="checkbox"></td></tr>
+          <tr><td class="fv">OP20</td><td>CNC-VMC-001</td><td>Finiş tornalama — ∅60.005mm</td><td><input type="checkbox"></td></tr>
+          <tr><td class="fv">OP30</td><td>CNC-EDM-001</td><td>EDM delik işleme M3×0.5</td><td><input type="checkbox"></td></tr>
+          <tr><td class="fv">OP40</td><td>CNC-VMC-001</td><td>Yüzey honlama Ra 0.6μm</td><td><input type="checkbox"></td></tr>
+        </table>
+        <div class="box-warn">ShopFloor "İş Tamamla" hatası verirse: koordinatöre bildirin ve devam edin (B-04).</div>
+        <div class="expected">
+          <div class="exp-title">✅ Beklenen Sonuç</div>
+          <ul><li>OP10-OP40 tamamlandı olarak işaretlendi</li><li>Üretim emri durumu güncellendi</li></ul>
+        </div>
+        <div class="result-bar">
+          <span class="result-label">Sonuç:</span>
+          <button class="btn-result btn-pass" onclick="setResult('F2','pass')">✔ GEÇTİ</button>
+          <button class="btn-result btn-fail" onclick="setResult('F2','fail')">✘ BAŞARISIZ</button>
+          <button class="btn-result btn-skip" onclick="setResult('F2','skip')">— ATLANDI</button>
+          <span class="result-status-tag" id="tag-F2"></span>
+          <div class="result-note-wrap"><textarea class="result-note" id="note-F2" placeholder="Hata açıklaması…" oninput="saveNote('F2',this.value)"></textarea></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+</div><!-- /faz F -->
+
+<!-- ════════════════════════════════════════════════════════════
+     BÖLÜM 7 — KALİTE & NCR & CAPA (FAZ J-K-L)
+════════════════════════════════════════════════════════════ -->
+<div class="card" id="faz-G">
+  <div class="faz-header" onclick="toggleFaz(this)">
+    <span class="faz-badge">BÖLÜM 7</span>
+    <span class="faz-title">Giriş Muayenesi, NCR &amp; CAPA</span>
+    <span class="faz-meta">P-09 · Kalite Mühendisi · ~35 dk</span>
+    <span class="faz-pct" id="pct-G">—</span>
+    <span class="faz-toggle">▼</span>
+  </div>
+  <div class="faz-body">
+
+  <div class="step" id="step-G1">
+    <div class="step-top">
+      <div class="step-num">14</div>
+      <div class="step-content">
+        <div class="step-title">G.1 — Giriş muayenesi kaydı oluştur (AL malzeme kabulü)</div>
+        <div class="step-role">Yapacak: <strong>P-09 — Kalite Mühendisi</strong></div>
+        <div class="nav-box">
+          <div class="nav-label">Nasıl Gidilir?</div>
+          <div class="nav-step"><span class="arrow">①</span> Sol menü → <strong>Kalite</strong> → <strong>Giriş Muayenesi</strong> → <strong>"+ Yeni"</strong></div>
+          <div class="nav-step"><span class="arrow">②</span> Ürün: <code>HM-AL7075-001</code>, Miktar: <strong>50</strong>, Sonuç: <strong>KABUL EDİLDİ</strong></div>
+        </div>
+        <table class="data-table">
+          <tr><td class="fn">Ürün</td><td class="fv">HM-AL7075-001 — AL 7075-T6</td><td class="fd"></td></tr>
+          <tr><td class="fn">Gelen Miktar</td><td class="fv">50 KG</td><td class="fd"></td></tr>
+          <tr><td class="fn">Muayene Sonucu</td><td class="fv">KABUL EDİLDİ</td><td class="fd">Açılır listeden seçin</td></tr>
+          <tr><td class="fn">Not</td><td class="fv">Malzeme sertifikası uygun — AMS 2770 Lot#2026-AL-4412</td><td class="fd"></td></tr>
+        </table>
+        <div class="expected">
+          <div class="exp-title">✅ Beklenen Sonuç</div>
+          <ul><li>Giriş muayenesi kaydı oluştu</li><li>Stok miktarı güncellendi</li></ul>
+        </div>
+        <div class="result-bar">
+          <span class="result-label">Sonuç:</span>
+          <button class="btn-result btn-pass" onclick="setResult('G1','pass')">✔ GEÇTİ</button>
+          <button class="btn-result btn-fail" onclick="setResult('G1','fail')">✘ BAŞARISIZ</button>
+          <button class="btn-result btn-skip" onclick="setResult('G1','skip')">— ATLANDI</button>
+          <span class="result-status-tag" id="tag-G1"></span>
+          <div class="result-note-wrap"><textarea class="result-note" id="note-G1" placeholder="Hata açıklaması…" oninput="saveNote('G1',this.value)"></textarea></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step" id="step-G2">
+    <div class="step-top">
+      <div class="step-num">15</div>
+      <div class="step-content">
+        <div class="step-title">G.2 — NCR (Uygunsuzluk) kaydı aç</div>
+        <div class="step-role">Yapacak: <strong>P-09 — Kalite Mühendisi</strong></div>
+        <div class="nav-box">
+          <div class="nav-label">Nasıl Gidilir?</div>
+          <div class="nav-step"><span class="arrow">①</span> Sol menü → <strong>Kalite</strong> → <strong>NCR / Uygunsuzluklar</strong> → <strong>"+ Yeni"</strong></div>
+        </div>
+        <table class="data-table">
+          <tr><td class="fn">Başlık</td><td class="fv">Yüzey pürüzlülüğü Ra 1.2μm — spec dışı</td><td class="fd"></td></tr>
+          <tr><td class="fn">Ürün</td><td class="fv">ASL-GYRO-GOV-001</td><td class="fd"></td></tr>
+          <tr><td class="fn">Miktar</td><td class="fv">3 adet</td><td class="fd">Etkilenen parça adedi</td></tr>
+          <tr><td class="fn">Ciddiyet</td><td class="fv">MAJOR</td><td class="fd">Açılır listeden seçin</td></tr>
+          <tr><td class="fn">Açıklama</td><td class="fv">OP40 yüzey honlama sonrası 3 parçada Ra 1.2μm ölçüldü — spec: Ra ≤ 0.8μm</td><td class="fd"></td></tr>
+        </table>
+        <div class="expected">
+          <div class="exp-title">✅ Beklenen Sonuç</div>
+          <ul><li>NCR kaydı oluştu</li><li>NCR listesinde "AÇIK" durumda göründü</li></ul>
+        </div>
+        <div class="result-bar">
+          <span class="result-label">Sonuç:</span>
+          <button class="btn-result btn-pass" onclick="setResult('G2','pass')">✔ GEÇTİ</button>
+          <button class="btn-result btn-fail" onclick="setResult('G2','fail')">✘ BAŞARISIZ</button>
+          <button class="btn-result btn-skip" onclick="setResult('G2','skip')">— ATLANDI</button>
+          <span class="result-status-tag" id="tag-G2"></span>
+          <div class="result-note-wrap"><textarea class="result-note" id="note-G2" placeholder="Hata açıklaması…" oninput="saveNote('G2',this.value)"></textarea></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step" id="step-G3">
+    <div class="step-top">
+      <div class="step-num">16</div>
+      <div class="step-content">
+        <div class="step-title">G.3 — CAPA aç, kök neden analizi yap ve kapat</div>
+        <div class="step-role">Yapacak: <strong>P-09 — Kalite Mühendisi</strong></div>
+        <div class="nav-box">
+          <div class="nav-label">Nasıl Gidilir?</div>
+          <div class="nav-step"><span class="arrow">①</span> NCR kaydını açın → <strong>"CAPA Oluştur"</strong> düğmesi</div>
+          <div class="nav-step"><span class="arrow">②</span> CAPA formunu doldurun → <strong>"Kaydet"</strong></div>
+          <div class="nav-step"><span class="arrow">③</span> Durum geçişleri: <strong>ROOT_CAUSE_ANALYSIS → IMPLEMENTATION → CLOSED</strong></div>
+        </div>
+        <table class="data-table">
+          <tr><td class="fn">Başlık</td><td class="fv">Honlama tezgahı disk değişimi</td><td class="fd"></td></tr>
+          <tr><td class="fn">Kök Neden</td><td class="fv">Honlama diski aşınmış — 3.200 parça ömrü dolmuş</td><td class="fd"></td></tr>
+          <tr><td class="fn">Düzeltici Faaliyet</td><td class="fv">Yeni disk takıldı. 3 parça yeniden işleme alındı.</td><td class="fd"></td></tr>
+          <tr><td class="fn">Son Durum</td><td class="fv">CLOSED</td><td class="fd">⚠️ "ROOT_CAUSE" değil, <strong>"ROOT_CAUSE_ANALYSIS"</strong> seçin</td></tr>
+        </table>
+        <div class="box-warn"><strong>Dikkat B-05:</strong> Durum seçerken mutlaka <strong>"ROOT_CAUSE_ANALYSIS"</strong> seçin. "ROOT_CAUSE" yazarsanız hata alırsınız.</div>
+        <div class="expected">
+          <div class="exp-title">✅ Beklenen Sonuç</div>
+          <ul>
+            <li>CAPA kaydı <strong>KAPALI</strong> durumuna geçti</li>
+            <li>NCR kaydına bağlandı</li>
+            <li>NCR durumu da güncellendi</li>
+          </ul>
+        </div>
+        <div class="result-bar">
+          <span class="result-label">Sonuç:</span>
+          <button class="btn-result btn-pass" onclick="setResult('G3','pass')">✔ GEÇTİ</button>
+          <button class="btn-result btn-fail" onclick="setResult('G3','fail')">✘ BAŞARISIZ</button>
+          <button class="btn-result btn-skip" onclick="setResult('G3','skip')">— ATLANDI</button>
+          <span class="result-status-tag" id="tag-G3"></span>
+          <div class="result-note-wrap"><textarea class="result-note" id="note-G3" placeholder="Hata açıklaması…" oninput="saveNote('G3',this.value)"></textarea></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+</div><!-- /faz G -->
+
+<!-- ════════════════════════════════════════════════════════════
+     BÖLÜM 8 — FATURA & MALİYET (FAZ M-N)
+════════════════════════════════════════════════════════════ -->
+<div class="card" id="faz-H">
+  <div class="faz-header" onclick="toggleFaz(this)">
+    <span class="faz-badge">BÖLÜM 8</span>
+    <span class="faz-title">AS9100D Sertifikası &amp; Fatura</span>
+    <span class="faz-meta">P-10 · Muhasebe / Finans · ~25 dk</span>
+    <span class="faz-pct" id="pct-H">—</span>
+    <span class="faz-toggle">▼</span>
+  </div>
+  <div class="faz-body">
+
+  <div class="step" id="step-H1">
+    <div class="step-top">
+      <div class="step-num">17</div>
+      <div class="step-content">
+        <div class="step-title">H.1 — AS9100D Uygunluk Sertifikası oluştur</div>
+        <div class="step-role">Yapacak: <strong>P-10 — Muhasebe / Finans</strong></div>
+        <div class="nav-box">
+          <div class="nav-label">Nasıl Gidilir?</div>
+          <div class="nav-step"><span class="arrow">①</span> Sol menü → <strong>Kalite</strong> → <strong>Sertifikalar</strong> → <strong>"+ Yeni"</strong></div>
+          <div class="nav-step"><span class="arrow">②</span> Ürün <code>ASL-GYRO-GOV-001</code> seçin → bilgileri doldurun</div>
+        </div>
+        <table class="data-table">
+          <tr><td class="fn">Sertifika No</td><td class="fv">COC-ASL-2026-001</td><td class="fd">Benzersiz numara</td></tr>
+          <tr><td class="fn">Tür / Tip</td><td class="fv">COC (Uygunluk Belgesi)</td><td class="fd">Certificate of Conformance</td></tr>
+          <tr><td class="fn">Standart</td><td class="fv">AS9100D Rev D</td><td class="fd"></td></tr>
+          <tr><td class="fn">Düzenleme Tarihi</td><td class="fv">Bugünün tarihi</td><td class="fd">Takvimden seçin</td></tr>
+          <tr><td class="fn">Geçerlilik</td><td class="fv">1 yıl sonra</td><td class="fd">Takvimden seçin</td></tr>
+          <tr><td class="fn">Not</td><td class="fv">50 adet — ∅60h6 tolerans sağlandı — Ra 0.6μm</td><td class="fd"></td></tr>
+        </table>
+        <div class="expected">
+          <div class="exp-title">✅ Beklenen Sonuç</div>
+          <ul><li>Sertifika kaydedildi</li><li>Sertifika listesinde göründü</li></ul>
+        </div>
+        <div class="result-bar">
+          <span class="result-label">Sonuç:</span>
+          <button class="btn-result btn-pass" onclick="setResult('H1','pass')">✔ GEÇTİ</button>
+          <button class="btn-result btn-fail" onclick="setResult('H1','fail')">✘ BAŞARISIZ</button>
+          <button class="btn-result btn-skip" onclick="setResult('H1','skip')">— ATLANDI</button>
+          <span class="result-status-tag" id="tag-H1"></span>
+          <div class="result-note-wrap"><textarea class="result-note" id="note-H1" placeholder="Hata açıklaması…" oninput="saveNote('H1',this.value)"></textarea></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step" id="step-H2">
+    <div class="step-top">
+      <div class="step-num">18</div>
+      <div class="step-content">
+        <div class="step-title">H.2 — Fatura oluştur (48 adet × 4.600₺ = 220.800₺)</div>
+        <div class="step-role">Yapacak: <strong>P-10 — Muhasebe / Finans</strong></div>
+        <div class="box-info">Not: 50 sipariş edildi, 2 adet NCR kaynaklı iade — faturalandırılan: <strong>48 adet</strong></div>
+        <div class="nav-box">
+          <div class="nav-label">Nasıl Gidilir?</div>
+          <div class="nav-step"><span class="arrow">①</span> Sol menü → <strong>Muhasebe</strong> → <strong>Faturalar</strong> → <strong>"+ Yeni Fatura"</strong></div>
+          <div class="nav-step"><span class="arrow">②</span> Müşteri: <strong>ASELSAN</strong> → İlgili siparişi seçin (opsiyonel)</div>
+          <div class="nav-step"><span class="arrow">③</span> Ürün: <code>ASL-GYRO-GOV-001</code>, Miktar: <strong>48</strong>, Birim Fiyat: <strong>4600</strong></div>
+          <div class="nav-step"><span class="arrow">④</span> <strong>"Kaydet"</strong></div>
+        </div>
+        <table class="data-table">
+          <tr><td class="fn">Müşteri</td><td class="fv">ASELSAN A.Ş.</td><td class="fd"></td></tr>
+          <tr><td class="fn">Ürün</td><td class="fv">ASL-GYRO-GOV-001</td><td class="fd"></td></tr>
+          <tr><td class="fn">Miktar</td><td class="fv">48 ADET</td><td class="fd">50 sipariş − 2 NCR = 48</td></tr>
+          <tr><td class="fn">Birim Fiyat</td><td class="fv">4.600 ₺</td><td class="fd"></td></tr>
+          <tr><td class="fn">Toplam</td><td class="fv">220.800 ₺</td><td class="fd">Sistem otomatik hesaplamalı</td></tr>
+        </table>
+        <div class="expected">
+          <div class="exp-title">✅ Beklenen Sonuç</div>
+          <ul>
+            <li>Fatura kaydedildi — durum: <strong>HAZIRLANDI</strong></li>
+            <li>Toplam tutar 220.800₺ göründü</li>
+            <li>Fatura listesinde ASELSAN adına kayıt göründü</li>
+          </ul>
+        </div>
+        <div class="result-bar">
+          <span class="result-label">Sonuç:</span>
+          <button class="btn-result btn-pass" onclick="setResult('H2','pass')">✔ GEÇTİ</button>
+          <button class="btn-result btn-fail" onclick="setResult('H2','fail')">✘ BAŞARISIZ</button>
+          <button class="btn-result btn-skip" onclick="setResult('H2','skip')">— ATLANDI</button>
+          <span class="result-status-tag" id="tag-H2"></span>
+          <div class="result-note-wrap"><textarea class="result-note" id="note-H2" placeholder="Hata açıklaması…" oninput="saveNote('H2',this.value)"></textarea></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+</div><!-- /faz H -->
+
+<!-- ════════════════════════════════════════════════════════════
+     ÖZET RAPOR
+════════════════════════════════════════════════════════════ -->
+<div class="summary-card" id="summary">
+  <div class="summary-header">📊 Test Sonuç Raporu</div>
+  <div class="summary-grid">
+    <div class="sum-box sum-total"><div class="n" id="sum-total">18</div><div class="l">Toplam Adım</div></div>
+    <div class="sum-box sum-pass"><div class="n" id="sum-pass">0</div><div class="l">GEÇTİ</div></div>
+    <div class="sum-box sum-fail"><div class="n" id="sum-fail">0</div><div class="l">BAŞARISIZ</div></div>
+    <div class="sum-box sum-skip"><div class="n" id="sum-skip">0</div><div class="l">ATLANDI</div></div>
+  </div>
+  <div style="margin-bottom:16px">
+    <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px">
+      <span style="font-weight:600">Başarı Oranı</span>
+      <span id="pass-rate-txt" style="font-weight:700;color:var(--green)">0%</span>
+    </div>
+    <div class="pass-rate-bar"><div class="pass-rate-fill" id="pass-rate-fill" style="width:0%"></div></div>
+  </div>
+
+  <div id="fail-list-wrap" style="display:none;margin-bottom:20px">
+    <div class="fail-list">
+      <div class="fail-list-header">⚠️ Başarısız Adımlar — Takip Gerekiyor</div>
+      <div id="fail-items"></div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:20px;padding:16px;background:var(--light);border-radius:8px">
+    <div style="font-weight:600;color:var(--navy);margin-bottom:8px;font-size:13px">Test Yorumu</div>
+    <textarea id="general-note" style="width:100%;border:1px solid var(--border);border-radius:4px;padding:8px 10px;font-size:12px;resize:vertical;min-height:60px;font-family:inherit" placeholder="Genel gözlemler, açıklamalar veya sonraki adım notları…" oninput="localStorage.setItem('qx_general_note',this.value)"></textarea>
+  </div>
+
+  <div class="sign-grid">
+    <div class="sign-box">
+      <span class="sl">Test Eden Kişi</span>
+      <span class="sl2">Ad / İmza / Tarih</span>
+    </div>
+    <div class="sign-box">
+      <span class="sl">Kalite Sorumlusu</span>
+      <span class="sl2">Ad / İmza / Tarih</span>
+    </div>
+    <div class="sign-box">
+      <span class="sl">Test Koordinatörü</span>
+      <span class="sl2">Ad / İmza / Tarih</span>
+    </div>
+  </div>
+
+  <div style="margin-top:20px;text-align:center">
+    <button class="btn-print" onclick="window.print()" style="font-size:13px;padding:10px 28px">
+      🖨 Bu Raporu Yazdır / PDF Kaydet
+    </button>
+  </div>
+</div>
+
+</div><!-- /page-wrap -->
+
+<!-- ════════════════════════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════════════════════════ -->
+<script>
+const STEPS = ['A1','A2','B1','B2','C1','C2','C3','D1','D2','E1','E2','F1','F2','G1','G2','G3','H1','H2'];
+const STEP_TITLES = {
+  A1:'Sisteme giriş', A2:'Birimleri ekle (13)',
+  B1:'Müşteri — ASELSAN', B2:'Tedarikçi — Çelik Çelik',
+  C1:'Makineler (3 CNC)', C2:'Hammadde stok kartları', C3:'Mamul ürün kartı',
+  D1:'BOM oluştur', D2:'Kontrol Planı (5 kalem)',
+  E1:'Teklif oluştur', E2:'Siparişe dönüştür',
+  F1:'Üretim emri', F2:'Atölye OP10-OP40',
+  G1:'Giriş muayenesi', G2:'NCR kaydı', G3:'CAPA — kapatma',
+  H1:'AS9100D Sertifikası', H2:'Fatura 220.800₺',
+};
+const FAZ_STEPS = {
+  A:['A1','A2'], B:['B1','B2'], C:['C1','C2','C3'], D:['D1','D2'],
+  E:['E1','E2'], F:['F1','F2'], G:['G1','G2','G3'], H:['H1','H2'],
+};
+const KEY = 'qx_talasli_test_v2';
+
+function load() { try { return JSON.parse(localStorage.getItem(KEY)) || {} } catch { return {} } }
+function save(d) { localStorage.setItem(KEY, JSON.stringify(d)) }
+
+function setResult(id, result) {
+  const d = load(); d[id] = result; save(d);
+  const step = document.getElementById('step-' + id);
+  step.className = 'step ' + (result === 'pass' ? 'passed' : result === 'fail' ? 'failed' : 'skipped');
+  ['pass','fail','skip'].forEach(r => {
+    const btn = step.querySelector('.btn-' + r);
+    if (btn) btn.classList.toggle('active', r === result);
+  });
+  const tag = document.getElementById('tag-' + id);
+  if (tag) {
+    tag.className = 'result-status-tag ' + (result === 'pass' ? 'tag-pass' : result === 'fail' ? 'tag-fail' : 'tag-skip');
+    tag.textContent = result === 'pass' ? '✔ GEÇTİ' : result === 'fail' ? '✘ BAŞARISIZ' : '— ATLANDI';
+  }
+  updateStats();
+}
+
+function saveNote(id, val) { const d = load(); d['note_' + id] = val; save(d); }
+
+function updateStats() {
+  const d = load();
+  let pass = 0, fail = 0, skip = 0;
+  const failItems = [];
+  STEPS.forEach(id => {
+    if (d[id] === 'pass') pass++;
+    else if (d[id] === 'fail') { fail++; failItems.push(id); }
+    else if (d[id] === 'skip') skip++;
+  });
+  const done = pass + fail + skip;
+  const total = STEPS.length;
+  const pct = done > 0 ? Math.round(pass / total * 100) : 0;
+
+  document.getElementById('hdr-pass').textContent = pass;
+  document.getElementById('hdr-fail').textContent = fail;
+  document.getElementById('hdr-skip').textContent = skip;
+  document.getElementById('prog-fill').style.width = (done / total * 100) + '%';
+  document.getElementById('prog-pct').textContent = done + ' / ' + total + ' adım';
+  document.getElementById('sum-pass').textContent = pass;
+  document.getElementById('sum-fail').textContent = fail;
+  document.getElementById('sum-skip').textContent = skip;
+  document.getElementById('sum-total').textContent = total;
+  document.getElementById('pass-rate-txt').textContent = pct + '%';
+  document.getElementById('pass-rate-fill').style.width = pct + '%';
+  document.getElementById('cv-total').textContent = total + ' adım · 8 bölüm';
+
+  const failWrap = document.getElementById('fail-list-wrap');
+  const failEl = document.getElementById('fail-items');
+  if (failItems.length > 0) {
+    failWrap.style.display = 'block';
+    failEl.innerHTML = failItems.map((id, i) => {
+      const note = (d['note_' + id] || '').trim();
+      return `<div class="fail-item">
+        <div class="fi-num">${i+1}</div>
+        <div><strong>${id}</strong> — ${STEP_TITLES[id]}${note ? '<br><span style="color:#888;font-size:11px">Not: ' + note + '</span>' : ''}</div>
+      </div>`;
+    }).join('');
+  } else { failWrap.style.display = 'none'; }
+
+  // FAZ yüzdeleri
+  Object.entries(FAZ_STEPS).forEach(([faz, ids]) => {
+    const p = ids.filter(id => d[id] === 'pass').length;
+    const el = document.getElementById('pct-' + faz);
+    if (el) el.textContent = Math.round(p / ids.length * 100) + '%';
+  });
+}
+
+function toggleKH(el) {
+  el.classList.toggle('open');
+  const body = el.nextElementSibling;
+  if (body) body.classList.toggle('open');
+}
+
+function toggleFaz(header) {
+  header.classList.toggle('collapsed');
+  const body = header.nextElementSibling;
+  if (body) body.style.display = header.classList.contains('collapsed') ? 'none' : 'block';
+}
+
+function resetAll() {
+  if (!confirm('Tüm test sonuçları sıfırlanacak. Emin misiniz?')) return;
+  localStorage.removeItem(KEY); localStorage.removeItem('qx_general_note');
+  location.reload();
+}
+
+// Sayfa yüklenince mevcut durumu geri yükle
+(function restore() {
+  const d = load();
+  STEPS.forEach(id => { if (d[id]) setResult(id, d[id]); });
+  STEPS.forEach(id => {
+    const note = d['note_' + id];
+    if (note) {
+      const el = document.getElementById('note-' + id);
+      if (el) el.value = note;
+    }
+  });
+  const gn = localStorage.getItem('qx_general_note');
+  if (gn) { const el = document.getElementById('general-note'); if (el) el.value = gn; }
+
+  // tarih/isim geri yükle
+  const td = localStorage.getItem('qx_test_date'); if (td) document.getElementById('test-date').value = td;
+  const tn = localStorage.getItem('qx_tester_name'); if (tn) document.getElementById('tester-name').value = tn;
+  updateStats();
+})();
+
+document.getElementById('test-date').addEventListener('change', e => localStorage.setItem('qx_test_date', e.target.value));
+document.getElementById('tester-name').addEventListener('input', e => localStorage.setItem('qx_tester_name', e.target.value));
+</script>
+</body>
+</html>

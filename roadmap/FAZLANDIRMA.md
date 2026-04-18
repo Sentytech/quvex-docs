@@ -204,3 +204,45 @@
 | F4 sonrası | 9 | 9 | 7 | 9 |
 | F5 sonrası | 9 | 9 | 8.5 | 9 |
 | F6 sonrası | 9 | 9 | 9 | 9 |
+| F7 sonrası (Sprint 9 — Savunma CNC) | 9 | 9.5 | 9 | 9 |
+| **F8 sonrası (Sprint 10-11 — Ürün Finalize)** | **9** | **9.5** | **9.5** | **9** |
+
+---
+
+## FAZ 7 — SAVUNMA CNC (Sprint 9, 2026-04-05) ✅ TAMAM
+
+Detay: `C:\rynSoft\quvex\quvex-docs\sprints\SPRINT-PLAN.md` (Sprint 9)
+
+---
+
+## FAZ 8 — ÜRÜN FİNALİZE (Sprint 10-11, 2026-04-11/12) ✅ TAMAM
+
+### F8.1 — Sprint 10 Finalize (2026-04-11) ✅
+- [x] F8.1.1: Bug temizliği, build doğrulama
+- [x] F8.1.2: Persona polish (6 rol)
+- [x] F8.1.3: UX regression kapatma
+> Detay: `sprints/SPRINT-FINALIZE-2026-04-11.md`
+
+### F8.2 — Sprint 11 Kapsayıcı Ürün (2026-04-12) ✅
+
+**5 Niş Modül (Blocker Closer):**
+- [x] F8.2.1: ProductVariant — Tekstil (30K KOBİ) — Beden×Renk bulk-generate
+- [x] F8.2.2: HACCP/CCP + Recall — Gıda (25K KOBİ) — 3 entity, 7-adımlı recall wizard, forward trace BFS
+- [x] F8.2.3: MoldInventory — Plastik (12K KOBİ) — Kavite, shot sayacı, bakım eşiği
+- [x] F8.2.4: CE Technical File — Makine (10K KOBİ) — 19 alan + machinery sektör profili
+- [x] F8.2.5: WPS/WPQR + Welder Cert — Kaynak (5K KOBİ) — 19 parametre + sertifika expiry alarm
+
+**3 Killer Feature:**
+- [x] F8.2.6: 5-Dakika Onboarding + 8 Sektör Demo Data (ASELSAN/KOTON/BİM... gerçek firma adları)
+- [x] F8.2.7: Real-time TV Üretim Panosu — `ProductionDashboardHub` SignalR + `ProductionLiveBoard.js`
+- [x] F8.2.8: WhatsApp Bildirim Entegrasyonu — Meta Cloud Graph API + 8 Türkçe şablon
+
+**8 Quick Win UX + 8 Persona Polish:**
+- [x] F8.2.9: ProductForm / CustomerForm minimal mode
+- [x] F8.2.10: HelpButton (10 sayfa), GlossaryTooltip 16 → 55 terim
+- [x] F8.2.11: Persona Dashboard routing (6 rol)
+- [x] F8.2.12: EmptyState component + mobile responsive tables
+
+**Pazar etkisi:** 51K → **133K KOBİ** (+%160) | Sektör skoru: 5.4 → **7.8** (+%44) | Mehmet Bey conversion: %34 → **%75**
+
+> Detay: `sprints/SPRINT-11-KAPSAYICI-URUN-2026-04-12.md`

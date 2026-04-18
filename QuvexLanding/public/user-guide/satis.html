@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Satış &amp; Teklif - Quvex ERP Kullanıcı Kılavuzu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+
+  <a href="index.html" class="nav-back">&#8592; Ana Sayfa</a>
+
+  <div class="doc-header">
+    <span class="version-badge">v2.0</span>
+    <div class="breadcrumb"><a href="index.html">Kullanıcı Kılavuzu</a> / Satış &amp; Teklif</div>
+    <h1>Satış &amp; Teklif Yönetimi</h1>
+    <p>Müşteri yönetimi, teklif hazırlama, sipariş, fatura, irsaliye, cari hesap &mdash; teklif&rarr;tahsilat tam dongusu</p>
+  </div>
+
+  <!-- Stats Bar -->
+  <div class="stats-bar">
+    <div class="stat-item"><div class="stat-value">7</div><div class="stat-label">Ana Ekran</div></div>
+    <div class="stat-item"><div class="stat-value">4</div><div class="stat-label">Durum Akisi</div></div>
+    <div class="stat-item"><div class="stat-value">PDF</div><div class="stat-label">Teklif/Fatura</div></div>
+    <div class="stat-item"><div class="stat-value">e-Fatura</div><div class="stat-label">Entegrasyon</div></div>
+  </div>
+
+  <!-- Sprint 11 Yenilikleri Callout -->
+  <div class="card" style="border-left:4px solid #f59e0b;background:linear-gradient(135deg,#fffbeb,#fef3c7);">
+    <div class="tip-title" style="color:#92400e;font-size:1rem;font-weight:700;margin-bottom:0.5rem;">Sprint 11 Yenilikleri (Nisan 2026)</div>
+    <ul style="margin:0 0 0 1.2rem;color:var(--text-secondary);line-height:1.7;">
+      <li><strong>Varyantli Urun Satisi:</strong> Teklif ve siparislerde beden/renk kombinasyonu secimi, SKU bazli fiyatlandirma. <a href="modules/product-variant.html">ProductVariant Modulu</a>.</li>
+      <li><strong>WhatsApp Business API:</strong> Musteriye siparis onayi, sevkiyat bildirimi ve recall uyarilari WhatsApp uzerinden gonderilir. Bkz: <a href="ayarlar.html#entegrasyonlar">Ayarlar &gt; Entegrasyonlar</a>.</li>
+      <li><strong>Recall Musteri Bildirimi:</strong> Geri cagirma baslatildiginda etkilenen lot musterilere otomatik eposta ve WhatsApp ile duyurulur. <a href="modules/haccp-recall.html">Recall Modulu</a>.</li>
+    </ul>
+  </div>
+
+  <div class="two-col">
+
+    <aside>
+      <nav class="nav-sidebar">
+        <a href="#tanitim">Tanitim</a>
+        <a href="#hızlı-başlangıç">Hızlı Başlangıç</a>
+        <a href="#müşteri">Müşteri Yönetimi</a>
+        <a href="#teklif">Teklif Yönetimi</a>
+        <a href="#sipariş">Sipariş Yönetimi</a>
+        <a href="#fatura">Fatura</a>
+        <a href="#irsaliye">İrsaliye</a>
+        <a href="#cari-hesap">Cari Hesap</a>
+        <a href="#faq">Sorun Giderme &amp; SSS</a>
+      </nav>
+    </aside>
+
+    <main>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 1. TANITIM -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="tanitim">
+        <h2>1. Tanitim &mdash; Teklif&rarr;Sipariş&rarr;Fatura&rarr;Tahsilat Dongusu</h2>
+        <p>Satış modülü, müşterinize ilk teklifi hazırladiginiz andan tahsilat yapilana kadar tüm süreçi yonetir. Her adim birbirine baglidir ve sistem otomatik olarak zincirleme durum gecişlerini takip eder.</p>
+
+        <div class="flow">
+          <div class="flow-step">Müşteri Kaydi</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step active">Teklif</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Sipariş</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Üretim</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Sevkiyat</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Fatura</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Tahsilat</div>
+        </div>
+
+        <p>Her adimda ilgili kullanıcılara anlık bildirim sistemi araciligiyla bildirim gonderilir. Geciken işlemler dashboard'da uyarı olarak görüntülenir.</p>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 2. HIZLI BASLANGIC -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="hızlı-başlangıç">
+        <h2>2. Hızlı Başlangıç &mdash; İlk Teklifinizi Olustürün</h2>
+
+        <div class="flow">
+          <div class="flow-step active">1. Müşteri Sec</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">2. Teklif Ac</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">3. Kalem Ekle</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">4. Kaydet</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">5. Gönder</div>
+        </div>
+
+        <div class="card">
+          <h4>Adim 1: Müşteri secin</h4>
+          <p>Sol menuden <strong>Satış &gt; Teklifler</strong>'e gidin. <strong>"+ Yeni Teklif"</strong> butonuna tıklayin. Acilan formda <strong>Müşteri</strong> alanında müşterinizi arayip secin.</p>
+        </div>
+        <div class="card">
+          <h4>Adim 2: Baslik bilgilerini girin</h4>
+          <p>Teklif tarihi otomatik gelir. <strong>Gecerlilik Tarihi</strong> belirleyin (teklifin ne zaman gecersiz olacagi). Gerekirse açıklama ekleyin.</p>
+        </div>
+        <div class="card">
+          <h4>Adim 3: Ürün kalemleri ekleyin</h4>
+          <p><strong>"Kalem Ekle"</strong> butonuna basin. Ürün arama alanına ürün kodunu veya adini yazin. Miktar ve birim fiyat girin. Birden fazla kalem ekleyebilirsiniz.</p>
+        </div>
+        <div class="card">
+          <h4>Adim 4: Kaydedin</h4>
+          <p><strong>Kaydet</strong> butonuna basin. Teklif <span class="badge badge-default">DRAFT</span> durumunda kaydedilir. Teklif numarası otomatik olusur (örnek: TKL-2026-0015).</p>
+        </div>
+        <div class="card">
+          <h4>Adim 5: Müşteriye gonderin</h4>
+          <p><strong>"Gönder"</strong> butonuna tıklayin. Teklif <span class="badge badge-info">SENT</span> durumuna gecer. PDF otomatik olusur. E-posta ile müşteriye iletilebilir.</p>
+        </div>
+
+        <div class="tip">
+          <div class="tip-title">İpucu: PDF Onizleme</div>
+          <p>Gondermeden once "PDF İndir" butonu ile teklifin gorunumunu kontrol edebilirsiniz.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 3. MUSTERI YONETIMI -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="müşteri">
+        <h2>3. Müşteri Yönetimi</h2>
+        <p><strong>Sayfa:</strong> <code>/customers</code></p>
+        <p>Müşteri ve tedarikçi kartlarıni tek bir yerde yönetin. Muster formu 6 sekmeden olusur:</p>
+
+        <h3>Sekme 1: Genel Bilgiler</h3>
+        <table class="field-table">
+          <thead><tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th></tr></thead>
+          <tbody>
+            <tr><td class="required">Müşteri Kodu</td><td>Benzersiz tanımlama kodu (örnek: MUS-001)</td><td>Evet</td></tr>
+            <tr><td class="required">Unvan</td><td>Sirket veya sahis adi</td><td>Evet</td></tr>
+            <tr><td class="required">Tur</td><td>Müşteri, Tedarikçi veya her ikisi</td><td>Evet</td></tr>
+            <tr><td>Vergi Dairesi</td><td>Vergi dairesi adi</td><td>Hayir</td></tr>
+            <tr><td>Vergi No / TC</td><td>Vergi kimlik numarası veya TC kimlik no</td><td>Hayir</td></tr>
+            <tr><td>Telefon</td><td>Ana iletisim telefonu</td><td>Hayir</td></tr>
+            <tr><td>E-posta</td><td>Ana iletisim e-postasi</td><td>Hayir</td></tr>
+            <tr><td>Web Sitesi</td><td>Sirket web adresi</td><td>Hayir</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Sekme 2: Adresler</h3>
+        <p>Birden fazla adres tanımlanabilir. Her adres için:</p>
+        <table class="field-table">
+          <thead><tr><th>Alan</th><th>Açıklama</th></tr></thead>
+          <tbody>
+            <tr><td>Adres Tipi</td><td>Fatura / Sevkiyat / Diger</td></tr>
+            <tr><td>Adres Basigi</td><td>Isimlendirme (örnek: "Merkez Ofis")</td></tr>
+            <tr><td>Il / Ilce</td><td>Sehir ve ilce bilgisi</td></tr>
+            <tr><td>Posta Kodu</td><td>5 haneli posta kodu</td></tr>
+            <tr><td>Acik Adres</td><td>Cadde, sokak, numara detaylari</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Sekme 3: İletişim Kisileri</h3>
+        <p>Müşterideki iletisim kisilerini kaydedin: ad-soyad, unvan/pozisyon, telefon, e-posta, departman. Birden fazla kisi eklenebilir.</p>
+
+        <h3>Sekme 4: Banka Bilgileri</h3>
+        <p>Müşterinin banka hesap bilgileri (banka adi, sube, IBAN). Ödeme işlemlerinde otomatik getirilir.</p>
+
+        <h3>Sekme 5: Teklifler ve Siparişler</h3>
+        <p>Müşteriye ait tüm teklifler ve siparişler özet tablo halınde. Detay ekranina direkt geçiş linkleri.</p>
+
+        <h3>Sekme 6: Notlar</h3>
+        <p>Serbest metin notlar. Tarih ve kullanıcı bilgisi otomatik kaydedilir.</p>
+
+        <h3>Cari Hesap</h3>
+        <p>Müşteri kartinin alt kisminda cari hesap ozeti görüntülenir: toplam borc, toplam alacak ve güncel bakiye. Detayli ekstre için "Cari Hesap" sekmesine tıklayin.</p>
+
+        <div class="tip">
+          <div class="tip-title">İpucu: Müşteri/Tedarikçi Filtreleme</div>
+          <p>Müşteri listesini görüntülemek için "Müşteriler" (müşteri filtresi), tedarikçi listesini görüntülemek için "Tedarikçiler" (tedarikçi filtresi) butonlarini kullanın.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 4. TEKLIF YONETIMI -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="teklif">
+        <h2>4. Teklif Yönetimi</h2>
+        <p><strong>Sayfa:</strong> <code>/offers</code> | Form: <code>/offers/form</code></p>
+
+        <h3>Teklif Oluşturma</h3>
+        <h4>Baslik Bilgileri</h4>
+        <table class="field-table">
+          <thead><tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th></tr></thead>
+          <tbody>
+            <tr><td>Teklif No</td><td>Sistem tarafindan sirayla atanır</td><td>Otomatik</td></tr>
+            <tr><td>Teklif Tarihi</td><td>Varsayılan: bugun</td><td>Hayir</td></tr>
+            <tr><td>Gecerlilik Tarihi</td><td>Teklifin gecerli oldugu son tarih</td><td>Hayir</td></tr>
+            <tr><td class="required">Müşteri</td><td>Autocomplete ile müşteri secimi</td><td>Evet</td></tr>
+            <tr><td>Para Birimi</td><td>TRY, USD, EUR (varsayılan: TRY)</td><td>Hayir</td></tr>
+            <tr><td>Açıklama</td><td>Özel kosullar veya notlar</td><td>Hayir</td></tr>
+          </tbody>
+        </table>
+
+        <h4>Kalem Ekleme</h4>
+        <table class="field-table">
+          <thead><tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th></tr></thead>
+          <tbody>
+            <tr><td class="required">Ürün</td><td>SmartProductSearch ile ürün secimi</td><td>Evet</td></tr>
+            <tr><td class="required">Miktar</td><td>Teklif edilecek adet</td><td>Evet</td></tr>
+            <tr><td>Birim Fiyat</td><td>Ürün kartindaki salesPrice otomatik gelir, değiştirilebilir</td><td>Otomatik</td></tr>
+            <tr><td>Iskonto (%)</td><td>Kalem bazinda iskonto orani</td><td>Hayir</td></tr>
+            <tr><td>Teslim Tarihi</td><td>Tahmini teslim tarihi</td><td>Hayir</td></tr>
+          </tbody>
+        </table>
+
+        <h4>Toplam Hesaplama</h4>
+        <table>
+          <thead><tr><th>Satir</th><th>Formul</th></tr></thead>
+          <tbody>
+            <tr><td>Ara Toplam</td><td>Tüm kalemlerin (miktar x birim fiyat) toplami</td></tr>
+            <tr><td>Iskonto</td><td>Yuzde veya tutar olarak uygulanabilir</td></tr>
+            <tr><td>KDV (%20)</td><td>(Ara Toplam - Iskonto) x %20</td></tr>
+            <tr><td><strong>Genel Toplam</strong></td><td>Ara Toplam - Iskonto + KDV</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Teklif Durum Akisi</h3>
+        <div class="flow">
+          <div class="flow-step active">DRAFT</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">SENT</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">ACCEPTED / REJECTED</div>
+        </div>
+
+        <table>
+          <thead><tr><th>Durum</th><th>Açıklama</th><th>Yapilabilecekler</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge badge-default">DRAFT</span></td><td>Taslak, henuz gonderilmedi</td><td>Düzenleme, silme, gonderme</td></tr>
+            <tr><td><span class="badge badge-info">SENT</span></td><td>Müşteriye gonderildi</td><td>Kabul, red, revizyon</td></tr>
+            <tr><td><span class="badge badge-success">ACCEPTED</span></td><td>Müşteri kabul etti</td><td>Siparişe dönüştürme</td></tr>
+            <tr><td><span class="badge badge-danger">REJECTED</span></td><td>Müşteri reddetti</td><td>Revizyon ile yeni teklif</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Aksiyonlar</h3>
+        <table>
+          <thead><tr><th>Buton</th><th>Açıklama</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Kaydet</strong></td><td>DRAFT durumunda kaydeder</td></tr>
+            <tr><td><strong>Gönder</strong></td><td>SENT durumuna gecirir (geri alınamaz)</td></tr>
+            <tr><td><strong>PDF İndir</strong></td><td>Teklif PDF'ini indirir</td></tr>
+            <tr><td><strong>Email Gönder</strong></td><td>Müşteri e-postasina PDF ekli mail gonderir</td></tr>
+            <tr><td><strong>Revizyon</strong></td><td>Mevcut teklifi kopyalayarak yeni revizyon oluşturur</td></tr>
+            <tr><td><strong>Siparişe Donustur</strong></td><td>ACCEPTED teklifi tek tıkla siparişe cevirir</td></tr>
+          </tbody>
+        </table>
+
+        <div class="tip warning">
+          <div class="tip-title">Dikkat: Yüksek Tutar Onayi</div>
+          <p>Genel toplami 50.000 TL'yi asan teklifler için yönetici onayi gereklidir. Onaylanmadan "Gönder" butonu aktif olmaz.</p>
+        </div>
+
+        <h3>Teklif Onay Akisi</h3>
+        <p>Yüksek tutarli teklifler için onay süreçi:</p>
+        <div class="flow">
+          <div class="flow-step active">Teklif Hazır</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Onay Istegi</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Yönetici İnceleme</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Onay / Red</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Müşteriye Gönder</div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 5. SIPARIS YONETIMI -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="sipariş">
+        <h2>5. Sipariş Yönetimi</h2>
+        <p><strong>Sayfa:</strong> <code>/sales</code></p>
+        <p>Kabul edilen tekliften sipariş olustürün veya dogrudan sipariş girin.</p>
+
+        <h3>Teklif &rarr; Sipariş Donusumu</h3>
+        <ol>
+          <li>ACCEPTED durumundaki teklifin detayina girin</li>
+          <li>"Siparişe Donustur" butonuna tıklayin</li>
+          <li>Sistem teklif kalemlerini otomatik sipariş kalemlerine aktarir</li>
+          <li>Gerekirse miktar/fiyat düzenleyin</li>
+          <li>Sipariş kaydedin</li>
+        </ol>
+
+        <h3>Sipariş Durum Akisi</h3>
+        <div class="flow">
+          <div class="flow-step active">DRAFT</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">PENDING_APPROVAL</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">APPROVED</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">IN_PRODUCTION</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">SHIPPED</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">COMPLETED</div>
+        </div>
+
+        <h3>Üretim Aktarma</h3>
+        <p>Onaylanan siparişin üretim emrine aktarilmasi:</p>
+        <ol>
+          <li>Sipariş detayinda "Üretime Aktar" butonuna tıklayin</li>
+          <li>Uretilecek kalemleri ve miktarlari onayin</li>
+          <li>Sistem otomatik is emri oluşturur</li>
+          <li>Sipariş durumu <span class="badge badge-primary">IN_PRODUCTION</span> olur</li>
+        </ol>
+
+        <h3>Sipariş Listesi Filtreleri</h3>
+        <table>
+          <thead><tr><th>Filtre</th><th>Gosterilen Kayıtlar</th></tr></thead>
+          <tbody>
+            <tr><td>Tüm</td><td>Tüm siparişler (varsayılan)</td></tr>
+            <tr><td>Üretime Hazır</td><td>Onayli, üretim emri olusturulmamis</td></tr>
+            <tr><td>Geciken</td><td>Teslim tarihi geçmiş, tamamlanmamis</td></tr>
+            <tr><td>Dikkat</td><td>Onay bekleyen veya sorunlu siparişler</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Sipariş Detay Ekrani</h3>
+        <table>
+          <thead><tr><th>Bolum</th><th>Açıklama</th></tr></thead>
+          <tbody>
+            <tr><td>Agac Gorunumu</td><td>Sipariş &gt; kalemler &gt; is emirleri &gt; sevkiyat &gt; fatura hiyerarsisi</td></tr>
+            <tr><td>Ilerleme Cubugu</td><td>Üretim, kalite, sevkiyat, fatura tamamlanma oranlari</td></tr>
+            <tr><td>Durum Zaman Cizelgesi</td><td>Her durum degisikligi tarih/saat ile timeline'da görüntülenir</td></tr>
+          </tbody>
+        </table>
+
+        <div class="tip info">
+          <div class="tip-title">Bilgi: Sipariş Onay Süreçi</div>
+          <p>Sipariş onayi için: sipariş kaydedin &rarr; "Onay Iste" tıklayin &rarr; yetkili yönetici anlık bildirim alir &rarr; onaylar veya reddeder. Red durumunda gerekce notu zorunludur.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 6. FATURA -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="fatura">
+        <h2>6. Fatura Yönetimi</h2>
+        <p><strong>Sayfa:</strong> <code>/invoices</code></p>
+        <p>Satış faturasi, iade faturasi olustürün. KDV, tevkifat ve e-fatura destegi mevcuttur.</p>
+
+        <h3>Fatura Tipleri</h3>
+        <table>
+          <thead><tr><th>Tip</th><th>Açıklama</th><th>Cari Etki</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge badge-primary">Satış Faturasi</span></td><td>Müşteriye kesilen fatura</td><td>Müşteri borcuna eklenir</td></tr>
+            <tr><td><span class="badge badge-danger">Satış İade</span></td><td>İade edilen ürünler için</td><td>Müşteri borcundan duslur</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Fatura Formu</h3>
+        <table class="field-table">
+          <thead><tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th></tr></thead>
+          <tbody>
+            <tr><td>Fatura No</td><td>Otomatik seri numarası</td><td>Otomatik</td></tr>
+            <tr><td class="required">Müşteri</td><td>Autocomplete ile müşteri secimi</td><td>Evet</td></tr>
+            <tr><td class="required">Fatura Tarihi</td><td>Fatura kesim tarihi</td><td>Evet</td></tr>
+            <tr><td>Vade Tarihi</td><td>Ödeme vadesi</td><td>Hayir</td></tr>
+            <tr><td>Sipariş Referansi</td><td>İlişkili sipariş numarası</td><td>Hayir</td></tr>
+          </tbody>
+        </table>
+
+        <h3>KDV ve Tevkifat</h3>
+        <table>
+          <thead><tr><th>Kalem</th><th>Oran</th><th>Açıklama</th></tr></thead>
+          <tbody>
+            <tr><td>KDV</td><td>%1, %10, %20</td><td>Ürün kategorisine gore otomatik veya manuel</td></tr>
+            <tr><td>Tevkifat</td><td>%20-%90</td><td>İşçilik, fason üretim vb. için gerektiginde</td></tr>
+          </tbody>
+        </table>
+
+        <h3>e-Fatura</h3>
+        <p>e-Fatura mukellefine kesilen faturalar UBL formatinda olusturulabilir. Entegrasyon ayarlari <code>Ayarlar &gt; e-Fatura</code> sayfasindan yapılandırilir.</p>
+
+        <h3>Fatura Durum Akisi</h3>
+        <div class="flow">
+          <div class="flow-step active">TASLAK</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">KESILDI</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">KISMI ODEME</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">ODENDI</div>
+        </div>
+
+        <div class="tip warning">
+          <div class="tip-title">Dikkat: Fatura Kesildiginde</div>
+          <p>Fatura "KESILDI" durumuna gectiginde cari hesap otomatik güncellenir. Düzenleme için once iptali gerekir.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 7. IRSALIYE -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="irsaliye">
+        <h2>7. İrsaliye (Sevk İrsaliyesi)</h2>
+        <p><strong>Sayfa:</strong> <code>/shipments</code></p>
+        <p>Ürün sevkiyati sirasinda düzenlenir. Sipariş kalemleri ile miktar kontrolü saglar.</p>
+
+        <h3>İrsaliye Oluşturma</h3>
+        <ol>
+          <li>Sipariş detayindan "Sevkiyat Oluştur" tıklayin</li>
+          <li>Sevk edilecek kalemleri ve miktarlari secin</li>
+          <li>Sevk adresi otomatik gelir (müşteri sevkiyat adresi)</li>
+          <li>Tasiyici bilgisini girin (gerekirse)</li>
+          <li>Kaydet &rarr; PDF olarak yazdir</li>
+        </ol>
+
+        <h3>Miktar Kontrolü</h3>
+        <table>
+          <thead><tr><th>Durum</th><th>Açıklama</th></tr></thead>
+          <tbody>
+            <tr><td>Tam Sevk</td><td>Sipariş miktarinin tamami tek seferde sevk edilir</td></tr>
+            <tr><td>Kismi Sevk</td><td>Miktarin bir kismi sevk edilir, kalan için yeni irsaliye kesilir</td></tr>
+            <tr><td>Fazla Sevk</td><td>Sistem uyarı verir, sipariş miktarini aşamaz</td></tr>
+          </tbody>
+        </table>
+
+        <div class="tip info">
+          <div class="tip-title">Bilgi: Sevk Sonrasi</div>
+          <p>İrsaliye olusturuldigunda stok otomatik duser. İlişkili fatura henuz kesilmediyse "Fatura Oluştur" butonu aktif olur.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 8. CARI HESAP -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="cari-hesap">
+        <h2>8. Cari Hesap</h2>
+        <p><strong>Sayfa:</strong> <code>/customer-statement</code></p>
+        <p>Secilen müşterinin tüm mali hareketlerini tek sayfada goruntuleyin.</p>
+
+        <h3>Ekstre Goruntuleme</h3>
+        <table>
+          <thead><tr><th>Kart</th><th>Açıklama</th></tr></thead>
+          <tbody>
+            <tr><td>Toplam Borc</td><td>Müşteriye kesilen faturalarin toplami</td></tr>
+            <tr><td>Toplam Alacak</td><td>Müşteriden alınan tahsilatlarin toplami</td></tr>
+            <tr><td>Bakiye</td><td>Borc - Alacak (pozitif = müşteri borclu)</td></tr>
+            <tr><td>Son İşlem</td><td>En son yapilan hareket tarihi</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Hareket Detaylari</h3>
+        <table>
+          <thead><tr><th>Kolon</th><th>Açıklama</th></tr></thead>
+          <tbody>
+            <tr><td>Tarih</td><td>İşlem tarihi</td></tr>
+            <tr><td>Belge No</td><td>Fatura veya tahsilat makbuzu numarası</td></tr>
+            <tr><td>Açıklama</td><td>İşlem açıklamasi</td></tr>
+            <tr><td>Borc</td><td>Fatura tutari (müşterinin borcu artar)</td></tr>
+            <tr><td>Alacak</td><td>Tahsilat tutari (müşterinin borcu azalir)</td></tr>
+            <tr><td>Bakiye</td><td>Kumulatif bakiye</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Otomatik Güncelleme</h3>
+        <p>Cari hesap su işlemlerden otomatik etkilenir:</p>
+        <ul>
+          <li><strong>Fatura kesildiginde:</strong> Borc artar</li>
+          <li><strong>Ödeme kaydedildiginde:</strong> Alacak artar</li>
+          <li><strong>İade faturasi kesildiginde:</strong> Borc azalir</li>
+          <li><strong>Fatura iptal edildiginde:</strong> Borc azalir</li>
+        </ul>
+
+        <p><strong>PDF Cikti:</strong> "Yazdir" butonu ile belirli tarih araligindaki ekstreyi PDF olarak alın. Varsayılan: son 12 ay.</p>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- SSS -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="faq">
+        <h2>Sorun Giderme &amp; Sik Sorulan Sorular</h2>
+
+        <div class="card">
+          <h4>1. Kabul edilen teklifi siparişe nasil dönüştüruyorum?</h4>
+          <p>ACCEPTED durumundaki teklifin detay sayfasinda "Siparişe Donustur" butonuna tıklayin. Kalemler otomatik aktarilir. Miktar/fiyat duzeltmesi yapabilirsiniz.</p>
+        </div>
+
+        <div class="card">
+          <h4>2. Teklif revizyonu nasil yapılır?</h4>
+          <p>"Revizyon" butonu mevcut teklifi kopyalayarak yeni revizyon oluşturur. Revizyon numarası otomatik artar. Orijinal teklif arsivlenir.</p>
+        </div>
+
+        <div class="card">
+          <h4>3. Müşteri ayni zamanda tedarikçi olabilir mi?</h4>
+          <p>Evet. "Tur" alanında her ikisini secin. Cari bakiye müşteri ve tedarikçi olarak ayri takip edilir.</p>
+        </div>
+
+        <div class="card">
+          <h4>4. Sipariş onay süreçi zorunlu mu?</h4>
+          <p>Hayir. Yalnizca yüksek tutar, özel ürün veya stratejik müşteri kosullarinda tetiklenir. Ayarlardan yapılandırilir.</p>
+        </div>
+
+        <div class="card">
+          <h4>5. Kismi sevkiyat yapabilir miyim?</h4>
+          <p>Evet. İrsaliye olustururken istediginiz miktari secin. Kalan miktar için yeni irsaliye olusturabilirsiniz.</p>
+        </div>
+
+        <div class="card">
+          <h4>6. Fatura kestikten sonra düzeltme yapabilir miyim?</h4>
+          <p>"KESILDI" durumundaki fatura düzenlenemez. Once iptal edin, sonra yeni fatura olustürün. Iptal edilen fatura arsivlenir.</p>
+        </div>
+
+        <div class="card">
+          <h4>7. Cari bakiye neden yanlis gorunuyor?</h4>
+          <p>Taslak faturadir cari bakiyeye yansimaz. Faturanin "KESILDI" durumunda oldugundan emin olun. Ödeme kayıtlarıni da kontrol edin.</p>
+        </div>
+
+        <div class="card">
+          <h4>8. Döviz cinsinden teklif/fatura olusturabilir miyim?</h4>
+          <p>Evet. Teklif/fatura formunda para birimini secin (USD, EUR). TCMB günlük kurları otomatik cekilir. Cari bakiye TRY karsiligiyla tutulur.</p>
+        </div>
+
+        <div class="card">
+          <h4>9. Teklif gonderildikten sonra geri alabilir miyim?</h4>
+          <p>SENT durumundaki teklif geri alınamaz. Ancak "Revizyon" ile yeni teklif olusturup eski teklifi iptal edebilirsiniz.</p>
+        </div>
+
+        <div class="card">
+          <h4>10. e-Fatura nasil kesiyorum?</h4>
+          <p>Ayarlar &gt; e-Fatura sayfasindan entegrasyonu yapılandırin. Fatura olustururken "e-Fatura" secenegini isaretleyin. UBL formati otomatik olusur.</p>
+        </div>
+
+        <div class="card">
+          <h4>11. Sipariş gecikme uyarısini nasil goruyorum?</h4>
+          <p>Satış &gt; Siparişler &gt; "Geciken" sekmesinde teslim tarihi geçmiş siparişler listelenir. Dashboard'da da kirmizi uyarı karti görüntülenir.</p>
+        </div>
+
+        <div class="card">
+          <h4>12. PDF teklif/fatura şablonunu değiştirebilir miyim?</h4>
+          <p>Evet. Ayarlar &gt; Belge Şablonlari sayfasindan logo, renk ve içerik düzenlemesi yapabilirsiniz.</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="doc-footer">
+    Quvex ERP &mdash; Kullanıcı Kılavuzu &copy; 2026
+  </footer>
+
+</div>
+<script src="js/guide-enhancements.js"></script>
+</body>
+</html>

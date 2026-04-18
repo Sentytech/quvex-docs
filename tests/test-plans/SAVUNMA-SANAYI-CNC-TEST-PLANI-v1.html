@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quvex ERP — Savunma Sanayi CNC E2E Test Planı v1.0</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #1e3a5f;
+  --orange: #e85c2d;
+  --green: #16a34a;
+  --red: #dc2626;
+  --gray: #6b7280;
+  --light: #f4f7fb;
+  --border: #d0daea;
+  --pass-bg: #f0fdf4;
+  --fail-bg: #fef2f2;
+  --skip-bg: #f9fafb;
+}
+body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #1a1a1a; background: #f0f2f5; }
+.sticky-bar {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--navy); color: #fff;
+  display: flex; align-items: center; gap: 16px;
+  padding: 10px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.sticky-logo { font-weight: 900; font-size: 18px; letter-spacing: -1px; }
+.sticky-logo span { color: var(--orange); }
+.sticky-title { font-size: 12px; color: rgba(255,255,255,0.75); flex: 1; }
+.sticky-stats { display: flex; gap: 12px; align-items: center; }
+.sticky-stat { text-align: center; }
+.sticky-stat .n { font-size: 20px; font-weight: 700; line-height: 1; }
+.sticky-stat .l { font-size: 10px; color: rgba(255,255,255,0.6); }
+.stat-pass .n { color: #4ade80; }
+.stat-fail .n { color: #f87171; }
+.stat-skip .n { color: #fbbf24; }
+.progress-wrap { width: 180px; }
+.progress-bar-bg { background: rgba(255,255,255,0.2); border-radius: 6px; height: 8px; overflow: hidden; }
+.progress-bar-fill { height: 100%; background: linear-gradient(90deg,#4ade80,#22c55e); border-radius: 6px; transition: width .4s; }
+.progress-pct { font-size: 11px; color: rgba(255,255,255,0.7); margin-top: 3px; text-align: right; }
+.btn-print { background: var(--orange); color: #fff; border: none; padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; }
+.btn-print:hover { background: #c94c1e; }
+.btn-reset { background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.3); padding: 6px 14px; border-radius: 20px; font-size: 11px; cursor: pointer; }
+.page-wrap { max-width: 960px; margin: 0 auto; padding: 24px 16px 60px; }
+.cover {
+  background: #fff; border-radius: 10px; padding: 48px 48px 40px;
+  text-align: center; margin-bottom: 24px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.08);
+}
+.cover-logo { font-size: 52px; font-weight: 900; color: var(--navy); letter-spacing: -3px; }
+.cover-logo span { color: var(--orange); }
+.cover-sub { font-size: 12px; color: #888; letter-spacing: 3px; text-transform: uppercase; margin: 4px 0 28px; }
+.cover-title { font-size: 26px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+.cover-scenario { font-size: 15px; color: #555; margin-bottom: 32px; }
+.cover-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 760px; margin: 0 auto 24px; }
+.cover-card { background: var(--light); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; text-align: left; }
+.cover-card .k { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+.cover-card .v { font-size: 14px; font-weight: 600; color: var(--navy); }
+.cover-badge { display: inline-block; background: var(--orange); color: #fff; font-weight: 700; font-size: 11px; padding: 5px 18px; border-radius: 20px; letter-spacing: 1px; margin-bottom: 16px; }
+.cover-warning { display: inline-block; border: 2px solid #f0a500; background: #fffbf0; border-radius: 8px; padding: 14px 20px; font-size: 12px; color: #7a4900; max-width: 680px; text-align: left; line-height: 1.6; }
+.card { background: #fff; border-radius: 8px; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,.07); overflow: hidden; }
+.faz-header {
+  background: var(--navy); color: #fff; padding: 14px 20px;
+  display: flex; align-items: center; gap: 12px; cursor: pointer;
+  user-select: none;
+}
+.faz-badge { background: var(--orange); font-size: 11px; font-weight: 700; padding: 3px 12px; border-radius: 20px; letter-spacing: 1px; white-space: nowrap; }
+.faz-title { font-size: 15px; font-weight: 600; flex: 1; }
+.faz-meta { font-size: 11px; color: rgba(255,255,255,0.6); }
+.faz-pct { font-size: 12px; font-weight: 700; color: #4ade80; min-width: 36px; text-align: right; }
+.faz-toggle { font-size: 16px; transition: transform .25s; }
+.faz-header.collapsed .faz-toggle { transform: rotate(-90deg); }
+.faz-body { border-top: 1px solid rgba(255,255,255,0.08); }
+.step {
+  padding: 18px 20px; border-bottom: 1px solid var(--border);
+  transition: background .2s;
+}
+.step:last-child { border-bottom: none; }
+.step.passed  { background: var(--pass-bg); }
+.step.failed  { background: var(--fail-bg); }
+.step.skipped { background: var(--skip-bg); }
+.step-top { display: flex; align-items: flex-start; gap: 12px; }
+.step-num {
+  background: var(--navy); color: #fff; width: 30px; height: 30px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 12px; flex-shrink: 0; margin-top: 1px;
+}
+.step.passed  .step-num { background: var(--green); }
+.step.failed  .step-num { background: var(--red); }
+.step.skipped .step-num { background: var(--gray); }
+.step-content { flex: 1; }
+.step-title { font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+.step-role  { font-size: 11px; color: #888; margin-bottom: 10px; }
+.step-role strong { color: var(--navy); }
+.nav-box {
+  background: #f0f7ff; border: 1px solid #bfdbfe; border-radius: 6px;
+  padding: 10px 14px; margin: 8px 0 12px; font-size: 12px;
+}
+.nav-box .nav-label { font-weight: 700; color: #1e40af; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.nav-step { display: flex; align-items: center; gap: 8px; margin: 4px 0; color: #1e3a5f; }
+.nav-step .arrow { color: var(--orange); font-size: 14px; flex-shrink: 0; }
+.nav-step code { background: rgba(0,0,0,.06); padding: 1px 6px; border-radius: 3px; font-size: 11px; }
+.data-table { width: 100%; border-collapse: collapse; margin: 8px 0 12px; font-size: 12px; }
+.data-table th { background: var(--navy); color: #fff; padding: 7px 10px; text-align: left; font-size: 11px; font-weight: 600; }
+.data-table td { padding: 6px 10px; border-bottom: 1px solid #e8edf5; vertical-align: top; }
+.data-table tr:nth-child(even) td { background: #f8fafd; }
+.data-table .fn { font-weight: 600; color: var(--navy); width: 28%; white-space: nowrap; }
+.data-table .fv { font-family: 'Courier New', monospace; }
+.data-table .fd { color: #888; font-size: 11px; font-style: italic; }
+.expected {
+  background: #faf5ff; border-left: 4px solid #7c3aed;
+  padding: 10px 14px; margin: 10px 0; border-radius: 0 6px 6px 0;
+}
+.expected .exp-title { font-size: 11px; font-weight: 700; color: #5b21b6; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.expected ul { padding-left: 18px; font-size: 12px; }
+.expected li { margin: 3px 0; }
+.box-info { background: #eff6ff; border-left: 4px solid #3b82f6; padding: 8px 12px; margin: 8px 0; border-radius: 0 4px 4px 0; font-size: 12px; color: #1e40af; }
+.box-warn { background: #fffbeb; border-left: 4px solid #f59e0b; padding: 8px 12px; margin: 8px 0; border-radius: 0 4px 4px 0; font-size: 12px; color: #92400e; }
+.checklist { background: #f0fdf4; border: 1px solid #86efac; border-radius: 6px; padding: 12px 14px; margin: 10px 0; }
+.checklist-title { font-size: 11px; font-weight: 700; color: #14532d; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.checklist label { display: flex; align-items: flex-start; gap: 8px; margin: 5px 0; font-size: 12px; cursor: pointer; line-height: 1.4; }
+.checklist input[type="checkbox"] { width: 15px; height: 15px; margin-top: 1px; flex-shrink: 0; accent-color: var(--green); }
+.result-bar {
+  display: flex; align-items: center; gap: 10px; margin-top: 14px;
+  padding-top: 12px; border-top: 1px dashed var(--border);
+  flex-wrap: wrap;
+}
+.result-label { font-size: 11px; color: #888; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+.btn-result {
+  padding: 6px 18px; border-radius: 20px; font-size: 12px; font-weight: 600;
+  border: 2px solid transparent; cursor: pointer; transition: all .15s;
+  display: flex; align-items: center; gap: 6px;
+}
+.btn-pass  { background: #dcfce7; color: var(--green);  border-color: #86efac; }
+.btn-fail  { background: #fee2e2; color: var(--red);    border-color: #fca5a5; }
+.btn-skip  { background: #f3f4f6; color: var(--gray);   border-color: #d1d5db; }
+.btn-pass:hover  { background: var(--green); color: #fff; }
+.btn-fail:hover  { background: var(--red);   color: #fff; }
+.btn-skip:hover  { background: var(--gray);  color: #fff; }
+.btn-pass.active  { background: var(--green); color: #fff; border-color: var(--green); }
+.btn-fail.active  { background: var(--red);   color: #fff; border-color: var(--red); }
+.btn-skip.active  { background: var(--gray);  color: #fff; border-color: var(--gray); }
+.result-note-wrap { width: 100%; }
+.result-note {
+  width: 100%; border: 1px solid var(--border); border-radius: 4px;
+  padding: 6px 10px; font-size: 12px; resize: vertical; min-height: 38px;
+  font-family: inherit; color: #333; margin-top: 6px; display: none;
+}
+.step.failed .result-note { display: block; border-color: #fca5a5; }
+.result-status-tag {
+  margin-left: auto; font-size: 11px; font-weight: 700; padding: 3px 12px;
+  border-radius: 20px; letter-spacing: 1px;
+}
+.tag-pass  { background: #dcfce7; color: var(--green); }
+.tag-fail  { background: #fee2e2; color: var(--red); }
+.tag-skip  { background: #f3f4f6; color: var(--gray); }
+.summary-card { background: #fff; border-radius: 10px; padding: 28px 28px 24px; margin-top: 24px; box-shadow: 0 1px 4px rgba(0,0,0,.07); }
+.summary-header { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+.summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
+.sum-box { border-radius: 8px; padding: 16px; text-align: center; }
+.sum-box .n { font-size: 36px; font-weight: 800; line-height: 1; }
+.sum-box .l { font-size: 12px; margin-top: 4px; }
+.sum-total  { background: #eff6ff; color: #1e40af; }
+.sum-pass   { background: #dcfce7; color: var(--green); }
+.sum-fail   { background: #fee2e2; color: var(--red); }
+.sum-skip   { background: #f3f4f6; color: var(--gray); }
+.pass-rate-bar { background: #e5e7eb; border-radius: 8px; height: 14px; overflow: hidden; margin: 8px 0; }
+.pass-rate-fill { height: 100%; background: linear-gradient(90deg, var(--green), #4ade80); border-radius: 8px; transition: width .6s; }
+.fail-list { border: 1px solid #fca5a5; border-radius: 6px; overflow: hidden; }
+.fail-list-header { background: #fee2e2; padding: 8px 14px; font-size: 12px; font-weight: 600; color: var(--red); }
+.fail-item { padding: 8px 14px; border-top: 1px solid #fde8e8; font-size: 12px; display: flex; gap: 8px; }
+.fail-item .fi-num { background: var(--red); color: #fff; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0; }
+.sign-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 20px; }
+.sign-box { border: 1px solid #aaa; border-radius: 6px; padding: 14px; }
+.sign-box .sl { font-size: 10px; color: #888; display: block; margin-bottom: 28px; }
+.sign-box .sl2 { border-top: 1px solid #333; padding-top: 4px; font-size: 10px; color: #888; }
+.kh-toggle {
+  background: #fef9c3; border: 1px solid #fde047; border-radius: 6px;
+  padding: 9px 14px; cursor: pointer; display: flex; align-items: center;
+  gap: 8px; margin: 10px 0 0; font-size: 12px; font-weight: 600; color: #854d0e;
+  user-select: none;
+}
+.kh-toggle:hover { background: #fef08a; }
+.kh-arr { margin-left: auto; transition: transform .25s; display: inline-block; }
+.kh-toggle.open .kh-arr { transform: rotate(180deg); }
+.kh-body { display: none; background: #fffef0; border: 1px solid #fde047;
+  border-top: none; border-radius: 0 0 6px 6px; padding: 12px 14px; }
+.kh-body.open { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.kh-item { padding: 10px 12px; border-radius: 6px; font-size: 12px; line-height: 1.5; }
+.kh-what   { background: #eff6ff; border-left: 3px solid #3b82f6; }
+.kh-why    { background: #f0fdf4; border-left: 3px solid #16a34a; }
+.kh-impact { background: #faf5ff; border-left: 3px solid #7c3aed; }
+.kh-error  { background: #fff7ed; border-left: 3px solid #ea580c; }
+.kh-label  { font-weight: 700; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+.kh-what .kh-label   { color: #1d4ed8; }
+.kh-why .kh-label    { color: #15803d; }
+.kh-impact .kh-label { color: #6d28d9; }
+.kh-error .kh-label  { color: #c2410c; }
+@media print {
+  .sticky-bar, .btn-result, .result-note, .btn-print, .btn-reset, .kh-toggle, .kh-body { display: none !important; }
+  .faz-body.collapsed { display: block !important; }
+  body { background: #fff; font-size: 11px; }
+  .page-wrap { max-width: 100%; padding: 0; }
+  .cover { box-shadow: none; border: 1px solid #ddd; page-break-after: always; }
+  .card { box-shadow: none; border: 1px solid #ddd; page-break-inside: avoid; margin-bottom: 8px; }
+  .summary-card { page-break-before: always; }
+  .faz-toggle { display: none; }
+  .step { padding: 10px 14px; }
+  .step.passed  { border-left: 4px solid var(--green); }
+  .step.failed  { border-left: 4px solid var(--red);   }
+  .step.skipped { border-left: 4px solid var(--gray);  }
+  .result-status-tag { display: inline-block !important; }
+  @page { size: A4; margin: 15mm 12mm; }
+}
+</style>
+</head>
+<body>
+<div class="sticky-bar">
+  <div class="sticky-logo">QUVEX<span>.</span></div>
+  <div class="sticky-title">Savunma Sanayi CNC — E2E Test Planı v1.0</div>
+  <div class="sticky-stats">
+    <div class="sticky-stat stat-pass"><div class="n" id="hdr-pass">0</div><div class="l">GEÇTİ</div></div>
+    <div class="sticky-stat stat-fail"><div class="n" id="hdr-fail">0</div><div class="l">BAŞARISIZ</div></div>
+    <div class="sticky-stat stat-skip"><div class="n" id="hdr-skip">0</div><div class="l">ATLANDI</div></div>
+    <div class="progress-wrap">
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="prog-fill" style="width:0%"></div></div>
+      <div class="progress-pct" id="prog-pct">0 / 20 adım</div>
+    </div>
+  </div>
+  <button class="btn-print" onclick="window.print()">Rapor Yazdır</button>
+  <button class="btn-reset" onclick="resetAll()">Sıfırla</button>
+</div>
+
+<div class="page-wrap">
+  <div class="cover">
+    <div class="cover-logo">QUVEX<span>.</span></div>
+    <div class="cover-sub">ERP Platform · Test Planı &amp; Sonuç Raporu</div>
+    <div class="cover-badge">PLAYWRIGHT E2E SENARYO DOKÜMANI</div>
+    <div class="cover-title">Savunma Sanayi CNC — Talaşlı İmalat</div>
+    <div class="cover-scenario">Karadağ Hassas İşleme → ROKETSAN füze başlık gövdesi siparişi için müşteri, stok, ürün, teklif, üretim, kalite ve savunma modülü kontrolleri</div>
+    <div class="cover-grid">
+      <div class="cover-card">
+        <div class="k">Ana Kaynak Spec</div>
+        <div class="v">tests/e2e/defense-cnc/cnc-data-entry-e2e.spec.js</div>
+      </div>
+      <div class="cover-card">
+        <div class="k">Ek Kapsam Spec</div>
+        <div class="v">tests/e2e/defense-cnc/defense-cnc-full-e2e.spec.js</div>
+      </div>
+      <div class="cover-card">
+        <div class="k">Reporter</div>
+        <div class="v">playwright-report/defense-cnc</div>
+      </div>
+      <div class="cover-card">
+        <div class="k">Base URL</div>
+        <div class="v">https://quvex.io</div>
+      </div>
+      <div class="cover-card">
+        <div class="k">Projeler</div>
+        <div class="v">auth-setup, defense-cnc, cnc-data-entry, perf-timing, cleanup</div>
+      </div>
+      <div class="cover-card">
+        <div class="k">Toplam Adım / Bölüm</div>
+        <div class="v" id="cv-total">20 adım · 10 bölüm</div>
+      </div>
+    </div>
+    <div class="cover-warning">
+      Bu plan, klasördeki iki ana akışı birleştirir: <strong>gerçek veri girişi</strong> yapan `cnc-data-entry-e2e.spec.js` ve <strong>geniş sayfa kapsaması</strong> sağlayan `defense-cnc-full-e2e.spec.js`. Şablon, örnek test planındaki gibi manuel işaretleme, yazdırılabilir çıktı, Know-How kutuları ve özet rapor mantığıyla hazırlanmıştır.
+    </div>
+  </div>
+
+  <div class="card" id="faz-A">
+    <div class="faz-header" onclick="toggleFaz(this)">
+      <span class="faz-badge">BÖLÜM 1</span>
+      <span class="faz-title">FAZ A — Müşteri ve Tedarikçi</span>
+      <span class="faz-meta">ROKETSAN müşteri kaydı, Alcoa tedarikçi kaydı</span>
+      <span class="faz-pct" id="pct-A">—</span>
+      <span class="faz-toggle">▼</span>
+    </div>
+    <div class="faz-body">
+      <div class="step" id="step-A1">
+        <div class="step-top">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-title">A.1 — Müşteriler sayfası açılır ve ROKETSAN müşteri kartı kaydedilir</div>
+            <div class="step-role">Yapacak: <strong>CRM / Satış Operasyon</strong></div>
+            <div class="nav-box">
+              <div class="nav-label">Nasıl Gidilir?</div>
+              <div class="nav-step"><span class="arrow">①</span> <code>/customers</code> sayfasına git</div>
+              <div class="nav-step"><span class="arrow">②</span> <strong>Ekle / Yeni</strong> ile drawer veya modal aç</div>
+              <div class="nav-step"><span class="arrow">③</span> Müşteri bilgilerini doldur ve <strong>Kaydet</strong></div>
+            </div>
+            <table class="data-table">
+              <tr><th>Alan</th><th>Değer</th><th>Not</th></tr>
+              <tr><td class="fn">Müşteri</td><td class="fv">ROKETSAN A.Ş.</td><td class="fd">Füze başlık gövdesi müşterisi</td></tr>
+              <tr><td class="fn">Yetkili</td><td class="fv">Cmdr. Yılmaz Savunma</td><td class="fd"></td></tr>
+              <tr><td class="fn">E-posta</td><td class="fv">yilmaz@roketsan.com.tr</td><td class="fd"></td></tr>
+              <tr><td class="fn">Telefon</td><td class="fv">3128600000</td><td class="fd"></td></tr>
+              <tr><td class="fn">Vergi No</td><td class="fv">1234567890</td><td class="fd">Spec içindeki gerçek test verisi</td></tr>
+            </table>
+            <div class="box-warn"><strong>Dikkat:</strong> Yeni tenant’ta Joyride onboarding açılırsa tüm tıklamaları engelleyebilir. Spec, her sayfa geçişinde önce <strong>Atla</strong> akışını kapatıyor.</div>
+            <div class="expected">
+              <div class="exp-title">✅ Beklenen Sonuç</div>
+              <ul>
+                <li>Müşteriler sayfası hatasız açılır.</li>
+                <li>ROKETSAN kaydı sonrası toast veya kayıt sonucu log’da görünür.</li>
+                <li>Liste sayfasına dönüldüğünde HTML içinde <strong>ROKETSAN</strong> aranabilir durumdadır.</li>
+              </ul>
+            </div>
+            <div class="checklist">
+              <div class="checklist-title">Kontrol Listesi</div>
+              <label><input type="checkbox"> Form açıldı ve alanlar doldurulabildi.</label>
+              <label><input type="checkbox"> Kaydet sonrası hata ekranı oluşmadı.</label>
+              <label><input type="checkbox"> ROKETSAN adı listede veya body HTML içinde bulundu.</label>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Müşteri kartı, tekliften faturaya kadar tüm ticari zincirin referans ana kaydıdır.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Savunma projelerinde müşteri eşleşmesi yanlışsa tüm evrak yanlış kuruma bağlanır.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Teklif, satış, fatura, rapor ve teslimat akışları bu karta dayanır.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Yanlış müşteri ile açılan kayıtlar sonraki tüm adımlarda zincirleme veri bozukluğu üretir.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuç:</span>
+              <button class="btn-result btn-pass" onclick="setResult('A1','pass')">✔ GEÇTİ</button>
+              <button class="btn-result btn-fail" onclick="setResult('A1','fail')">✘ BAŞARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('A1','skip')">— ATLANDI</button>
+              <span class="result-status-tag" id="tag-A1"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-A1" placeholder="Hata açıklaması…" oninput="saveNote('A1',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step" id="step-A2">
+        <div class="step-top">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title">A.2 — Tedarikçiler sayfası açılır ve Alcoa tedarikçisi kaydedilir</div>
+            <div class="step-role">Yapacak: <strong>Satınalma / Tedarik Zinciri</strong></div>
+            <div class="nav-box">
+              <div class="nav-label">Nasıl Gidilir?</div>
+              <div class="nav-step"><span class="arrow">①</span> <code>/customers?type=suppliers</code> sayfasına git</div>
+              <div class="nav-step"><span class="arrow">②</span> <strong>Ekle</strong> ile tedarikçi formunu aç</div>
+              <div class="nav-step"><span class="arrow">③</span> Alcoa bilgilerini girip kaydet</div>
+            </div>
+            <table class="data-table">
+              <tr><th>Alan</th><th>Değer</th><th>Not</th></tr>
+              <tr><td class="fn">Tedarikçi</td><td class="fv">Alcoa Turkiye</td><td class="fd">Al 7075 hammaddesi kaynağı</td></tr>
+              <tr><td class="fn">Yetkili</td><td class="fv">Mehmet Aluminyum</td><td class="fd"></td></tr>
+              <tr><td class="fn">E-posta</td><td class="fv">mehmet@alcoa.com.tr</td><td class="fd"></td></tr>
+              <tr><td class="fn">Telefon</td><td class="fv">2123334455</td><td class="fd"></td></tr>
+            </table>
+            <div class="expected">
+              <div class="exp-title">✅ Beklenen Sonuç</div>
+              <ul>
+                <li>Tedarikçi sayfası hatasız açılır.</li>
+                <li>Alcoa kaydı sonrası toast veya console log pozitif görünür.</li>
+                <li>Satınalma tarafı için temel tedarikçi kartı hazır hale gelir.</li>
+              </ul>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Tedarikçi kartı, hammadde alımı ve kalite izlenebilirliği için açılan ticari kayıttır.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Malzeme lot takibi ve tedarikçi değerlendirmesi bu karta bağlı ilerler.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Satınalma, giriş muayenesi, tedarikçi kalite puanı ve maliyet analizleri etkilenir.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Yanlış tedarikçi altında açılan malzeme girişleri denetim ve geri çağırma süreçlerini zora sokar.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuç:</span>
+              <button class="btn-result btn-pass" onclick="setResult('A2','pass')">✔ GEÇTİ</button>
+              <button class="btn-result btn-fail" onclick="setResult('A2','fail')">✘ BAŞARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('A2','skip')">— ATLANDI</button>
+              <span class="result-status-tag" id="tag-A2"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-A2" placeholder="Hata açıklaması…" oninput="saveNote('A2',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="faz-B">
+    <div class="faz-header" onclick="toggleFaz(this)">
+      <span class="faz-badge">BÖLÜM 2</span>
+      <span class="faz-title">FAZ B — Makine ve Depo</span>
+      <span class="faz-meta">CNC tezgah tanımı ve hammadde deposu</span>
+      <span class="faz-pct" id="pct-B">—</span>
+      <span class="faz-toggle">▼</span>
+    </div>
+    <div class="faz-body">
+      <div class="step" id="step-B1">
+        <div class="step-top">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-title">B.1 — Makineler sayfası açılır ve CNC-T1 makinesi kaydedilir</div>
+            <div class="step-role">Yapacak: <strong>Üretim Mühendisliği</strong></div>
+            <div class="nav-box">
+              <div class="nav-label">Nasıl Gidilir?</div>
+              <div class="nav-step"><span class="arrow">①</span> <code>/settings/machines</code> sayfasını aç</div>
+              <div class="nav-step"><span class="arrow">②</span> Modal üzerinden makine kartını doldur</div>
+              <div class="nav-step"><span class="arrow">③</span> Kaydet ve listede <code>CNC-T1</code> araması yap</div>
+            </div>
+            <table class="data-table">
+              <tr><th>Alan</th><th>Değer</th><th>Not</th></tr>
+              <tr><td class="fn">Kod</td><td class="fv">CNC-T1</td><td class="fd"></td></tr>
+              <tr><td class="fn">Ad</td><td class="fv">Doosan Lynx 220 CNC Torna</td><td class="fd"></td></tr>
+              <tr><td class="fn">Marka</td><td class="fv">Doosan</td><td class="fd"></td></tr>
+              <tr><td class="fn">Saatlik Ücret</td><td class="fv">450</td><td class="fd">Maliyet ve kapasite için</td></tr>
+            </table>
+            <div class="expected">
+              <div class="exp-title">✅ Beklenen Sonuç</div>
+              <ul>
+                <li>Makineler sayfası yüklenir.</li>
+                <li>Makine kaydı sonrası toast veya olumlu log alınır.</li>
+                <li>Liste HTML’inde <strong>CNC-T1</strong> aranabilir hale gelir.</li>
+              </ul>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Makine kartı, iş emirlerinin bağlanacağı üretim kaynağıdır.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Saatlik maliyet, kapasite ve ShopFloor kurgusu burada başlar.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Parça maliyeti, operasyon planı ve bakım/OEE raporları etkilenir.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Yanlış kod veya ücret, üretim ve maliyet raporlarını doğrudan bozar.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuç:</span>
+              <button class="btn-result btn-pass" onclick="setResult('B1','pass')">✔ GEÇTİ</button>
+              <button class="btn-result btn-fail" onclick="setResult('B1','fail')">✘ BAŞARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('B1','skip')">— ATLANDI</button>
+              <span class="result-status-tag" id="tag-B1"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-B1" placeholder="Hata açıklaması…" oninput="saveNote('B1',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step" id="step-B2">
+        <div class="step-top">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-title">B.2 — Depolar sayfası açılır ve hammadde deposu kaydedilir</div>
+            <div class="step-role">Yapacak: <strong>Depo / Lojistik</strong></div>
+            <div class="nav-box">
+              <div class="nav-label">Nasıl Gidilir?</div>
+              <div class="nav-step"><span class="arrow">①</span> <code>/warehouses</code> sayfasını aç</div>
+              <div class="nav-step"><span class="arrow">②</span> Depo modalında kod ve isim bilgilerini gir</div>
+              <div class="nav-step"><span class="arrow">③</span> Kaydet ve listede doğrula</div>
+            </div>
+            <table class="data-table">
+              <tr><th>Alan</th><th>Değer</th><th>Not</th></tr>
+              <tr><td class="fn">Depo Kodu</td><td class="fv">DEPO-HAM</td><td class="fd"></td></tr>
+              <tr><td class="fn">Depo Adı</td><td class="fv">Hammadde Deposu</td><td class="fd">Al 7075 stokları için</td></tr>
+            </table>
+            <div class="expected">
+              <div class="exp-title">✅ Beklenen Sonuç</div>
+              <ul>
+                <li>Depolar sayfası açılır.</li>
+                <li><strong>DEPO-HAM</strong> kaydı sonrası log ve toast alınır.</li>
+                <li>Hammadde stoğu için kullanılacak depo tanımı tamamlanır.</li>
+              </ul>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Depo kartı, fiziksel stok lokasyonunun ERP içindeki karşılığıdır.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Hammadde girişleri depo olmadan izlenebilir ve raporlanabilir şekilde tutulamaz.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Stok giriş/çıkış, sayım, transfer ve üretim malzeme çekiş akışlarını etkiler.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Yanlış depo altında açılan malzeme stokları sayım ve maliyet farkı yaratır.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuç:</span>
+              <button class="btn-result btn-pass" onclick="setResult('B2','pass')">✔ GEÇTİ</button>
+              <button class="btn-result btn-fail" onclick="setResult('B2','fail')">✘ BAŞARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('B2','skip')">— ATLANDI</button>
+              <span class="result-status-tag" id="tag-B2"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-B2" placeholder="Hata açıklaması…" oninput="saveNote('B2',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="faz-C">
+    <div class="faz-header" onclick="toggleFaz(this)">
+      <span class="faz-badge">BÖLÜM 3</span>
+      <span class="faz-title">FAZ C — Stok Kartı ve Malzeme Girişi</span>
+      <span class="faz-meta">Al 7075 hammadde kartı ve stok giriş ekranı</span>
+      <span class="faz-pct" id="pct-C">—</span>
+      <span class="faz-toggle">▼</span>
+    </div>
+    <div class="faz-body">
+      <div class="step" id="step-C1">
+        <div class="step-top">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <div class="step-title">C.1 — Stok sayfası açılır ve Al 7075 hammadde kartı oluşturulur</div>
+            <div class="step-role">Yapacak: <strong>Stok Yönetimi</strong></div>
+            <div class="nav-box">
+              <div class="nav-label">Nasıl Gidilir?</div>
+              <div class="nav-step"><span class="arrow">①</span> <code>/stocks</code> sayfasına git</div>
+              <div class="nav-step"><span class="arrow">②</span> Modal içinde ürün numarası, adı ve minimum stoğu doldur</div>
+              <div class="nav-step"><span class="arrow">③</span> Birim alanında <strong>ADET</strong> seçip kaydet</div>
+            </div>
+            <table class="data-table">
+              <tr><th>Alan</th><th>Değer</th><th>Not</th></tr>
+              <tr><td class="fn">Stok Kodu</td><td class="fv">HAM-AL7075-080150</td><td class="fd"></td></tr>
+              <tr><td class="fn">Stok Adı</td><td class="fv">Al 7075-T6 Cubuk D80x150mm</td><td class="fd"></td></tr>
+              <tr><td class="fn">Min. Stok</td><td class="fv">100</td><td class="fd"></td></tr>
+              <tr><td class="fn">Birim</td><td class="fv">ADET</td><td class="fd">Select label üzerinden seçiliyor</td></tr>
+            </table>
+            <div class="expected">
+              <div class="exp-title">✅ Beklenen Sonuç</div>
+              <ul>
+                <li>Stok kartı kaydedilir.</li>
+                <li>Liste sayfasında <strong>HAM-AL7075</strong> veya ürün adı bulunur.</li>
+                <li>Stok kartı sonraki ürün ve teklif akışları için hazırdır.</li>
+              </ul>
+            </div>
+            <div class="box-warn"><strong>Dikkat:</strong> Spec’te stok formu modal/drawer animasyonu için ek <strong>800 ms</strong> bekleme var; hızlı tıklama alanları kaçırabilir.</div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Bu kart, mamul üretimde kullanılacak Al 7075-T6 hammaddenin stok tanımıdır.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Hammadde kartı olmadan depo, reçete ve maliyet hesapları zinciri kurulamaz.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Stok seviyesi, üretim planı ve parça maliyeti bu karttan beslenir.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Yanlış birim veya min stok, satınalma ve stok planlama kararlarını bozar.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuç:</span>
+              <button class="btn-result btn-pass" onclick="setResult('C1','pass')">✔ GEÇTİ</button>
+              <button class="btn-result btn-fail" onclick="setResult('C1','fail')">✘ BAŞARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('C1','skip')">— ATLANDI</button>
+              <span class="result-status-tag" id="tag-C1"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-C1" placeholder="Hata açıklaması…" oninput="saveNote('C1',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="step" id="step-C2">
+        <div class="step-top">
+          <div class="step-num">6</div>
+          <div class="step-content">
+            <div class="step-title">C.2 — Stok giriş/çıkış sayfası açılır ve malzeme hareket ekranı doğrulanır</div>
+            <div class="step-role">Yapacak: <strong>Depo / Satınalma Operasyon</strong></div>
+            <div class="nav-box">
+              <div class="nav-label">Nasıl Gidilir?</div>
+              <div class="nav-step"><span class="arrow">①</span> <code>/stock-receipts</code> ekranını aç</div>
+              <div class="nav-step"><span class="arrow">②</span> Sayfa HTML’inin yüklenip yüklenmediğini kontrol et</div>
+            </div>
+            <div class="expected">
+              <div class="exp-title">✅ Beklenen Sonuç</div>
+              <ul>
+                <li>Stok giriş/çıkış sayfası 200+ içerik uzunluğuyla yüklenir.</li>
+                <li>Malzeme hareketi modülü görüntülenebilir durumdadır.</li>
+              </ul>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Malzeme giriş/çıkış ekranı, fiziksel stok hareketlerinin ERP’de işlendiği ana akıştır.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Hammadde stoğu tanımlı olsa bile giriş hareketi olmadan kullanılabilir bakiyeye dönüşmez.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Depo bakiyesi, giriş muayenesi ve maliyet doğruluğu etkilenir.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Bu ekran açılmazsa tedarik akışı üretime bağlanamaz; stok var görünse de fiilen kullanılamaz.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuç:</span>
+              <button class="btn-result btn-pass" onclick="setResult('C2','pass')">✔ GEÇTİ</button>
+              <button class="btn-result btn-fail" onclick="setResult('C2','fail')">✘ BAŞARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('C2','skip')">— ATLANDI</button>
+              <span class="result-status-tag" id="tag-C2"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-C2" placeholder="Hata açıklaması…" oninput="saveNote('C2',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="faz-D">
+    <div class="faz-header" onclick="toggleFaz(this)">
+      <span class="faz-badge">BÖLÜM 4</span>
+      <span class="faz-title">FAZ D — Mamul Ürün Kartı</span>
+      <span class="faz-meta">RKT-BHG-7075 ürün kartı ve detay görünümü</span>
+      <span class="faz-pct" id="pct-D">—</span>
+      <span class="faz-toggle">▼</span>
+    </div>
+    <div class="faz-body">
+      <div class="step" id="step-D1">
+        <div class="step-top">
+          <div class="step-num">7</div>
+          <div class="step-content">
+            <div class="step-title">D.1 — Ürün formu açılır ve mamul ürün kartı kaydedilir</div>
+            <div class="step-role">Yapacak: <strong>Ürün Yönetimi / Mühendislik</strong></div>
+            <div class="nav-box">
+              <div class="nav-label">Nasıl Gidilir?</div>
+              <div class="nav-step"><span class="arrow">①</span> <code>/products/form</code> sayfasına git</div>
+              <div class="nav-step"><span class="arrow">②</span> Ürün, teknik resim ve OEM alanlarını doldur</div>
+              <div class="nav-step"><span class="arrow">③</span> Birimi <strong>ADET</strong> seç ve <strong>Kaydet</strong></div>
+            </div>
+            <table class="data-table">
+              <tr><th>Alan</th><th>Değer</th><th>Not</th></tr>
+              <tr><td class="fn">Ürün No</td><td class="fv">RKT-BHG-7075</td><td class="fd"></td></tr>
+              <tr><td class="fn">Ürün Adı</td><td class="fv">ROKETSAN Fuze Baslik Govdesi RKT-BHG-7075</td><td class="fd"></td></tr>
+              <tr><td class="fn">Teknik Resim</td><td class="fv">TRS-RKT-BHG-7075-A</td><td class="fd"></td></tr>
+              <tr><td class="fn">Revizyon</td><td class="fv">REV-A</td><td class="fd"></td></tr>
+              <tr><td class="fn">OEM Parça No</td><td class="fv">RKT-P7075-001</td><td class="fd"></td></tr>
+            </table>
+            <div class="box-warn"><strong>Dikkat:</strong> Spec’te ürün formundaki birincil butonlar arasında geri ve kaydet birlikte bulunabiliyor. Bu yüzden kaydet araması özellikle <strong>SaveOutlined / Kaydet</strong> üzerinden yapılıyor.</div>
+            <div class="expected">
+              <div class="exp-title">✅ Beklenen Sonuç</div>
+              <ul>
+                <li>Ürün kaydı sonrası URL form/id benzeri bir yapıya dönebilir.</li>
+                <li>Ürünler listesinde <strong>RKT-BHG</strong>, <strong>Fuze</strong> veya <strong>ROKETSAN</strong> aranabilir.</li>
+              </ul>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Mamul ürün kartı, müşteriye teslim edilen nihai parçanın ana tanımıdır.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Teknik resim, revizyon ve OEM numarası savunma üretiminde kritik izlenebilirlik alanlarıdır.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Teklif, satış, üretim emri, kalite kayıtları ve fatura bu karta bağlanır.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Yanlış revizyon veya OEM numarası hatalı ürün sevkine kadar giden ciddi kalite riski üretir.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuç:</span>
+              <button class="btn-result btn-pass" onclick="setResult('D1','pass')">✔ GEÇTİ</button>
+              <button class="btn-result btn-fail" onclick="setResult('D1','fail')">✘ BAŞARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('D1','skip')">— ATLANDI</button>
+              <span class="result-status-tag" id="tag-D1"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-D1" placeholder="Hata açıklaması…" oninput="saveNote('D1',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="step" id="step-D2">
+        <div class="step-top">
+          <div class="step-num">8</div>
+          <div class="step-content">
+            <div class="step-title">D.2 — Ürünler listesi ve ürün detay görünümü doğrulanır</div>
+            <div class="step-role">Yapacak: <strong>Ürün Yönetimi</strong></div>
+            <div class="nav-box">
+              <div class="nav-label">Nasıl Gidilir?</div>
+              <div class="nav-step"><span class="arrow">①</span> <code>/products</code> sayfasına dön</div>
+              <div class="nav-step"><span class="arrow">②</span> İlk satırı açarak detay URL’ini kontrol et</div>
+            </div>
+            <div class="expected">
+              <div class="exp-title">✅ Beklenen Sonuç</div>
+              <ul>
+                <li>Ürünler sayfası ve tablo yüklenir.</li>
+                <li>İlk satır tıklanırsa detay sayfası/URL akışı çalışır.</li>
+              </ul>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Liste ve detay görünümü, kaydın yalnızca oluşturulmadığını, sonradan erişilebilir de olduğunu doğrular.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Operasyonel kullanıcılar ürünleri listeden açıp düzenlediği için görünürlük de en az kayıt kadar kritiktir.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Üretim, kalite ve planlama kullanıcıları bu detay ekranlarını kullanır.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Kayıt oluşsa bile detay görünmüyorsa günlük operasyon kullanılamaz hale gelir.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuç:</span>
+              <button class="btn-result btn-pass" onclick="setResult('D2','pass')">✔ GEÇTİ</button>
+              <button class="btn-result btn-fail" onclick="setResult('D2','fail')">✘ BAŞARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('D2','skip')">— ATLANDI</button>
+              <span class="result-status-tag" id="tag-D2"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-D2" placeholder="Hata açıklaması…" oninput="saveNote('D2',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="faz-E">
+    <div class="faz-header" onclick="toggleFaz(this)">
+      <span class="faz-badge">BÖLÜM 5</span>
+      <span class="faz-title">FAZ E — Teklif ve Satış</span>
+      <span class="faz-meta">ROKETSAN teklifi ve satış görünümü</span>
+      <span class="faz-pct" id="pct-E">—</span>
+      <span class="faz-toggle">▼</span>
+    </div>
+    <div class="faz-body">
+      <div class="step" id="step-E1">
+        <div class="step-top">
+          <div class="step-num">9</div>
+          <div class="step-content">
+            <div class="step-title">E.1 — Teklif formu açılır ve ROKETSAN teklifi oluşturulur</div>
+            <div class="step-role">Yapacak: <strong>Satış Operasyon</strong></div>
+            <div class="nav-box">
+              <div class="nav-label">Nasıl Gidilir?</div>
+              <div class="nav-step"><span class="arrow">①</span> <code>/offers/form</code> ekranını aç</div>
+              <div class="nav-step"><span class="arrow">②</span> Müşteri olarak <strong>ROKETSAN</strong> seç</div>
+              <div class="nav-step"><span class="arrow">③</span> Teklif tarihini bugün seç ve açıklamayı doldur</div>
+            </div>
+            <table class="data-table">
+              <tr><th>Alan</th><th>Değer</th><th>Not</th></tr>
+              <tr><td class="fn">Müşteri</td><td class="fv">ROKETSAN</td><td class="fd">Autocomplete dropdown</td></tr>
+              <tr><td class="fn">Teklif Tarihi</td><td class="fv">Bugünün tarihi</td><td class="fd">Date picker bugün butonu</td></tr>
+              <tr><td class="fn">Açıklama</td><td class="fv">ROKETSAN AS9100 sertifikalı füze başlık gövdesi üretim teklifi. 200 adet, teslim 45 iş günü.</td><td class="fd"></td></tr>
+            </table>
+            <div class="expected">
+              <div class="exp-title">✅ Beklenen Sonuç</div>
+              <ul>
+                <li>Teklif formu ayrı sayfa olarak yüklenir.</li>
+                <li>Kaydet sonrası toast veya pozitif log görünür.</li>
+                <li>Teklifler listesinde satır sayısı okunabilir.</li>
+              </ul>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Teklif, müşteriye verilen resmi ticari şart ve açıklama kaydıdır.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Bu senaryoda üretim ve satış görünürlüğü teklif akışı üzerinden başlar.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Satış pipeline, sipariş dönüşümü ve ticari izleme raporları etkilenir.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Müşteri veya tarih yanlış olursa teklif yanlış kayıt altında kalır; takip zinciri kırılır.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuç:</span>
+              <button class="btn-result btn-pass" onclick="setResult('E1','pass')">✔ GEÇTİ</button>
+              <button class="btn-result btn-fail" onclick="setResult('E1','fail')">✘ BAŞARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('E1','skip')">— ATLANDI</button>
+              <span class="result-status-tag" id="tag-E1"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-E1" placeholder="Hata açıklaması…" oninput="saveNote('E1',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="step" id="step-E2">
+        <div class="step-top">
+          <div class="step-num">10</div>
+          <div class="step-content">
+            <div class="step-title">E.2 — Teklif detayı, satış listesi ve satış detay sayfası doğrulanır</div>
+            <div class="step-role">Yapacak: <strong>Satış Operasyon / Yönetim</strong></div>
+            <div class="nav-box">
+              <div class="nav-label">Nasıl Gidilir?</div>
+              <div class="nav-step"><span class="arrow">①</span> <code>/offers</code> listesinden ilk teklifi aç</div>
+              <div class="nav-step"><span class="arrow">②</span> <code>/sales</code> sayfasını aç</div>
+              <div class="nav-step"><span class="arrow">③</span> İlk satış satırını tıklayarak detay URL’ini kontrol et</div>
+            </div>
+            <div class="expected">
+              <div class="exp-title">✅ Beklenen Sonuç</div>
+              <ul>
+                <li>Teklif detay URL’i teklif/satış mantığıyla uyumlu açılır.</li>
+                <li>Satışlar sayfası yüklenir ve form/modal erişimi doğrulanır.</li>
+                <li>Tablo boş değilse satış detay ekranı açılabilir.</li>
+              </ul>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Teklif sonrası oluşan ticari görünürlük ve satış ekranı erişimi doğrulanır.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Teklif oluşturmak tek başına yeterli değildir; satış takibinde görülebilmesi gerekir.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Satış takibi, müşteri iletişimi ve sipariş planı ekranları etkilenir.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Teklif oluşup satış ekranında görünmezse operasyon satış zinciri kopuk kalır.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuç:</span>
+              <button class="btn-result btn-pass" onclick="setResult('E2','pass')">✔ GEÇTİ</button>
+              <button class="btn-result btn-fail" onclick="setResult('E2','fail')">✘ BAŞARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('E2','skip')">— ATLANDI</button>
+              <span class="result-status-tag" id="tag-E2"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-E2" placeholder="Hata açıklaması…" oninput="saveNote('E2',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="faz-F">
+    <div class="faz-header" onclick="toggleFaz(this)">
+      <span class="faz-badge">BÖLÜM 6</span>
+      <span class="faz-title">FAZ F — Üretim ve Shop Floor</span>
+      <span class="faz-meta">Üretim listesi, iş emirleri, Shop Floor görünümü</span>
+      <span class="faz-pct" id="pct-F">—</span>
+      <span class="faz-toggle">▼</span>
+    </div>
+    <div class="faz-body">
+      <div class="step" id="step-F1">
+        <div class="step-top">
+          <div class="step-num">11</div>
+          <div class="step-content">
+            <div class="step-title">F.1 — Üretim listesi, üretim formu ve istatistik kartları doğrulanır</div>
+            <div class="step-role">Yapacak: <strong>Planlama / Üretim Yönetimi</strong></div>
+            <div class="nav-box">
+              <div class="nav-label">Nasıl Gidilir?</div>
+              <div class="nav-step"><span class="arrow">①</span> <code>/production</code> sayfasını aç</div>
+              <div class="nav-step"><span class="arrow">②</span> <strong>Ekle</strong> ile üretim formu erişimini kontrol et</div>
+              <div class="nav-step"><span class="arrow">③</span> Sayfadaki istatistik kartlarını / summary alanlarını say</div>
+            </div>
+            <div class="expected">
+              <div class="exp-title">✅ Beklenen Sonuç</div>
+              <ul>
+                <li>Üretim listesi HTML olarak yüklenir.</li>
+                <li>Form modal/drawer erişimi mümkünse açılır ve kapanır.</li>
+                <li>İstatistik kartı veya summary bileşenleri sayfada bulunur.</li>
+              </ul>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Üretim listesi ve kartları, planlanan ve aktif üretimin operasyonel özet ekranıdır.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Yönetim ve planlama ekipleri üretim durumunu bu ekrandan izler.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>İş emri açma, atama, gecikme takibi ve kapasite raporları etkilenir.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Sayfa veya kartlar açılmazsa üretim görünürlüğü kaybolur; kullanıcılar operasyonu izleyemez.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuç:</span>
+              <button class="btn-result btn-pass" onclick="setResult('F1','pass')">✔ GEÇTİ</button>
+              <button class="btn-result btn-fail" onclick="setResult('F1','fail')">✘ BAŞARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('F1','skip')">— ATLANDI</button>
+              <span class="result-status-tag" id="tag-F1"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-F1" placeholder="Hata açıklaması…" oninput="saveNote('F1',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="step" id="step-F2">
+        <div class="step-top">
+          <div class="step-num">12</div>
+          <div class="step-content">
+            <div class="step-title">F.2 — İş emirleri, Shop Floor Terminal ve Shop Floor sayfaları açılır</div>
+            <div class="step-role">Yapacak: <strong>Atölye / Shop Floor Operasyon</strong></div>
+            <div class="nav-box">
+              <div class="nav-label">Nasıl Gidilir?</div>
+              <div class="nav-step"><span class="arrow">①</span> <code>/work-orders</code> sayfasını aç</div>
+              <div class="nav-step"><span class="arrow">②</span> <code>/shop-floor-terminal</code> sayfasını aç</div>
+              <div class="nav-step"><span class="arrow">③</span> <code>/shop-floor</code> sayfasını aç</div>
+            </div>
+            <div class="expected">
+              <div class="exp-title">✅ Beklenen Sonuç</div>
+              <ul>
+                <li>İş emirleri sayfası yüklenir.</li>
+                <li>Shop Floor Terminal ve Shop Floor ekranları 200+ içerikle açılır.</li>
+              </ul>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Atölye ekranları, operatörlerin iş emri ilerletme ve terminal bazlı işlem yaptığı yüzeylerdir.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>ERP’de üretim sadece ofis ekranında değil, shop floor tarafında da çalışmalıdır.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Operasyon tamamlama, terminal girişleri ve sahadaki veri toplama etkilenir.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Shop Floor açılmazsa saha veri girişi durur; üretim ilerlese bile sistem güncel kalmaz.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuç:</span>
+              <button class="btn-result btn-pass" onclick="setResult('F2','pass')">✔ GEÇTİ</button>
+              <button class="btn-result btn-fail" onclick="setResult('F2','fail')">✘ BAŞARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('F2','skip')">— ATLANDI</button>
+              <span class="result-status-tag" id="tag-F2"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-F2" placeholder="Hata açıklaması…" oninput="saveNote('F2',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="faz-G">
+    <div class="faz-header" onclick="toggleFaz(this)">
+      <span class="faz-badge">BÖLÜM 7</span>
+      <span class="faz-title">FAZ G — Kalite ve Fatura</span>
+      <span class="faz-meta">FAI, NCR ve fatura ekranları</span>
+      <span class="faz-pct" id="pct-G">—</span>
+      <span class="faz-toggle">▼</span>
+    </div>
+    <div class="faz-body">
+      <div class="step" id="step-G1">
+        <div class="step-top">
+          <div class="step-num">13</div>
+          <div class="step-content">
+            <div class="step-title">G.1 — Kalite ana ekranı, FAI ve NCR sayfaları doğrulanır</div>
+            <div class="step-role">Yapacak: <strong>Kalite Güvence</strong></div>
+            <div class="nav-box">
+              <div class="nav-label">Nasıl Gidilir?</div>
+              <div class="nav-step"><span class="arrow">①</span> <code>/quality</code> sayfasını aç</div>
+              <div class="nav-step"><span class="arrow">②</span> <code>/quality/fai</code> sayfasında ekleme formu açılabiliyor mu kontrol et</div>
+              <div class="nav-step"><span class="arrow">③</span> <code>/quality/ncr</code> sayfasını aç</div>
+            </div>
+            <div class="expected">
+              <div class="exp-title">✅ Beklenen Sonuç</div>
+              <ul>
+                <li>Kalite ana ekranı ve NCR ekranı yüklenir.</li>
+                <li>FAI formu modal/drawer olarak açılabiliyorsa görünür hale gelir.</li>
+              </ul>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>FAI ve NCR, savunma üretimindeki ilk numune doğrulama ve uygunsuzluk yönetimi modülleridir.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Özellikle AS9100 uyumlu ortamlarda kalite olayları üretim kadar kritik kabul edilir.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Kabul, red, düzeltici faaliyet ve müşteri güveni bu modüller üzerinden yönetilir.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>FAI/NCR ekranları açılmazsa kalite problemleri ERP dışında takip edilmeye başlar; izlenebilirlik kaybolur.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuç:</span>
+              <button class="btn-result btn-pass" onclick="setResult('G1','pass')">✔ GEÇTİ</button>
+              <button class="btn-result btn-fail" onclick="setResult('G1','fail')">✘ BAŞARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('G1','skip')">— ATLANDI</button>
+              <span class="result-status-tag" id="tag-G1"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-G1" placeholder="Hata açıklaması…" oninput="saveNote('G1',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="step" id="step-G2">
+        <div class="step-top">
+          <div class="step-num">14</div>
+          <div class="step-content">
+            <div class="step-title">G.2 — Fatura listeleri ve satış/alış fatura formları doğrulanır</div>
+            <div class="step-role">Yapacak: <strong>Muhasebe / Finans</strong></div>
+            <div class="nav-box">
+              <div class="nav-label">Nasıl Gidilir?</div>
+              <div class="nav-step"><span class="arrow">①</span> <code>/invoices</code> sayfasını aç</div>
+              <div class="nav-step"><span class="arrow">②</span> <code>/invoices/sales</code> tarafında satış faturası formunu aç</div>
+              <div class="nav-step"><span class="arrow">③</span> <code>/invoices/purchase</code> sayfasını aç</div>
+            </div>
+            <div class="box-info"><strong>Not:</strong> Spec içinde satış faturası formu açıldığında müşteri alanına <strong>ROKETSAN</strong> yazıp dropdown seçimi deneniyor; tam kayıt atılmıyor, form erişimi doğrulanıyor.</div>
+            <div class="expected">
+              <div class="exp-title">✅ Beklenen Sonuç</div>
+              <ul>
+                <li>Faturalar sayfası ve satır sayısı okunur.</li>
+                <li>Satış faturası modal/drawer erişimi çalışır.</li>
+                <li>Alış faturası ekranı yüklenir.</li>
+              </ul>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Fatura ekranları, üretim sonrası ticari kapanışın finansal yüzünü oluşturur.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Satış ve alış fatura akışları ayrı çalışsa da aynı muhasebe zincirine bağlıdır.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Gelir kaydı, tedarikçi borcu, müşteri cari takibi ve raporlama etkilenir.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Ekranlar açılmazsa operasyon tamamlanmış görünse bile finans tarafı işlem yapamaz.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuç:</span>
+              <button class="btn-result btn-pass" onclick="setResult('G2','pass')">✔ GEÇTİ</button>
+              <button class="btn-result btn-fail" onclick="setResult('G2','fail')">✘ BAŞARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('G2','skip')">— ATLANDI</button>
+              <span class="result-status-tag" id="tag-G2"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-G2" placeholder="Hata açıklaması…" oninput="saveNote('G2',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="faz-H">
+    <div class="faz-header" onclick="toggleFaz(this)">
+      <span class="faz-badge">BÖLÜM 8</span>
+      <span class="faz-title">FAZ H — Savunma Modülleri I</span>
+      <span class="faz-meta">Seri no, contract review, PPAP, 8D, doküman kontrol</span>
+      <span class="faz-pct" id="pct-H">—</span>
+      <span class="faz-toggle">▼</span>
+    </div>
+    <div class="faz-body">
+      <div class="step" id="step-H1">
+        <div class="step-top">
+          <div class="step-num">15</div>
+          <div class="step-content">
+            <div class="step-title">H.1 — Seri numaraları, contract review, PPAP ve 8D sayfaları açılır</div>
+            <div class="step-role">Yapacak: <strong>Kalite / Program Yönetimi</strong></div>
+            <table class="data-table">
+              <tr><th>Modül</th><th>Route</th><th>Beklenti</th></tr>
+              <tr><td>Seri Numaraları</td><td class="fv">/quality/serial-numbers</td><td class="fd">Sayfa açılıyor</td></tr>
+              <tr><td>Contract Review</td><td class="fv">/quality/contract-review</td><td class="fd">Sözleşme gözden geçirme ekranı</td></tr>
+              <tr><td>PPAP</td><td class="fv">/quality/ppap</td><td class="fd">Üretim parça onayı</td></tr>
+              <tr><td>8D</td><td class="fv">/quality/8d</td><td class="fd">Problem çözme akışı</td></tr>
+            </table>
+            <div class="expected">
+              <div class="exp-title">✅ Beklenen Sonuç</div>
+              <ul>
+                <li>Dört modül de 200+ içerik ile açılır.</li>
+                <li>Login redirect veya 500 benzeri hata oluşmaz.</li>
+              </ul>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Bunlar savunma sektörüne özgü izlenebilirlik ve kalite olgunluğu modülleridir.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Standart ERP akışının üstünde, denetim ve müşteri beklentilerini karşılayan özel yüzeylerdir.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Sözleşme uygunluğu, parça onayı, problem çözme ve seri izleme süreçleri etkilenir.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Bu modüller çalışmazsa savunma müşterilerine yönelik fark yaratan süreçler ERP dışında tutulur.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuç:</span>
+              <button class="btn-result btn-pass" onclick="setResult('H1','pass')">✔ GEÇTİ</button>
+              <button class="btn-result btn-fail" onclick="setResult('H1','fail')">✘ BAŞARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('H1','skip')">— ATLANDI</button>
+              <span class="result-status-tag" id="tag-H1"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-H1" placeholder="Hata açıklaması…" oninput="saveNote('H1',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="step" id="step-H2">
+        <div class="step-top">
+          <div class="step-num">16</div>
+          <div class="step-content">
+            <div class="step-title">H.2 — Doküman kontrol, iç denetim, Risk/FMEA ve SPC sayfaları açılır</div>
+            <div class="step-role">Yapacak: <strong>Kalite Sistemleri</strong></div>
+            <table class="data-table">
+              <tr><th>Modül</th><th>Route</th><th>Beklenti</th></tr>
+              <tr><td>Doküman Kontrol</td><td class="fv">/documents</td><td class="fd">Doküman yönetim görünümü</td></tr>
+              <tr><td>İç Denetim</td><td class="fv">/quality/internal-audit</td><td class="fd"></td></tr>
+              <tr><td>Risk / FMEA</td><td class="fv">/quality/risk-fmea</td><td class="fd"></td></tr>
+              <tr><td>SPC</td><td class="fv">/quality/spc</td><td class="fd"></td></tr>
+            </table>
+            <div class="expected">
+              <div class="exp-title">✅ Beklenen Sonuç</div>
+              <ul>
+                <li>Dört modül hatasız açılır.</li>
+                <li>Kalite yönetim sistemine ait gelişmiş modüller erişilebilir durumdadır.</li>
+              </ul>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Doküman, denetim, FMEA ve SPC; kalite sisteminin önleyici ve izleyici katmanlarıdır.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Savunma üretiminde yalnızca parça üretmek değil, sistemi sürdürülebilir ve denetlenebilir tutmak gerekir.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>İç denetim hazırlığı, proses kontrolü ve risk azaltma faaliyetleri etkilenir.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Bu modüller kapalıysa kalite sistemi reaktif kalır; denetim hazırlığı zayıflar.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuç:</span>
+              <button class="btn-result btn-pass" onclick="setResult('H2','pass')">✔ GEÇTİ</button>
+              <button class="btn-result btn-fail" onclick="setResult('H2','fail')">✘ BAŞARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('H2','skip')">— ATLANDI</button>
+              <span class="result-status-tag" id="tag-H2"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-H2" placeholder="Hata açıklaması…" oninput="saveNote('H2',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="faz-I">
+    <div class="faz-header" onclick="toggleFaz(this)">
+      <span class="faz-badge">BÖLÜM 9</span>
+      <span class="faz-title">FAZ I — Savunma Modülleri II</span>
+      <span class="faz-meta">Konfigürasyon, sahte parça, fason ve CAPA</span>
+      <span class="faz-pct" id="pct-I">—</span>
+      <span class="faz-toggle">▼</span>
+    </div>
+    <div class="faz-body">
+      <div class="step" id="step-I1">
+        <div class="step-top">
+          <div class="step-num">17</div>
+          <div class="step-content">
+            <div class="step-title">I.1 — Konfigürasyon yönetimi, sahte parça önleme, fason iş ve CAPA açılır</div>
+            <div class="step-role">Yapacak: <strong>Kalite / Tedarik Zinciri / Dış Kaynak Yönetimi</strong></div>
+            <table class="data-table">
+              <tr><th>Modül</th><th>Route</th><th>Beklenti</th></tr>
+              <tr><td>Konfigürasyon</td><td class="fv">/quality/configuration</td><td class="fd"></td></tr>
+              <tr><td>Sahte Parça Önleme</td><td class="fv">/quality/counterfeit-prevention</td><td class="fd"></td></tr>
+              <tr><td>Fason İş Emirleri</td><td class="fv">/subcontract-orders</td><td class="fd">Sayfa açılır, form erişimi ayrı spec’te var</td></tr>
+              <tr><td>CAPA</td><td class="fv">/quality/capa</td><td class="fd"></td></tr>
+            </table>
+            <div class="expected">
+              <div class="exp-title">✅ Beklenen Sonuç</div>
+              <ul>
+                <li>Dört modül de erişilebilir durumda açılır.</li>
+                <li>Fason ve düzeltici faaliyet akışlarına temel erişim sağlanır.</li>
+              </ul>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Bu modüller, savunma üretiminde değişiklik kontrolü, dış kaynak ve sahte parça riskini yönetir.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Konfigürasyon ve CAPA gibi süreçler olmadan kalite sistemi kapalı döngü çalışmaz.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Dış kaynak yönetimi, ürün güvenliği ve düzeltici faaliyet performansı etkilenir.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Değişiklik kontrolü veya sahte parça önleme ekranları yoksa ciddi uyum açıkları oluşur.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuç:</span>
+              <button class="btn-result btn-pass" onclick="setResult('I1','pass')">✔ GEÇTİ</button>
+              <button class="btn-result btn-fail" onclick="setResult('I1','fail')">✘ BAŞARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('I1','skip')">— ATLANDI</button>
+              <span class="result-status-tag" id="tag-I1"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-I1" placeholder="Hata açıklaması…" oninput="saveNote('I1',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="step" id="step-I2">
+        <div class="step-top">
+          <div class="step-num">18</div>
+          <div class="step-content">
+            <div class="step-title">I.2 — Ek kalite kapsamı: giriş muayenesi, kalibrasyon ve tedarikçi değerlendirme sayfaları açılır</div>
+            <div class="step-role">Yapacak: <strong>Kalite Güvence</strong></div>
+            <table class="data-table">
+              <tr><th>Modül</th><th>Route</th><th>Kaynak</th></tr>
+              <tr><td>Giriş Muayenesi</td><td class="fv">/quality/inspections</td><td class="fd">full spec</td></tr>
+              <tr><td>Kalibrasyon</td><td class="fv">/quality/calibration</td><td class="fd">full spec</td></tr>
+              <tr><td>Tedarikçi Değerlendirme</td><td class="fv">/quality/supplier-evaluation</td><td class="fd">full spec</td></tr>
+            </table>
+            <div class="expected">
+              <div class="exp-title">✅ Beklenen Sonuç</div>
+              <ul>
+                <li>Ek kalite sayfaları hatasız açılır.</li>
+                <li>Klasörün geniş kapsam senaryosundaki kalite yüzeyleri kapsanmış olur.</li>
+              </ul>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Bunlar geniş kapsam spec’te bulunan kalite yan modülleridir.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Sadece ana akışı değil, kalite ekosisteminin tamamını görmek için bu sayfalar gerekir.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Giriş kalite, ölçüm sistemi güveni ve tedarikçi yönetimi etkilenir.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Bu sayfalar kırık kalırsa ana akış geçse bile kalite sistemi eksik kapsanır.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuç:</span>
+              <button class="btn-result btn-pass" onclick="setResult('I2','pass')">✔ GEÇTİ</button>
+              <button class="btn-result btn-fail" onclick="setResult('I2','fail')">✘ BAŞARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('I2','skip')">— ATLANDI</button>
+              <span class="result-status-tag" id="tag-I2"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-I2" placeholder="Hata açıklaması…" oninput="saveNote('I2',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="faz-J">
+    <div class="faz-header" onclick="toggleFaz(this)">
+      <span class="faz-badge">BÖLÜM 10</span>
+      <span class="faz-title">FAZ J — Dashboard, Raporlar ve Kapsam Özeti</span>
+      <span class="faz-meta">Home dashboard, KPI, OEE, bakım ve proje matrisi</span>
+      <span class="faz-pct" id="pct-J">—</span>
+      <span class="faz-toggle">▼</span>
+    </div>
+    <div class="faz-body">
+      <div class="step" id="step-J1">
+        <div class="step-top">
+          <div class="step-num">19</div>
+          <div class="step-content">
+            <div class="step-title">J.1 — Dashboard, raporlar, KPI, OEE, bakım ve maliyet sayfaları açılır</div>
+            <div class="step-role">Yapacak: <strong>Yönetim / Bakım / Finansal Analiz</strong></div>
+            <table class="data-table">
+              <tr><th>Modül</th><th>Route</th><th>Not</th></tr>
+              <tr><td>Home Dashboard</td><td class="fv">/home</td><td class="fd">DbContext threading soft check var</td></tr>
+              <tr><td>Raporlar</td><td class="fv">/reports</td><td class="fd"></td></tr>
+              <tr><td>KPI Dashboard</td><td class="fv">/reports/kpi</td><td class="fd"></td></tr>
+              <tr><td>OEE</td><td class="fv">/maintenance/oee</td><td class="fd"></td></tr>
+              <tr><td>Bakım</td><td class="fv">/maintenance</td><td class="fd">Modal erişimi kontrol edilir</td></tr>
+              <tr><td>Maliyet Analizi</td><td class="fv">/reports/cost-analysis</td><td class="fd"></td></tr>
+            </table>
+            <div class="box-warn"><strong>Dikkat:</strong> Data-entry spec’te dashboard için <code>A second operation was started</code> DbContext hatası sadece <strong>soft check</strong> olarak izleniyor; 500 ekranı ise kesin hata kabul ediliyor.</div>
+            <div class="expected">
+              <div class="exp-title">✅ Beklenen Sonuç</div>
+              <ul>
+                <li>Tüm dashboard ve rapor sayfaları açılır.</li>
+                <li>Home dashboard 500 benzeri hata göstermeden yüklenir.</li>
+                <li>Bakım ekranında form erişimi mümkünse modal görünür.</li>
+              </ul>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Dashboard ve raporlar, operasyonel verinin yönetsel karar ekranlarına yansıdığı yüzeylerdir.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Alt modüller çalışsa bile üst seviye görünürlük bozuksa ürün yöneticileri ve yöneticiler sistemi kullanamaz.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>KPI takibi, OEE, bakım planlama ve maliyet takibi etkilenir.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Operasyon verisi girilir ama okunamaz hale gelir; yönetim raporlaması kopar.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuç:</span>
+              <button class="btn-result btn-pass" onclick="setResult('J1','pass')">✔ GEÇTİ</button>
+              <button class="btn-result btn-fail" onclick="setResult('J1','fail')">✘ BAŞARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('J1','skip')">— ATLANDI</button>
+              <span class="result-status-tag" id="tag-J1"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-J1" placeholder="Hata açıklaması…" oninput="saveNote('J1',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="step" id="step-J2">
+        <div class="step-top">
+          <div class="step-num">20</div>
+          <div class="step-content">
+            <div class="step-title">J.2 — Klasör bazlı Playwright proje ve kapsam matrisi doğrulanır</div>
+            <div class="step-role">Yapacak: <strong>QA Lead / Test Koordinatörü</strong></div>
+            <table class="data-table">
+              <tr><th>Proje</th><th>Kaynak</th><th>Amaç</th></tr>
+              <tr><td>auth-setup</td><td class="fv">auth-setup.spec.js</td><td class="fd">Tenant ve session hazırlığı</td></tr>
+              <tr><td>defense-cnc</td><td class="fv">defense-cnc-full-e2e.spec.js</td><td class="fd">Geniş sayfa kapsamı</td></tr>
+              <tr><td>cnc-data-entry</td><td class="fv">cnc-data-entry-e2e.spec.js</td><td class="fd">Gerçek veri girişi</td></tr>
+              <tr><td>perf-timing</td><td class="fv">perf-timing.spec.js</td><td class="fd">Performans ölçümü</td></tr>
+              <tr><td>cleanup</td><td class="fv">cleanup-tenants.spec.js</td><td class="fd">Test sonrası temizlik</td></tr>
+            </table>
+            <div class="expected">
+              <div class="exp-title">✅ Beklenen Sonuç</div>
+              <ul>
+                <li>Klasörün tüm test amaçları tek raporda görünür.</li>
+                <li>Manuel veya otomasyon review sırasında hangi spec’in neyi doğruladığı netleşir.</li>
+              </ul>
+            </div>
+            <div class="kh-toggle" onclick="toggleKH(this)">💡 Know-How: Bu adım hakkında bilgi <span class="kh-arr">▼</span></div>
+            <div class="kh-body">
+              <div class="kh-item kh-what"><div class="kh-label">Bu nedir?</div>Bu adım, tekil testlerden ziyade defense-cnc klasörünün bütünsel test mimarisini özetler.</div>
+              <div class="kh-item kh-why"><div class="kh-label">Neden önemli?</div>Bir klasörde farklı amaçlara hizmet eden spec’ler varsa raporda rol ayrımı açık olmalıdır.</div>
+              <div class="kh-item kh-impact"><div class="kh-label">Nereye etki eder?</div>Test planlama, regresyon seçimi ve rapor paylaşımı etkilenir.</div>
+              <div class="kh-item kh-error"><div class="kh-label">Hata yaparsam ne olur?</div>Hangi testin veri girişi, hangisinin kapsam veya performans testi olduğu karışır; yanlış yorum yapılır.</div>
+            </div>
+            <div class="result-bar">
+              <span class="result-label">Sonuç:</span>
+              <button class="btn-result btn-pass" onclick="setResult('J2','pass')">✔ GEÇTİ</button>
+              <button class="btn-result btn-fail" onclick="setResult('J2','fail')">✘ BAŞARISIZ</button>
+              <button class="btn-result btn-skip" onclick="setResult('J2','skip')">— ATLANDI</button>
+              <span class="result-status-tag" id="tag-J2"></span>
+              <div class="result-note-wrap"><textarea class="result-note" id="note-J2" placeholder="Hata açıklaması…" oninput="saveNote('J2',this.value)"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="summary-card" id="summary">
+    <div class="summary-header">📊 Test Sonuç Raporu</div>
+    <div class="summary-grid">
+      <div class="sum-box sum-total"><div class="n" id="sum-total">20</div><div class="l">Toplam Adım</div></div>
+      <div class="sum-box sum-pass"><div class="n" id="sum-pass">0</div><div class="l">GEÇTİ</div></div>
+      <div class="sum-box sum-fail"><div class="n" id="sum-fail">0</div><div class="l">BAŞARISIZ</div></div>
+      <div class="sum-box sum-skip"><div class="n" id="sum-skip">0</div><div class="l">ATLANDI</div></div>
+    </div>
+    <div style="margin-bottom:16px">
+      <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px">
+        <span style="font-weight:600">Başarı Oranı</span>
+        <span id="pass-rate-txt" style="font-weight:700;color:var(--green)">0%</span>
+      </div>
+      <div class="pass-rate-bar"><div class="pass-rate-fill" id="pass-rate-fill" style="width:0%"></div></div>
+    </div>
+    <div id="fail-list-wrap" style="display:none;margin-bottom:20px">
+      <div class="fail-list">
+        <div class="fail-list-header">⚠️ Başarısız Adımlar — Takip Gerekiyor</div>
+        <div id="fail-items"></div>
+      </div>
+    </div>
+    <div style="margin-bottom:20px;padding:16px;background:var(--light);border-radius:8px">
+      <div style="font-weight:600;color:var(--navy);margin-bottom:8px;font-size:13px">Test Yorumu</div>
+      <textarea id="general-note" style="width:100%;border:1px solid var(--border);border-radius:4px;padding:8px 10px;font-size:12px;resize:vertical;min-height:60px;font-family:inherit" placeholder="Genel gözlemler, açıklamalar veya sonraki adım notları…" oninput="localStorage.setItem('qx_defense_cnc_general_note',this.value)"></textarea>
+    </div>
+    <div class="sign-grid">
+      <div class="sign-box">
+        <span class="sl">Test Eden Kişi</span>
+        <span class="sl2">Ad / İmza / Tarih</span>
+      </div>
+      <div class="sign-box">
+        <span class="sl">Kalite Sorumlusu</span>
+        <span class="sl2">Ad / İmza / Tarih</span>
+      </div>
+      <div class="sign-box">
+        <span class="sl">Test Koordinatörü</span>
+        <span class="sl2">Ad / İmza / Tarih</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const STEPS = ['A1','A2','B1','B2','C1','C2','D1','D2','E1','E2','F1','F2','G1','G2','H1','H2','I1','I2','J1','J2'];
+const STEP_TITLES = {
+  A1:'ROKETSAN müşteri kaydı',
+  A2:'Alcoa tedarikçi kaydı',
+  B1:'CNC-T1 makine kaydı',
+  B2:'DEPO-HAM depo kaydı',
+  C1:'Al 7075 hammadde stok kartı',
+  C2:'Stok giriş/çıkış ekranı',
+  D1:'RKT-BHG-7075 ürün kartı',
+  D2:'Ürün liste ve detay görünümü',
+  E1:'ROKETSAN teklif oluşturma',
+  E2:'Teklif ve satış görünümü',
+  F1:'Üretim listesi ve istatistikler',
+  F2:'İş emirleri ve Shop Floor',
+  G1:'Kalite, FAI ve NCR',
+  G2:'Fatura listeleri ve formları',
+  H1:'Seri no / contract review / PPAP / 8D',
+  H2:'Doküman / iç denetim / FMEA / SPC',
+  I1:'Konfigürasyon / sahte parça / fason / CAPA',
+  I2:'Ek kalite kapsamı',
+  J1:'Dashboard ve raporlar',
+  J2:'Playwright proje matrisi',
+};
+const FAZ_STEPS = {
+  A:['A1','A2'],
+  B:['B1','B2'],
+  C:['C1','C2'],
+  D:['D1','D2'],
+  E:['E1','E2'],
+  F:['F1','F2'],
+  G:['G1','G2'],
+  H:['H1','H2'],
+  I:['I1','I2'],
+  J:['J1','J2'],
+};
+const KEY = 'qx_defense_cnc_test_v1';
+
+function load() { try { return JSON.parse(localStorage.getItem(KEY)) || {} } catch { return {} } }
+function save(d) { localStorage.setItem(KEY, JSON.stringify(d)) }
+
+function setResult(id, result) {
+  const d = load(); d[id] = result; save(d);
+  const step = document.getElementById('step-' + id);
+  step.className = 'step ' + (result === 'pass' ? 'passed' : result === 'fail' ? 'failed' : 'skipped');
+  ['pass','fail','skip'].forEach(r => {
+    const btn = step.querySelector('.btn-' + r);
+    if (btn) btn.classList.toggle('active', r === result);
+  });
+  const tag = document.getElementById('tag-' + id);
+  if (tag) {
+    tag.className = 'result-status-tag ' + (result === 'pass' ? 'tag-pass' : result === 'fail' ? 'tag-fail' : 'tag-skip');
+    tag.textContent = result === 'pass' ? '✔ GEÇTİ' : result === 'fail' ? '✘ BAŞARISIZ' : '— ATLANDI';
+  }
+  updateStats();
+}
+
+function saveNote(id, val) { const d = load(); d['note_' + id] = val; save(d); }
+
+function updateStats() {
+  const d = load();
+  let pass = 0, fail = 0, skip = 0;
+  const failItems = [];
+  STEPS.forEach(id => {
+    if (d[id] === 'pass') pass++;
+    else if (d[id] === 'fail') { fail++; failItems.push(id); }
+    else if (d[id] === 'skip') skip++;
+  });
+  const done = pass + fail + skip;
+  const total = STEPS.length;
+  const pct = done > 0 ? Math.round(pass / total * 100) : 0;
+
+  document.getElementById('hdr-pass').textContent = pass;
+  document.getElementById('hdr-fail').textContent = fail;
+  document.getElementById('hdr-skip').textContent = skip;
+  document.getElementById('prog-fill').style.width = (done / total * 100) + '%';
+  document.getElementById('prog-pct').textContent = done + ' / ' + total + ' adım';
+  document.getElementById('sum-pass').textContent = pass;
+  document.getElementById('sum-fail').textContent = fail;
+  document.getElementById('sum-skip').textContent = skip;
+  document.getElementById('sum-total').textContent = total;
+  document.getElementById('pass-rate-txt').textContent = pct + '%';
+  document.getElementById('pass-rate-fill').style.width = pct + '%';
+
+  const failWrap = document.getElementById('fail-list-wrap');
+  const failEl = document.getElementById('fail-items');
+  if (failItems.length > 0) {
+    failWrap.style.display = 'block';
+    failEl.innerHTML = failItems.map((id, i) => {
+      const note = (d['note_' + id] || '').trim();
+      return `<div class="fail-item">
+        <div class="fi-num">${i+1}</div>
+        <div><strong>${id}</strong> — ${STEP_TITLES[id]}${note ? '<br><span style="color:#888;font-size:11px">Not: ' + note + '</span>' : ''}</div>
+      </div>`;
+    }).join('');
+  } else { failWrap.style.display = 'none'; }
+
+  Object.entries(FAZ_STEPS).forEach(([faz, ids]) => {
+    const p = ids.filter(id => d[id] === 'pass').length;
+    const el = document.getElementById('pct-' + faz);
+    if (el) el.textContent = Math.round(p / ids.length * 100) + '%';
+  });
+}
+
+function toggleKH(el) {
+  el.classList.toggle('open');
+  const body = el.nextElementSibling;
+  if (body) body.classList.toggle('open');
+}
+
+function toggleFaz(header) {
+  header.classList.toggle('collapsed');
+  const body = header.nextElementSibling;
+  if (body) body.style.display = header.classList.contains('collapsed') ? 'none' : 'block';
+}
+
+function resetAll() {
+  if (!confirm('Tüm test sonuçları sıfırlanacak. Emin misiniz?')) return;
+  localStorage.removeItem(KEY); localStorage.removeItem('qx_defense_cnc_general_note');
+  location.reload();
+}
+
+(function restore() {
+  const d = load();
+  STEPS.forEach(id => { if (d[id]) setResult(id, d[id]); });
+  STEPS.forEach(id => {
+    const note = d['note_' + id];
+    if (note) {
+      const el = document.getElementById('note-' + id);
+      if (el) el.value = note;
+    }
+  });
+  const gn = localStorage.getItem('qx_defense_cnc_general_note');
+  if (gn) { const el = document.getElementById('general-note'); if (el) el.value = gn; }
+  updateStats();
+})();
+</script>
+</body>
+</html>

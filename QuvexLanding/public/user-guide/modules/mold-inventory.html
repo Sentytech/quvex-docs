@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kalıp Envanteri &mdash; Quvex ERP Kullanıcı Kılavuzu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="container">
+
+  <a href="../index.html" class="nav-back">&#8592; Ana Sayfa</a>
+
+  <div class="doc-header">
+    <span class="version-badge">v3.0 &middot; Sprint 11 &middot; YENİ</span>
+    <div class="breadcrumb"><a href="../index.html">Kullanıcı Kılavuzu</a> / Sektör Modülleri / Kalıp Envanteri</div>
+    <h1>Kalıp Envanteri &mdash; Plastik Enjeksiyon İçin</h1>
+    <p>Kavite, shot sayacı, bakım eşiği uyarısı, kalıp durumu, istatistikler &mdash; plastik enjeksiyon sektörü için tam kılavuz</p>
+  </div>
+
+  <div class="two-col">
+
+    <aside>
+      <nav class="nav-sidebar">
+        <a href="#kalip-nedir">Kalıp Nedir?</a>
+        <a href="#kalip-ekle">Kalıp Ekleme</a>
+        <a href="#shot-sayac">Shot Sayacı</a>
+        <a href="#bakim-esigi">Bakım Eşiği</a>
+        <a href="#durum">Kalıp Durumu</a>
+        <a href="#istatistik">İstatistikler</a>
+        <a href="#ipuclari">İpuçları</a>
+        <a href="#sss">SSS</a>
+      </nav>
+    </aside>
+
+    <main>
+
+      <section id="kalip-nedir">
+        <h2>1. Kalıp Nedir? Plastik Enjeksiyonun Kalbi</h2>
+        <p>Plastik enjeksiyon üretiminde <strong>kalıp</strong>, eritilmiş plastiğin şekillendiği metal parçadır. Bir kalıp milyon lira değerinde olabilir, milyonlarca parça üretir, düzenli bakım gerektirir. Quvex Kalıp Envanteri modülü size kalıplarınızı <strong>bir varlık (asset)</strong> olarak yönetme imkânı sağlar.</p>
+
+        <div class="tip info">
+          <div class="tip-title">&#128161; Neden Ayrı Modül?</div>
+          <p>Kalıp; makine değildir (bakımla karıştırılabilir), stok değildir (satılmaz), ürün de değildir (tek parça). Kendine özgü takip gerektirir: kavite sayısı, çevrim süresi, ömür, bakım periyodu, amortisman.</p>
+        </div>
+
+        <h3>Tipik Kullanıcılar</h3>
+        <div class="card-grid">
+          <div class="card"><h4>Kalıp Sorumlusu</h4><p>Kalıp giriş/çıkış, bakım, onarım koordinasyonu</p></div>
+          <div class="card"><h4>Üretim Planlama</h4><p>Hangi kalıp hangi makinede, ne zaman kullanılabilir</p></div>
+          <div class="card"><h4>Kalite</h4><p>Shot bazlı kalite düşmesi, aşınma tespiti</p></div>
+          <div class="card"><h4>Muhasebe</h4><p>Kalıp amortismanı, yatırım geri dönüşü</p></div>
+        </div>
+      </section>
+
+      <section id="kalip-ekle">
+        <h2>2. Kalıp Ekleme</h2>
+        <ol>
+          <li>Menü: <strong>Stok &rarr; Kalıp Envanteri &rarr; + Yeni Kalıp</strong></li>
+          <li>Temel bilgiler:
+            <ul>
+              <li><strong>Kalıp Kodu:</strong> <code>MOLD-001</code></li>
+              <li><strong>Ad:</strong> Şişe Kapak 28mm</li>
+              <li><strong>Tedarikçi / Üretici:</strong> XYZ Kalıp Ltd.</li>
+              <li><strong>Satın Alma Tarihi:</strong> 2025-03-15</li>
+              <li><strong>Maliyet:</strong> 185.000 TL</li>
+            </ul>
+          </li>
+          <li>Teknik özellikler:
+            <ul>
+              <li><strong>Kavite Sayısı:</strong> <code>8</code> (her basışta 8 parça çıkar)</li>
+              <li><strong>Çevrim Süresi:</strong> <code>12 saniye</code></li>
+              <li><strong>Hedef Shot Ömrü:</strong> <code>1.000.000 shot</code></li>
+              <li><strong>Malzeme:</strong> H13 Takım çeliği</li>
+              <li><strong>Ağırlık:</strong> 450 kg</li>
+              <li><strong>Ebat:</strong> 600 &times; 500 &times; 400 mm</li>
+            </ul>
+          </li>
+          <li>Üretilen ürün bağlantısı: <code>PRD-100 Şişe Kapak</code> (stok kartı)</li>
+          <li>Uyumlu makineler: <code>ENJ-05, ENJ-07, ENJ-12</code> (çoklu seçim)</li>
+          <li>Kaydet</li>
+        </ol>
+
+        <div class="tip success">
+          <div class="tip-title">&#9989; İpucu</div>
+          <p>Kavite sayısı &times; Çevrim süresi = saatte kaç parça hesaplanır. Örnek: 8 kavite / 12 saniye = saatte 2400 parça. Bu üretim planlamasına otomatik akar.</p>
+        </div>
+      </section>
+
+      <section id="shot-sayac">
+        <h2>3. Shot Sayacı &mdash; Her Üretim Sonrası Otomatik</h2>
+        <p>Her iş emrinde ilgili kalıbı seçtiğinizde Quvex shot sayacını <strong>otomatik artırır</strong>. Manuel takip gerekmez.</p>
+
+        <div class="flow">
+          <div class="flow-step active">İş Emri</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Kalıp Seç</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Üretim Tamam</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Shot +N</div>
+        </div>
+
+        <h3>Örnek Hesap</h3>
+        <p>İş emri: 8000 şişe kapak / 8 kaviteli MOLD-001 / 8000 ÷ 8 = <strong>1000 shot</strong> eklenir.</p>
+
+        <table>
+          <thead><tr><th>Tarih</th><th>İş Emri</th><th>Üretilen</th><th>Shot</th><th>Toplam</th></tr></thead>
+          <tbody>
+            <tr><td>2026-04-01</td><td>IS-5001</td><td>8000</td><td>+1000</td><td>485.300</td></tr>
+            <tr><td>2026-04-03</td><td>IS-5012</td><td>16000</td><td>+2000</td><td>487.300</td></tr>
+            <tr><td>2026-04-08</td><td>IS-5023</td><td>12000</td><td>+1500</td><td>488.800</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="bakim-esigi">
+        <h2>4. Bakım Eşiği &mdash; Proaktif Uyarı</h2>
+        <p>Her kalıp için <strong>bakım eşikleri</strong> tanımlanabilir. Shot sayacı belli rakama ulaşınca Quvex bildirim gönderir, iş emri açar.</p>
+
+        <h3>Örnek Eşikler (MOLD-001 için)</h3>
+        <table>
+          <thead><tr><th>Shot</th><th>Bakım Tipi</th><th>Süre</th></tr></thead>
+          <tbody>
+            <tr><td>Her 50.000</td><td>Rutin temizlik &amp; yağlama</td><td>4 saat</td></tr>
+            <tr><td>Her 200.000</td><td>Taşlama &amp; kavite kontrolü</td><td>1 gün</td></tr>
+            <tr><td>Her 500.000</td><td>Büyük revizyon</td><td>3-5 gün</td></tr>
+            <tr><td>1.000.000</td><td>Ömür sonu &mdash; değerlendirme</td><td>-</td></tr>
+          </tbody>
+        </table>
+
+        <div class="tip warning">
+          <div class="tip-title">&#9888; Otomatik Aksiyon</div>
+          <p>Shot sayacı 50.000'e ulaşınca:</p>
+          <ol>
+            <li>Kalıp sorumlusuna SignalR bildirim</li>
+            <li>Bakım iş emri otomatik taslak olarak açılır</li>
+            <li>Kalıp durumu "Bakım Yaklaşıyor" olur (sarı)</li>
+            <li>Üretim planlama uyarı alır</li>
+          </ol>
+        </div>
+      </section>
+
+      <section id="durum">
+        <h2>5. Kalıp Durumları</h2>
+        <ul>
+          <li><span style="background:#dcfce7;padding:2px 8px;">AKTİF</span> &mdash; Üretimde, kullanılabilir</li>
+          <li><span style="background:#fef3c7;padding:2px 8px;">BAKIM YAKLAŞIYOR</span> &mdash; Eşik yakında, planla</li>
+          <li><span style="background:#fed7aa;padding:2px 8px;">BAKIMDA</span> &mdash; Şu an bakım sürecinde, kullanılamaz</li>
+          <li><span style="background:#fee2e2;padding:2px 8px;">TAMİRDE</span> &mdash; Arıza/hasar, tamirhanede</li>
+          <li><span style="background:#e5e7eb;padding:2px 8px;">DEPODA</span> &mdash; Kullanılmıyor ama hazır</li>
+          <li><span style="background:#1f2937;color:#fff;padding:2px 8px;">EMEKLİ</span> &mdash; Ömür sonu, artık kullanılmaz</li>
+        </ul>
+
+        <p>Kalıp BAKIMDA ise üretim planlaması otomatik olarak o kalıbı öneride çıkarmaz.</p>
+      </section>
+
+      <section id="istatistik">
+        <h2>6. Kalıp İstatistikleri</h2>
+        <p>Her kalıp için <strong>Dashboard</strong> görünümünde:</p>
+        <ul>
+          <li><strong>Toplam Shot:</strong> 488.800 / 1.000.000 (%48.9)</li>
+          <li><strong>Bu Ay Üretim:</strong> 4.500 shot</li>
+          <li><strong>Ortalama Çevrim:</strong> 12.3 sn (hedef 12 sn)</li>
+          <li><strong>Fire Oranı:</strong> %0.8</li>
+          <li><strong>Toplam Downtime:</strong> 18 saat (son 3 ay)</li>
+          <li><strong>Shot Başı Maliyet:</strong> 0.38 TL (amortisman dahil)</li>
+          <li><strong>Tahmini Kalan Ömür:</strong> ~14 ay</li>
+        </ul>
+
+        <div class="tip info">
+          <div class="tip-title">&#128161; Karar Destek</div>
+          <p>Shot başı maliyet artıyorsa (aşınma, fire artışı) sistem uyarı verir: "Kalıp revizyon zamanı geldi, yeni kalıp yatırımı değerlendirin."</p>
+        </div>
+      </section>
+
+      <section id="ipuclari">
+        <h2>7. Faydalı İpuçları</h2>
+        <div class="card-grid">
+          <div class="card"><h4>&#128204; Çoklu Ürün</h4><p>Aynı kalıp birden fazla ürün üretebilir (farklı renk, farklı insert). Üretim yapılan ürün iş emri ile seçilir.</p></div>
+          <div class="card"><h4>&#128204; QR Etiket</h4><p>Her kalıba QR etiket yapıştırın, operatör iş emri başlarken okutsun &mdash; yanlış kalıp kullanımı engellenir.</p></div>
+          <div class="card"><h4>&#128204; Fotoğraf</h4><p>Kalıp detayında fotoğraf yükleyin. Depoda kalıp ararken görsel tanıma kolaylaşır.</p></div>
+          <div class="card"><h4>&#128204; Amortisman</h4><p>Finans &rarr; Sabit Kıymetler modülü ile entegre; amortisman otomatik hesaplanır.</p></div>
+        </div>
+      </section>
+
+      <section id="sss">
+        <h2>8. Sık Sorulan Sorular</h2>
+
+        <div class="card">
+          <h4>Bir makine birden fazla kalıp kullanabilir mi?</h4>
+          <p>Evet. Makine bilgisinde "Uyumlu Kalıplar" listesi tutulur. Kalıp değiştirme (setup) süresi de ayrıca takip edilir &mdash; OEE hesabına girer.</p>
+        </div>
+
+        <div class="card">
+          <h4>Kalıp tedarikçiye gönderildiğinde nasıl takip ederim?</h4>
+          <p>Durum "TAMİRDE" yapın, sevk tarihi girin. Geri geldiğinde "AKTİF" yapın. Fason modülü ile entegre çalışır, tamir süresi ve maliyeti log'lanır.</p>
+        </div>
+
+        <div class="card">
+          <h4>Kavite sayısı değişebilir mi?</h4>
+          <p>Fiziksel olarak nadiren değişir ama bazı kavitelerde hasar olursa "aktif kavite sayısı" azaltılabilir. Örn: 8 kaviteli kalıpta 1 kavite iptal &rarr; 7 kavite. Üretim hızı otomatik güncellenir.</p>
+        </div>
+
+        <div class="card">
+          <h4>Shot sayacını manuel düzeltebilir miyim?</h4>
+          <p>Evet ama yetki gerektirir (KalipAdmin rolü). Düzeltme audit log'a yazılır, neden belirtmek zorunludur.</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="doc-footer">
+    &copy; 2026 Quvex &mdash; Kalıp Envanteri &middot; Sprint 11 &middot; v3.0<br>
+    <small style="color:var(--text-muted);">destek@quvex.io</small>
+  </div>
+
+</div>
+<script src="../js/guide-enhancements.js"></script>
+</body>
+</html>

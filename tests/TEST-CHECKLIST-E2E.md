@@ -225,3 +225,49 @@
 | # | Faz | Adim | Hata | Oncelik | Durum |
 |---|-----|------|------|---------|-------|
 |   |     |      |      |         |       |
+
+---
+
+## FAZ 20: SPRINT 11 — SEKTOR E2E KAPSAMI (2026-04-12)
+
+**Referans:** `tests/e2e/sectors/*.spec.js` — 4 Playwright spec dosyasi, 21 senaryo
+
+### 20.1 Tekstil Sektoru (ProductVariant)
+- [ ] 20.1.1 Sektor demo data seed (KOTON/LC WAIKIKI/MAVI musteri)
+- [ ] 20.1.2 Urun olustur → varyant matrisi ac (Beden: S/M/L, Renk: Beyaz/Mavi/Siyah)
+- [ ] 20.1.3 Bulk-generate 9 SKU olustu mu? (3×3 matris)
+- [ ] 20.1.4 Her varyant icin ayri stok takibi calisiyor mu?
+- [ ] 20.1.5 Varyant bazli satis siparisi olusturulabiliyor mu?
+
+### 20.2 Gida Sektoru (HACCP + Recall)
+- [ ] 20.2.1 Sektor demo data seed (Migros/BIM/CarrefourSA)
+- [ ] 20.2.2 3 HACCP CCP olustu mu? (Pastorizasyon sicakligi, metal detektor, vb.)
+- [ ] 20.2.3 HaccpMeasurement kayit + out-of-range → otomatik NCR
+- [ ] 20.2.4 Recall wizard 7 adim (baslat → kapsam → etkilenen lot → musteri → bildirim → toplama → kapanis)
+- [ ] 20.2.5 Forward trace BFS — lot → tum sevkiyat + musteri zinciri
+
+### 20.3 Plastik Sektoru (MoldInventory)
+- [ ] 20.3.1 Sektor demo data seed (Coca-Cola, Yildiz Holding musteri; Arburg makine)
+- [ ] 20.3.2 2 Mold kaydi olustu mu? (sise kalibi, bidon kalibi)
+- [ ] 20.3.3 Shot sayaci artiyor mu? (her uretim cikisinda +1)
+- [ ] 20.3.4 Bakim esigi asildiginda alarm gorunuyor mu?
+
+### 20.4 Makine Sektoru (CE Technical File)
+- [ ] 20.4.1 Sektor demo data seed (Anadolu Isuzu vb. musteri)
+- [ ] 20.4.2 CE Technical File 19 alan (risk degerlendirme, direktifler, dokuman listesi)
+- [ ] 20.4.3 Machinery sektor profili dogru menuleri gosteriyor mu?
+
+### 20.5 Kaynak Sektoru (WPS/WPQR)
+- [ ] 20.5.1 WPS olustur (19 process parametresi: akim, voltaj, hiz, gaz, vb.)
+- [ ] 20.5.2 Welder Certificate — kaynakci sertifikasi + expiry tarihi
+- [ ] 20.5.3 Expiry yaklasinca turuncu, gectiginde kirmizi vurgu
+
+### 20.6 Killer Feature Testleri
+- [ ] 20.6.1 Onboarding wizard — 8 sektor seciminden birinde demo data seed 5 dk icinde tamamlaniyor
+- [ ] 20.6.2 `/hubs/production-board` SignalR baglandi mi?
+- [ ] 20.6.3 ProductionLiveBoard — dark theme, 56px KPI, auto-reconnect
+- [ ] 20.6.4 Makine karti color-coded (Yesil/Sari/Kirmizi)
+- [ ] 20.6.5 WhatsApp test mesaj gonder (send-test endpoint)
+- [ ] 20.6.6 8 sablon listesi (order, shipment, payment, NCR, work order, stock, maintenance)
+
+**Toplam Sektor Senaryo:** 21 | **Spec Dosyalari:** 4

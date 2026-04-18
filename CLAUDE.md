@@ -3,105 +3,56 @@
 ## PROJE YAPISI
 | Proje | Konum | Teknoloji |
 |-------|-------|-----------|
-| API | `C:\rynSoft\smallFactoryApi\` | .NET 8, EF Core, PostgreSQL |
-| UI | `C:\rynSoft\smallFactoryUI\` | React 18, Vite, Ant Design |
-| **Merkez** | **`C:\rynSoft\smallFactory\`** | **Tum dokuman, test, task, sprint** |
+| API | `C:\rynSoft\quvex\smallFactoryApi\` | .NET 8, EF Core, PostgreSQL |
+| UI | `C:\rynSoft\quvex\smallFactoryUI\` | React 18, Vite, Ant Design |
+| **Merkez** | **`C:\rynSoft\quvex\quvex-docs\`** | **Tum dokuman, test, task, sprint** |
 | DB | Docker `smallfactory-postgres` | PostgreSQL `quvex_dev` |
 
 ---
 
 ## MERKEZ KLASOR YAPISI
 
+Detayli dosya haritasi icin: **FILE-MAP.md**
+
 ```
-smallFactory/
-  CLAUDE.md                         # BU DOSYA — merkez kurallar
+quvex-docs/
+  CLAUDE.md              # BU DOSYA — merkez kurallar
+  FILE-MAP.md            # Dokumantasyon indeksi
 
-  analysis/                         # Proje analizleri
-    PROJECT_ANALYSIS.md
-    ERP_EKSIK_ANALIZI.md
-    GAP_ANALYSIS_AND_WORKPLAN.md
-    QUVEX-MARKET-ANALYSIS.md
-    QUVEX-FINANCE-ANALYSIS.md
-    AS9100_TARGET_FIT_ANALYSIS.md
-    ...
+  product/               # Urun tanimi, is bilgisi, onboarding
+    PRD.md, BUSINESS-KNOWHOW.md, ONBOARDING.md, DURUM.md, CHANGELOG.md
 
-  bugs/                             # Modul bazli bug listeleri
-    BUG-LIST.md
-    MAINTENANCE-MODULE-BUGS.md
-    QUALITY-MODULE-BUGS.md
-    SALES-MODULE-BUGS.md
-    STOCK-MODULE-BUGS.md
-    REPORTS-MODULE-BUGS.md
+  architecture/          # Teknik mimari, deployment, guvenlik
+    API-UI-ENDPOINT-MAP.md, DEPLOYMENT-GUIDE.md, TENANT-*.md, SECURITY-AUDIT-CHECKLIST.md
+    1000-TENANT-SCALABILITY-PLAN.md, REFRESH-TOKEN-SECURITY-UPGRADE.md, DISASTER-RECOVERY-RUNBOOK.md
 
-  docs/                             # Proje dokumanlari
-    PRD.md                          # Urun gereksinim dokumani
-    DURUM.md                        # Guncel proje durumu
-    API-UI-ENDPOINT-MAP.md          # API-UI endpoint haritasi (131+)
-    ENDPOINT-TEST-PROMPT.md         # Test prompt rehberi
-    DEPLOYMENT-GUIDE.md
-    SECURITY-AUDIT-CHECKLIST.md
-    BUSINESS-KNOWHOW.md
+  analysis/              # Proje analizleri ve raporlar
+    QUVEX_FULL_ANALYSIS.md, PROJECT_ANALYSIS.md, ERP_EKSIK_ANALIZI.md, ...
 
-  roadmap/                          # Yol haritalari ve sprint planlari
-    QUVEX-ROADMAP.md
-    QUVEX-SCALING-ROADMAP.md
-    FAZLANDIRMA.md
-    SPRINT_EXECUTION_PLAN.md
-    ROADMAP-URETIM.md
-    ROADMAP-SATIS.md
-    ROADMAP-STOK.md
-    ROADMAP-KALITE.md
-    ROADMAP-FINANS.md
+  roadmap/               # Yol haritalari ve faz planlari
+    QUVEX-ROADMAP.md, FAZLANDIRMA.md, ROADMAP-{modul}.md, ...
 
-  sprints/                          # Sprint planlari ve takibi
-    SPRINT-PLAN.md                  # Ana sprint plani
-    SPRINT-UX-PLAN.md              # UX sprint plani
+  sprints/               # Sprint planlari ve takibi
+    SPRINT-PLAN.md, SPRINT-UX-PLAN.md, SPRINT-TENANT-50.md, ...
 
-  tasks/                            # Tamamlanan ve aktif task'lar
-    api/                            # API task'lari (FAZ1-C101, FAZ2-F201...)
-    ui/                             # UI task'lari (FAZ1-C201, FAZ4-C401...)
+  tasks/                 # Gorev tanimlari
+    api/                 # Backend (FAZ1-C101..., FAZ2-F201...)
+    ui/                  # Frontend (FAZ1-C201..., FAZ4-C401...)
 
-  tests/                            # Test referans kopyalari
-    playwright.config.js
-    e2e/
-      fixtures.js                   # Paylasilan test fixture
-      api/                          # API endpoint saglik testleri
-        api-endpoint-health.spec.js       # 131 GET endpoint testi
-        api-endpoint-full-registry.spec.js # 758 endpoint tam kayit
-      auth/                         # Giris, cikis, guvenlik
-        auth.setup.js
-        login.spec.js
-        logout.spec.js
-        security.spec.js
-        security-auth.spec.js
-      crud/                         # CRUD islem testleri
-        crud-customer.spec.js
-        crud-offer.spec.js
-        crud-production.spec.js
-        crud-stock.spec.js
-      screens/                      # Ekran/sayfa testleri
-        dashboard.spec.js
-        dashboard-widgets.spec.js
-        products.spec.js
-        sales.spec.js
-        purchase.spec.js
-        production.spec.js
-        stock.spec.js
-        accounting.spec.js
-        maintenance.spec.js
-        notifications.spec.js
-        reports.spec.js
-        settings.spec.js
-      quality/                      # Kalite modulu testleri
-        quality.spec.js
-      core/                         # Altyapi testleri
-        navigation.spec.js
-        pagination.spec.js
-        error-handling.spec.js
-        data-integrity.spec.js
-        i18n.spec.js
-        performance.spec.js
-        responsive.spec.js
+  bugs/                  # Hata takibi
+    BUG-LIST-v2.md, {modul}-MODULE-BUGS.md, CONSOLE-ERRORS.md
+
+  tests/                 # E2E test planlari ve Playwright
+    TEST-PLAN-E2E-v4.md, TEST-CHECKLIST-E2E.md
+    cnc/                 # CNC test senaryolari
+    e2e/                 # Playwright spec dosyalari
+
+  training/              # Ekip egitim rehberleri
+  marketing/             # Brosurler, rakip analizi, gorseller, satis materyalleri
+    sales/               # SALES-PITCH-DECK, DEMO-SCRIPT, PRICING-STRATEGY (Sprint 11)
+  specs/                 # Tasarim ve prompt sablonlari
+  user-guide/            # Son kullanici HTML dokumantasyonu
+  QuvexLanding/          # Astro landing site (ayri uygulama)
 ```
 
 ---
@@ -111,7 +62,7 @@ smallFactory/
 Testler **UI projesinden** calistirilir (Playwright orada kurulu):
 
 ```bash
-cd C:\rynSoft\smallFactoryUI
+cd C:\rynSoft\quvex\smallFactoryUI
 
 # ── Grup bazli ──
 npx playwright test e2e/api/          # API endpoint testleri
@@ -145,8 +96,7 @@ Yeni bir ozellik, modul veya endpoint eklendiginde asagidakileri yap:
 | Dosya | Ne Yapilir |
 |-------|------------|
 | `e2e/api/api-endpoint-health.spec.js` → `ENDPOINTS` | Yeni endpoint satiri ekle |
-| `docs/API-UI-ENDPOINT-MAP.md` | Ilgili tabloya satir ekle |
-| `smallFactory/docs/API-UI-ENDPOINT-MAP.md` | Ayni sekilde guncelle |
+| `quvex-docs/architecture/API-UI-ENDPOINT-MAP.md` | Ilgili tabloya satir ekle |
 
 ### 2. Test Dosyasi
 | Tur | Konum | Ne Yapilir |
@@ -156,11 +106,11 @@ Yeni bir ozellik, modul veya endpoint eklendiginde asagidakileri yap:
 | Kalite testi | `e2e/quality/{modul}.spec.js` | Kalite ile ilgiliyse |
 
 ### 3. Task Kaydi
-- API task: `smallFactory/tasks/api/FAZ{N}-{ID}-{aciklama}.md`
-- UI task: `smallFactory/tasks/ui/FAZ{N}-{ID}-{aciklama}.md`
+- API task: `quvex-docs/tasks/api/FAZ{N}-{ID}-{aciklama}.md`
+- UI task: `quvex-docs/tasks/ui/FAZ{N}-{ID}-{aciklama}.md`
 
 ### 4. Sprint Guncelleme
-- `smallFactory/sprints/SPRINT-PLAN.md` dosyasini guncelle
+- `quvex-docs/sprints/SPRINT-PLAN.md` dosyasini guncelle
 
 ### 5. Controller Route Degistiginde
 - Test dosyasindaki path'i guncelle
@@ -211,7 +161,7 @@ Toplam filtrelenen entity sayısı: **143** (2026-03-29 itibariyle)
 Her yapilan is tamamlandiginda asagidaki adimlar **sirayla** uygulanir:
 
 ### 1. Task Dokumani Olustur
-`smallFactory/tasks/{api|ui}/` altina task dosyasi yaz:
+`quvex-docs/tasks/{api|ui}/` altina task dosyasi yaz:
 
 ```markdown
 # [TASK-ID] Kisa Baslik
@@ -246,7 +196,7 @@ Ne yapildi, hangi dosyalar degisti, neden bu yaklasim secildi.
 ```
 
 ### 2. Changelog Girdisi
-`smallFactory/docs/CHANGELOG.md` dosyasina ekle:
+`quvex-docs/product/CHANGELOG.md` dosyasina ekle:
 
 ```markdown
 ## [YYYY-MM-DD]
@@ -291,6 +241,37 @@ Co-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>"
 | Login | `admin@quvex.com` / `Admin123!@#$` |
 | API | http://localhost:5052 |
 | UI | http://localhost:3000 |
-| Istatistik | 120 controller, 758 endpoint, 131 GET testi |
-| API Testleri | 1128 xUnit test (API projesi icinde) |
-| UI Testleri | 601 Vitest test (UI projesi icinde) |
+| Istatistik | 120+ controller, 790+ endpoint, 170+ GET testi (Sprint 11 sonrasi) |
+| API Testleri | 1128+ xUnit test (API projesi icinde) |
+| UI Testleri | 601+ Vitest test (UI projesi icinde) |
+
+---
+
+## SPRINT 11 — KAPSAYICI URUN (2026-04-12)
+
+Sprint 11 ile sektor kapsamasini artiran yeni is modulleri eklendi. Her modul
+icin entity + service + controller + SignalR (gerektiginde) + test seti mevcut.
+
+### Yeni Is Modulleri
+
+| Modul | Sektor | Controller | UI Rotasi | Aciklama |
+|-------|--------|-----------|-----------|----------|
+| **ProductVariant** | Tekstil, hazir giyim | `ProductVariantController` | `/products/variants` | Beden/renk matrisi, bulk generate, varyant bazli stok takibi |
+| **HACCP** | Gida | `HaccpController` | `/haccp/*` | Kritik kontrol noktalari (CCP), olcum kayitlari, sapmada otomatik NCR |
+| **Recall** | Gida, medikal | `RecallController` | `/recall/*` | Urun geri cagirma, BFS ile forward trace, musteri bildirimi, zaman cizelgesi |
+| **MoldInventory** | Plastik, dokum, kalipcilik | `MoldController` | `/molds/*` | Kalip envanteri, shot sayaci, bakim takibi |
+| **CeTechnicalFile** | Makine imalati | `CeTechnicalFileController` | `/ce-technical-files/*` | CE teknik dosya yonetimi, urune bagli dosya, 2006/42/EC uyumu |
+| **Welding (WPS/WPQR)** | Kaynak, savunma, gemi | `WeldingController` | `/welding/*` | WPS, kaynakci sertifikalari, suresi dolan sertifika uyarisi |
+| **ProductionBoard** | Tum uretim | `ProductionBoardController` | `/production-board` | Canli uretim panosu, SignalR push (ProductionDashboardHub) |
+| **WhatsApp** | Tum sektorler | `WhatsAppController` | `/settings/whatsapp` | Bildirim/sablon mesaj gonderimi |
+| **Onboarding** | Yeni tenant | `OnboardingController` | `/onboarding` | Sektor secimi + demo veri seed |
+
+### Sprint 11 Guvenlik Sertlestirme
+- Multi-role permission merge (tum rollerin izinleri birlestirilir)
+- Tenant IDOR fix: `GetAllAsync`, `Get(id)`, `DeleteUser`, `PutUser`, `GetMyPermissions`
+- `X-Tenant-Id` header spoofing koruma
+- `/metrics` endpoint authentication
+- PII redaction (request log + Sentry)
+- AES-256-CBC sifreleme: IBAN, banka hesap no, vergi no
+- Polly circuit breaker: TCMB, PayTR, eInvoice
+- Detay: `architecture/SECURITY-AUDIT-CHECKLIST.md` — bolum 8

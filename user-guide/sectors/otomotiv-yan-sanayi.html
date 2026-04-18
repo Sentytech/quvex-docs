@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Otomotiv Yan Sanayi Sektöru - Quvex ERP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="container">
+
+  <a href="../index.html" class="nav-back">&#8592; Ana Sayfa</a>
+
+  <div class="doc-header">
+    <span class="version-badge">v1.5</span>
+    <div class="breadcrumb"><a href="../index.html">Kullanıcı Kılavuzu</a> / <a href="../index.html">Sektör Rehberleri</a> / Otomotiv Yan Sanayi</div>
+    <h1>Otomotiv Yan Sanayi Sektöru Rehberi</h1>
+    <p>PPAP 18 element, FMEA, SPC, kontrol plani, 8D, lot takibi. OEM denetim hazirligina hazır olun.</p>
+  </div>
+
+  <div class="two-col">
+
+    <aside>
+      <nav class="nav-sidebar">
+        <a href="#zorunluluklar">Sektör Zorunluluklari</a>
+        <a href="#ppap">PPAP 18 Element</a>
+        <a href="#modüller">Quvex Modül Eslesmesi</a>
+        <a href="#onboarding">Onboarding Adimlari</a>
+        <a href="#senaryo">Örnek Senaryo</a>
+        <a href="#denetim">OEM Denetim Checklist</a>
+        <a href="#başlangıç">Başlangıç Adimlari</a>
+      </nav>
+    </aside>
+
+    <main>
+
+      <section id="zorunluluklar">
+        <h2>Sektör Zorunluluklari</h2>
+        <p>Otomotiv yan sanayi, OEM'lerin (ana uretici) cok siki kalite ve teslim gereksinimlerine tabi sektörlerden biridir. IATF 16949 ve müşteriye özel gereksinimler (CSR) temel standartlardir.</p>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Zorunluluk</th><th>Standart</th><th>Açıklama</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Kalite Yönetim Sistemi</td><td>IATF 16949</td><td>ISO 9001 + otomotiv özel gereksinimler</td></tr>
+            <tr><td>Ürün Onay Süreçi</td><td>PPAP (AIAG)</td><td>18 elementli ürün parça onay süreçi</td></tr>
+            <tr><td>Hata Turu ve Etki Analizi</td><td>FMEA (AIAG-VDA)</td><td>Potansiyel hatalarin oneden belirlenmesi ve onlenmesi</td></tr>
+            <tr><td>Istatistiksel Proses Kontrol</td><td>SPC</td><td>Kritik karakteristiklerin kontrol grafikleri ile izlenmesi</td></tr>
+            <tr><td>Kontrol Planı</td><td>AIAG</td><td>Proses adimlari, kontrol yontemleri, reaksiyon plani</td></tr>
+            <tr><td>Problem Cozme</td><td>8D Raporu</td><td>Müşteri sikayetleri için 8 adimli problem cozme metodu</td></tr>
+            <tr><td>Lot Takibi</td><td>Sektör genel</td><td>Hammaddeden son ürüne lot bazlı izlenebilirlik</td></tr>
+            <tr><td>PPM Hedefi</td><td>OEM CSR</td><td>Milyon parcada hatali sayi (genellikle &lt;50 PPM)</td></tr>
+            <tr><td>Zamaninda Teslim</td><td>OEM CSR</td><td>%100 zamaninda teslim (OTD) hedefi</td></tr>
+            <tr><td>Acil Durum Planı</td><td>IATF 16949 6.1.2.3</td><td>Üretim kesintisi durumunda yedek plan</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="ppap">
+        <h2>PPAP 18 Element ve Quvex KarşılıÄŸı</h2>
+        <p>PPAP (Production Part Approval Process), yeni bir ürün veya süreç degisikligi sonrasinda OEM'e sunulan onay dosyasidir. 18 elementten olusur:</p>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>#</th><th>PPAP Elementi</th><th>Quvex KarşılıÄŸı</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Tasarim Kayıtları</td><td>Kalite &gt; Doküman Onay (teknik resim yükle)</td></tr>
+            <tr><td>2</td><td>Mühendislik Degisiklik Belgeleri</td><td>Kalite &gt; Doküman Onay (revizyon yönetimi)</td></tr>
+            <tr><td>3</td><td>Müşteri Mühendislik Onayi</td><td>Kalite &gt; Sozlesme İnceleme</td></tr>
+            <tr><td>4</td><td>Tasarim FMEA</td><td>Kalite &gt; FMEA</td></tr>
+            <tr><td>5</td><td>Proses Akis Diyagrami</td><td>Üretim &gt; İşlem Rotalari</td></tr>
+            <tr><td>6</td><td>Proses FMEA</td><td>Kalite &gt; FMEA</td></tr>
+            <tr><td>7</td><td>Kontrol Planı</td><td>Kalite &gt; Kontrol Planı</td></tr>
+            <tr><td>8</td><td>Ölçüm Sistemi Analizi (MSA)</td><td>Kalite &gt; Kalibrasyon (R&amp;R kayıtları)</td></tr>
+            <tr><td>9</td><td>Boyutsal Sonuclar</td><td>Kalite &gt; FAI (ölçüm sonuçları)</td></tr>
+            <tr><td>10</td><td>Malzeme / Performans Test Sonuçları</td><td>Kalite &gt; Giriş Kontrol (test raporları)</td></tr>
+            <tr><td>11</td><td>İlk Proses Çalışmasi (Cpk)</td><td>Kalite &gt; SPC (yetenek analizi)</td></tr>
+            <tr><td>12</td><td>Kalifiye Laboratuvar Dokümantasyonu</td><td>Kalite &gt; Doküman Onay</td></tr>
+            <tr><td>13</td><td>Gorunus Onay Raporu (AAR)</td><td>Kalite &gt; Son Kontrol (gorunus kontrolü)</td></tr>
+            <tr><td>14</td><td>Numune Ürün</td><td>Üretim &gt; Is Emri (numune partisi)</td></tr>
+            <tr><td>15</td><td>Ana Numune</td><td>Stok &gt; Depo (referans numune muhafaza)</td></tr>
+            <tr><td>16</td><td>Kontrol Yardimcilari</td><td>Kalite &gt; Kalibrasyon (özel fixture/gauge)</td></tr>
+            <tr><td>17</td><td>Müşteriye Özel Gereksinimler</td><td>Kalite &gt; Sozlesme İnceleme</td></tr>
+            <tr><td>18</td><td>Part Submission Warrant (PSW)</td><td>Kalite &gt; PPAP Onay Formu</td></tr>
+          </tbody>
+        </table>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> PPAP seviyesi (Level 1-5) müşteriniz tarafindan belirlenir. Cogu OEM Level 3 ister (tüm dokümanlar + numune). Quvex'te tüm 18 element tek dosyadan indirilebilir.
+        </div>
+      </section>
+
+      <section id="modüller">
+        <h2>Quvex Modül Eslesmesi</h2>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Gereksinim</th><th>Quvex Modülü</th><th>Ekran</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>IATF 16949 Kalite</td><td>Kalite</td><td>NCR, CAPA, Giriş/Son Kontrol</td></tr>
+            <tr><td>PPAP Dosyasi</td><td>Kalite &gt; Standart</td><td>FMEA, Kontrol Planı, FAI, SPC, Doküman Onay</td></tr>
+            <tr><td>SPC Grafikleri</td><td>Kalite &gt; İstatistik</td><td>Kalite &gt; SPC (X-bar, R, Cpk)</td></tr>
+            <tr><td>8D Raporu</td><td>Kalite</td><td>Kalite &gt; NCR &gt; 8D Raporu</td></tr>
+            <tr><td>Lot Takibi</td><td>Stok + Üretim</td><td>Stok &gt; Lot Takibi, Üretim &gt; Genealogy</td></tr>
+            <tr><td>PPM Takibi</td><td>Raporlar</td><td>Raporlar &gt; Kalite &gt; PPM Trendi</td></tr>
+            <tr><td>OTD (Zamaninda Teslim)</td><td>Raporlar</td><td>Raporlar &gt; Teslim Performansi</td></tr>
+            <tr><td>Kapasite Planlama</td><td>Üretim</td><td>Üretim &gt; Kapasite, Gantt</td></tr>
+            <tr><td>Tedarikçi Yönetimi</td><td>Satınalma</td><td>Satınalma &gt; Tedarikciler, DeÄŸerlendirme</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="onboarding">
+        <h2>Onboarding: Otomatik Yapılandırma</h2>
+        <p>"Otomotiv Yan Sanayi" sektör profilini sectiginizde:</p>
+
+        <div class="card-grid">
+          <div class="card">
+            <h4>PPAP Modülleri Aktif</h4>
+            <p>FMEA, Kontrol Planı, SPC, FAI modülleri otomatik açılır.</p>
+          </div>
+          <div class="card">
+            <h4>Lot Takibi Zorunlu</h4>
+            <p>Her üretim partisine lot numarası atamasi zorunlu olur.</p>
+          </div>
+          <div class="card">
+            <h4>8D Rapor Şablonu</h4>
+            <p>Müşteri sikayeti NCR'lerinde otomatik 8D rapor şablonu aktif olur.</p>
+          </div>
+          <div class="card">
+            <h4>PPM Dashboard</h4>
+            <p>Dashboard'da müşteri bazlı PPM ve OTD widgetleri gosterilir.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="senaryo">
+        <h2>Örnek Senaryo: Yeni Ürün PPAP Süreçi</h2>
+        <p>Bir otomotiv OEM'inden yeni bir bijon somunu siparişi aldiniz. PPAP Level 3 isteniyor. Süreç soyle işler:</p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Sozlesme İnceleme</h4>
+              <p>Müşteri spesifikasyonlari, teknik resim ve özel gereksinimler (CSR) sisteme girilir. Fizibilite onaylanir.</p>
+              <p><em>Ekran: Kalite &gt; Sozlesme İnceleme</em></p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>FMEA Hazirlama</h4>
+              <p>Proses FMEA hazırlanir. Her işlem adimi için potansiyel hatalar, etkileri ve onlemleri belirlenir. RPN (Risk Oncelik Sayisi) hesaplanir.</p>
+              <p><em>Ekran: Kalite &gt; FMEA</em></p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Kontrol Planı Oluşturma</h4>
+              <p>FMEA'dan turetilen kontrol plani hazırlanir. Her proses adimi için: kontrol yontemi, frekans, ölçüm aleti ve reaksiyon plani belirlenir.</p>
+              <p><em>Ekran: Kalite &gt; Kontrol Planı</em></p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>Numune Üretim</h4>
+              <p>300 adetlik numune partisi uretilir. Üretim parametreleri kaydedilir. Lot numarası: LOT-2026-0412.</p>
+              <p><em>Ekran: Üretim &gt; Is Emri</em></p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <h4>Boyutsal Ölçüm ve SPC</h4>
+              <p>Kritik boyutlardan (dis cap, adim, moment) 30 adet numune olculur. X-bar ve R grafikleri olusturulur. Cpk &gt; 1.67 hedeflenir.</p>
+              <p><em>Ekran: Kalite &gt; FAI, Kalite &gt; SPC</em></p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">6</div>
+            <div class="step-content">
+              <h4>PPAP Dosyasi Hazirlama</h4>
+              <p>18 elementin tamammi bir araya getirilir: FMEA, kontrol plani, SPC sonuçları, FAI raporu, malzeme sertifikalari, MSA sonuçları. PSW imzalanır.</p>
+              <p><em>Ekran: Kalite &gt; PPAP (toplu indirme)</em></p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">7</div>
+            <div class="step-content">
+              <h4>OEM Onay</h4>
+              <p>PPAP dosyasi ve numune parcalar OEM'e gonderilir. OEM değerlendirmesi sonucu: "Tam Onay" (yesil), "Gecici Onay" (sari) veya "Red" (kirmizi).</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">8</div>
+            <div class="step-content">
+              <h4>Seri Üretim Başlangıçi</h4>
+              <p>PPAP onayi sonrasi seri üretim baslar. SPC grafikleri surekli izlenir. PPM ve OTD metrikleri Dashboard'da takip edilir.</p>
+              <p><em>Ekran: Dashboard, Üretim &gt; Is Emirleri, Kalite &gt; SPC</em></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="denetim">
+        <h2>OEM Denetim Hazırlık Checklist</h2>
+        <p>OEM'ler (Ford, Toyota, Hyundai, vb.) yıllık veya surpiz denetim yapar. Bu checklist'i denetim oncesi kontrol edin:</p>
+
+        <h3>PPAP ve Dokümantasyon</h3>
+        <table class="field-table">
+          <thead>
+            <tr><th>#</th><th>Kontrol</th><th>Ekran</th><th>&#9744;</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Tüm aktif ürünlerin PPAP dosyasi güncel mi?</td><td>Kalite &gt; PPAP</td><td>&#9744;</td></tr>
+            <tr><td>2</td><td>FMEA revizyonları güncel mi? (son 12 ay içinde gozden gecirildi mi?)</td><td>Kalite &gt; FMEA</td><td>&#9744;</td></tr>
+            <tr><td>3</td><td>Kontrol planları güncel ve sahada uygulaniyorrr mu?</td><td>Kalite &gt; Kontrol Planı</td><td>&#9744;</td></tr>
+            <tr><td>4</td><td>Proses değişiklikleri için PPAP güncellendi mi?</td><td>Kalite &gt; PPAP</td><td>&#9744;</td></tr>
+          </tbody>
+        </table>
+
+        <h3>SPC ve Ölçüm</h3>
+        <table class="field-table">
+          <thead>
+            <tr><th>#</th><th>Kontrol</th><th>Ekran</th><th>&#9744;</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>5</td><td>SPC grafikleri kontrol limitlerinde mi?</td><td>Kalite &gt; SPC</td><td>&#9744;</td></tr>
+            <tr><td>6</td><td>Cpk değerleri &gt; 1.33 mu? (kritik için &gt; 1.67)</td><td>Kalite &gt; SPC</td><td>&#9744;</td></tr>
+            <tr><td>7</td><td>MSA (Gage R&amp;R) çalışmalari yapildi mi? (%10'dan az)</td><td>Kalite &gt; Kalibrasyon</td><td>&#9744;</td></tr>
+            <tr><td>8</td><td>Kalibrasyon sureleri güncel mi?</td><td>Kalite &gt; Kalibrasyon</td><td>&#9744;</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Uygunsuzluk ve Problem Cozme</h3>
+        <table class="field-table">
+          <thead>
+            <tr><th>#</th><th>Kontrol</th><th>Ekran</th><th>&#9744;</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>9</td><td>Acik NCR/CAPA var mi? Kapatilma tarihleri uygun mu?</td><td>Kalite &gt; NCR, CAPA</td><td>&#9744;</td></tr>
+            <tr><td>10</td><td>Müşteri sikayetleri 8D ile kapatildi mi?</td><td>Kalite &gt; NCR &gt; 8D</td><td>&#9744;</td></tr>
+            <tr><td>11</td><td>PPM hedefi tutturuldu mu? (son 12 ay)</td><td>Raporlar &gt; PPM</td><td>&#9744;</td></tr>
+            <tr><td>12</td><td>Tekrar eden sorunlar için kok neden analizi yapildi mi?</td><td>Kalite &gt; CAPA</td><td>&#9744;</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Teslim Performansi ve Lot Takibi</h3>
+        <table class="field-table">
+          <thead>
+            <tr><th>#</th><th>Kontrol</th><th>Ekran</th><th>&#9744;</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>13</td><td>OTD (zamaninda teslim) %98+ mi?</td><td>Raporlar &gt; Teslim</td><td>&#9744;</td></tr>
+            <tr><td>14</td><td>Lot izlenebilirligi dogru mu? (hammadde &gt; ürün eslesmesi)</td><td>Stok &gt; Lot Takibi</td><td>&#9744;</td></tr>
+            <tr><td>15</td><td>FIFO uygulaniyorr mu?</td><td>Stok &gt; Depo</td><td>&#9744;</td></tr>
+            <tr><td>16</td><td>Acil durum plani mevcut ve test edildi mi?</td><td>Kalite &gt; Doküman Onay</td><td>&#9744;</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Tedarik Zinciri</h3>
+        <table class="field-table">
+          <thead>
+            <tr><th>#</th><th>Kontrol</th><th>Ekran</th><th>&#9744;</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>17</td><td>Tedarikçi değerlendirmeleri yapildi mi?</td><td>Satınalma &gt; DeÄŸerlendirme</td><td>&#9744;</td></tr>
+            <tr><td>18</td><td>Tedarikcilerin PPAP dosyalari mevcut mu?</td><td>Satınalma &gt; Tedarikciler</td><td>&#9744;</td></tr>
+            <tr><td>19</td><td>Giriş kontrol kayıtları eksiksiz mi?</td><td>Kalite &gt; Giriş Kontrol</td><td>&#9744;</td></tr>
+            <tr><td>20</td><td>Ikinci kaynak (yedek tedarikçi) tanimli mi?</td><td>Satınalma &gt; Tedarikciler</td><td>&#9744;</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="başlangıç">
+        <h2>Önerilen Başlangıç Adimlari</h2>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Sektör Profilini Secin</h4>
+              <p>Onboarding wizard'da "Otomotiv Yan Sanayi" profilini secin. PPAP modülleri ve lot takibi otomatik aktif olur.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>OEM Müşterilerinizi Tanimlayin</h4>
+              <p>Her OEM için müşteriye özel gereksinimleri (CSR) sisteme girin. PPM hedeflerini ve teslim kurallarini belirleyin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Mevcut Ürünler İçin PPAP Dosyalarini Yukleyin</h4>
+              <p>Halihazirda urettiginiz ürünlerin PPAP dokümanlarini sisteme yükleyin. Boylece denetim sirasinda hızlı erisirsiniz.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>SPC Karakteristiklerini Belirleyin</h4>
+              <p>Her ürünun kritik boyutlarini tanımlayin ve SPC takibini baslatin. Kontrol limitleri otomatik hesaplanir.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <h4>Pilot PPAP Calistirin</h4>
+              <p>Bir ürün için tüm PPAP süreçini bastan sona test edin. 18 elementin dogru olusturuldugunu dogrulayin.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> Otomotiv sektörunde PPM ve OTD metrikleri hayati onemde. Bu iki değeri Dashboard'da her gun kontrol edin. Bozulma trendi gorurseniz hemen aksiyona gecin.
+        </div>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> FMEA canli bir dokümandir. Yeni hata tespit ettiginizde veya proses degisikligi yaptiginizda FMEA'yi hemen güncelleyin. Denetimlerde "son revizyon tarihi" her zaman sorulur.
+        </div>
+
+        <div class="callout callout-warn">
+          <strong>Dikkat:</strong> OEM'e PPAP sunmadan once tüm 18 elementin tamam oldugundan emin olun. Eksik element ile sunulan PPAP dogrudan "Red" alir ve guven kaybina yol acar.
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="doc-footer">
+    <p>Quvex ERP &mdash; Otomotiv Yan Sanayi Sektöru Rehberi &middot; v1.5 &middot; Mart 2026</p>
+  </div>
+
+</div>
+<script src="../js/guide-enhancements.js"></script>
+</body>
+</html>

@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Üretim - Quvex ERP Kullanıcı Kılavuzu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+
+  <a href="index.html" class="nav-back">&#8592; Ana Sayfa</a>
+
+  <div class="doc-header">
+    <span class="version-badge">v2.0</span>
+    <div class="breadcrumb"><a href="index.html">Kullanıcı Kılavuzu</a> / Üretim</div>
+    <h1>Üretim Yönetimi</h1>
+    <p>Is emri, Gantt planlama, kapasite, ShopFloor terminal, BOM, seri numara, fason işler, sevkiyat &mdash; tam kılavuz</p>
+  </div>
+
+  <!-- Sprint 11 Yenilikleri Callout -->
+  <div class="card" style="border-left:4px solid #f59e0b;background:linear-gradient(135deg,#fffbeb,#fef3c7);">
+    <div class="tip-title" style="color:#92400e;font-size:1rem;font-weight:700;margin-bottom:0.5rem;">Sprint 11 Yenilikleri (Nisan 2026)</div>
+    <ul style="margin:0 0 0 1.2rem;color:var(--text-secondary);line-height:1.7;">
+      <li><strong>WPS / WPQR (Kaynak Proseduru):</strong> EN ISO 15609 uyumlu kaynak prosedur sartnamesi ve yeterlilik kaydi. Bkz: <a href="modules/wps-wpqr.html">WPS/WPQR Modulu</a>.</li>
+      <li><strong>HACCP Entegrasyonu:</strong> Gida uretiminde CCP izleme ve sapma yonetimi. Bkz: <a href="modules/haccp-recall.html">HACCP &amp; Recall</a>.</li>
+      <li><strong>ProductVariant BOM:</strong> Varyantli urunlerde beden/renk bazinda recete ve is emri. <a href="modules/product-variant.html">ProductVariant Modulu</a>.</li>
+      <li><strong>Kalip Envanteri:</strong> Plastik/dokum sektoru icin cavity, shot counter ve preventif bakim. <a href="modules/mold-inventory.html">Kalip Envanteri</a>.</li>
+    </ul>
+  </div>
+
+  <div class="two-col">
+
+    <aside>
+      <nav class="nav-sidebar">
+        <a href="#tanitim">Modül Tanitimi</a>
+        <a href="#hızlı-başlangıç">Hızlı Başlangıç</a>
+        <a href="#is-emri">Is Emri Yönetimi</a>
+        <a href="#is-emri-detay">Is Emri Detay</a>
+        <a href="#gantt">Üretim Planlama / Gantt</a>
+        <a href="#kapasite">Kapasite Planlama</a>
+        <a href="#fason">Fason Is Emri</a>
+        <a href="#bom">BOM / Ürün Agaci</a>
+        <a href="#shopfloor">Operator Terminali</a>
+        <a href="#seri-numara">Seri Numara ve İzlenebilirlik</a>
+        <a href="#sevkiyat">Sevkiyat</a>
+        <a href="#sorun-giderme">Sorun Giderme</a>
+        <a href="#sss">Sik Sorulan Sorular</a>
+      </nav>
+    </aside>
+
+    <main>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 1. MODUL TANITIMI                          -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="tanitim">
+        <h2>1. Modül Tanitimi</h2>
+        <p>Üretim modülü, sipariş alınmasindan mamul sevkiyatina kadar tüm üretim süreçini yonetir. Is emri oluşturma, operasyon takibi, malzeme tuketimi, fire bildirimi, kapasite planlama ve fason işler bu modülde yer alir.</p>
+
+        <h3>Kim Kullanir?</h3>
+        <div class="card-grid">
+          <div class="card">
+            <h4>Üretim Planlama</h4>
+            <p>Is emri oluşturur, Gantt uzerinde planlar, kapasite kontrolü yapar.</p>
+          </div>
+          <div class="card">
+            <h4>Atölye Sefi</h4>
+            <p>Is emirlerini baslatur, operasyonlari takip eder, fire bildirir.</p>
+          </div>
+          <div class="card">
+            <h4>Operator</h4>
+            <p>ShopFloor terminalınden is emri baslatur, duraklatur, tamamlar.</p>
+          </div>
+          <div class="card">
+            <h4>Kalite Kontrol</h4>
+            <p>Üretim sonu muayene, seri numara izlenebilirlik, CoC onay.</p>
+          </div>
+        </div>
+
+        <h3>Diger Modüllerle Iliski</h3>
+        <table>
+          <tr><th>Modül</th><th>Iliski</th></tr>
+          <tr><td>Stok</td><td>Malzeme tuketimi stoktan duser; mamul çıkışi stoga girer</td></tr>
+          <tr><td>Satış</td><td>Satış siparişi üretim emri tetikler</td></tr>
+          <tr><td>Satin Alma</td><td>Malzeme eksikligi satin alma talebi oluşturur</td></tr>
+          <tr><td>Kalite</td><td>Final muayene, CoC (Uygünlük Sertifikasi) üretim verisini kullanir</td></tr>
+          <tr><td>Finans</td><td>Üretim maliyeti (malzeme + işçilik + genel gider) finansa akar</td></tr>
+          <tr><td>Bakım</td><td>Makine arizasi is emrini otomatik duraklatir</td></tr>
+        </table>
+
+        <div class="tip info">
+          <div class="tip-title">&#128161; İpucu</div>
+          <p>Üretim modülünu kullanmaya baslamadan once Stok modülünde ürünlerinizi, BOM ekraninda ürün agaclarini tanımlayin. Boylece is emri olustururken malzeme listesi otomatik gelir.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 2. HIZLI BASLANGIC                         -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="hızlı-başlangıç">
+        <h2>2. Hızlı Başlangıç &mdash; 5 Adimda İlk Is Emri</h2>
+
+        <div class="flow">
+          <div class="flow-step active">1. BOM Tanimla</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">2. Makine Tanimla</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">3. Is Emri Oluştur</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">4. Plana At</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">5. Üretime Başlat</div>
+        </div>
+
+        <div class="card">
+          <h4>Adim 1 &mdash; BOM (Ürün Agaci) Tanimla</h4>
+          <p><strong>Ürünler &rarr; BOM</strong> ekraninda uretilecek mamulun malzeme listesini ve operasyonlarini tanımlayin. Örnek: 1 adet "Flanş" için 2 kg celik, 1 adet conta, 3 adet civata.</p>
+        </div>
+        <div class="card">
+          <h4>Adim 2 &mdash; Makine Tanimla</h4>
+          <p><strong>Ayarlar &rarr; Makineler</strong> ekraninda fabrikadaki makine/tezgahlari tanımlayin. <code>Name</code> (ad) ve <code>Code</code> (kod) alanlarıni doldürün.</p>
+        </div>
+        <div class="card">
+          <h4>Adim 3 &mdash; Is Emri Oluştur</h4>
+          <p><strong>Üretim &rarr; Yeni Is Emri</strong>. Ürün, miktar, termin tarihi girin. BOM tanimli ise malzeme ve operasyonlar otomatik yüklenir.</p>
+        </div>
+        <div class="card">
+          <h4>Adim 4 &mdash; Plana At</h4>
+          <p>Is emrini <strong>Planla</strong> butonuyla takvime atin. Gantt ekraninda surukle-birak ile makine ve tarih atamasi yapın.</p>
+        </div>
+        <div class="card">
+          <h4>Adim 5 &mdash; Üretime Başlat</h4>
+          <p>Planlanan is emrini <strong>Başlat</strong> butonuyla etkinlestirin. ShopFloor terminalınde operatorler is emrini gormeye baslar.</p>
+        </div>
+
+        <div class="tip">
+          <div class="tip-title">&#128161; İpucu</div>
+          <p>Is emrini başlatmadan once stok mevcudiyetini kontrol edin. Eksik malzeme varsa sistem uyarı verir.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 3. IS EMRI YONETIMI                        -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="is-emri">
+        <h2>3. Is Emri Yönetimi <code>/production</code></h2>
+        <p>Is emri, bir ürünun belirli miktarda uretilmesi için verilen resmi talimattir.</p>
+
+        <h3>Durum Akisi</h3>
+        <div class="flow">
+          <div class="flow-step">Taslak</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Planlandi</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step active">Basladi</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Tamamlandi</div>
+        </div>
+
+        <table>
+          <tr><th>Durum</th><th>Açıklama</th><th>Geçiş Kosulu</th></tr>
+          <tr><td><span class="badge badge-default">Taslak</span></td><td>Is emri olusturuldu, henuz planlanmadi</td><td>Ürün ve miktar girilmis olmali</td></tr>
+          <tr><td><span class="badge badge-info">Planlandi</span></td><td>Makine ve tarih atandi, baslama bekleniyor</td><td>En az bir operasyon tanimli ve makine atanmis olmali</td></tr>
+          <tr><td><span class="badge badge-warning">Basladi</span></td><td>Üretim aktif olarak devam ediyor</td><td>Malzeme mevcudiyeti onaylanmis olmali</td></tr>
+          <tr><td><span class="badge badge-success">Tamamlandi</span></td><td>Tüm operasyonlar bitmis, mamul stoga girmis</td><td>Tüm operasyonlar %100 ilerlemis olmali</td></tr>
+        </table>
+
+        <h4>Ek Durumlar</h4>
+        <table>
+          <tr><th>Durum</th><th>Açıklama</th></tr>
+          <tr><td><span class="badge badge-warning">Duraklatildi</span></td><td>Makine arizasi, malzeme eksikligi vb. nedenle gecici durma</td></tr>
+          <tr><td><span class="badge badge-danger">Iptal</span></td><td>Is emri geri cekildi (tuketilen malzeme iade fisi gerekir)</td></tr>
+        </table>
+
+        <h3>Alan Tablosu</h3>
+        <table class="field-table">
+          <tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th><th>Örnek</th></tr>
+          <tr><td class="required">Is Emri No</td><td>Otomatik uretilir</td><td><span class="badge badge-danger">Evet</span></td><td>IE-2026-00142</td></tr>
+          <tr><td class="required">Ürün</td><td>Uretilecek mamul</td><td><span class="badge badge-danger">Evet</span></td><td>Flans DN100</td></tr>
+          <tr><td class="required">Miktar</td><td>Uretilecek adet</td><td><span class="badge badge-danger">Evet</span></td><td>250</td></tr>
+          <tr><td class="required">Birim</td><td>Ölçüm birimi</td><td><span class="badge badge-danger">Evet</span></td><td>ADET</td></tr>
+          <tr><td>Termin Tarihi</td><td>Teslim edilmesi gereken son tarih</td><td><span class="badge badge-default">Hayir</span></td><td>30.04.2026</td></tr>
+          <tr><td>Oncelik</td><td>Düşük / Normal / Yüksek / Acil</td><td><span class="badge badge-default">Hayir</span></td><td>Yüksek</td></tr>
+          <tr><td>Müşteri</td><td>Sipariş sahibi müşteri</td><td><span class="badge badge-default">Hayir</span></td><td>ABC Havacilik A.S.</td></tr>
+          <tr><td>Sipariş Ref.</td><td>Ilgili satış siparişi</td><td><span class="badge badge-default">Hayir</span></td><td>SIP-2026-0087</td></tr>
+          <tr><td>Proje</td><td>Bagli proje</td><td><span class="badge badge-default">Hayir</span></td><td>F-16 Yedek Parça</td></tr>
+          <tr><td>Açıklama</td><td>Ek notlar</td><td><span class="badge badge-default">Hayir</span></td><td>MIL-STD tolerans gerekli</td></tr>
+        </table>
+
+        <div class="tip warning">
+          <div class="tip-title">&#9888;&#65039; Dikkat</div>
+          <p>"Basladi" durumundaki bir is emrini silmek mümkün degildir. Once <strong>Iptal</strong> edin, tuketilen malzeme varsa iade fisi olustürün.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 4. IS EMRI DETAY                           -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="is-emri-detay">
+        <h2>4. Is Emri Detay</h2>
+        <p>Is emri detay ekrani 3 ana sekmeden olusur: <strong>Operasyonlar</strong>, <strong>Malzeme Tuketimi</strong>, <strong>Fire Bildirimi</strong>.</p>
+
+        <h3>Operasyonlar</h3>
+        <p>BOM'dan gelen veya manuel eklenen üretim adimlaridir. Her operasyonun süresi, makinesi ve sorumlusu vardir.</p>
+        <table class="field-table">
+          <tr><th>Alan</th><th>Açıklama</th><th>Örnek</th></tr>
+          <tr><td>Operasyon No</td><td>Sira numarası</td><td>10, 20, 30...</td></tr>
+          <tr><td>Operasyon Adi</td><td>Yapılacak is</td><td>CNC Tornalama</td></tr>
+          <tr><td>Makine</td><td>Kullanilacak tezgah</td><td>CNC-TORNA-01</td></tr>
+          <tr><td>Hazırlık Süresi</td><td>Setup süresi (dk)</td><td>45 dk</td></tr>
+          <tr><td>Birim Süre</td><td>Parça basi süre (dk)</td><td>8 dk</td></tr>
+          <tr><td>Ilerleme (%)</td><td>Tamamlanma orani</td><td>%65</td></tr>
+        </table>
+
+        <div class="flow">
+          <div class="flow-step">Op 10: Kesim</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step active">Op 20: Tornalama</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Op 30: Delme</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Op 40: Yuzey İşleme</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Op 50: Kalite Kontrol</div>
+        </div>
+
+        <h3>Malzeme Tuketimi</h3>
+        <p>Is emri basladiginda BOM'a gore malzeme tuketim listesi olusur. Operator veya sef, gercekte tuketilen miktarlari girer. Stoktan otomatik dusum yapılır.</p>
+
+        <div class="tip info">
+          <div class="tip-title">&#128161; İpucu</div>
+          <p>BOM'daki malzeme miktari "standart" değerdir. Gercekte daha fazla veya az tuketilebilir. Fark fire olarak raporlanir.</p>
+        </div>
+
+        <h3>Fire Bildirimi</h3>
+        <p>Üretim sirasinda olusan kusurlu parcalar fire olarak bildirilir. Her fire kaydında sebep, miktar ve açıklama girilir.</p>
+        <table>
+          <tr><th>Fire Sebebi</th><th>Açıklama</th></tr>
+          <tr><td>Malzeme Hatasi</td><td>Hammadde kusurlu gelmis</td></tr>
+          <tr><td>Makine Hatasi</td><td>Tezgah tolerans disi uretiyor</td></tr>
+          <tr><td>Operator Hatasi</td><td>Yanlis ayar, ölçüm hatasi</td></tr>
+          <tr><td>Tasarim Hatasi</td><td>Teknik resim veya BOM hatali</td></tr>
+          <tr><td>Diger</td><td>Siniflandirilamayan sebepler</td></tr>
+        </table>
+
+        <div class="tip warning">
+          <div class="tip-title">&#9888;&#65039; Dikkat</div>
+          <p>Fire miktari toplam üretim miktarina eklenmez. 100 adet sipariş + 5 adet fire = 105 adet uretmek gerekir. Planlama sirasinda beklenen fire oranini hesaba katin.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 5. URETIM PLANLAMA / GANTT                 -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="gantt">
+        <h2>5. Üretim Planlama / Gantt <code>/production/planning</code></h2>
+        <p>Gantt ekrani, is emirlerini zaman cizelgesinde görsellestirir. Surukle-birak ile planlama yapılır.</p>
+
+        <h3>Temel İşlemler</h3>
+        <table>
+          <tr><th>İşlem</th><th>Nasil Yapilir</th></tr>
+          <tr><td>Is emri tasima</td><td>Gantt cubuğunu surukleyerek baska tarihe tasıyın</td></tr>
+          <tr><td>Süre uzatma/kisaltma</td><td>Cubugun sag kenarini surukleyin</td></tr>
+          <tr><td>Makine değiştirme</td><td>Cubugu baska makine satirina surukleyin</td></tr>
+          <tr><td>Detay goruntuleme</td><td>Cubuga tıklayarak detay panelini açın</td></tr>
+        </table>
+
+        <h3>Çakışma Kontrolü</h3>
+        <p>Ayni makineye ayni zaman diliminde birden fazla is emri atadiginizda sistem çakışma uyarısi verir. Cakisan is emirleri kirmizi cerceve ile isarektlenir.</p>
+
+        <div class="flow">
+          <div class="flow-step">Is Emri Surukle</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Çakışma Kontrol</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step active">Uyarı veya Onay</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Plan Kaydet</div>
+        </div>
+
+        <div class="tip info">
+          <div class="tip-title">&#128161; İpucu</div>
+          <p>Gantt ekraninda <strong>Ctrl+Z</strong> ile son işlemi geri alabilirsiniz. Planı kaydetmeden once son halıni goruntulemek için <strong>On izleme</strong> butonunu kullanın.</p>
+        </div>
+
+        <div class="tip warning">
+          <div class="tip-title">&#9888;&#65039; Dikkat</div>
+          <p>"Basladi" durumundaki is emirleri Gantt uzerinde tasinamaz. Once duraklatmaniz gerekir.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 6. KAPASITE PLANLAMA                       -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="kapasite">
+        <h2>6. Kapasite Planlama <code>/production/capacity</code></h2>
+        <p>Kapasite ekrani, her makinenin günlük/haftalık is yukunu gösterir ve darbogazlari tespit etmenize yardimci olur.</p>
+
+        <h3>Makine Bazlı Yuk Gorunumu</h3>
+        <p>Her makine için yuk orani yuzde olarak gosterilir:</p>
+        <table>
+          <tr><th>Yuk Orani</th><th>Renk</th><th>Anlami</th></tr>
+          <tr><td>%0-50</td><td><span class="badge badge-success">Yesil</span></td><td>Bos kapasite mevcut</td></tr>
+          <tr><td>%51-80</td><td><span class="badge badge-warning">Sari</span></td><td>Normal yuk</td></tr>
+          <tr><td>%81-100</td><td><span class="badge badge-danger">Kirmizi</span></td><td>Tam kapasite / Darboğaz riski</td></tr>
+          <tr><td>%100+</td><td><span class="badge badge-danger">Koyu Kirmizi</span></td><td>Asiri yuk &mdash; termin kaymalari olacak</td></tr>
+        </table>
+
+        <h3>Darbogaz Tespiti</h3>
+        <p>Sistem, %80 uzerinde yuk tasiyan makineleri otomatik isarektler. Bu makineler darbogaz adayidir. Çözüm önerileri:</p>
+        <ul style="margin-left:1.5rem;color:var(--text-secondary);">
+          <li>Is emirlerini baska makineye kaydırin</li>
+          <li>Vardiya sayisini artirin (fazla mesai)</li>
+          <li>Fason üretime yonlendirin</li>
+          <li>Termin tarihini müşteriye ile revize edin</li>
+        </ul>
+
+        <div class="tip info">
+          <div class="tip-title">&#128161; İpucu</div>
+          <p>Kapasite planlama ekranini her hafta basindan once kontrol edin. Haftanin darbogaz makinelerini onceden tespit edip önlem alın.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 7. FASON IS EMRI                           -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="fason">
+        <h2>7. Fason Is Emri <code>/production/subcontract</code></h2>
+        <p>Bazi operasyonlar veya tüm üretim dis tedarikciye (fasoncu) yaptiirildiginda fason is emri kullanilir.</p>
+
+        <h3>Fason Is Akisi</h3>
+        <div class="flow">
+          <div class="flow-step active">Fason Sipariş Oluştur</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Malzeme Gönder</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Fasoncu Uretir</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Teslim Al</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Kalite Kontrol</div>
+        </div>
+
+        <h3>Alan Tablosu</h3>
+        <table class="field-table">
+          <tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th><th>Örnek</th></tr>
+          <tr><td class="required">Fasoncu</td><td>Dis tedarikçi firma</td><td><span class="badge badge-danger">Evet</span></td><td>XYZ Makina Ltd.</td></tr>
+          <tr><td class="required">Is Emri Ref.</td><td>Ana is emri baglantisi</td><td><span class="badge badge-danger">Evet</span></td><td>IE-2026-00142</td></tr>
+          <tr><td class="required">Operasyon</td><td>Yaptiirilacak işlem</td><td><span class="badge badge-danger">Evet</span></td><td>Isil İşlem</td></tr>
+          <tr><td>Gonderilen Miktar</td><td>Fasoncuya giden parça sayisi</td><td><span class="badge badge-default">Hayir</span></td><td>200 ADET</td></tr>
+          <tr><td>Teslim Tarihi</td><td>Beklenen teslim</td><td><span class="badge badge-default">Hayir</span></td><td>15.04.2026</td></tr>
+          <tr><td>Birim Fiyat</td><td>Operasyon basi maliyet</td><td><span class="badge badge-default">Hayir</span></td><td>12.50 TL/ADET</td></tr>
+        </table>
+
+        <h3>Teslim Alma</h3>
+        <p>Fasoncu teslim ettiginde <strong>Teslim Al</strong> butonuna basin. Teslim edilen miktar, kabul/red durumu ve kalite notu girin. Stok otomatik güncellenir.</p>
+
+        <h3>Maliyet Takibi</h3>
+        <p>Fason maliyet, is emri maliyetine otomatik eklenir. Raporlar &rarr; Üretim Maliyet ekraninda fason paylari görüntülenir.</p>
+
+        <div class="tip info">
+          <div class="tip-title">&#128161; İpucu</div>
+          <p>Fasoncuya malzeme gonderirken stoktan çıkış fisi kesilir. Teslim alınan mamul stoga giriş fisi ile kaydedilir. Tüm hareketler izlenebilir.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 8. BOM / URUN AGACI                        -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="bom">
+        <h2>8. BOM / Ürün Agaci <code>/products/bom</code></h2>
+        <p>BOM (Bill of Materials / Ürün Agaci), bir mamulun uretilmesi için gereken tüm malzeme ve operasyonlarin listesidir.</p>
+
+        <h3>Cok Seviyeli BOM</h3>
+        <p>Bir mamulun altinda yari mamuller, onlarin altinda da hammaddeler bulunabilir. Örnek:</p>
+        <div class="card" style="font-family:monospace;font-size:0.85rem;line-height:2;">
+          Flans DN100 (Mamul)<br>
+          ├── Celik Disk (Yari Mamul) &times; 1<br>
+          │&nbsp;&nbsp;&nbsp;├── Celik Levha 10mm (Hammadde) &times; 2.5 KG<br>
+          │&nbsp;&nbsp;&nbsp;└── Kesim Operasyonu &times; 15 dk<br>
+          ├── Conta (Hammadde) &times; 1 ADET<br>
+          ├── Civata M10 (Hammadde) &times; 8 ADET<br>
+          └── Tornalama Operasyonu &times; 45 dk
+        </div>
+
+        <h3>Net İhtiyaç Hesaplama (MRP)</h3>
+        <p>BOM uzerinden is emri olustururken sistem net ihtiyaç hesaplar:</p>
+        <div class="flow">
+          <div class="flow-step">Brut İhtiyaç</div>
+          <span class="flow-arrow">&#8722;</span>
+          <div class="flow-step">Mevcut Stok</div>
+          <span class="flow-arrow">&#8722;</span>
+          <div class="flow-step">Acik Sipariş</div>
+          <span class="flow-arrow">=</span>
+          <div class="flow-step active">Net İhtiyaç</div>
+        </div>
+
+        <p>Net ihtiyaç pozitif cikiyorsa eksik malzeme için satin alma talebi olusturulabilir.</p>
+
+        <div class="tip info">
+          <div class="tip-title">&#128161; İpucu</div>
+          <p>BOM'u dogru tanımlamak cok onemlidir. Yanlis miktar veya eksik malzeme, üretim sirasinda durmalara neden olur. Teknik resim ile karsilastirarak dogrulayin.</p>
+        </div>
+
+        <div class="tip warning">
+          <div class="tip-title">&#9888;&#65039; Dikkat</div>
+          <p>Cok seviyeli BOM'da dongusel referans (A &rarr; B &rarr; A) tanımlamak mümkün degildir. Sistem bunu engeller ve hata mesaji gösterir.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 9. OPERATOR TERMINALI (SHOPFLOOR)          -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="shopfloor">
+        <h2>9. Operator Terminali (ShopFloor) <code>/shop-floor-terminal</code></h2>
+        <p>ShopFloor terminali, atolyedeki operatorlerin dokunmatik ekran veya tabletler uzerinden kullanmasi için tasarlanmis özel bir arayuzdur.</p>
+
+        <h3>Temel Özellikler</h3>
+        <div class="card-grid">
+          <div class="card">
+            <h4>Dokunmatik UI</h4>
+            <p>Buyuk butonlar, kolay dokunma. Eldiven ile kullanima uygun.</p>
+          </div>
+          <div class="card">
+            <h4>NumPad Giriş</h4>
+            <p>Ekran klavyesi yerine buyuk rakam tuslarıyla hızlı miktar girişi.</p>
+          </div>
+          <div class="card">
+            <h4>Barkod Okuma</h4>
+            <p>Is emri barkodunu okutarak hızlı erişim.</p>
+          </div>
+          <div class="card">
+            <h4>Offline Çalışma</h4>
+            <p>Internet kesildiginde veriler yerel hafizada tutulur, baglanti gelince senkronize edilir.</p>
+          </div>
+          <div class="card">
+            <h4>Sesli Bildirim</h4>
+            <p>Is emri tamamlama, uyarı ve hata durumlarinda sesli geri bildirim.</p>
+          </div>
+          <div class="card">
+            <h4>Kolay Giriş</h4>
+            <p>Personel karti veya PIN ile hızlı giriş, uzun kullanıcı adi/şifre gerekmez.</p>
+          </div>
+        </div>
+
+        <h3>Is Emri İşlemleri</h3>
+        <div class="flow">
+          <div class="flow-step active">&#9654; Başlat</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">&#10074;&#10074; Duraklat</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">&#9654; Devam</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">&#9632; Tamamla</div>
+        </div>
+
+        <h4>Başlat</h4>
+        <p>Is emri listesinden istenileni secin ve <strong>Başlat</strong> butonuna basin. Zamanlayici otomatik baslar.</p>
+
+        <h4>Duraklat</h4>
+        <p>Mola, malzeme bekleme veya arıza durumunda <strong>Duraklat</strong> basin. Duraklama sebebini secin.</p>
+
+        <h4>Tamamla</h4>
+        <p>Operasyon bittiginde uretilen miktar ve (varsa) fire miktarini girin. <strong>Tamamla</strong> basin.</p>
+
+        <div class="tip info">
+          <div class="tip-title">&#128161; İpucu</div>
+          <p>ShopFloor terminali tam ekran (kiosk) modunda calisabilir. Tarayici F11 ile tam ekrana alın veya Ayarlar'dan otomatik kiosk modu aktif edin.</p>
+        </div>
+
+        <div class="tip warning">
+          <div class="tip-title">&#9888;&#65039; Dikkat</div>
+          <p>Offline modda biriken veriler, baglanti geldiginde otomatik gonderilir. Ancak uzun sureli kesintilerde (24 saat+) veri kaybi riski olusabilir. Sistematik baglanti problemlerini IT ekibine bildirin.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 10. SERI NUMARA VE IZLENEBILIRLIK          -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="seri-numara">
+        <h2>10. Seri Numara ve İzlenebilirlik</h2>
+        <p>AS9100 ve savunma sanayi gereksinimleri için her ürünun yasam dongusunu basindan sonuna takip edin.</p>
+
+        <h3>Toplu Seri Numara Oluşturma</h3>
+        <p>Is emri tamamlandiginda uretilen parcalar için toplu seri numara olusturabilirsiniz:</p>
+        <ol style="margin-left:1.5rem;color:var(--text-secondary);">
+          <li>Is emri detay ekranini açın</li>
+          <li><strong>Seri Numaralar</strong> sekmesine gidin</li>
+          <li><strong>Toplu Oluştur</strong> butonuna tıklayin</li>
+          <li>Başlangıç numarası ve adet girin (ornegin: SN-2026-0001'den 250 adet)</li>
+          <li>Sistem otomatik sirali numaralar uretir</li>
+        </ol>
+
+        <h3>Genealoji (Soy Agaci)</h3>
+        <p>Bir seri numarali parcanan hangi lottan, hangi makinede, hangi operator tarafindan, hangi is emriyle uretildigini gorebilirsiniz.</p>
+
+        <div class="card" style="font-family:monospace;font-size:0.85rem;line-height:2;">
+          Seri No: SN-2026-0142<br>
+          ├── Is Emri: IE-2026-00142<br>
+          ├── Ürün: Flans DN100<br>
+          ├── Üretim Tarihi: 10.04.2026<br>
+          ├── Makine: CNC-TORNA-01<br>
+          ├── Operator: Mehmet Demir<br>
+          ├── Malzeme Lotlari:<br>
+          │&nbsp;&nbsp;&nbsp;├── Celik: LOT-2026-0042 (Tedarikçi: ABC Celik)<br>
+          │&nbsp;&nbsp;&nbsp;└── Conta: LOT-2026-0089<br>
+          └── Kalite: KABUL (Final Muayene #FM-2026-0156)
+        </div>
+
+        <div class="tip info">
+          <div class="tip-title">&#128161; İpucu</div>
+          <p>Müşteri şikâyet durumunda seri numarasıni girerek tüm tedarik zincirine kadar geri izleme yapabilirsiniz. Bu özellik AS9100 denetimlerinde zorunludur.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 11. SEVKIYAT                               -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="sevkiyat">
+        <h2>11. Sevkiyat <code>/production/shipment</code></h2>
+        <p>Üretimi tamamlanan ürünlerin müşteriye gonderilmesi süreçidir.</p>
+
+        <h3>Sevkiyat Akisi</h3>
+        <div class="flow">
+          <div class="flow-step">Üretim Tamam</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Kalite Onay</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step active">İrsaliye Oluştur</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Sevk Et</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Teslim Onay</div>
+        </div>
+
+        <h3>İrsaliye Oluşturma</h3>
+        <p><strong>Üretim &rarr; Sevkiyat &rarr; Yeni İrsaliye</strong> butonuna tıklayin. Is emrini veya satış siparişini secin. Gonderilecek ürünler ve miktarlar listelenir.</p>
+
+        <h3>Miktar Kontrolü</h3>
+        <p>Sistem, sevk edilecek miktarin üretim miktarini asmasina izin vermez. Ornegin 250 adet uretilmisse 260 adet sevk edemezsiniz.</p>
+
+        <table>
+          <tr><th>Kontrol</th><th>Açıklama</th></tr>
+          <tr><td>Üretim Miktari</td><td>Tamamlanan toplam üretim</td></tr>
+          <tr><td>Onceki Sevkler</td><td>Daha once sevk edilen toplam</td></tr>
+          <tr><td>Kalan Miktar</td><td>Sevk edilebilecek maksimum</td></tr>
+        </table>
+
+        <div class="tip info">
+          <div class="tip-title">&#128161; İpucu</div>
+          <p>Kismi sevkiyat yapabilirsiniz. 250 adetten 100 adet once, 150 adet sonra gonderilebilir. Her sevkiyat ayri irsaliye ile kayıt altina alınir.</p>
+        </div>
+
+        <div class="tip warning">
+          <div class="tip-title">&#9888;&#65039; Dikkat</div>
+          <p>AS9100 kapsamında sevkiyat oncesi CoC (Uygünlük Sertifikasi) onaylanmis olmalidir. CoC onaysiz sevkiyata izin verilmez.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 12. SORUN GIDERME                          -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="sorun-giderme">
+        <h2>12. Sorun Giderme</h2>
+
+        <div class="card">
+          <h4>"Is emri baslatılamıyor"</h4>
+          <p><strong>Sebep:</strong> Malzeme eksikligi veya is emri hala "Taslak" durumunda.</p>
+          <p><strong>Çözüm:</strong> Once is emrini "Planlandi" durumuna gecirin (makine ve tarih atayin). Stok mevcudiyetini kontrol edin. Eksik malzeme varsa satin alma talebi olustürün.</p>
+        </div>
+
+        <div class="card">
+          <h4>"Gantt ekraninda surukleyemiyorum"</h4>
+          <p><strong>Sebep:</strong> Is emri "Basladi" durumunda veya kilitsiz degil.</p>
+          <p><strong>Çözüm:</strong> Baslayan is emirleri once duraklatın. "Planlandi" durumundaki is emirleri serbestce suruklenebilir.</p>
+        </div>
+
+        <div class="card">
+          <h4>"BOM'dan malzeme otomatik gelmiyor"</h4>
+          <p><strong>Sebep:</strong> Ürün için BOM tanımlanmamis veya BOM onaylanmamis.</p>
+          <p><strong>Çözüm:</strong> Ürünler &rarr; BOM ekraninda ilgili ürünun BOM'unu kontrol edin. BOM yoksa tanımlayin; varsa "Aktif" durumda oldugundan emin olun.</p>
+        </div>
+
+        <div class="card">
+          <h4>"ShopFloor terminali yavas calisiyor"</h4>
+          <p><strong>Sebep:</strong> Tarayici cache dolu veya cok fazla acik sekme var.</p>
+          <p><strong>Çözüm:</strong> Tarayici cache'ini temizleyin. Terminalde sadece ShopFloor sekmesini acik tutun. Kiosk modunda calistirin.</p>
+        </div>
+
+        <div class="card">
+          <h4>"Seri numara olusturulamıyor"</h4>
+          <p><strong>Sebep:</strong> Is emri henuz tamamlanmamis veya stok kartinda seri numara takibi kapali.</p>
+          <p><strong>Çözüm:</strong> Is emrini tamamlayin. Stok karti &rarr; "Seri No Takibi" secenegini açın.</p>
+        </div>
+
+        <div class="card">
+          <h4>"Fason siparişi kapatılamıyor"</h4>
+          <p><strong>Sebep:</strong> Teslim alınan miktar gonderilen miktardan az.</p>
+          <p><strong>Çözüm:</strong> Kalan miktayi teslim alın veya "Kismi Teslim Kapat" secenegini kullanın. Fire varsa fire olarak bildirin.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 13. SSS                                    -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="sss">
+        <h2>13. Sik Sorulan Sorular (SSS)</h2>
+
+        <div class="card">
+          <h4>S1: Bir is emrinde kac operasyon olabilir?</h4>
+          <p>Sinir yoktur. İhtiyaçiniz kadar operasyon ekleyebilirsiniz. Ancak pratik olarak 20-30 operasyonu asmamak önerilir.</p>
+        </div>
+        <div class="card">
+          <h4>S2: Is emri numarası değiştirilebilir mi?</h4>
+          <p>Hayir. Is emri numarası sistem tarafindan otomatik uretilir ve değiştirilemez. Bu, izlenebilirlik için kritiktir.</p>
+        </div>
+        <div class="card">
+          <h4>S3: BOM olmadan is emri acilabiir mi?</h4>
+          <p>Evet. BOM tanımlanmamis ürünler için de is emri acilabilir. Bu durumda malzeme ve operasyonlari manuel girersiniz.</p>
+        </div>
+        <div class="card">
+          <h4>S4: Fire orani otomatik hesaplaniyor mu?</h4>
+          <p>Evet. Her is emri tamamlandiginda fire orani = (fire miktari / toplam üretim) &times; 100 olarak hesaplanir ve raporlarda gosterilir.</p>
+        </div>
+        <div class="card">
+          <h4>S5: Gantt gorunumunde kac günlük plan görüntülenir?</h4>
+          <p>Varsayılan 2 haftadir. Sag üst kosede "1 Hafta", "1 Ay", "3 Ay" secenekleri ile değiştirebilirsiniz.</p>
+        </div>
+        <div class="card">
+          <h4>S6: Makine arizalandiginda ne olur?</h4>
+          <p>Bakım modülünden arıza bildirildiginde, o makinedeki aktif is emri otomatik "Duraklatildi" durumuna gecer. Arıza giderilince devam ettirilebilir.</p>
+        </div>
+        <div class="card">
+          <h4>S7: Fason işlemde kalite kontrol yapilabilir mi?</h4>
+          <p>Evet. Fasoncu teslim ettiginde normal giriş muayenesi süreçi baslar. Red durumunda fasoncuya iade yapilabilir.</p>
+        </div>
+        <div class="card">
+          <h4>S8: ShopFloor terminali hangi cihazlarda çalışır?</h4>
+          <p>Modern tarayıcısi olan her cihazda çalışır: Windows/Linux/macOS bilgisayar, Android/iOS tablet, endüstriyel dokunmatik panel.</p>
+        </div>
+        <div class="card">
+          <h4>S9: Bir operatör ayni anda birden fazla is emrinde calisabilir mi?</h4>
+          <p>Hayir. ShopFloor terminalınde bir operator ayni anda yalnizca bir is emrinde aktif olabilir. Onceki işlemini tamamlamali veya duraklatmali.</p>
+        </div>
+        <div class="card">
+          <h4>S10: Kapasite planlama gerçek zamanlı mı?</h4>
+          <p>Evet. ShopFloor'dan gelen ilerleme verileri anlık olarak kapasite ekranina yansir (anlık bildirim sistemi).</p>
+        </div>
+        <div class="card">
+          <h4>S11: Üretim maliyeti nasil hesaplanir?</h4>
+          <p>Malzeme maliyeti (BOM &times; birim fiyat) + işçilik (süre &times; saat ucreti) + fason maliyet + genel gider payi seklinde hesaplanir.</p>
+        </div>
+        <div class="card">
+          <h4>S12: Kismi üretim mümkün mu?</h4>
+          <p>Evet. 250 adetlik is emrinden 100 adet uretip kapatabilirsiniz. Kalan miktar için yeni is emri acilabiir veya eksik kapatma yapilabilir.</p>
+        </div>
+        <div class="card">
+          <h4>S13: Is emri yazdirilabilir mi?</h4>
+          <p>Evet. Detay ekraninda <strong>Yazdir</strong> butonu vardir. PDF olarak kaydedebilir veya dogrudan yaziciya gonderebilirsiniz. Cikti uzerinde barkod da yer alir.</p>
+        </div>
+        <div class="card">
+          <h4>S14: Seri numarayi kendim belirleyebilir miyim?</h4>
+          <p>Evet. Otomatik veya manuel mod secebilirsiniz. Manuel modda her seri numarasıni teker teker girersiniz. Tekrar eden numara girilmesine izin verilmez.</p>
+        </div>
+        <div class="card">
+          <h4>S15: Sevkiyattan sonra müşteri iade yaparsa ne olur?</h4>
+          <p>Satış modülünde iade fisi kesilir. İade edilen ürünler stoga geri girer. Seri numarali ürünlerde seri numara bazinda izlenebilirlik devam eder.</p>
+        </div>
+        <div class="card">
+          <h4>S16: Vardiya bilgisi is emrine islenebilir mi?</h4>
+          <p>Evet. ShopFloor terminalınde operator girişi sirasinda vardiya otomatik belirlenir. Raporlarda vardiya bazlı üretim miktarlari görüntülenir.</p>
+        </div>
+        <div class="card">
+          <h4>S17: Is emri silinebilir mi?</h4>
+          <p>Sadece "Taslak" durumundaki is emirleri silinebilir. Diger durumlarda silme yerine "Iptal" işlemi yapılır ve geçmiş kayıtlar korunur.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- ILGILI EKRANLAR                            -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section>
+        <h2>Ilgili Ekranlar</h2>
+        <div class="card-grid">
+          <a href="stok.html" class="card module-card stok-border">
+            <div class="card-icon stok">&#128230;</div>
+            <h4>Stok &amp; Depo</h4>
+            <p>Malzeme mevcudiyeti, lot takibi, depo işlemleri</p>
+          </a>
+          <a href="kalite.html" class="card module-card kalite-border">
+            <div class="card-icon kalite">&#9989;</div>
+            <h4>Kalite</h4>
+            <p>Final muayene, CoC, MRB süreçleri</p>
+          </a>
+          <a href="satinalma.html" class="card module-card satınalma-border">
+            <div class="card-icon satınalma">&#128230;</div>
+            <h4>Satin Alma</h4>
+            <p>Malzeme tedariği, tedarikçi yönetimi</p>
+          </a>
+          <a href="satis.html" class="card module-card satış-border">
+            <div class="card-icon satış">&#128176;</div>
+            <h4>Satış</h4>
+            <p>Sipariş, irsaliye, fatura</p>
+          </a>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="doc-footer">
+    Quvex ERP &copy; 2026 &mdash; Üretim Yönetimi Kullanıcı Kılavuzu v2.0
+  </div>
+
+</div>
+<script src="js/guide-enhancements.js"></script>
+</body>
+</html>

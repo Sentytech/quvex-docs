@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Makine İmalatı Sektörü - Quvex ERP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="container">
+
+  <a href="../index.html" class="nav-back">&#8592; Ana Sayfa</a>
+
+  <div class="doc-header">
+    <span class="version-badge">v1.5</span>
+    <div class="breadcrumb"><a href="../index.html">Kullanıcı Kılavuzu</a> / <a href="../index.html">Sektör Rehberleri</a> / Makine İmalatı</div>
+    <h1>Makine İmalatı Sektörü Rehberi</h1>
+    <p>Proje bazlı üretim, 200+ parçalı multi-level BOM, CE Makine Direktifi teknik dosyası, risk değerlendirme, fonksiyonel test ve saha devreye alma. Makine imalat firmanızı Quvex ile yönetin.</p>
+  </div>
+
+  <div class="two-col">
+
+    <aside>
+      <nav class="nav-sidebar">
+        <a href="#zorunluluklar">Sektör Gereksinimleri</a>
+        <a href="#modüller">Quvex Modül Eşleşmesi</a>
+        <a href="#onboarding">Onboarding Adımları</a>
+        <a href="#senaryo">Örnek Senaryo</a>
+        <a href="#kurulum">Tipik Firma Kurulumu</a>
+        <a href="#başlangıç">Başlangıç Adımları</a>
+      </nav>
+    </aside>
+
+    <main>
+
+      <section id="zorunluluklar">
+        <h2>Sektör Gereksinimleri</h2>
+        <p>Makine imalat firmaları için kritik gereksinimler: proje bazlı yönetim, derin BOM (200+ parça, 5-6 seviye), CE Makine Direktifi 2006/42/EC uyumu, EN ISO 12100 risk değerlendirme, fonksiyonel test ve müşteri sahasında devreye alma süreçleridir.</p>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Gereksinim</th><th>Öncelik</th><th>Açıklama</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Proje Bazlı Üretim</td><td><span class="badge badge-new">KRİTİK</span></td><td>Her makine bir proje, ayrı müşteri, ayrı maliyet merkezi</td></tr>
+            <tr><td>Multi-Level BOM (200+)</td><td><span class="badge badge-new">KRİTİK</span></td><td>Montaj grupları, alt grupları, standart ve özel parçalar</td></tr>
+            <tr><td>CE Teknik Dosya</td><td><span class="badge badge-new">KRİTİK</span></td><td>Makine Direktifi 2006/42/EC teknik dosyası zorunlu</td></tr>
+            <tr><td>Risk Değerlendirme</td><td><span class="badge badge-new">KRİTİK</span></td><td>EN ISO 12100 tehlike analizi ve risk azaltma</td></tr>
+            <tr><td>Fonksiyonel Test</td><td>Yüksek</td><td>FAT (Factory Acceptance Test), test protokolleri</td></tr>
+            <tr><td>Saha Devreye Alma</td><td>Yüksek</td><td>SAT (Site Acceptance Test), kurulum ve eğitim</td></tr>
+            <tr><td>Satın Alma Entegrasyonu</td><td>Yüksek</td><td>Özel parça tedariği (servo motor, PLC, sensörler)</td></tr>
+            <tr><td>Revizyon Yönetimi</td><td>Orta</td><td>BOM revizyonu, ECN (Engineering Change Notice)</td></tr>
+            <tr><td>Dokümantasyon</td><td>Orta</td><td>Kullanım kılavuzu, elektrik şeması, P&amp;ID</td></tr>
+            <tr><td>Garanti ve Servis</td><td>Orta</td><td>Satış sonrası servis, garanti takibi, yedek parça</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="modüller">
+        <h2>Quvex Modül Eşleşmesi</h2>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Gereksinim</th><th>Quvex Modülü</th><th>Ekran</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Proje Bazlı Üretim</td><td>Proje</td><td>Proje &gt; Projeler</td></tr>
+            <tr><td>Multi-Level BOM</td><td>Üretim</td><td>Üretim &gt; BOM &gt; Multi-Level</td></tr>
+            <tr><td>CE Teknik Dosya</td><td>Belgeler</td><td>Belgeler &gt; CE Teknik Dosya</td></tr>
+            <tr><td>Risk Değerlendirme</td><td>Kalite</td><td>Kalite &gt; Risk Analizi (EN ISO 12100)</td></tr>
+            <tr><td>Fonksiyonel Test (FAT)</td><td>Kalite</td><td>Kalite &gt; FAT Protokolü</td></tr>
+            <tr><td>Saha Devreye Alma</td><td>Servis</td><td>Servis &gt; Saha İş Emirleri &gt; SAT</td></tr>
+            <tr><td>MRP</td><td>Üretim</td><td>Üretim &gt; MRP</td></tr>
+            <tr><td>Satın Alma</td><td>Satınalma</td><td>Satınalma &gt; Sipariş</td></tr>
+            <tr><td>Revizyon Yönetimi</td><td>Üretim</td><td>Üretim &gt; BOM Revizyon (ECN)</td></tr>
+            <tr><td>Garanti/Servis</td><td>Servis</td><td>Servis &gt; Garanti Takibi</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="onboarding">
+        <h2>Onboarding: Otomatik Yapılandırma</h2>
+        <p>"Makine İmalatı" sektör profilini seçtiğinizde:</p>
+
+        <div class="card-grid">
+          <div class="card">
+            <h4>Proje Modülü Aktif</h4>
+            <p>Her makine bir proje olarak açılır. Proje bazlı maliyet, takvim ve Gantt gösterimi gelir.</p>
+          </div>
+          <div class="card">
+            <h4>Derin BOM Desteği</h4>
+            <p>5+ seviye multi-level BOM aktif. Montaj grupları ve alt gruplar desteklenir.</p>
+          </div>
+          <div class="card">
+            <h4>CE Teknik Dosya Şablonu</h4>
+            <p>Makine Direktifi 2006/42/EC için hazır dosya yapısı kurulur.</p>
+          </div>
+          <div class="card">
+            <h4>FAT/SAT Protokol Şablonu</h4>
+            <p>Fonksiyonel test ve saha kabul test protokol şablonları eklenir.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="senaryo">
+        <h2>Örnek Senaryo: Teknik Bey'in Paketleme Makinesi Projesi</h2>
+        <p>Teknik Bey, gıda sektörüne özel konveyörlü paketleme makineleri üreten bir firma yönetiyor. Yeni sipariş: bir süt ürünleri fabrikasına "Yoğurt Kap Paketleme Hattı".</p>
+
+        <h3>Proje Başlatma</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Müşteri ve Proje</h4>
+              <p>Satış &gt; Müşteriler'den "Yıldız Süt A.Ş." ekle. Proje &gt; Yeni Proje'den "PRJ-2026-012 Yoğurt Paketleme Hattı" projesi açılır, bütçe 450.000 TL, teslim 120 gün.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Ürün Tanımı ve BOM</h4>
+              <p>Ürün "Yoğurt Paketleme Hattı YP-2000" açılır. BOM multi-level:
+              <ul>
+                <li>Konveyör Grubu (50 parça)</li>
+                <li>Dolum Grubu (40 parça)</li>
+                <li>Kapak Kapatma Grubu (30 parça)</li>
+                <li>Elektrik Panosu (PLC + HMI + kontaktor, 60 parça)</li>
+                <li>Çerçeve ve Muhafaza (20 parça)</li>
+              </ul>
+              Toplam ~200 parça, 5 seviye.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>CE Teknik Dosya Başlat</h4>
+              <p>Belgeler &gt; CE Teknik Dosya'dan PRJ-2026-012 için yeni dosya açılır. İçindekiler: risk analizi, şemalar, standart listesi, test raporları, kullanım kılavuzu.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>Risk Değerlendirme</h4>
+              <p>Kalite &gt; Risk Analizi'nden EN ISO 12100 kapsamında tehlike analizi yapılır: ezilme, sıkışma, elektrik, gürültü, kimyasal (dezenfektan). Her tehlike için koruyucu önlem tanımlanır (acil stop, koruyucu kapak, vb.).</p>
+            </div>
+          </div>
+        </div>
+
+        <h3>Satın Alma ve Üretim</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <h4>MRP ve Satın Alma</h4>
+              <p>Üretim &gt; MRP çalıştırılır. Sistem ~200 parçalık ihtiyaç listesi çıkarır. Servo motor, PLC, HMI, sensör, redüktör gibi özel parçalar için satın alma siparişleri oluşur (tedarik süresi 4-6 hafta).</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">6</div>
+            <div class="step-content">
+              <h4>İç İmalat (Şase, Sac)</h4>
+              <p>Şase ve sac kapaklar iç atölyede CNC ile üretilir. İş emirleri açılır.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">7</div>
+            <div class="step-content">
+              <h4>Elektrik Pano Montajı</h4>
+              <p>Pano atölyesinde PLC/HMI montajı ve kablaj yapılır. Elektrik şeması revizyonu 3'e güncellendi → ECN kaydı.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">8</div>
+            <div class="step-content">
+              <h4>Mekanik Montaj</h4>
+              <p>Alt gruplar bir araya getirilir. Konveyör + dolum + kapak + pano birleştirilir. Tahmini 15 işgünü.</p>
+            </div>
+          </div>
+        </div>
+
+        <h3>Test ve Teslimat</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">9</div>
+            <div class="step-content">
+              <h4>FAT (Fabrika Kabul Testi)</h4>
+              <p>Kalite &gt; FAT Protokolü çalıştırılır: kuru test (boşta), yaş test (su ile), hız testi (2000 kap/saat), emniyet butonu testi. Müşteri fabrikaya gelir, birlikte test edilir.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">10</div>
+            <div class="step-content">
+              <h4>CE İşaretleme</h4>
+              <p>Tüm testler geçti. CE uygunluk beyanı imzalanır, CE etiketi makineye yapıştırılır. Teknik dosya arşivlenir (10 yıl saklama).</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">11</div>
+            <div class="step-content">
+              <h4>Sahaya Sevkiyat</h4>
+              <p>Makine demonte edilip kamyona yüklenir. Sevkiyat evrakı + CE beyanı + kullanım kılavuzu gönderilir.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">12</div>
+            <div class="step-content">
+              <h4>Saha Devreye Alma (SAT)</h4>
+              <p>Servis &gt; Saha İş Emirleri'nden SAT başlatılır. Müşteri sahasında kurulum, bağlantı, 3 gün eğitim, 1 hafta gözetim. Müşteri onayı alınır, garanti başlar.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="kurulum">
+        <h2>Tipik Makine İmalat Firması Kurulumu</h2>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Tanımlanacak Veri</th><th>Ekran</th><th>Örnek</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Makineler (Atölye)</td><td>Ayarlar &gt; Makineler</td><td>CNC torna, freze, kaynak, pano atölyesi</td></tr>
+            <tr><td>Ürün Aileleri</td><td>Stok &gt; Ürünler</td><td>Konveyörler, dolum makineleri, paketleyiciler</td></tr>
+            <tr><td>Standart Parçalar</td><td>Stok &gt; Ürünler</td><td>Servo motor, redüktör, PLC, HMI, sensör</td></tr>
+            <tr><td>BOM Şablonları</td><td>Üretim &gt; BOM</td><td>Multi-level, 5+ seviye, montaj grupları</td></tr>
+            <tr><td>Proje Kategorileri</td><td>Proje &gt; Ayarlar</td><td>Yeni üretim, revizyon, servis, yedek parça</td></tr>
+            <tr><td>Risk Şablonları</td><td>Kalite &gt; Risk</td><td>EN ISO 12100 tehlike listesi</td></tr>
+            <tr><td>FAT Protokolleri</td><td>Kalite &gt; FAT</td><td>Fonksiyonel test senaryoları</td></tr>
+            <tr><td>Müşteriler</td><td>Satış &gt; Müşteriler</td><td>Gıda fabrikaları, ilaç firmaları, kimya</td></tr>
+            <tr><td>Tedarikçiler</td><td>Satınalma</td><td>Siemens, SEW, Schneider, Festo</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="başlangıç">
+        <h2>Önerilen Başlangıç Adımları</h2>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Sektör Profilini Seçin</h4>
+              <p>Onboarding wizard'da "Makine İmalatı" profilini seçin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Standart Parça Kataloğu</h4>
+              <p>Servo motor, PLC, HMI, redüktör, sensör gibi standart bileşenleri sisteme tanımlayın (uzun tedarik süreli).</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>BOM Şablonları</h4>
+              <p>Daha önce üretilen makinelerin BOM'larını multi-level olarak yükleyin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>CE Dosya Şablonu</h4>
+              <p>Makine Direktifi 2006/42/EC için teknik dosya şablonunuzu Belgeler modülüne yükleyin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <h4>Risk Değerlendirme Şablonu</h4>
+              <p>EN ISO 12100 tehlike kategorileri şablonunu sistemde hazırlayın.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">6</div>
+            <div class="step-content">
+              <h4>Pilot Proje</h4>
+              <p>Devam eden bir proje üzerinden tüm süreci test edin: proje aç → BOM → MRP → FAT → SAT.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> Uzun tedarik süreli parçaları (servo motor, PLC) proje başlar başlamaz sipariş edin. Aksi takdirde ana teslim tarihini kaçırırsınız.
+        </div>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> CE teknik dosyası sadece denetim için değil, hukuki sorumluluk için de önemlidir. 10 yıl saklamak zorundasınız. Quvex'te dijital arşivleyin.
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="doc-footer">
+    <p>Quvex ERP &mdash; Makine İmalatı Sektörü Rehberi &middot; v1.5 &middot; Nisan 2026</p>
+  </div>
+
+</div>
+<script src="../js/guide-enhancements.js"></script>
+</body>
+</html>

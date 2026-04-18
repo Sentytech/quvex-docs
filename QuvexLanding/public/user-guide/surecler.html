@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Süreçler - Quvex ERP Kullanıcı Kılavuzu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+
+  <a href="index.html" class="nav-back">&#8592; Ana Sayfa</a>
+
+  <div class="doc-header">
+    <span class="version-badge">v2.0</span>
+    <div class="breadcrumb"><a href="index.html">Kullanıcı Kılavuzu</a> / Süreçler</div>
+    <h1>Süreçler -- IK, Vardiya, Proje, AI &amp; Entegrasyon</h1>
+    <p>Insan kaynakları, vardiya yönetimi, proje takibi, yapay zeka öngörüleri ve dış sistem entegrasyonları</p>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-value">5</div>
+      <div class="stat-label">Alt Modül</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">AI</div>
+      <div class="stat-label">Öngörüler</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">4</div>
+      <div class="stat-label">Entegrasyon</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+
+    <aside>
+      <nav class="nav-sidebar">
+        <a href="#vardiya">Vardiya Yönetimi</a>
+        <a href="#eğitim">Eğitim / Yetkinlik</a>
+        <a href="#doküman">Doküman Yönetimi</a>
+        <a href="#proje">Proje Yönetimi</a>
+        <a href="#ai">AI Insights</a>
+        <a href="#efatura">e-Fatura (GIB)</a>
+        <a href="#signalr">SignalR Bildirimler</a>
+        <a href="#excel">Excel Import/Export</a>
+        <a href="#döviz">TCMB Döviz Kuru</a>
+        <a href="#sprint11" style="color:#f59e0b;font-weight:700;">Sprint 11 Yeni</a>
+      </nav>
+    </aside>
+
+    <main>
+
+      <!-- ================================================================ -->
+      <!--  IK / VARDİYA                                                     -->
+      <!-- ================================================================ -->
+      <section id="vardiya">
+        <h2>Vardiya Yönetimi</h2>
+        <p>Fabrika vardiya düzenini tanımlayın, personel atayın ve giriş/çıkış kayıtlarını takip edin.</p>
+
+        <h3>Vardiya Tanımlama</h3>
+        <table class="field-table">
+          <thead><tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th></tr></thead>
+          <tbody>
+            <tr><td class="required">Vardiya Adı</td><td>Ör. Sabah, Akşam, Gece</td><td>Evet</td></tr>
+            <tr><td class="required">Başlangıç Saati</td><td>Vardiya başlangıcı (ör. 08:00)</td><td>Evet</td></tr>
+            <tr><td class="required">Bitiş Saati</td><td>Vardiya bitişi (ör. 16:00)</td><td>Evet</td></tr>
+            <tr><td>Mola Süresi</td><td>Toplam mola süresi (dakika)</td><td>Hayır</td></tr>
+            <tr><td>Renk Kodu</td><td>Takvim görünümünde kullanılacak renk</td><td>Hayır</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Personel Atama</h3>
+        <p>Vardiya tanımlandıktan sonra personeli ilgili vardiyaya atayın:</p>
+        <div class="card">
+          <h4>Nasıl Yapılır?</h4>
+          <ol>
+            <li><strong>IK &gt; Vardiyalar</strong> sayfasına gidin</li>
+            <li>İlgili vardiyayı seçin</li>
+            <li><strong>Personel Ata</strong> butonuna tıklayın</li>
+            <li>Listeden personel seçin ve kaydedin</li>
+          </ol>
+        </div>
+
+        <h3>Giriş / Çıkış Takibi</h3>
+        <p>Personelin vardiyaya giriş ve çıkış saatleri kaydedilir. Geç gelen veya erken çıkanlar otomatik olarak işaretlenir.</p>
+
+        <div class="tip">
+          <div class="tip-title">İpucu</div>
+          Vardiya değişikliği yapıldığında ilgili personele otomatik bildirim gönderilir.
+        </div>
+      </section>
+
+      <!-- ================================================================ -->
+      <!--  EĞİTİM / YETKİNLİK                                              -->
+      <!-- ================================================================ -->
+      <section id="eğitim">
+        <h2>Eğitim ve Yetkinlik Matrisi</h2>
+        <p>Personelin aldığı eğitimler ve sahip olduğu yetkinlikler sisteme kaydedilir. AS9100 ve ISO 9001 uyumluluğu için gereklidir.</p>
+
+        <h3>Eğitim Kaydı</h3>
+        <table class="field-table">
+          <thead><tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th></tr></thead>
+          <tbody>
+            <tr><td class="required">Eğitim Adı</td><td>Eğitimin başlığı</td><td>Evet</td></tr>
+            <tr><td class="required">Eğitim Tarihi</td><td>Verildiği tarih</td><td>Evet</td></tr>
+            <tr><td class="required">Katılımcılar</td><td>Eğitime katılan personel listesi</td><td>Evet</td></tr>
+            <tr><td>Eğitmen</td><td>Eğitimi veren kişi/kurum</td><td>Hayır</td></tr>
+            <tr><td>Süre (saat)</td><td>Toplam eğitim süresi</td><td>Hayır</td></tr>
+            <tr><td>Sertifika</td><td>Varsa sertifika dosyası</td><td>Hayır</td></tr>
+            <tr><td>Geçerlilik Süresi</td><td>Sertifikanın geçerli olduğu bitiş tarihi</td><td>Hayır</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Yetkinlik Matrisi</h3>
+        <p>Personel x Yetkinlik matrisi, kimin hangi işleri yapabileceğini gösterir. Yetkinlik seviyeleri:</p>
+        <table>
+          <thead><tr><th>Seviye</th><th>Renk</th><th>Açıklama</th></tr></thead>
+          <tbody>
+            <tr><td>0 -- Yok</td><td><span class="badge badge-default">Gri</span></td><td>Bu yetkinliğe sahip değil</td></tr>
+            <tr><td>1 -- Başlangıç</td><td><span class="badge badge-warning">Sarı</span></td><td>Eğitim aldı, gözetim altında yapabilir</td></tr>
+            <tr><td>2 -- Yetkin</td><td><span class="badge badge-info">Mavi</span></td><td>Bağımsız yapabilir</td></tr>
+            <tr><td>3 -- Uzman</td><td><span class="badge badge-success">Yeşil</span></td><td>Başkalarını eğitebilir</td></tr>
+          </tbody>
+        </table>
+
+        <div class="warning tip">
+          <div class="tip-title">Dikkat</div>
+          Sertifika geçerlilik süresi dolmadan 30 gün önce otomatik uyarı gönderilir. Süresi dolan sertifikalar kırmızı ile gösterilir.
+        </div>
+      </section>
+
+      <!-- ================================================================ -->
+      <!--  DOKÜMAN YÖNETİMİ                                                -->
+      <!-- ================================================================ -->
+      <section id="doküman">
+        <h2>Doküman Yönetimi</h2>
+        <p>Fabrika prosedürleri, iş talimatları, teknik çizimler ve kalite dokümanlarını merkezi bir yerden yönetin.</p>
+
+        <h3>Doküman Kartı</h3>
+        <table class="field-table">
+          <thead><tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th></tr></thead>
+          <tbody>
+            <tr><td class="required">Doküman No</td><td>Benzersiz doküman numarası</td><td>Evet</td></tr>
+            <tr><td class="required">Başlık</td><td>Dokümanın adı</td><td>Evet</td></tr>
+            <tr><td class="required">Kategori</td><td>Prosedür / Talimat / Çizim / Form / Kayıt</td><td>Evet</td></tr>
+            <tr><td>Revizyon No</td><td>Mevcut versiyon numarası (ör. Rev.03)</td><td>Hayır</td></tr>
+            <tr><td>Dosya</td><td>PDF, Word, Excel veya resim dosyası</td><td>Hayır</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Versiyon Kontrolü</h3>
+        <div class="flow">
+          <div class="flow-step active">Taslak</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">İnceleme</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Onay</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Yayın</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Revizyon</div>
+        </div>
+
+        <p>Her yeni versiyon önceki versiyonun üzerine yazmaz; eski versiyonlar arşivde tutulur. Böylece herhangi bir anda geriye dönük erişim mümkündür.</p>
+
+        <div class="tip">
+          <div class="tip-title">Bilgi</div>
+          AS9100 doküman onay akışı aktifse, dokümanlar onaylanmadan yayınlanamaz. Onay yetkilileri Ayarlar sayfasından tanımlanır.
+        </div>
+      </section>
+
+      <!-- ================================================================ -->
+      <!--  PROJE YÖNETİMİ                                                  -->
+      <!-- ================================================================ -->
+      <section id="proje">
+        <h2>Proje Yönetimi</h2>
+        <p>Büyük siparişleri veya ürün geliştirme çalışmalarını proje olarak takip edin. Milestone (kilometre taşı), görev atama ve bütçe kontrolü yapın.</p>
+
+        <h3>Proje Oluşturma</h3>
+        <table class="field-table">
+          <thead><tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th></tr></thead>
+          <tbody>
+            <tr><td class="required">Proje Adı</td><td>Projenin kısa adı</td><td>Evet</td></tr>
+            <tr><td class="required">Müşteri</td><td>Projenin ait olduğu müşteri</td><td>Evet</td></tr>
+            <tr><td class="required">Başlangıç Tarihi</td><td>Projenin başladığı tarih</td><td>Evet</td></tr>
+            <tr><td>Bitiş Tarihi</td><td>Hedeflenen tamamlanma tarihi</td><td>Hayır</td></tr>
+            <tr><td>Bütçe</td><td>Ayrılan toplam bütçe (TRY)</td><td>Hayır</td></tr>
+            <tr><td>Açıklama</td><td>Proje kapsamı ve hedefleri</td><td>Hayır</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Milestone ve Görev</h3>
+        <p>Her projeye milestone (kilometre taşı) ekleyin. Her milestone altına görevler atayın:</p>
+        <div class="flow">
+          <div class="flow-step active">Proje</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Milestone 1</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Görev A, B, C</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Milestone 2</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Görev D, E</div>
+        </div>
+
+        <h3>Bütçe Takibi</h3>
+        <p>Projeye bağlı iş emirleri, satınalma siparişleri ve fason maliyetler otomatik olarak proje bütçesinden düşülür. Dashboard'da harcama/bütçe oranı gösterilir.</p>
+
+        <div class="tip">
+          <div class="tip-title">İpucu</div>
+          Bütçenin %80'ine ulaşıldığında proje yöneticisine otomatik uyarı gönderilir.
+        </div>
+      </section>
+
+      <!-- ================================================================ -->
+      <!--  AI INSIGHTS                                                      -->
+      <!-- ================================================================ -->
+      <section id="ai">
+        <h2>AI Insights -- Yapay Zeka Öngörüleri</h2>
+        <p>Quvex'in yapay zeka modülü, üretim verilerinizi analiz ederek öngörüler ve tavsiyeler sunar.</p>
+
+        <h3>Üretim Öngörüleri</h3>
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-icon ai">&#9733;</div>
+            <h4>Trend Analizi</h4>
+            <p>Üretim miktarları, fire oranları ve teslim süreleri için trend çizgileri ve tahminler.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon ai">&#9888;</div>
+            <h4>Anomali Tespiti</h4>
+            <p>Normalden sapan değerler (ani fire artışı, beklenmeyen duruş) otomatik tespit edilir ve uyarı verilir.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon ai">&#9776;</div>
+            <h4>Sektör Bazlı Tahmin</h4>
+            <p>Savunma sanayi, otomotiv, havacılık gibi sektörlere özel parametrelerle özelleştirilmiş tahminler.</p>
+          </div>
+        </div>
+
+        <h3>AI Dashboard</h3>
+        <p>AI Insights sayfasında aşağıdaki bilgiler görüntülenir:</p>
+        <table>
+          <thead><tr><th>Widget</th><th>Açıklama</th></tr></thead>
+          <tbody>
+            <tr><td>Üretim Tahmini</td><td>Gelecek 7/30 gün üretim miktarı tahmini</td></tr>
+            <tr><td>Fire Riski</td><td>Yüksek fire olasılığı olan ürün/operasyon uyarıları</td></tr>
+            <tr><td>Bakım Tahmini</td><td>Kestirimci bakım önerileri (hangi makine ne zaman arızalanabilir)</td></tr>
+            <tr><td>Stok Tahmini</td><td>Mevcut tüketim hızına göre stokun ne zaman biteceği</td></tr>
+            <tr><td>Anomali Uyarıları</td><td>Son 24 saatte tespit edilen anormal durumlar</td></tr>
+          </tbody>
+        </table>
+
+        <div class="info tip">
+          <div class="tip-title">Bilgi</div>
+          AI öngörüleri en az 3 aylık veri birikiminden sonra anlamlı sonuçlar üretmeye başlar. Yeni kurulumlarda öncelikle veri girişine odaklanın.
+        </div>
+      </section>
+
+      <!-- ================================================================ -->
+      <!--  E-FATURA                                                         -->
+      <!-- ================================================================ -->
+      <section id="efatura">
+        <h2>e-Fatura (GIB) Entegrasyonu</h2>
+        <p>Quvex, GIB (Gelir İdaresi Başkanlığı) e-Fatura sistemine entegre çalışır. Satış faturalarını doğrudan sistem üzerinden oluşturup gönderebilirsiniz.</p>
+
+        <h3>e-Fatura Süreci</h3>
+        <div class="flow">
+          <div class="flow-step active">Fatura Oluştur</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">UBL-TR Dönüşüm</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">GIB'e Gönder</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Durum Takibi</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Kabul / Red</div>
+        </div>
+
+        <h3>Fatura Durumları</h3>
+        <table>
+          <thead><tr><th>Durum</th><th>Açıklama</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge badge-default">Taslak</span></td><td>Henüz GIB'e gönderilmedi</td></tr>
+            <tr><td><span class="badge badge-warning">Gönderildi</span></td><td>GIB'e iletildi, yanıt bekleniyor</td></tr>
+            <tr><td><span class="badge badge-success">Kabul Edildi</span></td><td>Alıcı tarafından kabul edildi</td></tr>
+            <tr><td><span class="badge badge-danger">Reddedildi</span></td><td>Alıcı tarafından reddedildi</td></tr>
+          </tbody>
+        </table>
+
+        <div class="warning tip">
+          <div class="tip-title">Dikkat</div>
+          e-Fatura entegrasyonu için GIB hesap bilgilerinin Ayarlar sayfasından tanımlanması gerekir. Test ortamında sandbox modu aktif olmalıdır.
+        </div>
+      </section>
+
+      <!-- ================================================================ -->
+      <!--  SIGNALR BİLDİRİMLER                                             -->
+      <!-- ================================================================ -->
+      <section id="signalr">
+        <h2>SignalR Anlık Bildirimler</h2>
+        <p>Quvex, SignalR teknolojisi ile anlık bildirimler gönderir. Sayfa yenilemesine gerek kalmadan bildirimleri anında alırsınız.</p>
+
+        <h3>Bildirim Türleri</h3>
+        <table>
+          <thead><tr><th>Olay</th><th>Bildirim</th><th>Kime Gider?</th></tr></thead>
+          <tbody>
+            <tr><td>Yeni sipariş</td><td>Yeni satış siparişi oluşturuldu</td><td>Üretim planlama</td></tr>
+            <tr><td>Stok uyarısı</td><td>Minimum stok seviyesi altına düştü</td><td>Satınalma</td></tr>
+            <tr><td>Kalite reddi</td><td>Giriş kontrolde malzeme reddedildi</td><td>Kalite ve satınalma</td></tr>
+            <tr><td>Bakım uyarısı</td><td>Koruyucu bakım zamanı geldi</td><td>Bakım ekibi</td></tr>
+            <tr><td>İş emri atama</td><td>Yeni iş emri atandı</td><td>Atanan personel</td></tr>
+            <tr><td>Arıza bildirimi</td><td>Makine arıza kaydı oluşturuldu</td><td>Bakım sorumlusu</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Sesli Bildirim Ayarları</h3>
+        <p>Bildirimlerin sesli olarak da duyurulmasını istiyorsanız:</p>
+        <ol>
+          <li>Sağ üst köşedeki zil simgesine tıklayın</li>
+          <li><strong>Bildirim Ayarları</strong> bağlantısını seçin</li>
+          <li>"Sesli Bildirim" seçeneğini açın</li>
+          <li>Hangi bildirim türleri için ses istediğinizi işaretleyin</li>
+        </ol>
+
+        <div class="tip">
+          <div class="tip-title">Bilgi</div>
+          SignalR hub adresi: <code>/hubs/notification</code>. Tarayıcınız WebSocket desteklemiyorsa otomatik olarak long-polling'e geçer.
+        </div>
+      </section>
+
+      <!-- ================================================================ -->
+      <!--  EXCEL IMPORT/EXPORT                                              -->
+      <!-- ================================================================ -->
+      <section id="excel">
+        <h2>Excel Import / Export</h2>
+        <p>Toplu veri yükleme ve veri indirme işlemleri Excel dosyaları üzerinden yapılır.</p>
+
+        <h3>Import (Toplu Veri Yükleme)</h3>
+        <div class="card">
+          <h4>Nasıl Yapılır?</h4>
+          <ol>
+            <li>İlgili sayfada (ör. Ürünler, Müşteriler) <strong>Excel Import</strong> butonuna tıklayın</li>
+            <li><strong>Şablon İndir</strong> butonuyla doğru formatta şablon dosyasını indirin</li>
+            <li>Şablonu doldürün (ilk satır başlık, silinmemeli)</li>
+            <li>Doldurduğunuz dosyayı yükleyin</li>
+            <li>Önizleme ekranında verileri kontrol edin</li>
+            <li><strong>İçe Aktar</strong> butonuyla kaydedin</li>
+          </ol>
+        </div>
+
+        <h3>Export (Veri İndirme)</h3>
+        <p>Her liste sayfasında <strong>Excel Export</strong> butonu bulunur. Mevcut filtreler uygulanmış haliyle veriyi indirir.</p>
+
+        <div class="warning tip">
+          <div class="tip-title">Dikkat</div>
+          Import sırasında zorunlu alanlar boş bırakılamaz. Hatalı satırlar listesi import sonrası gösterilir, başarılı satırlar kaydedilir.
+        </div>
+      </section>
+
+      <!-- ================================================================ -->
+      <!--  TCMB DÖVİZ KURU                                                 -->
+      <!-- ================================================================ -->
+      <section id="döviz">
+        <h2>TCMB Döviz Kuru Entegrasyonu</h2>
+        <p>Sistem, TCMB (Türkiye Cumhuriyet Merkez Bankası) üzerinden günlük döviz kurlarını otomatik olarak çeker.</p>
+
+        <h3>Nasıl Çalışır?</h3>
+        <table>
+          <thead><tr><th>Özellik</th><th>Açıklama</th></tr></thead>
+          <tbody>
+            <tr><td>Otomatik Çekme</td><td>Her gün sabah 10:00'da TCMB kuru güncellenir</td></tr>
+            <tr><td>Desteklenen Para Birimleri</td><td>USD, EUR, GBP ve diğer TCMB pariteler</td></tr>
+            <tr><td>Fallback</td><td>TCMB erişilemezse son bilinen kur kullanılır</td></tr>
+            <tr><td>Manuel Güncelleme</td><td>Ayarlar sayfasından "Kur Güncelle" ile anlık çekme</td></tr>
+          </tbody>
+        </table>
+
+        <p>Dövizli sipariş, fatura ve teklif işlemlerinde kur otomatik olarak uygulanır. İsterseniz manuel kur girebilirsiniz.</p>
+
+        <div class="info tip">
+          <div class="tip-title">Bilgi</div>
+          Fallback aktif olduğunda sayfanın üst kısmında "Kur tarihi: ..." uyarısı gösterilir. Kur güncelliğini kontrol edin.
+        </div>
+      </section>
+
+      <!-- ================================================================ -->
+      <!-- SPRINT 11 YENI SURECLER                                           -->
+      <!-- ================================================================ -->
+      <section id="sprint11">
+        <h2>Sprint 11 Yeni Surec Akislari (Nisan 2026)</h2>
+        <p>Sprint 11 ile eklenen 4 yeni is sureci: HACCP, Recall, WPS/WPQR onay ve Kalip bakim dongusu.</p>
+
+        <h3 id="haccp-akis">HACCP Surec Akisi (Gida Guvenligi)</h3>
+        <div class="flow">
+          <span class="flow-step active">1. PRP Tanimlama</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-step">2. Tehlike Analizi</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-step">3. CCP Belirleme</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-step">4. Kritik Limit</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-step">5. Izleme</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-step">6. Sapma -&gt; NCR</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-step">7. Dogrulama</span>
+        </div>
+        <table>
+          <thead><tr><th>Adim</th><th>Kim</th><th>Ne Yapar</th><th>Sonuc</th></tr></thead>
+          <tbody>
+            <tr><td>1. PRP Tanimlama</td><td>Kalite Muhendisi</td><td>Hijyen, temizlik, personel kontrol proseduru olusturur</td><td>Plan dokumani</td></tr>
+            <tr><td>2. Tehlike Analizi</td><td>HACCP Ekibi</td><td>Biyolojik, kimyasal, fiziksel tehlikeleri listeler</td><td>Risk matrisi</td></tr>
+            <tr><td>3. CCP Belirleme</td><td>HACCP Ekibi</td><td>Karar agaci ile kritik kontrol noktalarini bulur</td><td>CCP listesi</td></tr>
+            <tr><td>4. Kritik Limit</td><td>Kalite Muhendisi</td><td>Her CCP icin min/max limit tanimlar (orn: &ge;75&deg;C)</td><td>Izleme parametresi</td></tr>
+            <tr><td>5. Izleme</td><td>Operator</td><td>Belirli sikligitada olcum alir, sisteme girer</td><td>CCP kaydi</td></tr>
+            <tr><td>6. Sapma</td><td>Sistem</td><td>Limit disi degerde NCR acar, lot karantinaya alir, SignalR+WhatsApp bildirim gonderir</td><td>Duzeltici faaliyet</td></tr>
+            <tr><td>7. Dogrulama</td><td>Kalite Muduru</td><td>Aylik HACCP audit, plan gozden gecirme</td><td>Revize plan</td></tr>
+          </tbody>
+        </table>
+
+        <h3 id="recall-akis">Recall (Geri Cagirma) Workflow</h3>
+        <div class="flow">
+          <span class="flow-step active">1. Tetik</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-step">2. Lot Analizi</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-step">3. Musteri Tespiti</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-step">4. Bildirim</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-step">5. Iade Toplama</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-step">6. Imha/Rework</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-step">7. Kapanis Raporu</span>
+        </div>
+        <p><strong>Tetikleyiciler:</strong> Musteri sikayeti, ic NCR, HACCP sapmasi, yasal denetim bulgusu, FSCA (medikal/guvenlik kritik). Sistem lot izlenebilirligi ile hangi musteriye hangi seri numarasinin gittigini otomatik listeler.</p>
+
+        <h3 id="wps-akis">WPS / WPQR Onay Sureci (Kaynak)</h3>
+        <div class="flow">
+          <span class="flow-step active">1. WPS Taslak</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-step">2. Kaynak Muhendisi Onay</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-step">3. Test Kaynagi</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-step">4. NDT + Mekanik Test</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-step">5. WPQR Kaydi</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-step">6. WPS Onayi</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-step">7. Uretim Kullanim</span>
+        </div>
+        <p><strong>EN ISO 15614:</strong> Test kaynagi akreditasyonlu laboratuvarda yaptirilmalidir. Cekme, egme, cizik testleri raporlanir. WPQR belgesi 5 yil gecerli olup ayni parametrelerle yapilacak seri uretim icin dayanak tesk eder.</p>
+
+        <h3 id="kalip-akis">Kalip Bakim Dongusu</h3>
+        <div class="flow">
+          <span class="flow-step active">1. Kalip Kayit</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-step">2. Uretim + Shot Sayac</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-step">3. Esik %80</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-step">4. Preventif Bakim IE</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-step">5. Kontrol + Temizlik</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-step">6. Yeniden Uretime</span>
+        </div>
+        <p><strong>Omur Yonetimi:</strong> Her kalip icin toplam atim omru (orn: 1 milyon shot) tanimlanir. %50, %80 ve %95 esiklerinde farkli uyarilar tetiklenir. %100'e ulasilmadan kalip yenilenmelidir.</p>
+
+        <div class="info tip">
+          <div class="tip-title">Ipucu</div>
+          Yeni surecleri denemek icin Ayarlar &gt; Sektor Profili'nden ilgili sektor demo verisini yukleyebilirsiniz (Gida, Savunma, Plastik).
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="doc-footer">
+    Quvex ERP &copy; 2026 &mdash; Süreçler (IK, Vardiya, Proje, AI, Entegrasyon) Kullanıcı Kılavuzu v2.0
+  </div>
+
+</div>
+<script src="js/guide-enhancements.js"></script>
+</body>
+</html>

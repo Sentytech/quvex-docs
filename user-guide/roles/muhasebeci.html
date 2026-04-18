@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muhasebeci Kılavuzu - Quvex ERP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="container">
+
+  <a href="../index.html" class="nav-back">&#8592; Ana Sayfa</a>
+
+  <div class="doc-header">
+    <span class="version-badge">v1.5</span>
+    <div class="breadcrumb"><a href="../index.html">Kullanıcı Kılavuzu</a> / <a href="../index.html">Rol Kılavuzlari</a> / Muhasebeci</div>
+    <h1>Muhasebeci Kılavuzu</h1>
+    <p>Siz muhasebecisiniz. Fatura girişi, ödeme takibi, kasa işlemleri, cari mutabakat ve vergi hazirligi sizin sorumluluk alanınizdir.</p>
+  </div>
+
+  <div class="two-col">
+
+    <aside>
+      <nav class="nav-sidebar">
+        <a href="#bakis">Genel Bakis</a>
+        <a href="#sabah">Sabah Rutini</a>
+        <a href="#günlük">Gunluk Gorevler</a>
+        <a href="#haftalık">Haftalik Gorevler</a>
+        <a href="#aylik">Aylik Gorevler</a>
+        <a href="#tipik-gun">Tipik Bir Gun</a>
+        <a href="#ekranlar">Önemli Ekranlar</a>
+        <a href="#ipuçları">İpuçları ve Hatalar</a>
+      </nav>
+    </aside>
+
+    <main>
+
+      <section id="bakis">
+        <h2>Genel Bakis</h2>
+        <p>Muhasebeci olarak sizin goereviniz <strong>işletmenin finansal kayıtlarınin dogru, eksiksiz ve zamaninda tutulmasi</strong>dir. Fatura, ödeme, kasa, cari hesap ve vergi işlemleri sizin sorumluluk alanınizdir.</p>
+
+        <div class="card-grid">
+          <div class="card">
+            <h4>Faturalar</h4>
+            <p>Alis ve satış faturalari, e-Fatura, irsaliye eslestirme</p>
+          </div>
+          <div class="card">
+            <h4>Ödeme / Tahsilat</h4>
+            <p>Ödeme kaydı, tahsilat, cek/senet takibi</p>
+          </div>
+          <div class="card">
+            <h4>Kasa / Banka</h4>
+            <p>Nakit kasa, banka hesapları, virman, ekstre eslestirme</p>
+          </div>
+          <div class="card">
+            <h4>Raporlar</h4>
+            <p>Cari mutabakat, KDV ozeti, kar-zarar, döviz takibi</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="sabah">
+        <h2>Sabah Rutini (08:30 - 09:30)</h2>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Kasa Bakiyesini Kontrol Edin</h4>
+              <p><strong>Finans &gt; Kasa/Banka</strong> ekraninda dunku kapansi bakiyesini kontrol edin. Fiziksel kasa ile sistem arasında fark olmamalidiri.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Bugun Vadesi Gelen Faturalari Gorun</h4>
+              <p><strong>Finans &gt; Alacaklar</strong> ve <strong>Finans &gt; Borclar</strong> ekranlarinda bugun vadeli kalemleri filtreleyin. Ödeme yapılacaklarin listesini hazırlayiin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Dun Gelen Faturalari Girin</h4>
+              <p>Postadan veya e-posta ile gelen alis faturalarini sisteme girin. Fatura numarası, tutari, KDV orani ve vade tarihini kontrol edin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>Döviz Kurlarini Kontrol Edin</h4>
+              <p>Dövizli işlemleriniz varsa <strong>Finans &gt; Döviz Kurlari</strong> ekraninda TCMB güncel kurlarıni kontrol edin. Sistem otomatik ceker ama dogrulayin.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="günlük">
+        <h2>Gunluk Gorevler</h2>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Görev</th><th>Ekran</th><th>Açıklama</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Fatura girişi</td><td>Finans &gt; Faturalar</td><td>Alis/satış faturalarini girin. KDV oranini dogru secin.</td></tr>
+            <tr><td>Ödeme kaydı</td><td>Finans &gt; Odemeler</td><td>Yapilan odemeleeri kaydedin. Kasa veya banka hesabıni secin.</td></tr>
+            <tr><td>Tahsilat kaydı</td><td>Finans &gt; Tahsilatlar</td><td>Gelen odemeleri kaydedin. Cari bakiye otomatik güncellenir.</td></tr>
+            <tr><td>Kasa işlemi</td><td>Finans &gt; Kasa/Banka</td><td>Nakit giriş/çıkış, kasalar arası transfer.</td></tr>
+            <tr><td>Fatura-irsaliye eslestirme</td><td>Finans &gt; Faturalar</td><td>Alis faturasini ilgili irsaliye ile eslesirin.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="haftalık">
+        <h2>Haftalik Gorevler (Her Cuma)</h2>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Cari Mutabakat</h4>
+              <p><strong>Finans &gt; Cari Hesaplar</strong> ekraninda ana tedarikciler ve müşterilerle bakiye mutabakati yapın. Fark varsa eksik fatura veya ödeme arasıtirin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Banka Ekstre Eslestirme</h4>
+              <p><strong>Finans &gt; Banka Mutabakat</strong> ekraninda banka ekstresi ile sistem kayıtlarıni karsilastirin. Eslesmeyenleri inceleyin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Vadesi Gecen Alacaklar</h4>
+              <p>Vadesi geçmiş alacaklarin listesini cikartin. Tahsilat takibi için satış bolumuyle paylarin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>Haftalik Nakit Akis Ozeti</h4>
+              <p>Haftanin gelen/giden tutarlarini ozetleyin. Fabrika sahibine rapor olarak sunun.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="aylik">
+        <h2>Aylik Gorevler (Her Ay Sonu)</h2>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>KDV Beyanname Hazirligi</h4>
+              <p><strong>Raporlar &gt; KDV Ozeti</strong> ekranindan aylik hesaplanan KDV ve indirilecek KDV tutarlarini cikartin. Muhasebe programiniza aktarin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Kar-Zarar Raporu</h4>
+              <p>Aylik gelir ve gider kalemlerini inceleyin. Fabrika sahibine aylik kar-zarar ozetini sunun.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Tüm Cari Mutabakatlari</h4>
+              <p>Ay sonunda tüm aktif cari hesapların bakiyelerini dogrulayin. Uyumsuzluklari ay kapanmadan cozeun.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>Döviz Pozisyon Raporu</h4>
+              <p>Dövizli alacak ve borclariniz varsa ay sonu kur değerlendirmesini yapın. Kur farki gelir/giderini hesaplayin.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="tipik-gun">
+        <h2>Tipik Bir Gun Senaryosu</h2>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Saat</th><th>Aktivite</th><th>Quvex Ekrani</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>08:30</td><td>Kasa bakiyesini kontrol edin. Dunku kapanis: 12.450 TL.</td><td>Finans &gt; Kasa/Banka</td></tr>
+            <tr><td>08:45</td><td>Bugun vadesi gelen 2 alis faturasi var. Ödeme listesini hazırlatin.</td><td>Finans &gt; Borclar</td></tr>
+            <tr><td>09:00</td><td>Dun gelen 4 alis faturasiini sisteme girin.</td><td>Finans &gt; Faturalar &gt; Yeni</td></tr>
+            <tr><td>09:45</td><td>TCMB döviz kurlarıni kontrol edin. USD: 38.42, EUR: 41.15</td><td>Finans &gt; Döviz Kurlari</td></tr>
+            <tr><td>10:00</td><td>Müşteri X 25.000 TL ödeme yapti. Tahsilati kaydedin.</td><td>Finans &gt; Tahsilatlar</td></tr>
+            <tr><td>10:30</td><td>Tedarikçi Y'ye 18.500 TL banka havalesi yapın ve kaydedin.</td><td>Finans &gt; Odemeler</td></tr>
+            <tr><td>11:00</td><td>Satış bolumu 3 yeni fatura kesti. Kontrol edin.</td><td>Finans &gt; Faturalar</td></tr>
+            <tr><td>13:00</td><td>Kasadan 2.000 TL çıkış: ofis malzemesi. Kasa işlemini girin.</td><td>Finans &gt; Kasa/Banka</td></tr>
+            <tr><td>14:00</td><td>Tedarikçi Z ile mutabakat. 3.200 TL fark var &mdash; eksik fatura ariyorsunuz.</td><td>Finans &gt; Cari Hesaplar</td></tr>
+            <tr><td>15:00</td><td>Banka ekstresi geldi. Eslestirme yapın: 2 işlem eslesmiyor.</td><td>Finans &gt; Banka Mutabakat</td></tr>
+            <tr><td>16:00</td><td>Fabrika sahibine haftalık nakit akis ozetini gonderin.</td><td>Raporlar</td></tr>
+            <tr><td>16:30</td><td>Yarin için ödeme planini hazırlatin.</td><td>Finans &gt; Borclar</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="ekranlar">
+        <h2>En Önemli Ekranlar</h2>
+
+        <div class="card-grid">
+          <div class="card">
+            <h4>Finans &gt; Faturalar</h4>
+            <p>Alis ve satış faturalari. Fatura oluşturma, düzenleme, durum takibi.</p>
+            <p><a href="../finans.html">Finans Kılavuzu &rarr;</a></p>
+          </div>
+          <div class="card">
+            <h4>Finans &gt; Kasa/Banka</h4>
+            <p>Nakit kasa ve banka hesapları. Para giriş/çıkış, transfer, bakiye.</p>
+            <p><a href="../finans.html">Finans Kılavuzu &rarr;</a></p>
+          </div>
+          <div class="card">
+            <h4>Finans &gt; Cari Hesaplar</h4>
+            <p>Müşteri ve tedarikçi bakiyeleri. Mutabakat, ekstre goruntuleme.</p>
+            <p><a href="../finans.html">Finans Kılavuzu &rarr;</a></p>
+          </div>
+          <div class="card">
+            <h4>Finans &gt; Banka Mutabakat</h4>
+            <p>Banka ekstresi ile sistem kayıtlarıni eslestirme.</p>
+            <p><a href="../finans.html">Finans Kılavuzu &rarr;</a></p>
+          </div>
+        </div>
+      </section>
+
+      <section id="ipuçları">
+        <h2>İpuçları ve Yaygin Hatalar</h2>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> Fatura girerken KDV oranini kontrol edin. Sistem varsayılan %20 KDV kullanir. Istisna veya indirimli oran varsa elle değiştirin.
+        </div>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> Ödeme kaydederken mutlaka dogru kasa/banka hesabıni secin. Yanlis hesap secimi bakiye karisikligina yol acar.
+        </div>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> Cari mutabakat yaparken "Ekstre Görüntüle" butonuyla tüm hareket detayini gorebilirsiniz. Farki bulmak için tarih araligini daralttin.
+        </div>
+
+        <div class="callout callout-warn">
+          <strong>Dikkat:</strong> Fatura durumunu "Gonderildi" yaptiginizda cari bakiye otomatik güncellenir. Bu durumu geri almak karmasik işlem gerektirir &mdash; onaylamamadan once kontrol edin.
+        </div>
+
+        <div class="callout callout-warn">
+          <strong>Dikkat:</strong> Dövizli faturalarda kuru elle girerken TCMB kuru ile karsilastirin. Buyuk fark varsa yanlis olabilir.
+        </div>
+
+        <div class="callout callout-warn">
+          <strong>Dikkat:</strong> Ay sonunu gecirmeden tüm faturalari girin. KDV beyannamesi için eksik fatura ciddi sorun yaratir.
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="doc-footer">
+    <p>Quvex ERP &mdash; Muhasebeci Kılavuzu &middot; v1.5 &middot; Mart 2026</p>
+  </div>
+
+</div>
+<script src="../js/guide-enhancements.js"></script>
+</body>
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CNC Metal İşleme Sektöru - Quvex ERP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="container">
+
+  <a href="../index.html" class="nav-back">&#8592; Ana Sayfa</a>
+
+  <div class="doc-header">
+    <span class="version-badge">v1.5</span>
+    <div class="breadcrumb"><a href="../index.html">Kullanıcı Kılavuzu</a> / <a href="../index.html">Sektör Rehberleri</a> / CNC Metal İşleme</div>
+    <h1>CNC Metal İşleme Sektöru Rehberi</h1>
+    <p>OEE takibi, fason yönetimi, fire analizi, kapasite planlama ve maliyet hesaplama. CNC atolyenizi Quvex ile yönetin.</p>
+  </div>
+
+  <div class="two-col">
+
+    <aside>
+      <nav class="nav-sidebar">
+        <a href="#zorunluluklar">Sektör Gereksinimleri</a>
+        <a href="#modüller">Quvex Modül Eslesmesi</a>
+        <a href="#onboarding">Onboarding Adimlari</a>
+        <a href="#senaryo">Örnek Senaryo</a>
+        <a href="#kurulum">Tipik Atölye Kurulumu</a>
+        <a href="#başlangıç">Başlangıç Adimlari</a>
+      </nav>
+    </aside>
+
+    <main>
+
+      <section id="zorunluluklar">
+        <h2>Sektör Gereksinimleri</h2>
+        <p>CNC metal işleme atolyeleri için en kritik gereksinimler: makine verimliligi (OEE), dogru maliyet hesabı, zamaninda teslim ve fire kontroludur.</p>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Gereksinim</th><th>Oncelik</th><th>Açıklama</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>OEE Takibi</td><td><span class="badge badge-new">KRITIK</span></td><td>Makine bazlı kullanilabilirlik, performans ve kalite olcumu</td></tr>
+            <tr><td>Fason Is Yönetimi</td><td><span class="badge badge-new">KRITIK</span></td><td>Disariya verilen işlerin takibi, teslim süresi, maliyet</td></tr>
+            <tr><td>Fire Takibi</td><td><span class="badge badge-new">KRITIK</span></td><td>Is emri bazlı fire adedi, nedeni, trendi</td></tr>
+            <tr><td>Kapasite Planlama</td><td><span class="badge badge-new">KRITIK</span></td><td>Makine doluluk orani, darbogaz tespiti, vardiya planlama</td></tr>
+            <tr><td>Maliyet Hesaplama</td><td>Yüksek</td><td>Hammadde + işçilik + makine saati + genel gider = birim maliyet</td></tr>
+            <tr><td>Teklif Yönetimi</td><td>Yüksek</td><td>Müşteri taleplerine hızlı ve dogru fiyat teklifi</td></tr>
+            <tr><td>Takım Yönetimi</td><td>Orta</td><td>CNC takim omurleri, degisim planlama</td></tr>
+            <tr><td>Bakım Planlama</td><td>Orta</td><td>Makine koruyucu bakım takvimleri</td></tr>
+            <tr><td>Stok Yönetimi</td><td>Orta</td><td>Hammadde (cubuk, levha, profil) stok ve minimum stok uyarısi</td></tr>
+            <tr><td>Kalite Kontrol</td><td>Orta</td><td>Boyut kontrolü, yuzey kalitesi, ölçüm kayıtları</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="modüller">
+        <h2>Quvex Modül Eslesmesi</h2>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Gereksinim</th><th>Quvex Modülü</th><th>Ekran</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>OEE Takibi</td><td>Raporlar</td><td>Raporlar &gt; OEE (makine bazlı)</td></tr>
+            <tr><td>Fason Is Yönetimi</td><td>Üretim</td><td>Üretim &gt; Fason Is Emirleri</td></tr>
+            <tr><td>Fire Takibi</td><td>Üretim + Kalite</td><td>Is Emri Detay &gt; Fire Bildirimi</td></tr>
+            <tr><td>Kapasite Planlama</td><td>Üretim</td><td>Üretim &gt; Kapasite Planlama, Gantt</td></tr>
+            <tr><td>Maliyet Hesaplama</td><td>Raporlar</td><td>Raporlar &gt; Maliyet Analizi</td></tr>
+            <tr><td>Teklif Yönetimi</td><td>Satış</td><td>Satış &gt; Teklifler</td></tr>
+            <tr><td>Bakım Planlama</td><td>Bakım</td><td>Bakım &gt; Koruyucu Bakım Planlama</td></tr>
+            <tr><td>Stok Yönetimi</td><td>Stok</td><td>Stok &gt; Ürün Listesi, Stok Alarmlari</td></tr>
+            <tr><td>Kalite Kontrol</td><td>Kalite</td><td>Kalite &gt; Giriş Kontrol, Son Kontrol</td></tr>
+            <tr><td>ShopFloor Terminal</td><td>Üretim</td><td>ShopFloor Terminal (operator arayüzü)</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="onboarding">
+        <h2>Onboarding: Otomatik Yapılandırma</h2>
+        <p>"CNC Metal İşleme" sektör profilini sectiginizde:</p>
+
+        <div class="card-grid">
+          <div class="card">
+            <h4>OEE Paneli Aktif</h4>
+            <p>Dashboard'da makine bazlı OEE widgetleri otomatik gosterilir.</p>
+          </div>
+          <div class="card">
+            <h4>Fason Modülü Aktif</h4>
+            <p>Fason is emirleri modülü açılır, tedarikçi atamalari yapilabilir.</p>
+          </div>
+          <div class="card">
+            <h4>Fire Kategorileri</h4>
+            <p>CNC'ye özel fire kategorileri (boyut hatasi, yuzey hatasi, malzeme hatasi, takim kirilmasi) otomatik tanimlenir.</p>
+          </div>
+          <div class="card">
+            <h4>Maliyet Kalemleri</h4>
+            <p>Hammadde, işçilik, makine saati ve genel gider kalemleri varsayılan olarak olusturulur.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="senaryo">
+        <h2>Örnek Senaryo: CNC Atolyesinde Tipik Bir Hafta</h2>
+
+        <h3>Pazartesi: Haftalik Planlama</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Sipariş Durumu Kontrolü</h4>
+              <p>Bu hafta teslim edilmesi gereken 8 sipariş var. Satış &gt; Siparişler ekranindan listeleyin. 2 tanesi gecikme riskinde.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Kapasite Planlama</h4>
+              <p>3 CNC torna, 2 CNC freze makineniz var. Kapasite ekraninda haftanin doluluk oranini gorun: CNC-Torna-1 %95 dolu (darbogaz!).</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Fason Karari</h4>
+              <p>CNC-Torna-1'deki yogunlugu azaltmak için 500 adetlik mil işleme isini fasona verin. Üretim &gt; Fason &gt; Yeni ekranindan is emri olustürün.</p>
+            </div>
+          </div>
+        </div>
+
+        <h3>Sali-Persembe: Üretim Takibi</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>Gunluk OEE Kontrolü</h4>
+              <p>Her sabah Raporlar &gt; OEE ekraninda dunku makinelerin performansini kontrol edin. CNC-Freze-2 %65 &mdash; takim degisim süresi cok uzun.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <h4>Fire Analizi</h4>
+              <p>Carsamba gunu CNC-Torna-2'de 15 fire cikti: takim asindigi. Takim omurleri gozden gecirildi, periyot kisaltildi.</p>
+            </div>
+          </div>
+        </div>
+
+        <h3>Cuma: Haftalik DeÄŸerlendirme</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">6</div>
+            <div class="step-content">
+              <h4>Haftalik OEE Raporu</h4>
+              <p>Tüm makinelerin haftalık OEE ortalamasini cikartin: %78. Hedef %85. Darbogaz: CNC-Torna-1 ve takim degisim sureleri.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">7</div>
+            <div class="step-content">
+              <h4>Maliyet Kontrolü</h4>
+              <p>Bu haftanin is emirlerinin maliyet analizini yapın. Beklenenden %12 yüksek &mdash; sebebi: fazla fire ve fason maliyeti.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="kurulum">
+        <h2>Tipik CNC Atolyesi Kurulumu</h2>
+        <p>Aşağıdaki tablo, Quvex'e ilk baslarken tipik bir CNC atolyesinin tanımlamasi gereken temel verileri gösterir:</p>
+
+        <table class="field-table">
+          <thead>
+            <tr><th>Tanimlanacak Veri</th><th>Ekran</th><th>Örnek</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Makineler</td><td>Ayarlar &gt; Makineler</td><td>CNC-Torna-1, CNC-Freze-2, vb. (ad + kod)</td></tr>
+            <tr><td>Operatorler</td><td>IK &gt; Personel</td><td>Her operator için isim, kod, yetkinlik</td></tr>
+            <tr><td>Hammaddeler</td><td>Stok &gt; Ürünler</td><td>Aluminyum 6061 cubuk D25, Celik 4140 levha, vb.</td></tr>
+            <tr><td>Ürünler</td><td>Stok &gt; Ürünler</td><td>Mil A-101, Flansh B-205, Govde C-310</td></tr>
+            <tr><td>İşlem Rotalari</td><td>Üretim &gt; Şablonlar</td><td>Tornalama &gt; Frezeleme &gt; Yuzey İşleme &gt; Kontrol</td></tr>
+            <tr><td>Fire Kategorileri</td><td>Ayarlar &gt; Tanimlar</td><td>Boyut hatasi, yuzey hatasi, takim kirilmasi</td></tr>
+            <tr><td>Maliyet Kalemleri</td><td>Ayarlar &gt; Maliyet</td><td>Makine saat ucreti, operator saat ucreti</td></tr>
+            <tr><td>Fason Tedarikciler</td><td>Satınalma &gt; Tedarikciler</td><td>Isil işlem firmasi, kaplama firmasi</td></tr>
+            <tr><td>Müşteriler</td><td>Satış &gt; Müşteriler</td><td>OEM firmalari, yan sanayi müşterileri</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="başlangıç">
+        <h2>Önerilen Başlangıç Adimlari</h2>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Sektör Profilini Secin</h4>
+              <p>Onboarding wizard'da "CNC Metal İşleme" profilini secin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Makinelerinizi Tanimlayin</h4>
+              <p>Ayarlar &gt; Makineler ekraninda tüm CNC makinelerinizi ad ve kodlariyla girin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Hammadde ve Ürün Kartlarıni Olustürün</h4>
+              <p>Stok modülünde hammaddelerinizi ve ürünlerinizi tanımlayin. Minimum stok miktarlarini belirleyin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>İşlem Rota Şablonlari Olustürün</h4>
+              <p>En sik urettiginiz ürünler için işlem rotalari tanımlayin. Boylece is emri acerken tek tıkla rota gelir.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <h4>ShopFloor Terminallerini Kürün</h4>
+              <p>Her makineye bir tablet veya bilgisayar yerlestirin. ShopFloor terminalıni açın ve test edin.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">6</div>
+            <div class="step-content">
+              <h4>Pilot Is Emri Calistirin</h4>
+              <p>Küçük bir siparişla tüm süreçi test edin: sipariş &gt; is emri &gt; üretim &gt; fire bildirimi &gt; kontrol &gt; sevkiyat.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> OEE takibi için operatorlerin is emrini terminalde baslatip bitirmesi sart. Operatorlerinizi ilk hafta yakindan takip edin, aliskanlıklari otursun.
+        </div>
+
+        <div class="callout callout-tip">
+          <strong>İpucu:</strong> Maliyet hesaplamasi için makine saat ucretlerini dogru girmeniz cok onemlidir. Elektrik, amortisman ve bakım maliyetlerini dahil edin.
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="doc-footer">
+    <p>Quvex ERP &mdash; CNC Metal İşleme Sektöru Rehberi &middot; v1.5 &middot; Mart 2026</p>
+  </div>
+
+</div>
+<script src="../js/guide-enhancements.js"></script>
+</body>
+</html>

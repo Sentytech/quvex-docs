@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>İK &amp; Vardiya - Quvex ERP Kullanıcı Kılavuzu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+
+  <a href="index.html" class="nav-back">&#8592; Ana Sayfa</a>
+
+  <div class="doc-header">
+    <span class="version-badge">v2.0</span>
+    <div class="breadcrumb"><a href="index.html">Kullanıcı Kılavuzu</a> / İK &amp; Vardiya</div>
+    <h1>İK &amp; Vardiya Yönetimi</h1>
+    <p>Personel yönetimi, vardiya planlama, izin takibi, eğitim kayıtları, yetkinlik matrisi, doküman kontrolü</p>
+  </div>
+
+  <!-- Sprint 11 Yenilikleri Callout -->
+  <div class="card" style="border-left:4px solid #f59e0b;background:linear-gradient(135deg,#fffbeb,#fef3c7);">
+    <div class="tip-title" style="color:#92400e;font-size:1rem;font-weight:700;margin-bottom:0.5rem;">Sprint 11 Yenilikleri (Nisan 2026)</div>
+    <ul style="margin:0 0 0 1.2rem;color:var(--text-secondary);line-height:1.7;">
+      <li><strong>Kaynakci Sertifikasyonu:</strong> WPQR bazli kaynakci yeterlilik takibi, pozisyon (1G-6G) ve sertifika sona erme uyarilari. <a href="modules/wps-wpqr.html">WPS/WPQR Modulu</a>.</li>
+      <li><strong>HACCP Egitim Kayitlari:</strong> Gida sektoru icin hijyen ve HACCP egitimleri yetkinlik matrisinde takip edilir. <a href="modules/haccp-recall.html">HACCP Modulu</a>.</li>
+      <li><strong>Sertifika Sureli Uyari:</strong> Kaynakci, forklift, yuksekte calisma gibi sureli sertifikalar dolmadan 30/15/7 gun once SignalR ve e-posta bildirimi gider.</li>
+    </ul>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-bar">
+    <div class="stat-item"><div class="stat-value">6</div><div class="stat-label">Ekran</div></div>
+    <div class="stat-item"><div class="stat-value">20+</div><div class="stat-label">Endpoint</div></div>
+    <div class="stat-item"><div class="stat-value">3</div><div class="stat-label">Rol</div></div>
+  </div>
+
+  <!-- Modül Tanıtımı -->
+  <h2>Modül Tanıtımı</h2>
+  <div class="card">
+    <p>İK &amp; Vardiya modülü, fabrikanızdaki personel bilgilerini, vardiya düzenini, izin taleplerini, eğitim kayıtlarını ve yetkinlik matrisini tek yerden yönetmenizi sağlar.</p>
+    <h4>Kim Kullanır?</h4>
+    <table class="field-table">
+      <thead><tr><th>Rol</th><th>Kullanım Amacı</th></tr></thead>
+      <tbody>
+        <tr><td><strong>İK Sorumlusu</strong></td><td>Personel kayıtları, izin onayları, eğitim planlaması</td></tr>
+        <tr><td><strong>Üretim Müdürü</strong></td><td>Vardiya planlaması, personel atama, devamsızlık takibi</td></tr>
+        <tr><td><strong>Çalışan</strong></td><td>İzin talebi, eğitim kayıtlarını görme, kişisel bilgi güncelleme</td></tr>
+      </tbody>
+    </table>
+    <h4>Diğer Modüllerle İlişki</h4>
+    <ul style="margin:0.5rem 0 0 1.5rem;color:var(--text-secondary);">
+      <li><strong>Üretim</strong> &mdash; İş emrine operatör atama, vardiya bazlı üretim planı</li>
+      <li><strong>Bakım</strong> &mdash; Bakım teknisyeni atama, vardiya bazlı bakım planı</li>
+      <li><strong>Kalite</strong> &mdash; Eğitim kayıtları, yetkinlik doğrulama (AS9100 gereksinimi)</li>
+      <li><strong>Raporlama</strong> &mdash; Devamsızlık raporu, eğitim tamamlanma oranı</li>
+    </ul>
+  </div>
+
+  <!-- Hızlı Başlangıç -->
+  <h2>Hızlı Başlangıç &mdash; 5 Adımda İlk Personel Kaydı</h2>
+  <div class="card">
+    <ol style="margin:0.5rem 0 0 1.5rem;color:var(--text-secondary);line-height:2;">
+      <li><strong>İK &gt; Personel Listesi</strong> sayfasına gidin</li>
+      <li>Sağ üst köşedeki <code>+ Yeni Personel</code> butonuna tıklayın</li>
+      <li>Zorunlu alanları doldürün: Ad, Soyad, TC Kimlik No, Departman, Pozisyon</li>
+      <li>Vardiya atamak için "Vardiya" sekmesinden mevcut vardiyalardan birini seçin</li>
+      <li><code>Kaydet</code> butonuna tıklayın &mdash; personel sisteme tanımlanmış olur</li>
+    </ol>
+    <div class="tip info">
+      <div class="tip-title">💡 İpucu</div>
+      <p>Personel kaydını oluşturduktan sonra eğitim kayıtlarını da ekleyin. AS9100 denetimlerinde eğitim dokümantasyonu zorunludur.</p>
+    </div>
+  </div>
+
+  <!-- Personel Yönetimi -->
+  <h2 id="personel">Personel Yönetimi</h2>
+  <p><strong>Sayfa:</strong> <code>/hr/employees</code></p>
+  <div class="card">
+    <table class="field-table">
+      <thead><tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th></tr></thead>
+      <tbody>
+        <tr><td class="required">Ad</td><td>Personelin adı</td><td><span class="badge badge-danger">Evet</span></td></tr>
+        <tr><td class="required">Soyad</td><td>Personelin soyadı</td><td><span class="badge badge-danger">Evet</span></td></tr>
+        <tr><td class="required">TC Kimlik No</td><td>11 haneli TC kimlik numarası</td><td><span class="badge badge-danger">Evet</span></td></tr>
+        <tr><td class="required">Departman</td><td>Çalıştığı departman (Üretim, Kalite, Depo, Yönetim vb.)</td><td><span class="badge badge-danger">Evet</span></td></tr>
+        <tr><td class="required">Pozisyon</td><td>Unvan (CNC Operatörü, Kalite Müfettişi vb.)</td><td><span class="badge badge-danger">Evet</span></td></tr>
+        <tr><td>İşe Giriş Tarihi</td><td>İşe başlama tarihi</td><td>Hayır</td></tr>
+        <tr><td>Telefon</td><td>Cep telefonu numarası</td><td>Hayır</td></tr>
+        <tr><td>E-posta</td><td>İş e-posta adresi</td><td>Hayır</td></tr>
+        <tr><td>Vardiya</td><td>Atanacak vardiya grubu</td><td>Hayır</td></tr>
+        <tr><td>Durum</td><td>Aktif / Pasif / İzinli</td><td>Otomatik</td></tr>
+        <tr><td>Profil Fotoğrafı</td><td>Personel fotoğrafı (JPG/PNG, max 2MB)</td><td>Hayır</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Vardiya Yönetimi -->
+  <h2 id="vardiya">Vardiya Yönetimi</h2>
+  <p><strong>Sayfa:</strong> <code>/hr/shifts</code></p>
+  <div class="card">
+    <p>Fabrikadaki vardiya düzenini tanımlayın ve personeli vardiyalara atayın.</p>
+
+    <h4>Vardiya Tanımlama</h4>
+    <table class="field-table">
+      <thead><tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th></tr></thead>
+      <tbody>
+        <tr><td class="required">Vardiya Adı</td><td>Örnek: Sabah Vardiyası, Gece Vardiyası</td><td><span class="badge badge-danger">Evet</span></td></tr>
+        <tr><td class="required">Başlangıç Saati</td><td>Vardiya başlama saati (örn: 08:00)</td><td><span class="badge badge-danger">Evet</span></td></tr>
+        <tr><td class="required">Bitiş Saati</td><td>Vardiya bitiş saati (örn: 16:00)</td><td><span class="badge badge-danger">Evet</span></td></tr>
+        <tr><td>Mola Süresi</td><td>Dakika cinsinden toplam mola (varsayılan: 60 dk)</td><td>Hayır</td></tr>
+        <tr><td>Renk Kodu</td><td>Takvimde görüntülenecek renk</td><td>Hayır</td></tr>
+      </tbody>
+    </table>
+
+    <h4>Tipik Vardiya Düzeni</h4>
+    <table>
+      <thead><tr><th>Vardiya</th><th>Saat</th><th>Mola</th><th>Net Çalışma</th></tr></thead>
+      <tbody>
+        <tr><td>Sabah</td><td>08:00 &ndash; 16:00</td><td>60 dk</td><td>7 saat</td></tr>
+        <tr><td>Akşam</td><td>16:00 &ndash; 00:00</td><td>60 dk</td><td>7 saat</td></tr>
+        <tr><td>Gece</td><td>00:00 &ndash; 08:00</td><td>60 dk</td><td>7 saat</td></tr>
+      </tbody>
+    </table>
+
+    <h4>Personel Atama</h4>
+    <ol style="margin:0.5rem 0 0 1.5rem;color:var(--text-secondary);">
+      <li>Vardiya kaydını açın</li>
+      <li>"Personel" sekmesine geçin</li>
+      <li>Personel listesinden eklemek istediklerinizi seçin</li>
+      <li><code>Kaydet</code> butonuna tıklayın</li>
+    </ol>
+
+    <div class="tip warning">
+      <div class="tip-title">⚠️ Dikkat</div>
+      <p>Bir personel aynı anda yalnızca bir vardiyaya atanabilir. Vardiya değişikliği için önce mevcut atamayı kaldırın.</p>
+    </div>
+  </div>
+
+  <!-- Giriş/Çıkış Takibi -->
+  <h2 id="giriş-çıkış">Giriş / Çıkış Takibi</h2>
+  <p><strong>Sayfa:</strong> <code>/hr/attendance</code></p>
+  <div class="card">
+    <p>Personelin günlük giriş ve çıkış saatlerini kaydedin. Devamsızlık ve geç gelme raporları otomatik oluşur.</p>
+
+    <table class="field-table">
+      <thead><tr><th>Alan</th><th>Açıklama</th></tr></thead>
+      <tbody>
+        <tr><td>Personel</td><td>Açılır listeden personel seçimi</td></tr>
+        <tr><td>Tarih</td><td>Varsayılan: bugün</td></tr>
+        <tr><td>Giriş Saati</td><td>İşe giriş saati</td></tr>
+        <tr><td>Çıkış Saati</td><td>İşten çıkış saati</td></tr>
+        <tr><td>Durum</td><td>Normal / Geç Geldi / Erken Çıktı / Gelmedi</td></tr>
+        <tr><td>Açıklama</td><td>Geç gelme/gelmeme nedeni (opsiyonel)</td></tr>
+      </tbody>
+    </table>
+
+    <div class="tip info">
+      <div class="tip-title">💡 İpucu</div>
+      <p>ShopFloor Terminal ile entegre kullanıldığında, operatörün terminal'e giriş yapması otomatik olarak giriş saatini kaydeder.</p>
+    </div>
+  </div>
+
+  <!-- İzin Yönetimi -->
+  <h2 id="izin">İzin Yönetimi</h2>
+  <p><strong>Sayfa:</strong> <code>/hr/leave-requests</code></p>
+  <div class="card">
+    <h4>İzin Talebi Oluşturma</h4>
+    <table class="field-table">
+      <thead><tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th></tr></thead>
+      <tbody>
+        <tr><td class="required">Personel</td><td>İzin talep eden personel</td><td><span class="badge badge-danger">Evet</span></td></tr>
+        <tr><td class="required">İzin Türü</td><td>Yıllık İzin / Hastalık / Mazeret / Ücretsiz / Doğum</td><td><span class="badge badge-danger">Evet</span></td></tr>
+        <tr><td class="required">Başlangıç Tarihi</td><td>İzin başlangıcı</td><td><span class="badge badge-danger">Evet</span></td></tr>
+        <tr><td class="required">Bitiş Tarihi</td><td>İzin bitişi</td><td><span class="badge badge-danger">Evet</span></td></tr>
+        <tr><td>Açıklama</td><td>İzin nedeni</td><td>Hayır</td></tr>
+      </tbody>
+    </table>
+
+    <h4>Onay Akışı</h4>
+    <div class="flow">
+      <div class="flow-step active">Talep Oluştur</div>
+      <span class="flow-arrow">&#8594;</span>
+      <div class="flow-step">Yönetici Onayı</div>
+      <span class="flow-arrow">&#8594;</span>
+      <div class="flow-step">İK Onayı</div>
+      <span class="flow-arrow">&#8594;</span>
+      <div class="flow-step">Onaylandı / Reddedildi</div>
+    </div>
+
+    <h4>İzin Türleri ve Haklar</h4>
+    <table>
+      <thead><tr><th>İzin Türü</th><th>Yıllık Hak</th><th>Onay Gerekir mi?</th></tr></thead>
+      <tbody>
+        <tr><td>Yıllık İzin</td><td>14 gün (1-5 yıl), 20 gün (5-15 yıl), 26 gün (15+ yıl)</td><td>Evet</td></tr>
+        <tr><td>Hastalık İzni</td><td>Rapor süresince</td><td>Rapor ile</td></tr>
+        <tr><td>Mazeret İzni</td><td>Yılda 5 gün</td><td>Evet</td></tr>
+        <tr><td>Ücretsiz İzin</td><td>Anlaşmaya bağlı</td><td>Evet</td></tr>
+        <tr><td>Doğum İzni</td><td>Yasal süre</td><td>Belge ile</td></tr>
+      </tbody>
+    </table>
+
+    <div class="tip info">
+      <div class="tip-title">💡 İpucu</div>
+      <p>Kalan izin hakları personel detay sayfasında otomatik hesaplanır. Yıl sonu devir ayarı Sistem Ayarları'ndan yapılır.</p>
+    </div>
+  </div>
+
+  <!-- Eğitim ve Yetkinlik -->
+  <h2 id="eğitim">Eğitim ve Yetkinlik Matrisi</h2>
+  <p><strong>Sayfa:</strong> <code>/hr/training</code></p>
+  <div class="card">
+    <p>AS9100 ve ISO 9001 denetimleri için zorunlu olan eğitim kayıtlarını tutun. Yetkinlik matrisini oluştürün.</p>
+
+    <h4>Eğitim Kaydı</h4>
+    <table class="field-table">
+      <thead><tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th></tr></thead>
+      <tbody>
+        <tr><td class="required">Eğitim Adı</td><td>Örnek: CNC Torna Operatörlüğü, İSG Temel Eğitim</td><td><span class="badge badge-danger">Evet</span></td></tr>
+        <tr><td class="required">Eğitim Tarihi</td><td>Eğitimin verildiği tarih</td><td><span class="badge badge-danger">Evet</span></td></tr>
+        <tr><td class="required">Katılımcılar</td><td>Eğitime katılan personel listesi</td><td><span class="badge badge-danger">Evet</span></td></tr>
+        <tr><td>Eğitmen</td><td>Eğitimi veren kişi/kurum</td><td>Hayır</td></tr>
+        <tr><td>Süre (saat)</td><td>Eğitim süresi</td><td>Hayır</td></tr>
+        <tr><td>Sertifika No</td><td>Varsa sertifika numarası</td><td>Hayır</td></tr>
+        <tr><td>Geçerlilik Tarihi</td><td>Sertifika bitiş tarihi (yenileme uyarısı oluşturur)</td><td>Hayır</td></tr>
+        <tr><td>Doküman</td><td>Sertifika veya katılım belgesi yükleme (PDF/JPG)</td><td>Hayır</td></tr>
+      </tbody>
+    </table>
+
+    <h4>Yetkinlik Matrisi</h4>
+    <p>Personelin hangi süreçlerde yetkin olduğunu 4 seviyeli bir matrisle takip edin:</p>
+    <table>
+      <thead><tr><th>Seviye</th><th>Açıklama</th><th>Renk</th></tr></thead>
+      <tbody>
+        <tr><td><strong>0 &mdash; Yetkin Değil</strong></td><td>Eğitim almamış, işlemi yapamaz</td><td><span class="badge badge-danger">Kırmızı</span></td></tr>
+        <tr><td><strong>1 &mdash; Eğitim Aldı</strong></td><td>Teorik eğitim tamamlandı, gözetim altında çalışabilir</td><td><span class="badge badge-warning">Türüncu</span></td></tr>
+        <tr><td><strong>2 &mdash; Yetkin</strong></td><td>Bağımsız olarak işlemi gerçekleştirebilir</td><td><span class="badge badge-info">Mavi</span></td></tr>
+        <tr><td><strong>3 &mdash; Uzman</strong></td><td>Başkalarını eğitebilir, süreç iyileştirme yapabilir</td><td><span class="badge badge-success">Yeşil</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="tip warning">
+      <div class="tip-title">⚠️ AS9100 Uyarı</div>
+      <p>AS9100 denetimlerinde her operatörün yaptığı işe uygun eğitim kaydı ve yetkinlik seviyesi sorgulanır. Yetkinlik seviyesi 0 olan personel, ilgili işleme atanamaz.</p>
+    </div>
+
+    <div class="tip info">
+      <div class="tip-title">💡 İpucu</div>
+      <p>Sertifika geçerlilik tarihi dolmadan 30 gün önce sistem otomatik hatırlatma bildirimi gönderir. Bu süre Ayarlar &gt; Bildirimler sayfasından değiştirilebilir.</p>
+    </div>
+  </div>
+
+  <!-- Doküman Yönetimi -->
+  <h2 id="doküman">Doküman Yönetimi</h2>
+  <p><strong>Sayfa:</strong> <code>/hr/documents</code></p>
+  <div class="card">
+    <p>Personele ait dokümanları (sözleşme, sertifika, rapor, özlük dosyası) dijital ortamda saklayın.</p>
+
+    <table class="field-table">
+      <thead><tr><th>Alan</th><th>Açıklama</th></tr></thead>
+      <tbody>
+        <tr><td>Doküman Türü</td><td>İş Sözleşmesi / Sertifika / Sağlık Raporu / İSG Belgesi / Diğer</td></tr>
+        <tr><td>Dosya</td><td>PDF, JPG, PNG, DOCX (max 10MB)</td></tr>
+        <tr><td>Versiyon</td><td>Otomatik versiyon numarası (revizyon takibi)</td></tr>
+        <tr><td>Geçerlilik</td><td>Bitiş tarihi (opsiyonel, hatırlatma oluşturur)</td></tr>
+      </tbody>
+    </table>
+
+    <div class="tip info">
+      <div class="tip-title">💡 İpucu</div>
+      <p>Doküman versiyonlama aktif edildiğinde, her güncelleme önceki versiyonu arşivler. Eski versiyonlara her zaman erişebilirsiniz.</p>
+    </div>
+  </div>
+
+  <!-- Sorun Giderme -->
+  <h2>Sorun Giderme</h2>
+  <div class="card">
+    <h4>Personel kaydı oluşturamıyorum</h4>
+    <p>Zorunlu alanları (Ad, Soyad, TC Kimlik, Departman, Pozisyon) kontrol edin. TC Kimlik numarası 11 haneli olmalıdır.</p>
+
+    <h4>Vardiya ataması yapamıyorum</h4>
+    <p>Personelin başka bir vardiyaya atanmış olmadığını kontrol edin. Önce mevcut atamayı kaldırın, sonra yeni vardiyaya atayın.</p>
+
+    <h4>İzin talebi onaylanmıyor</h4>
+    <p>İzin onay yetkisinin sizde olduğunu kontrol edin. İK &gt; Ayarlar &gt; Onay Akışı sayfasından onay hiyerarşisini inceleyin.</p>
+
+    <h4>Eğitim sertifikası yüklenemiyor</h4>
+    <p>Dosya boyutu max 10MB ve desteklenen formatlar: PDF, JPG, PNG, DOCX. Dosya adında özel karakter bulunmamalıdır.</p>
+
+    <h4>Yetkinlik matrisi güncellenmiyor</h4>
+    <p>Yetkinlik seviyesi değişikliği için "Düzenle" yetkisine sahip olmanız gerekir. Rol ve izin ayarlarınızı kontrol edin.</p>
+  </div>
+
+  <!-- SSS -->
+  <h2>Sık Sorulan Sorular</h2>
+
+  <details class="card" style="margin-bottom:0.75rem;">
+    <summary style="cursor:pointer;font-weight:600;color:var(--text);">Personel listesini Excel'e aktarabilir miyim?</summary>
+    <p style="margin-top:0.5rem;">Evet. Personel listesi sayfasında sağ üst köşedeki "Excel Export" butonuna tıklayarak tüm personel verilerini Excel dosyasına aktarabilirsiniz.</p>
+  </details>
+
+  <details class="card" style="margin-bottom:0.75rem;">
+    <summary style="cursor:pointer;font-weight:600;color:var(--text);">Eski çalışanları silmeli miyim?</summary>
+    <p style="margin-top:0.5rem;">Hayır. İşten ayrılan personeli "Pasif" durumuna alın. Böylece geçmiş kayıtlar (eğitim, izin, devamsızlık) korunur ve raporlarda görünür.</p>
+  </details>
+
+  <details class="card" style="margin-bottom:0.75rem;">
+    <summary style="cursor:pointer;font-weight:600;color:var(--text);">Vardiya değişikliği geçmişini görebilir miyim?</summary>
+    <p style="margin-top:0.5rem;">Evet. Personel detay sayfasındaki "Vardiya Geçmişi" sekmesinden tüm vardiya değişiklikleri tarihçesiyle birlikte görüntülenir.</p>
+  </details>
+
+  <details class="card" style="margin-bottom:0.75rem;">
+    <summary style="cursor:pointer;font-weight:600;color:var(--text);">Toplu personel yüklemesi yapabilir miyim?</summary>
+    <p style="margin-top:0.5rem;">Evet. İK &gt; Personel Listesi &gt; "Excel Import" butonu ile şablon dosyasını indirip doldurduktan sonra toplu yükleme yapabilirsiniz.</p>
+  </details>
+
+  <details class="card" style="margin-bottom:0.75rem;">
+    <summary style="cursor:pointer;font-weight:600;color:var(--text);">Eğitim hatırlatmaları nasıl çalışır?</summary>
+    <p style="margin-top:0.5rem;">Eğitim kaydında "Geçerlilik Tarihi" girildiyse, bu tarihe 30 gün kala SignalR bildirimi ve e-posta uyarısı gönderilir. Periyodik eğitimler için yenileme zorunluluğu hatırlatılır.</p>
+  </details>
+
+  <details class="card" style="margin-bottom:0.75rem;">
+    <summary style="cursor:pointer;font-weight:600;color:var(--text);">Yetkinlik matrisi AS9100 denetiminde yeterli mi?</summary>
+    <p style="margin-top:0.5rem;">Evet. 4 seviyeli yetkinlik matrisi, eğitim kayıtları ve sertifika dokümantasyonu ile birlikte AS9100 Madde 7.2 (Yetkinlik) gereksinimlerini karşılar.</p>
+  </details>
+
+  <details class="card" style="margin-bottom:0.75rem;">
+    <summary style="cursor:pointer;font-weight:600;color:var(--text);">İzin bakiyesi yıl sonunda sıfırlanır mı?</summary>
+    <p style="margin-top:0.5rem;">Ayarlar &gt; İK Parametreleri sayfasından "Yıl Sonu İzin Devri" seçeneğini aktif/pasif yapabilirsiniz. Aktif ise kalan izinler sonraki yıla devredilir.</p>
+  </details>
+
+  <details class="card" style="margin-bottom:0.75rem;">
+    <summary style="cursor:pointer;font-weight:600;color:var(--text);">Fazla mesai takibi yapılıyor mu?</summary>
+    <p style="margin-top:0.5rem;">Giriş/Çıkış kayıtlarından vardiya saatini aşan çalışmalar otomatik olarak "Fazla Mesai" olarak işaretlenir. Raporlar &gt; İK Raporları'ndan fazla mesai özetini görebilirsiniz.</p>
+  </details>
+
+  <details class="card" style="margin-bottom:0.75rem;">
+    <summary style="cursor:pointer;font-weight:600;color:var(--text);">Personel bilgileri kimler görebilir?</summary>
+    <p style="margin-top:0.5rem;">İK modülüne erişim rol bazlı yetkilendirme (RBAC) ile kontrol edilir. TC Kimlik, maaş gibi hassas bilgiler yalnızca İK Sorumlusu ve Genel Müdür rollerine açıktır.</p>
+  </details>
+
+  <details class="card" style="margin-bottom:0.75rem;">
+    <summary style="cursor:pointer;font-weight:600;color:var(--text);">Birden fazla departmanda çalışan personel nasıl yönetilir?</summary>
+    <p style="margin-top:0.5rem;">Personel kaydında "Birincil Departman" ve "İkincil Departman" alanları bulunur. İş emri atamasında her iki departmandan da arama yapılabilir.</p>
+  </details>
+
+  <!-- İlgili Konular -->
+  <h2>İlgili Konular</h2>
+  <div class="card-grid">
+    <a href="uretim.html#shopfloor" class="card module-card">
+      <h4>Operatör Terminali</h4>
+      <p>ShopFloor ile personel giriş/çıkış entegrasyonu</p>
+    </a>
+    <a href="kalite.html" class="card module-card">
+      <h4>Kalite Yönetimi</h4>
+      <p>AS9100 eğitim ve yetkinlik gereksinimleri</p>
+    </a>
+    <a href="ayarlar.html" class="card module-card">
+      <h4>Sistem Ayarları</h4>
+      <p>Rol, izin ve İK parametreleri</p>
+    </a>
+    <a href="raporlar.html" class="card module-card">
+      <h4>Raporlama</h4>
+      <p>Devamsızlık, eğitim, yetkinlik raporları</p>
+    </a>
+  </div>
+
+  <div class="doc-footer">
+    &copy; 2026 Quvex &mdash; Üretim Yönetim Platformu &middot; İK &amp; Vardiya Kılavuzu &middot; v2.0
+  </div>
+
+</div>
+<script src="js/guide-enhancements.js"></script>
+</body>
+</html>

@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hata Mesajları Rehberi — Quvex ERP</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .search-container {
+            background: #f0f4f8;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+        .search-container input {
+            width: 100%;
+            max-width: 600px;
+            padding: 14px 20px;
+            font-size: 16px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .search-container input:focus {
+            border-color: #2563eb;
+        }
+        .search-stats {
+            margin-top: 10px;
+            color: #64748b;
+            font-size: 14px;
+        }
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 16px;
+        }
+        .filter-btn {
+            padding: 8px 16px;
+            border: 2px solid #e2e8f0;
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
+        }
+        .error-category {
+            margin-bottom: 40px;
+        }
+        .error-category h2 {
+            background: #1e293b;
+            color: white;
+            padding: 14px 24px;
+            border-radius: 8px 8px 0 0;
+            margin-bottom: 0;
+            font-size: 18px;
+        }
+        .error-category h2 .badge {
+            background: rgba(255,255,255,0.2);
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 13px;
+            margin-left: 10px;
+        }
+        .error-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-radius: 0 0 8px 8px;
+            overflow: hidden;
+        }
+        .error-table thead th {
+            background: #f1f5f9;
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+            color: #475569;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        .error-table tbody tr {
+            border-bottom: 1px solid #f1f5f9;
+            transition: background 0.15s;
+        }
+        .error-table tbody tr:hover {
+            background: #f8fafc;
+        }
+        .error-table td {
+            padding: 14px 16px;
+            vertical-align: top;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .error-table td:first-child {
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+            color: #dc2626;
+            background: #fef2f2;
+            min-width: 220px;
+        }
+        .error-table td:nth-child(2) {
+            color: #334155;
+            min-width: 180px;
+        }
+        .error-table td:nth-child(3) {
+            color: #166534;
+            min-width: 250px;
+        }
+        .error-table td:nth-child(3) ol {
+            margin: 0;
+            padding-left: 18px;
+        }
+        .error-table td:nth-child(3) ol li {
+            margin-bottom: 4px;
+        }
+        .error-table td:nth-child(4) {
+            min-width: 100px;
+        }
+        .modüle-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .tag-giriş { background: #dbeafe; color: #1e40af; }
+        .tag-stok { background: #d1fae5; color: #065f46; }
+        .tag-üretim { background: #fef3c7; color: #92400e; }
+        .tag-satis { background: #fce7f3; color: #9d174d; }
+        .tag-satınalma { background: #e0e7ff; color: #3730a3; }
+        .tag-finans { background: #fecdd3; color: #9f1239; }
+        .tag-kalite { background: #ccfbf1; color: #134e4a; }
+        .tag-sistem { background: #f1f5f9; color: #334155; }
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #94a3b8;
+            font-size: 16px;
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .error-table, .error-table thead, .error-table tbody, .error-table th, .error-table td, .error-table tr {
+                display: block;
+            }
+            .error-table thead { display: none; }
+            .error-table tr {
+                margin-bottom: 16px;
+                border: 1px solid #e2e8f0;
+                border-radius: 8px;
+                overflow: hidden;
+            }
+            .error-table td {
+                padding: 10px 16px;
+                text-align: left;
+            }
+            .error-table td::before {
+                content: attr(data-label);
+                font-weight: 700;
+                display: block;
+                margin-bottom: 4px;
+                color: #64748b;
+                font-size: 12px;
+                text-transform: uppercase;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" style="max-width: 1200px; margin: 0 auto; padding: 20px;">
+
+    <header style="text-align: center; margin-bottom: 32px;">
+        <h1 style="font-size: 28px; color: #1e293b;">Hata Mesajlari Rehberi</h1>
+        <p style="color: #64748b; font-size: 16px;">Ekranda bir hata gordugunuzde bu sayfada arayarak ne yapmaniz gerektigini ogrenin.</p>
+        <p style="margin-top: 8px;"><a href="index.html">Ana Sayfa</a> &middot; <a href="sorun-giderici.html">Sorun Giderici</a> &middot; <a href="sik-sorulan-sorular.html">SSS</a></p>
+    </header>
+
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Hata mesajini buraya yazin... (ornegin: stok yetersiz)" autofocus>
+        <div class="search-stats" id="searchStats">Toplam <strong>53</strong> hata mesaji listeleniyor</div>
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">Tumu</button>
+            <button class="filter-btn" data-filter="giriş">Giriş &amp; Yetki</button>
+            <button class="filter-btn" data-filter="stok">Stok</button>
+            <button class="filter-btn" data-filter="üretim">Üretim</button>
+            <button class="filter-btn" data-filter="satis">Satis</button>
+            <button class="filter-btn" data-filter="satınalma">Satınalma</button>
+            <button class="filter-btn" data-filter="finans">Finans</button>
+            <button class="filter-btn" data-filter="kalite">Kalite</button>
+            <button class="filter-btn" data-filter="sistem">Sistem</button>
+        </div>
+    </div>
+
+    <div id="noResults" class="no-results">
+        Aradiginiz hata mesaji bulunamadi. Farkli kelimelerle tekrar deneyin veya <a href="sorun-giderici.html">Sorun Giderici</a> sayfasini ziyaret edin.
+    </div>
+
+    <!-- GIRIS & YETKILENDIRME -->
+    <div class="error-category" data-category="giriş">
+        <h2>Giriş &amp; Yetkilendirme Hatalari <span class="badge">10 hata</span></h2>
+        <table class="error-table">
+            <thead>
+                <tr>
+                    <th>Hata Mesaji</th>
+                    <th>Ne Anlama Gelir</th>
+                    <th>Ne Yapmali</th>
+                    <th>Modül</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-label="Hata Mesaji">Kullanıcı adi veya şifre hatali</td>
+                    <td data-label="Ne Anlama Gelir">Girdiginiz e-posta veya şifre sistemde eslesmedi.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>E-posta adresinizi kontrol edin (buyuk/küçük harf farki olabilir)</li>
+                            <li>Caps Lock acik olmadigindan emin olun</li>
+                            <li>Şifreyi tekrar dikkatlice yazin</li>
+                            <li>Sorun devam ederse yönetiçinizden şifre sifirlama isteyin</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-giriş">Giriş</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Hesabiniz kilitlendi. 15 dakika sonra tekrar deneyin</td>
+                    <td data-label="Ne Anlama Gelir">5 kez yanlis şifre girdiginiz için hesabıniz gecici olarak kilitlendi.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>15 dakika bekleyin</li>
+                            <li>Dogru şifreyi hatirladiginizdan emin olun</li>
+                            <li>15 dakika sonra tekrar deneyin</li>
+                            <li>Hala giremiyorsaniz yönetiçinizden hesap kilidini kaldirmasini isteyin</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-giriş">Giriş</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Bu işlem için yetkiniz yok</td>
+                    <td data-label="Ne Anlama Gelir">Kullanıcı rolunuze bu işlemi yapma izni tanımlanmamis.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Bu işlemi yapmaya yetkili olup olmadiginizi yönetiçinize sorun</li>
+                            <li>Yetki gerekiyorsa yönetiçinizden rolunuze izin eklemesini isteyin</li>
+                            <li>Ayarlar &gt; Roller bolumuunden yetki listesini kontrol edin</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-giriş">Yetki</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Yetki hatasi — erisim reddedildi</td>
+                    <td data-label="Ne Anlama Gelir">Girmeye calistiginiz sayfa veya işlem için gerekli izne sahip degilsiniz.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Farkli bir kullanıcı ile giriş yapmayi deneyin</li>
+                            <li>Yönetiçinizden bu modül için yetki tanımlamasini isteyin</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-giriş">Yetki</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Oturum sureniz doldu, tekrar giriş yapın</td>
+                    <td data-label="Ne Anlama Gelir">Uzun sure işlem yapmadiginiz için güvenlik nedeniyle otomatik çıkış yapildi.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Giriş sayfasina yonlendirileceksiniz</li>
+                            <li>E-posta ve şifrenizle tekrar giriş yapın</li>
+                            <li>Kaydetmediginiz işlemler kaybolmus olabilir, kontrol edin</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-giriş">Giriş</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Şifre en az 12 karakter olmalidir</td>
+                    <td data-label="Ne Anlama Gelir">Güvenlik politikasi geregi şifreler 12 karakterden kisa olamaz.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>12 veya daha fazla karakter iceren bir şifre secin</li>
+                            <li>Ornek format: "GuvenliŞifre2026!"</li>
+                            <li>Kolay hatirlanabilir ama tahmin edilemez bir cumle kullanın</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-giriş">Giriş</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Şifre buyuk harf, küçük harf, rakam ve ozel karakter icermelidir</td>
+                    <td data-label="Ne Anlama Gelir">Şifreniz güvenlik gereksinimlerini karsilamiyor.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>En az 1 buyuk harf ekleyin (A-Z)</li>
+                            <li>En az 1 küçük harf ekleyin (a-z)</li>
+                            <li>En az 1 rakam ekleyin (0-9)</li>
+                            <li>En az 1 ozel karakter ekleyin (!@#$%)</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-giriş">Giriş</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Token gecersiz — tekrar giriş yapın</td>
+                    <td data-label="Ne Anlama Gelir">Giriş bilgileriniz sunucu tarafinda gecersiz sayildi.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Sayfayi yenileyin (F5 veya Ctrl+R)</li>
+                            <li>Çıkış yapın ve tekrar giriş yapın</li>
+                            <li>Sorun devam ederse tarayıcı onbellegini temizleyin (Ctrl+Shift+Delete)</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-giriş">Giriş</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Coklu oturum tespit edildi</td>
+                    <td data-label="Ne Anlama Gelir">Ayni hesapla baska bir cihazdan da giriş yapilmis.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Diger cihazlardan çıkış yapın</li>
+                            <li>Eger baska birisi hesabınizi kullaniyorsa hemen şifrenizi değiştirin</li>
+                            <li>Durumu yönetiçinize bildirin</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-giriş">Giriş</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Kullanıcı bulunamadi</td>
+                    <td data-label="Ne Anlama Gelir">Girilen e-posta adresi sistemde kayıtli degil.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>E-posta adresini dogru yazdiginizdan emin olun</li>
+                            <li>Yönetiçinizden hesabınizin olusturulup olusturulmadigini kontrol ettirin</li>
+                            <li>Baska bir e-posta ile kayıtli olabilirsiniz</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-giriş">Giriş</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- STOK -->
+    <div class="error-category" data-category="stok">
+        <h2>Stok Hatalari <span class="badge">8 hata</span></h2>
+        <table class="error-table">
+            <thead>
+                <tr>
+                    <th>Hata Mesaji</th>
+                    <th>Ne Anlama Gelir</th>
+                    <th>Ne Yapmali</th>
+                    <th>Modül</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-label="Hata Mesaji">Stok yetersiz</td>
+                    <td data-label="Ne Anlama Gelir">Cikmak istediginiz ürünun depoda yeterli miktari yok.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Stok &gt; Stok Listesi'nden ürünun guncel miktarini kontrol edin</li>
+                            <li>Farkli bir depoyu kontrol edin (ürün baska depoda olabilir)</li>
+                            <li>Satınalma talebi olustürün veya üretim emri verin</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-stok">Stok</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Bu stok kodu zaten mevcut</td>
+                    <td data-label="Ne Anlama Gelir">Ayni stok koduyla baska bir ürün zaten tanimli.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Stok listesinde bu kodu arayarak mevcut ürünu bulun</li>
+                            <li>Farkli bir stok kodu belirleyin</li>
+                            <li>Eger ayni ürünse mevcut kaydı güncelleyin, yenisini eklemeyin</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-stok">Stok</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Depo uzerine hareket yapilmis, silinemez</td>
+                    <td data-label="Ne Anlama Gelir">Bu depoya ait stok giriş/çıkış kayıtları var, bu yuzden depo silinemez.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Depoyu silmek yerine "Pasif" yaparak gizleyin</li>
+                            <li>Tum stoklari baska depoya transfer edin, sonra silmeyi deneyin</li>
+                            <li>Yönetiçinize danisin</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-stok">Stok</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Sayım sirasinda stok hareketi yapilamaz</td>
+                    <td data-label="Ne Anlama Gelir">Su an depoda sayım işlemi devam ediyor, giriş/çıkış yapilamaz.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Sayımin tamamlanmasini bekleyin</li>
+                            <li>Sayımi yapan kisiye ne zaman bitecegini sorun</li>
+                            <li>Acil durumlarda sayımi gecici olarak durdürün (yönetici yetkisi gerekir)</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-stok">Stok</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Negatif stok olusturulamaz</td>
+                    <td data-label="Ne Anlama Gelir">Çıkış miktari mevcut stoktan fazla, sistem negatif stoka izin vermiyor.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Çıkış miktarini mevcut stok miktarina esit veya daha az yapın</li>
+                            <li>Stok giriş kaydınin yapilip yapilmadigini kontrol edin</li>
+                            <li>Depolar arası transfer gozden kacirilmis olabilir</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-stok">Stok</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Lot numarası zaten kullanilmis</td>
+                    <td data-label="Ne Anlama Gelir">Girdiginiz lot/parti numarası baska bir kayıtta mevcut.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Farkli bir lot numarası belirleyin</li>
+                            <li>Mevcut lot kaydıni kontrol edin, belki zaten dogru girilmistir</li>
+                            <li>Lot numaralama kurallarina gore yeni numara olustürün</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-stok">Stok</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Barkod bulunamadi</td>
+                    <td data-label="Ne Anlama Gelir">Taranan barkod numarası sistemde tanimli bir ürünle eslesmiyor.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Barkodu tekrar okutun (okuma hatasi olabilir)</li>
+                            <li>Barkodun dogru ürüne ait oldugundan emin olun</li>
+                            <li>Ürün kartindan barkod tanimini kontrol edin</li>
+                            <li>Yeni ürünse once stok karti olustürün</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-stok">Stok</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Yetersiz bakiye — transfer yapilamaz</td>
+                    <td data-label="Ne Anlama Gelir">Kaynak depoda transfer etmek istediginiz kadar stok yok.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Kaynak deponun guncel bakiyesini kontrol edin</li>
+                            <li>Transfer miktarini mevcut bakiyeye gore duzeltin</li>
+                            <li>Baska depolarda ürün olup olmadigini kontrol edin</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-stok">Stok</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- URETIM -->
+    <div class="error-category" data-category="üretim">
+        <h2>Üretim Hatalari <span class="badge">8 hata</span></h2>
+        <table class="error-table">
+            <thead>
+                <tr>
+                    <th>Hata Mesaji</th>
+                    <th>Ne Anlama Gelir</th>
+                    <th>Ne Yapmali</th>
+                    <th>Modül</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-label="Hata Mesaji">Is emri tamamlanamaz, miktar eksik</td>
+                    <td data-label="Ne Anlama Gelir">Uretilen miktar henuz hedef miktara ulasmadi.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Üretim kayıtlarıni kontrol edin, eksik giriş olabilir</li>
+                            <li>Fire miktarini girin (varsa)</li>
+                            <li>Gercekten eksik uretildiyse yöneticiden onay alın ve is emrini "Kismi Tamamlandi" olarak kapatin</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-üretim">Üretim</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Makine baska is emrine atanmis</td>
+                    <td data-label="Ne Anlama Gelir">Sectiginiz makine su anda baska bir üretim işleminde kullaniliyor.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Üretim &gt; Is Emirleri'nden makinenin hangi ise atandigini kontrol edin</li>
+                            <li>Baska bir uygun makine secin</li>
+                            <li>Mevcut isin bitmesini bekleyin</li>
+                            <li>Oncelik degisikligi için üretim planlama ile gorusun</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-üretim">Üretim</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">BOM bulunamadi / Recete tanimli degil</td>
+                    <td data-label="Ne Anlama Gelir">Bu ürün için malzeme listesi (BOM) henuz sisteme girilmemis.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Üretim &gt; Receteler'den ürüne ait BOM tanımlayin</li>
+                            <li>Ürün kodunun dogru oldugundan emin olun</li>
+                            <li>Üretim muhendisinden recete bilgilerini alın</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-üretim">Üretim</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Kapasite asimi — cakisma tespit edildi</td>
+                    <td data-label="Ne Anlama Gelir">Secilen tarih/saat araliginda makine kapasitesi dolu.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Kapasite takviminden uygun bos zaman dilimi bulun</li>
+                            <li>Is emrinin başlangıç/bitis tarihlerini değiştirin</li>
+                            <li>Alternatif makineye yonlendirin</li>
+                            <li>Üretim planlama ile gorusun</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-üretim">Üretim</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Operator atanmamis — is emri baslatilamaz</td>
+                    <td data-label="Ne Anlama Gelir">Is emrine henuz bir operator/sorumlu kisatanmamis.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Is emri detayinda "Operator" alanına bir kisi atatin</li>
+                            <li>Uygun operatörü vardiya listesinden secin</li>
+                            <li>Atama yetkisi yoksa amirinize bildirin</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-üretim">Üretim</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Fire miktari üretim miktarini aşamaz</td>
+                    <td data-label="Ne Anlama Gelir">Girilen fire miktari toplam üretimden fazla.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Fire miktarini kontrol edin, yanlis giriş olabilir</li>
+                            <li>Dogru miktari girin (fire + iyi ürün = toplam üretim)</li>
+                            <li>Cok yüksek fire orani varsa kalite birimine bildirin</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-üretim">Üretim</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Hammadde yetersiz — üretim baslatilamaz</td>
+                    <td data-label="Ne Anlama Gelir">Recetede belirtilen malzemeler depoda yeterli degil.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Eksik malzemeleri kontrol edin (is emri detayinda gorursunuz)</li>
+                            <li>Satınalma talebi olustürün</li>
+                            <li>Baska depolardan transfer mumkunse transfer yapın</li>
+                            <li>Malzeme gelene kadar is emrini "Beklemede" yapın</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-üretim">Üretim</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Is emri iptal edilemez — üretim baslamis</td>
+                    <td data-label="Ne Anlama Gelir">Üretim süreçi basladigi için is emri artik iptal edilemiyor.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Is emrini "Durduruldu" durumuna alın</li>
+                            <li>Yönetici onayiyla "Iptal" işlemi yapilabilir</li>
+                            <li>Uretilen miktari fire veya stok olarak değerlendirin</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-üretim">Üretim</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- SATIS -->
+    <div class="error-category" data-category="satis">
+        <h2>Satis Hatalari <span class="badge">6 hata</span></h2>
+        <table class="error-table">
+            <thead>
+                <tr>
+                    <th>Hata Mesaji</th>
+                    <th>Ne Anlama Gelir</th>
+                    <th>Ne Yapmali</th>
+                    <th>Modül</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-label="Hata Mesaji">Teklif onaylanmadan siparişe dönüştürulemez</td>
+                    <td data-label="Ne Anlama Gelir">Teklif henuz "Onaylandi" durumunda degil, siparişe ceviremezsiniz.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Teklifi once onay için gonderin</li>
+                            <li>Yetkili kisi teklifi onayladiktan sonra tekrar deneyin</li>
+                            <li>Teklif durumunu Satis &gt; Teklifler ekranindan takip edin</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-satis">Satis</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Fatura kesilmis, geri alınamaz</td>
+                    <td data-label="Ne Anlama Gelir">Fatura "Gonderildi" veya "Odendi" durumuna gecti, değiştirilemez.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Duzeltme faturasi (iade faturasi) kesin</li>
+                            <li>Muhasebe birimi ile iletisime gecin</li>
+                            <li>Yeni dogru faturayi olustürün</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-satis">Satis</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Müşteri cari hesabı olusturulmamis</td>
+                    <td data-label="Ne Anlama Gelir">Secilen müşterinin cari hesap karti henuz acilmamis.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Finans &gt; Cari Hesaplar'dan müşteriye cari hesap açın</li>
+                            <li>Müşteri bilgilerini eksiksiz doldürün</li>
+                            <li>Sonra fatura/sipariş işlemine devam edin</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-satis">Satis</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Teklif süresi dolmus</td>
+                    <td data-label="Ne Anlama Gelir">Teklifin geçerlilik tarihi geçmiş, artik siparişe dönüştürulemez.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Teklifi kopyalayarak yeni bir teklif olustürün</li>
+                            <li>Fiyatlari ve kosullari güncelleyin</li>
+                            <li>Yeni geçerlilik tarihi belirleyin</li>
+                            <li>Müşteriye yeni teklifi gonderin</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-satis">Satis</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Sipariş iptal edilemez — sevkiyat yapilmis</td>
+                    <td data-label="Ne Anlama Gelir">Bu siparişe ait ürünler zaten gonderilmis.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Iade süreçi baslatin</li>
+                            <li>Müşteri ile iletisime gecin</li>
+                            <li>Iade faturasi kesin</li>
+                            <li>Ürünler geri geldikten sonra stoga giriş yapın</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-satis">Satis</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Birim fiyat sifir olamaz</td>
+                    <td data-label="Ne Anlama Gelir">Ürün için fiyat girilmemis veya 0 girilmis.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Dogru birim fiyati girin</li>
+                            <li>Fiyat listesini kontrol edin</li>
+                            <li>Ozel fiyat uygulanacaksa yönetici onayiyla ilerleyin</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-satis">Satis</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- SATINALMA -->
+    <div class="error-category" data-category="satınalma">
+        <h2>Satınalma Hatalari <span class="badge">5 hata</span></h2>
+        <table class="error-table">
+            <thead>
+                <tr>
+                    <th>Hata Mesaji</th>
+                    <th>Ne Anlama Gelir</th>
+                    <th>Ne Yapmali</th>
+                    <th>Modül</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-label="Hata Mesaji">Tedarikci onayli degil</td>
+                    <td data-label="Ne Anlama Gelir">Bu tedarikci henuz onayli tedarikci listesine eklenmemis.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Kalite &gt; Onayli Tedarikci listesini kontrol edin</li>
+                            <li>Tedarikci değerlendirme süreçini baslatin</li>
+                            <li>Onay alındiktan sonra sipariş verin</li>
+                            <li>Acil durumlarda yönetici onayiyla istisnai sipariş olusturulabilir</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-satınalma">Satınalma</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Mal alim miktari sipariş miktarini asiyor</td>
+                    <td data-label="Ne Anlama Gelir">Teslim alınan miktar siparişteki miktardan fazla.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Teslim alınan miktari kontrol edin</li>
+                            <li>Sipariş miktarini asiyorsa fazla ürünu iade edin</li>
+                            <li>Eger fazla kabul edilecekse sipariş miktarini güncelleyin (yönetici onayiyla)</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-satınalma">Satınalma</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Giriş kontrol sonucu bekleniyor</td>
+                    <td data-label="Ne Anlama Gelir">Gelen malzeme henuz kalite kontrolden gecmemis, depoya alınamaz.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Kalite birimi giriş kontrol işlemini tamamlayana kadar bekleyin</li>
+                            <li>Kalite sorumlusuna malzemenin geldigini bildirin</li>
+                            <li>Kontrol sonucu "Kabul" olursa depoya giriş yapilabilir</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-satınalma">Satınalma</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Satınalma talebi onaylanmamis</td>
+                    <td data-label="Ne Anlama Gelir">Talep henuz onay aşamasında, siparişte dönüştürulemez.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Onay bekleyen talepleri kontrol edin</li>
+                            <li>Onay verecek kisiye hatırlatma gonderin</li>
+                            <li>Onaylandiktan sonra siparişe dönüştürün</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-satınalma">Satınalma</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Tedarikci iletisim bilgisi eksik</td>
+                    <td data-label="Ne Anlama Gelir">Tedarikci kartinda e-posta veya telefon bilgisi girilmemis.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Tedarikci kartini açın ve iletisim bilgilerini tamamlayin</li>
+                            <li>En az bir telefon veya e-posta adresi ekleyin</li>
+                            <li>Kaydedin ve işleme devam edin</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-satınalma">Satınalma</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- FINANS -->
+    <div class="error-category" data-category="finans">
+        <h2>Finans Hatalari <span class="badge">6 hata</span></h2>
+        <table class="error-table">
+            <thead>
+                <tr>
+                    <th>Hata Mesaji</th>
+                    <th>Ne Anlama Gelir</th>
+                    <th>Ne Yapmali</th>
+                    <th>Modül</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-label="Hata Mesaji">Cari bakiye güncelleme hatasi</td>
+                    <td data-label="Ne Anlama Gelir">Cari hesap bakiyesi güncellenirken teknik bir sorun olustu.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Sayfayi yenileyin ve işlemi tekrar deneyin</li>
+                            <li>Cari hesap hareketlerini kontrol edin</li>
+                            <li>Sorun devam ederse sistem yöneticisine bildirin</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-finans">Finans</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Kasa bakiyesi yetersiz</td>
+                    <td data-label="Ne Anlama Gelir">Kasada yapilmak istenen odeme için yeterli para yok.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Kasa bakiyesini kontrol edin</li>
+                            <li>Kasaya para girişi yapın (banka transferi veya nakit)</li>
+                            <li>Farkli bir odeme yontemi kullanın (banka havale vb.)</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-finans">Finans</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Döviz kuru alınamadi — TCMB baglanti hatasi</td>
+                    <td data-label="Ne Anlama Gelir">Merkez Bankasi kur servisine baglanilamiyor.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Internet baglantinizi kontrol edin</li>
+                            <li>Birkac dakika bekleyip tekrar deneyin</li>
+                            <li>Manuel olarak gunun kürünu girin</li>
+                            <li>Sorun devam ederse sistem yöneticisine bildirin</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-finans">Finans</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Fatura tutari odeme tutariyla eslesmiyar</td>
+                    <td data-label="Ne Anlama Gelir">Odenen miktar fatura tutarindan farklı.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Fatura tutarini ve odeme tutarini karsilastirin</li>
+                            <li>Kismi odeme yapiliyorsa "Kismi Odeme" secenegini kullanın</li>
+                            <li>Fark varsa fatura veya odeme tutarini duzeltin</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-finans">Finans</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Banka hesabı tanimli degil</td>
+                    <td data-label="Ne Anlama Gelir">Havale/EFT için banka hesap bilgileri girilmemis.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Finans &gt; Banka Hesaplari'ndan yeni hesap tanımlayin</li>
+                            <li>IBAN, banka adi ve sube bilgilerini girin</li>
+                            <li>Kaydedin ve işleme devam edin</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-finans">Finans</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Donem kapali — işlem yapilamaz</td>
+                    <td data-label="Ne Anlama Gelir">Bu aya ait donem kapatilmis, geriye donuk işlem girilemiyor.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>İşlemi içinde bulundugunuz donemde yapın</li>
+                            <li>Geriye donuk işlem zorunluysa muhasebe sorumlusundan donemi actirin</li>
+                            <li>Acik doneme duzeltme fisi girin</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-finans">Finans</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- KALITE -->
+    <div class="error-category" data-category="kalite">
+        <h2>Kalite Hatalari <span class="badge">5 hata</span></h2>
+        <table class="error-table">
+            <thead>
+                <tr>
+                    <th>Hata Mesaji</th>
+                    <th>Ne Anlama Gelir</th>
+                    <th>Ne Yapmali</th>
+                    <th>Modül</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-label="Hata Mesaji">NCR kapatilamaz, CAPA tamamlanmamis</td>
+                    <td data-label="Ne Anlama Gelir">Uygunsuzluk raporunun kapatilmasi için düzeltici faaliyet (CAPA) tamamlanmali.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Kalite &gt; CAPA ekranindan ilgili faaliyeti bulun</li>
+                            <li>Faaliyeti tamamlayin ve kanitlari yükleyin</li>
+                            <li>CAPA "Tamamlandi" durumuna gectikten sonra NCR'i kapatin</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-kalite">Kalite</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Kalibrasyon süresi dolmus, cihaz kullanilamaz</td>
+                    <td data-label="Ne Anlama Gelir">Olcum cihazinin kalibrasyon geçerlilik tarihi geçmiş.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Cihazi kullanimdan cikartin</li>
+                            <li>Kalibrasyon firmasina gonderin veya yerinde kalibrasyon yaptirin</li>
+                            <li>Kalibrasyon sertifikasi geldikten sonra sisteme girin</li>
+                            <li>Bu cihazla yapilan son olcumleri gozden gecirin</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-kalite">Kalite</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Giriş kontrol sonucu: RED — malzeme karantinada</td>
+                    <td data-label="Ne Anlama Gelir">Gelen malzeme kalite kontrolden gecemedi, kullanimi yasak.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Malzemeyi karantina alanında muhafaza edin</li>
+                            <li>Tedarikciyi bilgilendirin</li>
+                            <li>MRB (Malzeme İnceleme Kurulu) karari bekleyin</li>
+                            <li>Karara gore: iade, sartli kabul veya hurda işlemi yapın</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-kalite">Kalite</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Denetim plani tanımlanmamis</td>
+                    <td data-label="Ne Anlama Gelir">Bu ürün/proses için kalite kontrol plani henuz olusturulmamis.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Kalite &gt; Denetim Planlari'ndan yeni plan olustürün</li>
+                            <li>Kontrol noktalari ve kabul kriterlerini belirleyin</li>
+                            <li>Plani onaya gonderin</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-kalite">Kalite</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Sertifika süresi dolmus</td>
+                    <td data-label="Ne Anlama Gelir">AS9100/ISO sertifika geçerlilik tarihi geçmiş veya yaklasıyor.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Belgelendirme kurulusu ile iletisime gecin</li>
+                            <li>Yenileme denetimi için randevu alın</li>
+                            <li>Guncel sertifikayi sisteme yükleyin</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-kalite">Kalite</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- SISTEM -->
+    <div class="error-category" data-category="sistem">
+        <h2>Sistem Hatalari <span class="badge">5 hata</span></h2>
+        <table class="error-table">
+            <thead>
+                <tr>
+                    <th>Hata Mesaji</th>
+                    <th>Ne Anlama Gelir</th>
+                    <th>Ne Yapmali</th>
+                    <th>Modül</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-label="Hata Mesaji">Baglanti hatasi — internet baglantinizi kontrol edin</td>
+                    <td data-label="Ne Anlama Gelir">Tarayiçiniz sunucuya ulasamiyor.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Internet baglantinizi kontrol edin (baska siteleri acmayi deneyin)</li>
+                            <li>Wi-Fi veya kablo baglantisini kontrol edin</li>
+                            <li>Sayfayi yenileyin (F5)</li>
+                            <li>Sorun devam ederse IT birimine bildirin</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-sistem">Sistem</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Sunucu hatasi (500) — lutfen tekrar deneyin</td>
+                    <td data-label="Ne Anlama Gelir">Sunucuda beklenmeyen bir hata olustu.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Birkac saniye bekleyip tekrar deneyin</li>
+                            <li>Sayfayi yenileyin</li>
+                            <li>Sorun 5 dakikadan uzun suruyorsa IT birimine bildirin</li>
+                            <li>Hata kodunu not alın (varsa X-Correlation-Id değerini)</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-sistem">Sistem</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Dosya boyutu 10MB'i asiyor</td>
+                    <td data-label="Ne Anlama Gelir">Yuklemek istediginiz dosya izin verilen boyut sinirini asiyor.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Dosyayi kucultun (resimler için sikistrima araci kullanın)</li>
+                            <li>PDF dosyalarini bolerek yükleyin</li>
+                            <li>Daha düşük cozunurluklu bir versiyon olustürün</li>
+                            <li>Maksimum boyut: 10 MB</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-sistem">Sistem</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">Desteklenmeyen dosya formati</td>
+                    <td data-label="Ne Anlama Gelir">Yuklemek istediginiz dosya turu sisteme kabul edilmiyor.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Kabul edilen formatlar: PDF, JPG, PNG, XLSX, DOCX</li>
+                            <li>Dosyanizi uygun formata dönüştürün</li>
+                            <li>Ornegin: BMP yerine JPG, ODS yerine XLSX kullanın</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-sistem">Sistem</span></td>
+                </tr>
+                <tr>
+                    <td data-label="Hata Mesaji">İşlem zaman asimina ugradi (Timeout)</td>
+                    <td data-label="Ne Anlama Gelir">Sunucu istegi belirlenen surede cevaplayamadi.</td>
+                    <td data-label="Ne Yapmali">
+                        <ol>
+                            <li>Internet hizinizi kontrol edin</li>
+                            <li>İşlemi tekrar deneyin</li>
+                            <li>Buyuk veri işlemlerinde (rapor, toplu işlem) sabirin</li>
+                            <li>Surekli oluyorsa IT birimine bildirin</li>
+                        </ol>
+                    </td>
+                    <td data-label="Modül"><span class="modüle-tag tag-sistem">Sistem</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ACIL YARDIM -->
+    <div style="background: #fef3c7; border: 2px solid #f59e0b; border-radius: 12px; padding: 24px; margin-top: 40px; text-align: center;">
+        <h2 style="color: #92400e; margin-top: 0;">Hata Cozulmuyor mu?</h2>
+        <p style="color: #78350f; font-size: 16px;">Yukaridaki adimlari denemenize ragmen sorun devam ediyorsa:</p>
+        <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 16px;">
+            <div style="background: white; padding: 16px 24px; border-radius: 8px;">
+                <strong>Telefon</strong><br>
+                <span style="font-size: 18px;">0212 XXX XX XX</span>
+            </div>
+            <div style="background: white; padding: 16px 24px; border-radius: 8px;">
+                <strong>E-posta</strong><br>
+                <span style="font-size: 18px;">destek@quvex.io</span>
+            </div>
+            <div style="background: white; padding: 16px 24px; border-radius: 8px;">
+                <strong>WhatsApp</strong><br>
+                <span style="font-size: 18px;">0531 232 47 89</span>
+            </div>
+        </div>
+        <p style="color: #78350f; margin-top: 16px; font-size: 14px;">Destek ekibine ulasirken hata mesajinin ekran goruntusunu ve X-Correlation-Id kodunu (varsa) paylasmayi unutmayin.</p>
+    </div>
+
+</div>
+
+<script>
+(function() {
+    const searchInput = document.getElementById('searchInput');
+    const searchStats = document.getElementById('searchStats');
+    const noResults = document.getElementById('noResults');
+    const categories = document.querySelectorAll('.error-category');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    let activeFilter = 'all';
+
+    function countVisible() {
+        let count = 0;
+        categories.forEach(cat => {
+            const rows = cat.querySelectorAll('tbody tr');
+            rows.forEach(row => {
+                if (row.style.display !== 'none') count++;
+            });
+        });
+        return count;
+    }
+
+    function applyFilters() {
+        const query = searchInput.value.toLowerCase().trim();
+        let totalVisible = 0;
+
+        categories.forEach(cat => {
+            const catName = cat.getAttribute('data-category');
+            const matchCategory = activeFilter === 'all' || catName === activeFilter;
+            const rows = cat.querySelectorAll('tbody tr');
+            let catVisible = 0;
+
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                const matchSearch = !query || text.includes(query);
+                const show = matchCategory && matchSearch;
+                row.style.display = show ? '' : 'none';
+                if (show) catVisible++;
+            });
+
+            cat.style.display = catVisible > 0 ? '' : 'none';
+            totalVisible += catVisible;
+        });
+
+        searchStats.innerHTML = totalVisible > 0
+            ? 'Toplam <strong>' + totalVisible + '</strong> hata mesaji listeleniyor'
+            : '';
+        noResults.style.display = totalVisible === 0 ? 'block' : 'none';
+    }
+
+    searchInput.addEventListener('input', applyFilters);
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            activeFilter = this.getAttribute('data-filter');
+            applyFilters();
+        });
+    });
+})();
+</script>
+
+</body>
+</html>

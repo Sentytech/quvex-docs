@@ -1,0 +1,223 @@
+[
+  {
+    "url": "index.html",
+    "title": "Ana Sayfa",
+    "sections": [
+      { "id": "", "heading": "Quvex ERP Kullanici Kilavuzu", "keywords": "anasayfa giris hosgeldiniz erp uretim yonetim" }
+    ]
+  },
+  {
+    "url": "ilk-adimlar.html",
+    "title": "Ilk Adimlar",
+    "sections": [
+      { "id": "ilk-giris", "heading": "Ilk Giris", "keywords": "login sifre giris sisteme erisim" },
+      { "id": "temel-ayarlar", "heading": "Temel Ayarlar", "keywords": "firma bilgi ayar kurulum baslangic" },
+      { "id": "ilk-urun", "heading": "Ilk Urun Tanimi", "keywords": "urun stok tanimlama kayit" },
+      { "id": "ilk-siparis", "heading": "Ilk Siparis", "keywords": "siparis musteri teklif satis" }
+    ]
+  },
+  {
+    "url": "stok.html",
+    "title": "Stok & Depo",
+    "sections": [
+      { "id": "urun-tanimi", "heading": "Urun Tanimi", "keywords": "urun malzeme hammadde stok karti birim" },
+      { "id": "depo-yonetimi", "heading": "Depo Yonetimi", "keywords": "depo lokasyon raf alan transfer" },
+      { "id": "stok-hareketi", "heading": "Stok Hareketi", "keywords": "giris cikis sayim hareket envanter" },
+      { "id": "seri-takibi", "heading": "Seri Numarasi Takibi", "keywords": "seri lot parti izlenebilirlik traceability" }
+    ]
+  },
+  {
+    "url": "uretim.html",
+    "title": "Uretim",
+    "sections": [
+      { "id": "is-emri", "heading": "Is Emri", "keywords": "is emri uretim planlama isemri work order" },
+      { "id": "operasyonlar", "heading": "Operasyonlar", "keywords": "operasyon rota islem adim surec" },
+      { "id": "makine", "heading": "Makine Yonetimi", "keywords": "makine tezgah cnc ekipman kapasite" },
+      { "id": "kapasite", "heading": "Kapasite Planlama", "keywords": "kapasite planlama cizelgeleme scheduling" }
+    ]
+  },
+  {
+    "url": "satis.html",
+    "title": "Satis & Teklif",
+    "sections": [
+      { "id": "teklif", "heading": "Teklif Yonetimi", "keywords": "teklif fiyat musteri proforma quotation" },
+      { "id": "siparis", "heading": "Siparis Yonetimi", "keywords": "siparis onay teslimat sevkiyat order" },
+      { "id": "musteri", "heading": "Musteri Yonetimi", "keywords": "musteri firma adres iletisim customer" },
+      { "id": "sevkiyat", "heading": "Sevkiyat", "keywords": "sevk irsaliye teslimat gonderim shipping" }
+    ]
+  },
+  {
+    "url": "satinalma.html",
+    "title": "Satinalma",
+    "sections": [
+      { "id": "satinalma-talebi", "heading": "Satinalma Talebi", "keywords": "talep istek malzeme ihtiyac purchase request" },
+      { "id": "satinalma-siparisi", "heading": "Satinalma Siparisi", "keywords": "siparis tedarikci satin alma purchase order" },
+      { "id": "tedarikci", "heading": "Tedarikci Yonetimi", "keywords": "tedarikci firma supplier vendor" },
+      { "id": "fason", "heading": "Fason Islemler", "keywords": "fason disaridan hizmet taşeron subcontract" }
+    ]
+  },
+  {
+    "url": "kalite.html",
+    "title": "Kalite Yonetimi",
+    "sections": [
+      { "id": "kalite-kontrol", "heading": "Kalite Kontrol", "keywords": "kontrol muayene test olcum inspection" },
+      { "id": "as9100", "heading": "AS9100 Uyumluluk", "keywords": "as9100 havacilik savunma sertifika havacılık" },
+      { "id": "coc", "heading": "Uygunluk Sertifikasi (CoC)", "keywords": "coc sertifika uygunluk certificate conformance" },
+      { "id": "mrb", "heading": "MRB (Malzeme Inceleme Kurulu)", "keywords": "mrb red uygunsuzluk material review board" },
+      { "id": "sozlesme-inceleme", "heading": "Sozlesme Inceleme", "keywords": "sozlesme contract review inceleme" }
+    ]
+  },
+  {
+    "url": "finans.html",
+    "title": "Finans",
+    "sections": [
+      { "id": "fatura", "heading": "Fatura Yonetimi", "keywords": "fatura e-fatura alis satis invoice" },
+      { "id": "odeme", "heading": "Odeme Takibi", "keywords": "odeme tahsilat vade alacak borc payment" },
+      { "id": "banka", "heading": "Banka Hesaplari", "keywords": "banka hesap mutabakat bank reconciliation" },
+      { "id": "kasa", "heading": "Kasa", "keywords": "kasa nakit para cash" }
+    ]
+  },
+  {
+    "url": "ik.html",
+    "title": "IK & Vardiya",
+    "sections": [
+      { "id": "personel", "heading": "Personel Yonetimi", "keywords": "personel calisan ise alma employee" },
+      { "id": "vardiya", "heading": "Vardiya Planlama", "keywords": "vardiya mesai shift calışma saatleri" },
+      { "id": "izin", "heading": "Izin Yonetimi", "keywords": "izin tatil yillik rapor leave" }
+    ]
+  },
+  {
+    "url": "bakim.html",
+    "title": "Bakim (CMMS)",
+    "sections": [
+      { "id": "periyodik-bakim", "heading": "Periyodik Bakim", "keywords": "periyodik planlı bakim preventive maintenance" },
+      { "id": "ariza-kayit", "heading": "Ariza Kaydi", "keywords": "ariza bozulma tamir onarim breakdown" },
+      { "id": "yedek-parca", "heading": "Yedek Parca", "keywords": "yedek parca spare part stok" }
+    ]
+  },
+  {
+    "url": "raporlar.html",
+    "title": "Raporlama",
+    "sections": [
+      { "id": "dashboard", "heading": "Dashboard", "keywords": "dashboard pano ozet gorunum anasayfa" },
+      { "id": "uretim-rapor", "heading": "Uretim Raporlari", "keywords": "uretim rapor verimlilik performans oee" },
+      { "id": "stok-rapor", "heading": "Stok Raporlari", "keywords": "stok envanter miktar hareket rapor" },
+      { "id": "finans-rapor", "heading": "Finans Raporlari", "keywords": "ciro gelir gider kar zarar rapor" }
+    ]
+  },
+  {
+    "url": "ayarlar.html",
+    "title": "Ayarlar",
+    "sections": [
+      { "id": "firma-bilgileri", "heading": "Firma Bilgileri", "keywords": "firma sirket logo adres bilgi company" },
+      { "id": "kullanici-yonetimi", "heading": "Kullanici Yonetimi", "keywords": "kullanici rol yetki izin user permission" },
+      { "id": "bildirim", "heading": "Bildirim Ayarlari", "keywords": "bildirim notification e-posta email uyari" },
+      { "id": "entegrasyon", "heading": "Entegrasyonlar", "keywords": "entegrasyon api webhook e-fatura integration" }
+    ]
+  },
+  {
+    "url": "surecler.html",
+    "title": "Surecler",
+    "sections": [
+      { "id": "onay-sureci", "heading": "Onay Surecleri", "keywords": "onay workflow akis approval surec" },
+      { "id": "dokuman-onay", "heading": "Dokuman Onay", "keywords": "dokuman belge onay revizyon document approval" }
+    ]
+  },
+  {
+    "url": "iliski-haritasi.html",
+    "title": "Modul Iliski Haritasi",
+    "sections": [
+      { "id": "", "heading": "Modul Iliskileri", "keywords": "modul iliski baglanti diagram harita entegrasyon" }
+    ]
+  },
+  {
+    "url": "sik-sorulan-sorular.html",
+    "title": "Sik Sorulan Sorular (SSS)",
+    "sections": [
+      { "id": "genel", "heading": "Genel Sorular", "keywords": "sss faq soru cevap yardim destek" },
+      { "id": "teknik", "heading": "Teknik Sorular", "keywords": "teknik hata sorun problem kurulum" },
+      { "id": "lisans", "heading": "Lisans & Fiyat", "keywords": "lisans fiyat ucret paket plan pricing" }
+    ]
+  },
+  {
+    "url": "terimler-sozlugu.html",
+    "title": "Terimler Sozlugu",
+    "sections": [
+      { "id": "", "heading": "Terimler", "keywords": "terim sozluk glossary tanim aciklama kavram" }
+    ]
+  },
+  {
+    "url": "roles/fabrika-sahibi.html",
+    "title": "Fabrika Sahibi Kilavuzu",
+    "sections": [
+      { "id": "genel-bakis", "heading": "Genel Bakis", "keywords": "fabrika sahibi patron yonetici ceo owner" },
+      { "id": "dashboard", "heading": "Dashboard Kullanimi", "keywords": "dashboard ozet rapor kar performans" }
+    ]
+  },
+  {
+    "url": "roles/uretim-muduru.html",
+    "title": "Uretim Muduru Kilavuzu",
+    "sections": [
+      { "id": "gorevler", "heading": "Gorev ve Sorumluluklar", "keywords": "uretim mudur planlama is emri kapasite" },
+      { "id": "gunluk-isler", "heading": "Gunluk Isler", "keywords": "gunluk takip kontrol isemri uretim" }
+    ]
+  },
+  {
+    "url": "roles/kalite-muduru.html",
+    "title": "Kalite Muduru Kilavuzu",
+    "sections": [
+      { "id": "gorevler", "heading": "Gorev ve Sorumluluklar", "keywords": "kalite mudur kontrol muayene as9100 denetim" },
+      { "id": "raporlar", "heading": "Kalite Raporlari", "keywords": "rapor istatistik red oran trend kalite" }
+    ]
+  },
+  {
+    "url": "roles/muhasebeci.html",
+    "title": "Muhasebeci Kilavuzu",
+    "sections": [
+      { "id": "gorevler", "heading": "Gorev ve Sorumluluklar", "keywords": "muhasebe fatura odeme tahsilat banka finans" },
+      { "id": "ay-sonu", "heading": "Ay Sonu Islemleri", "keywords": "ay sonu kapanış mutabakat rapor" }
+    ]
+  },
+  {
+    "url": "roles/cnc-operatoru.html",
+    "title": "CNC Operatoru Kilavuzu",
+    "sections": [
+      { "id": "gorevler", "heading": "Gorev ve Sorumluluklar", "keywords": "cnc operator tezgah makine isemri uretim" },
+      { "id": "is-emri-takip", "heading": "Is Emri Takibi", "keywords": "is emri baslat durdur tamamla operasyon" }
+    ]
+  },
+  {
+    "url": "sectors/savunma-havacilik.html",
+    "title": "Savunma ve Havacilik Sektoru",
+    "sections": [
+      { "id": "as9100", "heading": "AS9100 Gereksinimleri", "keywords": "savunma havacilik as9100 sertifika askeri military aerospace" },
+      { "id": "izlenebilirlik", "heading": "Izlenebilirlik", "keywords": "seri lot traceability izlenebilirlik data pack" }
+    ]
+  },
+  {
+    "url": "sectors/otomotiv-yan-sanayi.html",
+    "title": "Otomotiv Yan Sanayi Sektoru",
+    "sections": [
+      { "id": "ppap", "heading": "PPAP & APQP", "keywords": "otomotiv ppap apqp fmea spc automotive" },
+      { "id": "kanban", "heading": "Kanban & JIT", "keywords": "kanban jit tam zamaninda uretim lean yalin" }
+    ]
+  },
+  {
+    "url": "sectors/cnc-metal-isleme.html",
+    "title": "CNC Metal Isleme Sektoru",
+    "sections": [
+      { "id": "tezgah-yonetimi", "heading": "Tezgah Yonetimi", "keywords": "cnc tezgah freze torna metal isleme machining" },
+      { "id": "takım-yonetimi", "heading": "Takim Yonetimi", "keywords": "takim kesici insert tool management" }
+    ]
+  },
+  {
+    "url": "workflows/teklif-siparis-uretim-sevk.html",
+    "title": "Teklif - Siparis - Uretim - Sevkiyat",
+    "sections": [
+      { "id": "teklif-olustur", "heading": "Teklif Olusturma", "keywords": "teklif fiyat musteri proforma baslangic" },
+      { "id": "siparis-onayla", "heading": "Siparis Onaylama", "keywords": "siparis onay teyit confirm order" },
+      { "id": "uretim-baslat", "heading": "Uretim Baslatma", "keywords": "uretim isemri baslat planlama uretim" },
+      { "id": "sevkiyat-yap", "heading": "Sevkiyat Yapma", "keywords": "sevk irsaliye gonder teslimat ship" }
+    ]
+  }
+]

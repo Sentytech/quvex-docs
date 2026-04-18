@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HACCP &amp; Geri Çağırma &mdash; Quvex ERP Kullanıcı Kılavuzu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="container">
+
+  <a href="../index.html" class="nav-back">&#8592; Ana Sayfa</a>
+
+  <div class="doc-header">
+    <span class="version-badge">v3.0 &middot; Sprint 11 &middot; YENİ</span>
+    <div class="breadcrumb"><a href="../index.html">Kullanıcı Kılavuzu</a> / Sektör Modülleri / HACCP &amp; Recall</div>
+    <h1>HACCP Kontrol Noktaları ve Geri Çağırma</h1>
+    <p>Gıda üretimi için HACCP, CCP ölçüm, otomatik sapma NCR, 7 adım recall wizard, forward trace &mdash; tam kılavuz</p>
+  </div>
+
+  <div class="two-col">
+
+    <aside>
+      <nav class="nav-sidebar">
+        <a href="#haccp-nedir">HACCP Nedir?</a>
+        <a href="#7-prensip">7 Prensip</a>
+        <a href="#ccp-tanimla">CCP Tanımlama</a>
+        <a href="#olcum-kaydet">Ölçüm Kaydetme</a>
+        <a href="#sapma">Sapma Durumu (Otomatik NCR)</a>
+        <a href="#recall">Recall Workflow</a>
+        <a href="#forward-trace">Forward Trace</a>
+        <a href="#yasal">Yasal Referans</a>
+        <a href="#sss">SSS</a>
+      </nav>
+    </aside>
+
+    <main>
+
+      <section id="haccp-nedir">
+        <h2>1. HACCP Nedir?</h2>
+        <p><strong>HACCP</strong> (Hazard Analysis and Critical Control Points &mdash; Tehlike Analizi ve Kritik Kontrol Noktaları), gıda üretiminde fiziksel, kimyasal ve biyolojik tehlikeleri önleyici bir yönetim sistemidir. Ürünü test edip kusurlu olanı elemek yerine, tehlikeyi üretim aşamasında kontrol altına almayı hedefler.</p>
+
+        <p>Quvex'in HACCP modülü size şu imkânları sunar:</p>
+        <ul>
+          <li>Tehlike analizi ve CCP (Kritik Kontrol Noktası) tanımlama</li>
+          <li>Ölçüm kaydı ve limit kontrolü</li>
+          <li>Sapma durumunda otomatik NCR açma</li>
+          <li>Geri çağırma (recall) sihirbazı</li>
+          <li>Lot bazlı forward/backward trace</li>
+          <li>ISO 22000 ve 5996 sayılı kanun uyumu</li>
+        </ul>
+      </section>
+
+      <section id="7-prensip">
+        <h2>2. HACCP 7 Prensibi</h2>
+        <table>
+          <thead><tr><th>#</th><th>Prensip</th><th>Quvex'te Nerede?</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Tehlike analizi yap</td><td>Kalite &rarr; HACCP &rarr; Tehlike Analizi</td></tr>
+            <tr><td>2</td><td>Kritik Kontrol Noktalarını (CCP) belirle</td><td>Kalite &rarr; HACCP &rarr; CCP Listesi</td></tr>
+            <tr><td>3</td><td>Kritik limitleri belirle</td><td>CCP detayında "Limit" alanı</td></tr>
+            <tr><td>4</td><td>İzleme prosedürü kur</td><td>Ölçüm sıklığı &amp; sorumlu atama</td></tr>
+            <tr><td>5</td><td>Düzeltici önlemleri tanımla</td><td>Otomatik NCR + CAPA bağlantısı</td></tr>
+            <tr><td>6</td><td>Doğrulama (verification)</td><td>Periyodik iç denetim modülü</td></tr>
+            <tr><td>7</td><td>Kayıt tutma</td><td>Tüm ölçümler, sapmalar, recall'lar log'lanır</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="ccp-tanimla">
+        <h2>3. CCP Nasıl Tanımlanır?</h2>
+        <p><strong>Örnek:</strong> Süt pastörizasyon sıcaklığı.</p>
+        <ol>
+          <li>Menü: <strong>Kalite &rarr; HACCP &rarr; CCP Listesi</strong></li>
+          <li><code>+ Yeni CCP</code> butonu</li>
+          <li>Form alanları:
+            <ul>
+              <li><strong>CCP Kodu:</strong> <code>CCP-01</code></li>
+              <li><strong>Ad:</strong> Pastörizasyon Sıcaklığı</li>
+              <li><strong>Proses Adımı:</strong> Süt ön işlem</li>
+              <li><strong>Tehlike Tipi:</strong> Biyolojik (Listeria, E.coli)</li>
+              <li><strong>Kritik Limit:</strong> 72°C - 75°C / 15 saniye</li>
+              <li><strong>İzleme Sıklığı:</strong> Her parti (her 30 dk)</li>
+              <li><strong>Sorumlu:</strong> Üretim operatörü</li>
+              <li><strong>Düzeltici Önlem:</strong> Sıcaklık limit dışına çıkarsa parti karantinaya alınır, NCR açılır</li>
+            </ul>
+          </li>
+          <li>Kaydet</li>
+        </ol>
+      </section>
+
+      <section id="olcum-kaydet">
+        <h2>4. Ölçüm Nasıl Kaydedilir? (Tülay Hanım İçin)</h2>
+        <p>Tülay Hanım her 30 dakikada bir pastörizasyon tankının sıcaklığını ölçüyor. İşte adım adım:</p>
+
+        <div class="flow">
+          <div class="flow-step active">1. Tanka git</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">2. Termometre oku</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">3. Tabletten gir</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">4. Kaydet</div>
+        </div>
+
+        <ol>
+          <li>Tablet/telefonda Quvex'i aç</li>
+          <li>Ana ekranda <strong>"HACCP Ölçüm"</strong> kısayoluna tıkla (büyük yeşil buton)</li>
+          <li>CCP seç: <code>CCP-01 Pastörizasyon</code></li>
+          <li>Lot numarası seç: <code>LOT-2026-04-10-001</code> (aktif üretim lotu otomatik gelir)</li>
+          <li>Sıcaklık değerini gir: <code>73.2</code></li>
+          <li>Süre: <code>16 saniye</code></li>
+          <li>Büyük <strong>KAYDET</strong> butonuna bas</li>
+        </ol>
+
+        <div class="tip success">
+          <div class="tip-title">&#9989; Limit İçindeyse</div>
+          <p>Sıcaklık 72-75°C arasındaysa ekran yeşil yanıp söner, ses ile onay verir. Ölçüm kaydedilir, rutin devam eder.</p>
+        </div>
+      </section>
+
+      <section id="sapma">
+        <h2>5. Sapma Durumu &mdash; Otomatik NCR</h2>
+        <p>Limit dışına çıkan bir ölçüm girildiğinde Quvex <strong>otomatik olarak</strong> aşağıdakileri yapar:</p>
+        <ol>
+          <li>Ekran <span style="background:#dc2626;color:#fff;padding:2px 8px;">KIRMIZI</span> yanıp söner, alarm çalar</li>
+          <li>İlgili lot otomatik <strong>KARANTİNA</strong> durumuna alınır</li>
+          <li>NCR (Uygunsuzluk Raporu) otomatik oluşturulur
+            <ul>
+              <li>Tip: HACCP Sapması</li>
+              <li>CCP: CCP-01</li>
+              <li>Ölçüm değeri ve beklenen limit</li>
+              <li>Etkilenen lot</li>
+              <li>Tarih/saat/operatör</li>
+            </ul>
+          </li>
+          <li>Kalite müdürüne SignalR bildirim gönderilir</li>
+          <li>Operatörden <strong>düzeltici önlem</strong> seçmesi istenir (dropdown):
+            <ul>
+              <li>Partiyi imha et</li>
+              <li>Yeniden işle (re-process)</li>
+              <li>Karantinada tut, kalite kararını bekle</li>
+            </ul>
+          </li>
+        </ol>
+
+        <div class="tip warning">
+          <div class="tip-title">&#9888; Önemli</div>
+          <p>Sapma kaydı sonrası CCP için 3 ardışık ölçüm limit içinde olana kadar üretim durdurulur. Bu ISO 22000 gereğidir ve Quvex otomatik uygular.</p>
+        </div>
+      </section>
+
+      <section id="recall">
+        <h2>6. Geri Çağırma (Recall) Workflow &mdash; 7 Adım Sihirbaz</h2>
+        <p>Eğer bir ürün piyasaya çıktıktan sonra tehlike tespit edilirse, <strong>recall</strong> süreci başlatılır. Quvex 7 adımlı sihirbaz ile süreci yönetir.</p>
+
+        <table>
+          <thead><tr><th>Adım</th><th>İşlem</th><th>Kim Yapar?</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Tehlike Bildirimi (iç/dış)</td><td>Kalite</td></tr>
+            <tr><td>2</td><td>Etkilenen Lot Tespiti</td><td>Otomatik (forward trace)</td></tr>
+            <tr><td>3</td><td>Risk Değerlendirme (Class I/II/III)</td><td>Kalite Müdürü</td></tr>
+            <tr><td>4</td><td>Bakanlık Bildirimi (5 gün içinde)</td><td>Kalite + Yönetim</td></tr>
+            <tr><td>5</td><td>Müşteri / Dağıtıcı Bildirimi</td><td>Satış</td></tr>
+            <tr><td>6</td><td>Ürünleri Geri Topla &amp; İmha</td><td>Lojistik</td></tr>
+            <tr><td>7</td><td>Kök Neden Analizi &amp; CAPA</td><td>Kalite + Üretim</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Recall Sınıfları</h3>
+        <ul>
+          <li><strong>Class I:</strong> Ciddi sağlık riski (ölüm/yaralanma). En hızlı aksiyon.</li>
+          <li><strong>Class II:</strong> Geçici/geri dönüşlü sağlık etkisi.</li>
+          <li><strong>Class III:</strong> Sağlık riski yok ama etikete/standarda aykırı.</li>
+        </ul>
+      </section>
+
+      <section id="forward-trace">
+        <h2>7. Forward Trace (Lot &rarr; Müşteri)</h2>
+        <p>Bir lotun nereye gittiğini 1 saniyede bulabilirsiniz:</p>
+        <ol>
+          <li>Menü: <strong>Kalite &rarr; HACCP &rarr; İzlenebilirlik</strong></li>
+          <li>Lot numarasını gir: <code>LOT-2026-04-10-001</code></li>
+          <li><strong>Forward Trace</strong> butonu</li>
+          <li>Sonuç ağacı:
+            <ul>
+              <li>LOT-2026-04-10-001 (500 L süt)
+                <ul>
+                  <li>&rarr; Ürün: Tam Yağlı Süt 1L (500 adet)</li>
+                  <li>&rarr; Sevkiyat SVK-12345 (200 adet) &rarr; ABC Market / İstanbul</li>
+                  <li>&rarr; Sevkiyat SVK-12346 (150 adet) &rarr; XYZ Market / Ankara</li>
+                  <li>&rarr; Depoda kalan: 150 adet (karantinaya alındı)</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><strong>Toplu Bildirim</strong> butonu ile tüm müşterilere otomatik email/SMS gönderilir</li>
+        </ol>
+
+        <div class="tip info">
+          <div class="tip-title">&#128161; Backward Trace</div>
+          <p>Aynı ekranda <strong>Backward Trace</strong> ile "Bu lot hangi hammaddelerden, hangi tedarikçiden, hangi tarihte geldi?" sorusunun cevabını bulursunuz.</p>
+        </div>
+      </section>
+
+      <section id="yasal">
+        <h2>8. Yasal Referans</h2>
+        <ul>
+          <li><strong>5996 sayılı Veteriner Hizmetleri, Bitki Sağlığı, Gıda ve Yem Kanunu</strong> (2010)</li>
+          <li><strong>Türk Gıda Kodeksi Yönetmeliği</strong></li>
+          <li><strong>ISO 22000:2018</strong> Gıda Güvenliği Yönetim Sistemi</li>
+          <li><strong>Codex Alimentarius</strong> HACCP kılavuzu (FAO/WHO)</li>
+          <li><strong>Regulation (EC) No 178/2002</strong> (Avrupa Birliği gıda güvenliği)</li>
+        </ul>
+
+        <div class="tip warning">
+          <div class="tip-title">&#9888; Bakanlık Bildirimi</div>
+          <p>Türkiye'de gıda kaynaklı bir tehlike tespit edildiğinde Tarım ve Orman Bakanlığı'na <strong>en geç 5 iş günü içinde</strong> bildirim zorunludur. Quvex recall wizard adım 4'te bu bildirim için hazır form sağlar.</p>
+        </div>
+      </section>
+
+      <section id="sss">
+        <h2>9. Sık Sorulan Sorular</h2>
+
+        <div class="card">
+          <h4>CCP ile PRP (ön gereksinim program) arasındaki fark nedir?</h4>
+          <p>PRP temel hijyen (temizlik, haşere kontrolü, personel hijyen) programıdır &mdash; tüm tesiste uygulanır. CCP ise spesifik bir üretim adımındaki kritik ölçüm noktasıdır. PRP olmadan CCP çalışmaz.</p>
+        </div>
+
+        <div class="card">
+          <h4>Ölçüm aletinin kalibrasyonu unutuldu ise ne olur?</h4>
+          <p>Quvex kalibrasyon modülü ile entegre çalışır. Kalibrasyonu dolmuş termometreyle CCP ölçümü girmeye çalışırsanız sistem <strong>uyarı verir ve kaydı bloklar</strong>.</p>
+        </div>
+
+        <div class="card">
+          <h4>Recall prova (mock recall) yapabilir miyim?</h4>
+          <p>Evet. Recall sihirbazında "Prova Modu" işaretlerseniz tüm adımlar çalışır ama bildirimler gerçek müşteriye gitmez, test maili atılır. ISO 22000 yılda 1 prova zorunlu kılar.</p>
+        </div>
+
+        <div class="card">
+          <h4>Geçmiş ölçümleri Excel'e aktarabilir miyim?</h4>
+          <p>Evet. HACCP &rarr; Raporlar &rarr; CCP Ölçüm Raporu'ndan tarih aralığı seçip Excel export alabilirsiniz. Denetçiler bu raporu ister.</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="doc-footer">
+    &copy; 2026 Quvex &mdash; HACCP &amp; Recall &middot; Sprint 11 &middot; v3.0<br>
+    <small style="color:var(--text-muted);">destek@quvex.io</small>
+  </div>
+
+</div>
+<script src="../js/guide-enhancements.js"></script>
+</body>
+</html>

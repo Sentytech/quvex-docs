@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kalite Yönetimi - Quvex ERP Kullanıcı Kılavuzu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+
+  <a href="index.html" class="nav-back">&#8592; Ana Sayfa</a>
+
+  <div class="doc-header">
+    <span class="version-badge">v2.0</span>
+    <div class="breadcrumb"><a href="index.html">Kullanıcı Kılavuzu</a> / Kalite</div>
+    <h1>Kalite Yönetimi (AS9100 / ISO 9001)</h1>
+    <p>NCR, CAPA, SPC, kalibrasyon, PPAP, FAI, risk &amp; FMEA, tedarikçi değerlendirme, izlenebilirlik &mdash; 23 alt modül, 5 grup, 30+ ekran</p>
+  </div>
+
+  <!-- Stats Bar -->
+  <div class="stats-bar">
+    <div class="stat-item"><div class="stat-value">23</div><div class="stat-label">Alt Modül</div></div>
+    <div class="stat-item"><div class="stat-value">5</div><div class="stat-label">Menu Grubu</div></div>
+    <div class="stat-item"><div class="stat-value">30+</div><div class="stat-label">Ekran</div></div>
+    <div class="stat-item"><div class="stat-value">AS9100</div><div class="stat-label">Uyumluluk</div></div>
+  </div>
+
+  <!-- Sprint 11 Yenilikleri Callout -->
+  <div class="card" style="border-left:4px solid #f59e0b;background:linear-gradient(135deg,#fffbeb,#fef3c7);">
+    <div class="tip-title" style="color:#92400e;font-size:1rem;font-weight:700;margin-bottom:0.5rem;">Sprint 11 Yenilikleri (Nisan 2026)</div>
+    <ul style="margin:0 0 0 1.2rem;color:var(--text-secondary);line-height:1.7;">
+      <li><strong>HACCP &amp; Recall:</strong> Gida guvenligi icin tehlike analizi, CCP/OPRP izleme ve geri cagirma workflow. <a href="modules/haccp-recall.html">HACCP &amp; Recall Modulu</a>.</li>
+      <li><strong>CE Teknik Dosya:</strong> MDR, UDI, ISO 14971 risk yonetimi ile medikal cihaz teknik dosya yonetimi. <a href="modules/ce-technical-file.html">CE Teknik Dosya</a>.</li>
+      <li><strong>WPS / WPQR:</strong> Kaynak proseduru ve kaynakci yeterlilik takibi (savunma, gemi, yapi celigi). <a href="modules/wps-wpqr.html">WPS/WPQR Modulu</a>.</li>
+      <li><strong>Surec Akislari:</strong> HACCP sapma, Recall ve WPS onay workflow sema ve adimlari icin <a href="surecler.html#sprint11">Surecler &gt; Sprint 11</a> sayfasina bakin.</li>
+    </ul>
+  </div>
+
+  <div class="two-col">
+
+    <aside>
+      <nav class="nav-sidebar">
+        <a href="#tanitim">Modül Tanitimi</a>
+        <a href="#hızlı-başlangıç">Hızlı Başlangıç</a>
+        <a href="#ncr">Uygunsuzluk (NCR)</a>
+        <a href="#capa">CAPA</a>
+        <a href="#giriş-kontrol">Giriş Kontrol</a>
+        <a href="#kalibrasyon">Kalibrasyon</a>
+        <a href="#risk-fmea">Risk &amp; FMEA</a>
+        <a href="#kontrol-plani">Kontrol Planı</a>
+        <a href="#ic-denetim">İç Denetim</a>
+        <a href="#tedarikçi">Tedarikçi Değerlendirme</a>
+        <a href="#fai">FAI (AS9102)</a>
+        <a href="#ppap">PPAP</a>
+        <a href="#spc">SPC</a>
+        <a href="#sahte-parça">Sahte Parça</a>
+        <a href="#fod">FOD</a>
+        <a href="#konfigurasyon">Konfigurasyon</a>
+        <a href="#ürün-guvenligi">Ürün Guvenligi</a>
+        <a href="#sozlesme">Sozlesme İnceleme</a>
+        <a href="#son-muayene">Son Muayene</a>
+        <a href="#coc">CoC</a>
+        <a href="#mrb">MRB</a>
+        <a href="#müşteri-sapma">Müşteri Sapma</a>
+        <a href="#doküman-onay">Doküman Onay</a>
+        <a href="#faq">Sorun Giderme &amp; SSS</a>
+      </nav>
+    </aside>
+
+    <main>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 1. MODUL TANITIMI -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="tanitim">
+        <h2>1. Modül Tanitimi</h2>
+        <p>Kalite modülü, üretim süreçinizdeki her adimda kaliteyi kontrol altinda tutmanizi saglar. AS9100 Rev D ve ISO 9001:2015 standartlarina tam uyumludur. Aşağıdaki 23 alt modülü icerir:</p>
+
+        <table>
+          <thead><tr><th>#</th><th>Alt Modül</th><th>Kisa Açıklama</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>NCR (Uygunsuzluk)</td><td>Uygunsuz ürün/proses kaydı, sınıflandırma, karantina</td></tr>
+            <tr><td>2</td><td>CAPA</td><td>Düzeltici ve onleyici faaliyet yönetimi</td></tr>
+            <tr><td>3</td><td>Giriş Kontrol</td><td>Hammadde muayene ve kabul/ret</td></tr>
+            <tr><td>4</td><td>Kalibrasyon</td><td>Ölçüm aleti takibi ve sertifika yönetimi</td></tr>
+            <tr><td>5</td><td>Risk &amp; FMEA</td><td>Risk matrisi ve hata modu analizi</td></tr>
+            <tr><td>6</td><td>Kontrol Planı</td><td>Ölçüm noktalari, frekans, kabul kriterleri</td></tr>
+            <tr><td>7</td><td>İç Denetim</td><td>Denetim plani, bulgu kaydı, takip</td></tr>
+            <tr><td>8</td><td>Tedarikçi Değerlendirme</td><td>Skorlama ve onayli tedarikçi listesi</td></tr>
+            <tr><td>9</td><td>FAI (AS9102)</td><td>İlk madde denetimi formlari</td></tr>
+            <tr><td>10</td><td>PPAP</td><td>Üretim parçası onay süreçi (18 element)</td></tr>
+            <tr><td>11</td><td>SPC</td><td>Istatistiksel proses kontrol grafikleri</td></tr>
+            <tr><td>12</td><td>MSA / Gage R&amp;R</td><td>Ölçüm sistemi analizi</td></tr>
+            <tr><td>13</td><td>Süreç Yeterlilik</td><td>Cp/Cpk hesaplama</td></tr>
+            <tr><td>14</td><td>COPQ</td><td>Kalitesizlik maliyetleri</td></tr>
+            <tr><td>15</td><td>Sahte Parça Önleme</td><td>Onayli tedarikçi listesi, sertifika doğrulama</td></tr>
+            <tr><td>16</td><td>FOD Yönetimi</td><td>Yabanci madde ve enkaz kontrolü</td></tr>
+            <tr><td>17</td><td>Konfigurasyon Yönetimi</td><td>Ürün konfigurasyonu ve değişiklik kontrolü</td></tr>
+            <tr><td>18</td><td>Ürün Guvenligi</td><td>Güvenlik risk değerlendirme ve izleme</td></tr>
+            <tr><td>19</td><td>Sozlesme İnceleme</td><td>Müşteri sozlesme gereksinimlerinin gozden gecirmesi</td></tr>
+            <tr><td>20</td><td>Son Muayene</td><td>Final kalite kontrol</td></tr>
+            <tr><td>21</td><td>CoC (Uygünlük Sertifikasi)</td><td>Sevkiyat oncesi uygünlük belgesi</td></tr>
+            <tr><td>22</td><td>MRB (Malzeme İnceleme Kurulu)</td><td>Uygunsuz malzeme kararlari</td></tr>
+            <tr><td>23</td><td>Müşteri Sapma Onayi</td><td>Müşteriden concession talebi</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Kim Kullanir?</h3>
+        <table>
+          <thead><tr><th>Rol</th><th>Kullandigi Alt Modüller</th></tr></thead>
+          <tbody>
+            <tr><td>Kalite Müdürü</td><td>Tüm modüller, dashboard, raporlar</td></tr>
+            <tr><td>Kalite Muhendisi</td><td>NCR, CAPA, SPC, FMEA, FAI, PPAP, kontrol plani</td></tr>
+            <tr><td>Kalite Kontrolcu</td><td>Giriş kontrol, son muayene, NCR kayıt</td></tr>
+            <tr><td>Kalibrasyon Sorumlusu</td><td>Kalibrasyon, MSA</td></tr>
+            <tr><td>Üretim Sefi</td><td>NCR goruntuleme, kontrol plani, FOD</td></tr>
+            <tr><td>Satin Alma</td><td>Tedarikçi değerlendirme, sahte parça</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 2. HIZLI BASLANGIC -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="hızlı-başlangıç">
+        <h2>2. Hızlı Başlangıç &mdash; 5 Adimda İlk NCR Kaydi</h2>
+
+        <div class="flow">
+          <div class="flow-step active">1. Kalite Menusu</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">2. NCR &gt; Yeni</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">3. Formu Doldur</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">4. Kaydet</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">5. Takip Et</div>
+        </div>
+
+        <div class="card">
+          <h4>Adim 1: Kalite menusune girin</h4>
+          <p>Sol menuden <strong>Kalite</strong> basligina tıklayin. Alt menuler acilacaktir.</p>
+        </div>
+        <div class="card">
+          <h4>Adim 2: NCR &gt; Yeni Kayıt</h4>
+          <p><code>/quality/ncr</code> sayfasina gidin. Sag ustteki <strong>"+ Yeni NCR"</strong> butonuna tıklayin.</p>
+        </div>
+        <div class="card">
+          <h4>Adim 3: Formu doldürün</h4>
+          <p><strong>Ciddiyet</strong> secin (Minor/Major/Critical). <strong>Açıklama</strong> alanına ne oldugunu yazin. <strong>Etkilenen Miktar</strong> girin. Gerekirse ürün secin.</p>
+        </div>
+        <div class="card">
+          <h4>Adim 4: Kaydedin</h4>
+          <p><strong>Kaydet</strong> butonuna basin. NCR numarası otomatik olusur (örnek: NCR-2026-0042). Durum <span class="badge badge-primary">ACIK</span> olarak baslar.</p>
+        </div>
+        <div class="card">
+          <h4>Adim 5: Takip edin</h4>
+          <p>NCR listesinden kaydınisin durumunu izleyin. İnceleme, düzeltici faaliyet ve kapatma aşamalari sirayla tamamlanir.</p>
+        </div>
+
+        <div class="tip">
+          <div class="tip-title">İpucu: Hızlı Erişim</div>
+          <p>Kalite Dashboard'daki "Acik NCR" kartina tıklayarak dogrudan acik NCR listesine ulasabilirsiniz.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 3. NCR (UYGUNSUZLUK) -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="ncr">
+        <h2>3. Uygunsuzluk Raporu (NCR)</h2>
+        <p><strong>Sayfa:</strong> <code>/quality/ncr</code></p>
+        <p>Bir ürün veya proses standartin disina ciktiginda NCR olusturulur. Tespitten kapatmaya kadar tüm süreçi yonetir.</p>
+
+        <h3>NCR Durum Akisi</h3>
+        <div class="flow">
+          <div class="flow-step active">ACIK</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">INCELEME</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">DUZELTICI FAALIYET</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">DOGRULAMA</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">KAPATILDI</div>
+        </div>
+
+        <h3>NCR Kayıt Formu</h3>
+        <table class="field-table">
+          <thead><tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th></tr></thead>
+          <tbody>
+            <tr><td class="required">Ciddiyet</td><td><span class="badge badge-default">MINOR</span> <span class="badge badge-warning">MAJOR</span> <span class="badge badge-danger">CRITICAL</span></td><td>Evet</td></tr>
+            <tr><td class="required">Açıklama</td><td>Uygunsuzluk detayi, ne gozlemlendi</td><td>Evet</td></tr>
+            <tr><td class="required">Etkilenen Miktar</td><td>Uygunsuz bulunan ürün adedi</td><td>Evet</td></tr>
+            <tr><td>Ürün</td><td>Autocomplete ile ilgili ürün secimi</td><td>Hayir</td></tr>
+            <tr><td>Tespit Yeri</td><td>Giriş kontrol, üretim hatti, son muayene, müşteri</td><td>Hayir</td></tr>
+            <tr><td>Kok Neden</td><td>İnceleme aşamasında doldurulur</td><td>Hayir</td></tr>
+            <tr><td>Düzeltici Faaliyet</td><td>Sorunu gidermek için yapilan işlem</td><td>Hayir</td></tr>
+            <tr><td>Onleyici Faaliyet</td><td>Tekrarini engellemek için alınan önlem</td><td>Hayir</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Siniflandirma Rehberi</h3>
+        <table>
+          <thead><tr><th>Ciddiyet</th><th>Tanim</th><th>Örnek</th><th>SLA</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge badge-default">MINOR</span></td><td>Fonksiyonu etkilemeyen kozmetik sapma</td><td>Yuzey cizigi, etiket hatasi</td><td>30 gun</td></tr>
+            <tr><td><span class="badge badge-warning">MAJOR</span></td><td>Fonksiyonu etkileyen ancak güvenlik riski olmayan sapma</td><td>Olcu tolerans disinda, malzeme hatasi</td><td>14 gun</td></tr>
+            <tr><td><span class="badge badge-danger">CRITICAL</span></td><td>Güvenlik riski olusturan ciddi sapma</td><td>Catla, yapisal hasar, yanlis malzeme</td><td>48 saat</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Karantina Süreçi</h3>
+        <p>MAJOR veya CRITICAL NCR olusturuldiginda etkilenen ürünler otomatik olarak <strong>karantina</strong> durumuna alınir. Karantinaya alınan ürünler:</p>
+        <ul>
+          <li>Üretimde kullanilamaz</li>
+          <li>Sevkiyata cikarilmaz</li>
+          <li>Stok listesinde "Karantina" etiketi ile görüntülenir</li>
+          <li>MRB karari verilene kadar bekletilir</li>
+        </ul>
+
+        <div class="tip warning">
+          <div class="tip-title">Dikkat: CRITICAL NCR</div>
+          <p>CRITICAL ciddiyetli NCR'lar dashboard'da kirmizi uyarı kartinda görüntülenir ve ilgili yöneticilere anlık SignalR bildirimi gonderilir. Bu NCR'lar 48 saat içinde inceleme aşamasına alınmalidir.</p>
+        </div>
+
+        <h3>NCR Kapatma Kosullari</h3>
+        <ol>
+          <li>Kok neden analizi tamamlanmis olmali</li>
+          <li>Düzeltici faaliyet uygulanmis olmali</li>
+          <li>Doğrulama adimi tamamlanmis olmali (etkinlik kontrolü)</li>
+          <li>CRITICAL NCR'lar için yönetici onayi gerekli</li>
+        </ol>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 4. CAPA -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="capa">
+        <h2>4. CAPA (Düzeltici / Onleyici Faaliyet)</h2>
+        <p><strong>Sayfa:</strong> <code>/quality/capa</code></p>
+        <p>Bir sorunun kok nedenini bulup kalici çözüm uretmek için kullanilir. NCR'dan otomatik olusturulabilir veya bagimsiz acilabilir.</p>
+
+        <h3>CAPA Durum Akisi</h3>
+        <div class="flow">
+          <div class="flow-step active">ACIK</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">KOK NEDEN</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">AKSIYON PLANLANDI</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">UYGULANIYOR</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">DOGRULAMA</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">KAPATILDI</div>
+        </div>
+
+        <h3>Kok Neden Analiz Yontemleri</h3>
+        <table>
+          <thead><tr><th>Yontem</th><th>Açıklama</th><th>Ne Zaman Kullanilir</th></tr></thead>
+          <tbody>
+            <tr><td>5 Neden (5 Why)</td><td>"Neden?" sorusunu 5 kez sorarak kok nedene ulasma</td><td>Basit, tek hatali problemler</td></tr>
+            <tr><td>Balik Kilcigi (Ishikawa)</td><td>Neden-sonuç diyagrami ile sistematik analiz (makine, malzeme, metot, insan, cevresel)</td><td>Birden fazla olasi neden varsa</td></tr>
+            <tr><td>8D</td><td>8 disiplin problem cozme metodolojisi (takim kurma, sorun tanımlama, gecici önlem, kok neden, kalici çözüm, doğrulama, önleme, kutlama)</td><td>Müşteri sikayetleri, kritik sorunlar</td></tr>
+            <tr><td>Pareto</td><td>En sik tekrarlanan nedenlerin onceliklendirilmesi (%80/%20 kurali)</td><td>Cok sayida benzer NCR biriktiginde</td></tr>
+            <tr><td>FMEA</td><td>Potansiyel hata modu ve etki analizi</td><td>Tasarim veya proses degisikliginde</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Etkinlik Doğrulama</h3>
+        <p>CAPA kapatilmadan once <strong>doğrulama</strong> adimi zorunludur. Bu adimda:</p>
+        <ul>
+          <li>Düzeltici faaliyet gercekten uygulanmis mi? (kanit belgesi)</li>
+          <li>Sorun tekrarliyor mu? (son 30 günlük veri kontrolü)</li>
+          <li>SPC verileri iyilesme gosteriyor mu?</li>
+          <li>Onleyici önlem devreye alınmis mi?</li>
+        </ul>
+
+        <div class="tip info">
+          <div class="tip-title">Bilgi: CAPA-NCR Iliskisi</div>
+          <p>Bir NCR'dan CAPA olusturdugunuzda iliskilendirme otomatik yapılır. CAPA kapatildiginda ilişkili NCR da kapatilabilir duruma gelir.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 5. GIRIS KONTROL -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="giriş-kontrol">
+        <h2>5. Giriş Kalite Kontrol</h2>
+        <p><strong>Sayfa:</strong> <code>/quality/inspections</code></p>
+        <p>Tedarikçi malzemeleri fabrikaya geldiginde yapilan ilk kalite kontrolü. Mal kabul sirasinda veya sonrasinda gerceklestirilir.</p>
+
+        <h3>Kontrol Formu</h3>
+        <table class="field-table">
+          <thead><tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th></tr></thead>
+          <tbody>
+            <tr><td class="required">Ürün</td><td>Autocomplete ile kontrol edilecek ürün secimi</td><td>Evet</td></tr>
+            <tr><td class="required">Alinan Miktar</td><td>Gelen toplam miktar</td><td>Evet</td></tr>
+            <tr><td>Lot No</td><td>Tedarikçi lot/parti numarası</td><td>Hayir</td></tr>
+            <tr><td>Kabul Edilen</td><td>Kalite kontrolü gecen miktar</td><td>Hayir</td></tr>
+            <tr><td>Reddedilen</td><td>Red edilen miktar (Kabul + Red &le; Alinan)</td><td>Hayir</td></tr>
+            <tr><td class="required">Sonuç</td><td><span class="badge badge-success">PASS</span> <span class="badge badge-danger">FAIL</span> <span class="badge badge-warning">CONDITIONAL</span> <span class="badge badge-info">PENDING</span></td><td>Evet</td></tr>
+            <tr><td class="required">Kontrol Tarihi</td><td>Kontrolun yapildigi tarih</td><td>Evet</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Sonuç Aksiyon Tablosu</h3>
+        <table>
+          <thead><tr><th>Sonuç</th><th>Stok Etkisi</th><th>Sonraki Adim</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge badge-success">PASS</span></td><td>Tam miktar stoga girer</td><td>Üretime hazır</td></tr>
+            <tr><td><span class="badge badge-danger">FAIL</span></td><td>Stoga girmez, karantina</td><td>NCR oluştur, MRB süreçi</td></tr>
+            <tr><td><span class="badge badge-warning">CONDITIONAL</span></td><td>Kabul edilen miktar stoga girer</td><td>Kosullar belgelenir, takip NCR acilabilir</td></tr>
+            <tr><td><span class="badge badge-info">PENDING</span></td><td>Beklemede, stoga girmez</td><td>Ek test veya laboratuvar sonucu beklenir</td></tr>
+          </tbody>
+        </table>
+
+        <div class="tip">
+          <div class="tip-title">İpucu: Otomatik NCR</div>
+          <p>FAIL sonuclu kontrollerde sistem otomatik olarak NCR oluşturma önerisi sunar. Tek tıkla NCR acabilirsiniz.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 6. KALIBRASYON -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="kalibrasyon">
+        <h2>6. Kalibrasyon Yönetimi</h2>
+        <p><strong>Sayfa:</strong> <code>/quality/calibration</code></p>
+        <p>Fabrikadaki tüm ölçüm aletlerinin kalibrasyon durumunu takip edin. Süresi gecen aletler otomatik kirmizi uyarı ile isaretlenir.</p>
+
+        <h3>Cihaz Kayıt Formu</h3>
+        <table class="field-table">
+          <thead><tr><th>Alan</th><th>Açıklama</th><th>Zorunlu</th></tr></thead>
+          <tbody>
+            <tr><td class="required">Ekipman Kodu</td><td>Benzersiz alet tanımlama kodu (örnek: CAL-001)</td><td>Evet</td></tr>
+            <tr><td class="required">Ekipman Adi</td><td>Aletin adi (Kumpas, Mikrometre, Sertlik Olcer vb.)</td><td>Evet</td></tr>
+            <tr><td>Marka / Model</td><td>Alet markasi ve modeli</td><td>Hayir</td></tr>
+            <tr><td class="required">Kalibrasyon Periyodu</td><td>Yenileme süresi (ay cinsinden, örnek: 12)</td><td>Evet</td></tr>
+            <tr><td>Son Kalibrasyon Tarihi</td><td>En son kalibrasyon yapilan tarih</td><td>Hayir</td></tr>
+            <tr><td>Sonraki Kalibrasyon</td><td>Otomatik hesaplanir (Son Tarih + Periyot)</td><td>Otomatik</td></tr>
+            <tr><td>Sertifika No</td><td>Kalibrasyon sertifika numarası</td><td>Hayir</td></tr>
+            <tr><td>Konum</td><td>Aletin bulundugu bolum/istasyon</td><td>Hayir</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Kalibrasyon Planı ve Hatirlatma</h3>
+        <table>
+          <thead><tr><th>Kalan Süre</th><th>Renk</th><th>Aksiyon</th></tr></thead>
+          <tbody>
+            <tr><td>30+ gun</td><td><span class="badge badge-success">Yesil</span></td><td>Normal, aksiyon gerekmez</td></tr>
+            <tr><td>15-30 gun</td><td><span class="badge badge-warning">Sari</span></td><td>Hatirlatma bildirimi gonderilir</td></tr>
+            <tr><td>0-14 gun</td><td><span class="badge badge-danger">Kirmizi</span></td><td>Acil kalibrasyon gerekli</td></tr>
+            <tr><td>Süresi geçmiş</td><td><span class="badge badge-danger">Kirmizi (yanip sonen)</span></td><td>Alet kullanilamaz, SPC veri girişi engellenir</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Sertifika Yönetimi</h3>
+        <p>Her kalibrasyon işleminde sertifika PDF olarak yüklenir ve aletin geçmişine eklenir. Denetim sirasinda sertifikalara tek tıkla erişim saglanir.</p>
+
+        <div class="tip warning">
+          <div class="tip-title">Dikkat: Süresi Gecmis Alet</div>
+          <p>Süresi geçmiş kalibrasyon aletleri ile yapilan olcumler gecerli sayilmaz. SPC veri girişinde bu aletler sec listesinde gosterilmez.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 7. RISK & FMEA -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="risk-fmea">
+        <h2>7. Risk &amp; FMEA</h2>
+        <p><strong>Sayfa:</strong> <code>/quality/fmea</code></p>
+        <p>Potansiyel hatalari onceden belirleyip önlem alın. Risk matrisi ve FMEA analizi ile hatayi olusma ihtimali en yüksek alandan baslatarak aksiyonlari planlayin.</p>
+
+        <h3>RPN Hesaplama</h3>
+        <p><strong>RPN</strong> = Ciddiyet (S) x Olasilik (O) x Tespit Edilebilirlik (D)</p>
+        <table>
+          <thead><tr><th>Parametre</th><th>Ölçek</th><th>Açıklama</th></tr></thead>
+          <tbody>
+            <tr><td>Ciddiyet (S)</td><td>1-10</td><td>Hatanin müşteriye etkisi (10 = en ciddi)</td></tr>
+            <tr><td>Olasilik (O)</td><td>1-10</td><td>Hatanin olusma ihtimali (10 = en yüksek)</td></tr>
+            <tr><td>Tespit (D)</td><td>1-10</td><td>Hatanin tespit edilememesi ihtimali (10 = en zor)</td></tr>
+          </tbody>
+        </table>
+
+        <h3>RPN Aksiyon Esikleri</h3>
+        <table>
+          <thead><tr><th>RPN Araligi</th><th>Risk Seviyesi</th><th>Gerekli Aksiyon</th></tr></thead>
+          <tbody>
+            <tr><td>1-50</td><td><span class="badge badge-success">DUSUK</span></td><td>İzleme yeterli</td></tr>
+            <tr><td>51-100</td><td><span class="badge badge-warning">ORTA</span></td><td>Iyilestirme planlama</td></tr>
+            <tr><td>101-200</td><td><span class="badge badge-danger">YUKSEK</span></td><td>Acil aksiyon gerekli</td></tr>
+            <tr><td>201+</td><td><span class="badge badge-danger">KRITIK</span></td><td>Üretim durdurup önlem al</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Risk Matrisi</h3>
+        <p>5x5 boyutlu risk matrisi ile olasilik ve etki eksenlerinde riskleri görsellestirin. Kirmizi bolgedeki riskler için zorunlu aksiyon plani olusturulur.</p>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 8. KONTROL PLANI -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="kontrol-plani">
+        <h2>8. Kontrol Planı</h2>
+        <p><strong>Sayfa:</strong> <code>/quality/control-plans</code></p>
+        <p>Üretimin her aşamasında nelerin, ne siklikta, hangi aletlerle kontrol edilecegini tanımlayin.</p>
+
+        <table class="field-table">
+          <thead><tr><th>Alan</th><th>Açıklama</th><th>Örnek</th></tr></thead>
+          <tbody>
+            <tr><td class="required">Proses Adimi</td><td>Kontrol edilecek üretim aşaması</td><td>CNC Tornalama</td></tr>
+            <tr><td class="required">Kontrol Ozelligi</td><td>Olculecek parametre</td><td>Dis Cap 25mm</td></tr>
+            <tr><td class="required">Spesifikasyon</td><td>Kabul kriterleri ve toleranslar</td><td>25.00 &plusmn; 0.05 mm</td></tr>
+            <tr><td class="required">Kontrol Yontemi</td><td>Ölçüm cihazi ve yontemi</td><td>Mikrometre, CAL-003</td></tr>
+            <tr><td>Ornekleme Planı</td><td>Kontrol sikligi ve numune buyuklugu</td><td>Her 50 parcada 5 adet</td></tr>
+            <tr><td>Reaksiyon Planı</td><td>Uygunsuzluk durumunda ne yapılacak</td><td>Makineyi durdur, NCR ac</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 9. IC DENETIM -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="ic-denetim">
+        <h2>9. İç Denetim</h2>
+        <p><strong>Sayfa:</strong> <code>/quality/audits</code></p>
+        <p>IS0 9001 / AS9100 gereksinimi olarak yilda en az 1 kez tüm prosesler denetlenir.</p>
+
+        <h3>Denetim Süreçi</h3>
+        <div class="flow">
+          <div class="flow-step active">Plan Oluştur</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Denetci Ata</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Denetim Yap</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Bulgu Kaydet</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Takip &amp; Kapatma</div>
+        </div>
+
+        <h3>Bulgu Tipleri</h3>
+        <table>
+          <thead><tr><th>Tip</th><th>Açıklama</th><th>Sonraki Adim</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge badge-danger">Majör Bulgu</span></td><td>Standart maddesine acik uyumsuzluk</td><td>CAPA zorunlu, 30 gun içinde kapatilmali</td></tr>
+            <tr><td><span class="badge badge-warning">Minor Bulgu</span></td><td>Iyilestirme gerektiren sapma</td><td>Düzeltici faaliyet, 60 gun</td></tr>
+            <tr><td><span class="badge badge-info">Gozlem</span></td><td>Öneri niteliginde tespit</td><td>Iyilestirme firsati olarak kaydedilir</td></tr>
+            <tr><td><span class="badge badge-success">Iyi Uygulama</span></td><td>Takdir edilen uygulama</td><td>Best practice olarak paylasim</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 10. TEDARIKCI DEGERLENDIRME -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="tedarikçi">
+        <h2>10. Tedarikçi Değerlendirme</h2>
+        <p><strong>Sayfa:</strong> <code>/quality/supplier-evaluation</code></p>
+        <p>Tedarikcilarinizi kalite, teslimat, fiyat ve iletisim kriterlerine gore puanlayin. Onayli Tedarikçi Listesi (ASL) otomatik güncellenir.</p>
+
+        <h3>Skorlama Sistemi</h3>
+        <table>
+          <thead><tr><th>Kriter</th><th>Agirlik</th><th>Veri Kaynagi</th></tr></thead>
+          <tbody>
+            <tr><td>Kalite</td><td>%40</td><td>Giriş kontrol geçiş oranlari, NCR sayisi</td></tr>
+            <tr><td>Teslimat</td><td>%30</td><td>Zamaninda teslimat yuzdesi</td></tr>
+            <tr><td>Fiyat</td><td>%15</td><td>Fiyat rekabetciligi ve istikrari</td></tr>
+            <tr><td>İletişim</td><td>%15</td><td>Dönüş hizi, sorun cozme yetkinligi</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Risk Seviyeleri ve Aksiyonlar</h3>
+        <table>
+          <thead><tr><th>Skor</th><th>Risk</th><th>Aksiyon</th></tr></thead>
+          <tbody>
+            <tr><td>80-100</td><td><span class="badge badge-success">DUSUK</span></td><td>Normal tedarik, onayli listede kalir</td></tr>
+            <tr><td>60-79</td><td><span class="badge badge-warning">ORTA</span></td><td>İzleme ve iyilestirme plani istenir</td></tr>
+            <tr><td>40-59</td><td><span class="badge badge-danger">YUKSEK</span></td><td>Alternatif tedarikçi arastirmasi baslatilir</td></tr>
+            <tr><td>&lt;40</td><td><span class="badge badge-danger">KRITIK</span></td><td>Tedarikçi askiya alınir, denetim yapılır</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Onayli Tedarikçi Listesi (ASL)</h3>
+        <p>Skoru 60 ve uzeri olan tedarikiciler onayli listeye dahil edilir. Bu liste uzerinden satin alma siparişi verilebilir. Listede olmayan tedarikiclerden alis yapilmak istendiginde sistem uyarı verir.</p>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 11. FAI (AS9102) -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="fai">
+        <h2>11. FAI &mdash; İlk Madde Denetimi (AS9102)</h2>
+        <p><strong>Sayfa:</strong> <code>/quality/fai</code></p>
+        <p>Yeni ürün veya proses degisikligi sonrasi uretilen ilk parcalarin kapsamlı muayenesi. AS9102 standardina uygun 3 form otomatik olusturulur.</p>
+
+        <h3>AS9102 Formlari</h3>
+        <table>
+          <thead><tr><th>Form</th><th>İçerik</th></tr></thead>
+          <tbody>
+            <tr><td>Form 1 &mdash; Part Number Accountability</td><td>Parça numarası, revizyon, malzeme, tedarikçi bilgileri</td></tr>
+            <tr><td>Form 2 &mdash; Product Accountability (Opsiyonel)</td><td>Ham malzeme, özel proses ve fonksiyonel test bilgileri</td></tr>
+            <tr><td>Form 3 &mdash; Characteristic Accountability</td><td>Tüm boyutsal ve fonksiyonel karakteristiklerin ölçüm sonuçları</td></tr>
+          </tbody>
+        </table>
+
+        <h3>FAI Onay Akisi</h3>
+        <div class="flow">
+          <div class="flow-step active">Taslak</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Ölçüm Tamamlandi</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">İnceleme</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Onaylandi / Reddedildi</div>
+        </div>
+
+        <div class="tip info">
+          <div class="tip-title">Bilgi: FAI Tetikleme Kosullari</div>
+          <p>FAI su durumlarda zorunludur: (1) yeni ürün devreye alma, (2) tasarim degisikligi, (3) üretim yeri/proses degisikligi, (4) 2 yildan uzun üretim arası.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 12. PPAP -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="ppap">
+        <h2>12. PPAP &mdash; Üretim Parçası Onay Süreçi (18 Element)</h2>
+        <p><strong>Sayfa:</strong> <code>/quality/ppap</code></p>
+        <p>Yeni ürün veya değişiklik sonrasi müşteriye sunulan onay dosyasi. 18 element kontrol listesi ile dosya hazırlayin.</p>
+
+        <h3>18 PPAP Elementi</h3>
+        <table>
+          <thead><tr><th>#</th><th>Element</th><th>Açıklama</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Tasarim Kayıtları</td><td>Cizimler, CAD dosyalari, spesifikasyonlar</td></tr>
+            <tr><td>2</td><td>Muhendislik Degisiklik Dokümanlari</td><td>ECN/ECO kayıtları</td></tr>
+            <tr><td>3</td><td>Muhendislik Onayi</td><td>Müşteri muhendislik onayi (gerektiginde)</td></tr>
+            <tr><td>4</td><td>DFMEA</td><td>Tasarim hata modu ve etki analizi</td></tr>
+            <tr><td>5</td><td>Proses Akis Diyagrami</td><td>Üretim proses adimlarinin akisi</td></tr>
+            <tr><td>6</td><td>PFMEA</td><td>Proses hata modu ve etki analizi</td></tr>
+            <tr><td>7</td><td>Kontrol Planı</td><td>Kalite kontrol noktlari ve frekanslari</td></tr>
+            <tr><td>8</td><td>MSA</td><td>Ölçüm sistemi analiz sonuçları</td></tr>
+            <tr><td>9</td><td>Boyutsal Sonuclar</td><td>Tüm boyutlarin ölçüm sonuçları</td></tr>
+            <tr><td>10</td><td>Malzeme/Performans Test Sonuçları</td><td>Mekanik, kimyasal test raporları</td></tr>
+            <tr><td>11</td><td>Başlangıç Proses Çalışmalari</td><td>SPC verileri, Cp/Cpk sonuçları</td></tr>
+            <tr><td>12</td><td>Nitelikli Laboratuvar Dokümantasyonu</td><td>Laboratuvar akreditasyon belgeleri</td></tr>
+            <tr><td>13</td><td>Gorunum Onay Raporu (AAR)</td><td>Kozmetik ve gorunum onay kaydı</td></tr>
+            <tr><td>14</td><td>Numune Ürünler</td><td>Müşteri değerlendirmesi için numune parcalar</td></tr>
+            <tr><td>15</td><td>Master Numune</td><td>Referans olarak saklanan numune</td></tr>
+            <tr><td>16</td><td>Kontrol Aracarlari</td><td>Özel kontrol fiksturu, gage listesi</td></tr>
+            <tr><td>17</td><td>Müşteri Özel Gereksinimleri</td><td>Müşteriye ozgu ek gereksinimler</td></tr>
+            <tr><td>18</td><td>Parça Sunum Garanti Belgesi (PSW)</td><td>PPAP sunumunun özet garanti belgesi</td></tr>
+          </tbody>
+        </table>
+
+        <h3>PPAP Seviyeleri</h3>
+        <table>
+          <thead><tr><th>Seviye</th><th>Gerekli Belgeler</th></tr></thead>
+          <tbody>
+            <tr><td>Seviye 1</td><td>PSW + Gorunum Onay</td></tr>
+            <tr><td>Seviye 2</td><td>Seviye 1 + Numune + Sinirli Belgeler</td></tr>
+            <tr><td>Seviye 3</td><td>Seviye 2 + Tam Belgeler (FMEA, CP, MSA, SPC) &mdash; En yaygin</td></tr>
+            <tr><td>Seviye 4</td><td>Müşteri özel talepleri</td></tr>
+            <tr><td>Seviye 5</td><td>Tedarikçi lokasyonunda tam gozden gecirme</td></tr>
+          </tbody>
+        </table>
+
+        <h3>OEM Onay Süreçi</h3>
+        <div class="flow">
+          <div class="flow-step active">Dosya Hazirlama</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">İç İnceleme</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Müşteriye Sunum</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Onay / Kosullu / Red</div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 13. SPC -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="spc">
+        <h2>13. SPC &mdash; Istatistiksel Proses Kontrol</h2>
+        <p><strong>Sayfa:</strong> <code>/quality/spc</code></p>
+        <p>Üretim süreçinizdeki degiskenligleri izleyin ve kontrol altinda tutun. 3 sekmeli SPC yönetimi: Dashboard, Kontrol Grafikleri, Veri Noktalari.</p>
+
+        <h3>Grafik Tipleri</h3>
+        <table>
+          <thead><tr><th>Grafik</th><th>Kullanim Alani</th><th>Veri Tipi</th></tr></thead>
+          <tbody>
+            <tr><td>X-bar / R</td><td>Alt gruplu olcumler (en yaygin)</td><td>Surekli, n=2-10</td></tr>
+            <tr><td>X-bar / S</td><td>Buyuk alt gruplar</td><td>Surekli, n&gt;10</td></tr>
+            <tr><td>I-MR</td><td>Bireysel olcumler</td><td>Surekli, n=1</td></tr>
+            <tr><td>P / NP</td><td>Kusurlu oran/sayi</td><td>Nitelik</td></tr>
+            <tr><td>C / U</td><td>Kusur sayisi/orani</td><td>Nitelik</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Kontrol Limitleri</h3>
+        <p><strong>UCL</strong> (Üst Kontrol Limiti), <strong>LCL</strong> (Alt Kontrol Limiti) ve <strong>CL</strong> (Ortalama) referans cizgileri grafikte gosterilir. Limitler istatistiksel olarak hesaplanir (&plusmn;3 sigma).</p>
+
+        <h3>Cp / Cpk Yorumlama</h3>
+        <table>
+          <thead><tr><th>Değer</th><th>Anlam</th><th>Aksiyon</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge badge-success">Cpk &ge; 1.33</span></td><td>Proses yeterli</td><td>İzlemeye devam</td></tr>
+            <tr><td><span class="badge badge-warning">1.00 &le; Cpk &lt; 1.33</span></td><td>Sinirda, iyilestirme gerekli</td><td>Proses iyilestirme plani</td></tr>
+            <tr><td><span class="badge badge-danger">Cpk &lt; 1.00</span></td><td>Proses yetersiz</td><td>Acil aksiyon, üretim gozden gecirmesi</td></tr>
+          </tbody>
+        </table>
+
+        <div class="tip warning">
+          <div class="tip-title">Dikkat: Kontrol Disi Nokta</div>
+          <p>Kontrol limitlerini asan noktalar kirmizi ile isaretlenir. SignalR ile anlık bildirim gonderilir. Istege bagli otomatik NCR oluşturma desteklenir.</p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- 14. DIGER MODULLER -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="sahte-parça">
+        <h2>14. Sahte Parça Önleme</h2>
+        <p><strong>Sayfa:</strong> <code>/quality/counterfeit</code></p>
+        <p>AS9100 Madde 8.1.4 gereksinimi. Özellikle havacilik ve savunma sanayinde kritiktir.</p>
+        <ul>
+          <li><strong>Onayli Tedarikçi Listesi (ASL):</strong> Sadece ASL'de kayıtli tedarikiclerden malzeme alınmasi saglanir</li>
+          <li><strong>Sertifika Doğrulama:</strong> Malzeme sertifikalari (MTC, CoC) dogrulanir ve arsivlenir</li>
+          <li><strong>Risk Değerlendirme:</strong> Kritik parcalar için sahte parça riski puanlanir</li>
+          <li><strong>Suphe Durumu:</strong> Supleli malzeme karantinaya alınir, tedarikçi bilgilendirilir</li>
+        </ul>
+      </section>
+
+      <section id="fod">
+        <h2>15. FOD (Yabanci Madde ve Enkaz) Yönetimi</h2>
+        <p><strong>Sayfa:</strong> <code>/quality/fod</code></p>
+        <p>Üretim alanlarında yabanci cisim kontrolü. FOD tehditleri kayıt edilir, çalışma alanları periyodik olarak denetlenir. Özellikle havacilik parcalari için zorunludur.</p>
+      </section>
+
+      <section id="konfigurasyon">
+        <h2>16. Konfigurasyon Yönetimi</h2>
+        <p><strong>Sayfa:</strong> <code>/quality/configuration</code></p>
+        <p>Ürün konfigurasyonundaki değişiklikleri kontrol altinda tutun. Revizyon, değişiklik talebi (ECR), değişiklik emri (ECO) süreçleri burada yonetilir. Her degisikligin etki analizi zorunludur.</p>
+      </section>
+
+      <section id="ürün-guvenligi">
+        <h2>17. Ürün Guvenligi</h2>
+        <p><strong>Sayfa:</strong> <code>/quality/product-safety</code></p>
+        <p>Ürünlerin güvenlik risklerini belirleyin ve izleyin. Kritik güvenlik karakteristikleri (CTC) olarak isaretlenen boyutlar kontrol planinda vurgulanir. AS9100 Madde 8.1.1 uyumu.</p>
+      </section>
+
+      <section id="sozlesme">
+        <h2>18. Sozlesme İnceleme</h2>
+        <p><strong>Sayfa:</strong> <code>/quality/contract-review</code></p>
+        <p>Müşteri siparişi kabul edilmeden once teknik, kapasite ve kalite gereksinimlerinin gozden gecirilmesi. İnceleme formu: teslimat süresi uygunlugu, malzeme temini, özel proses ihtiyaci, test gereksinimleri.</p>
+
+        <div class="flow">
+          <div class="flow-step active">Sipariş Alindi</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Teknik İnceleme</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Kapasite İnceleme</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Onay / Red</div>
+        </div>
+      </section>
+
+      <section id="son-muayene">
+        <h2>19. Son Muayene (Final Inspection)</h2>
+        <p><strong>Sayfa:</strong> <code>/quality/final-inspection</code></p>
+        <p>Üretim tamamlandiginda sevkiyat oncesi son kalite kontrolü. Tüm boyutsal, gorunusel ve fonksiyonel kontroller yapılır.</p>
+
+        <div class="flow">
+          <div class="flow-step">Üretim Tamamlandi</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step active">Son Muayene</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Onayla / Reddet / Kosullu</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">CoC Oluştur</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Sevkiyata Hazır</div>
+        </div>
+
+        <h3>Sonuç Secenekleri</h3>
+        <table>
+          <thead><tr><th>Sonuç</th><th>Açıklama</th><th>Sonraki Adim</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge badge-success">Onayla</span></td><td>Tüm kriterler karsilandi</td><td>CoC oluştur, sevkiyat</td></tr>
+            <tr><td><span class="badge badge-danger">Reddet</span></td><td>Kritik uygunsuzluk bulundu</td><td>NCR ac, MRB süreçi</td></tr>
+            <tr><td><span class="badge badge-warning">Kosullu Onayla</span></td><td>Minor sapma, müşteri onayi ile kabul</td><td>Müşteri sapma onayi iste</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="coc">
+        <h2>20. CoC (Uygünlük Sertifikasi)</h2>
+        <p><strong>Sayfa:</strong> <code>/quality/coc</code></p>
+        <p>Son muayene onaylanan ürünler için otomatik olusturulur. CoC icerigi: ürün bilgileri, sipariş referansi, muayene sonucu, malzeme sertifikalari referansi, onaylayan bilgileri. PDF olarak indirilebilir ve müşteriye gonderilebilir.</p>
+      </section>
+
+      <section id="mrb">
+        <h2>21. MRB (Malzeme İnceleme Kurulu)</h2>
+        <p><strong>Sayfa:</strong> <code>/quality/mrb</code></p>
+        <p>Uygunsuz malzeme hakkinda karar verme organellidir. NCR sonrasi etkilenen malzemenin akibetine karar verilir.</p>
+
+        <h3>MRB Kararlari</h3>
+        <table>
+          <thead><tr><th>Karar</th><th>Açıklama</th><th>Stok Etkisi</th></tr></thead>
+          <tbody>
+            <tr><td>Oldugu Gibi Kullan</td><td>Sapma kabul, üretim devam</td><td>Stok durumu degismez</td></tr>
+            <tr><td>Yeniden Isle (Rework)</td><td>Ürün yeniden islenir</td><td>Is emri açılır</td></tr>
+            <tr><td>Hurda (Scrap)</td><td>Ürün hurda olarak ayrilir</td><td>Stoktan dusulur</td></tr>
+            <tr><td>Tedarikiciye İade</td><td>Tedarikçi bilgilendirilir</td><td>İade fisi olusur</td></tr>
+            <tr><td>Müşteri Sapma Onayi</td><td>Müşteriden concession istenir</td><td>Onay bekler</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="müşteri-sapma">
+        <h2>22. Müşteri Sapma Onayi (Concession)</h2>
+        <p><strong>Sayfa:</strong> <code>/quality/concession</code></p>
+        <p>Ürün spesifikasyon disinda ancak kullanilabilir durumdaysa müşteriden sapma onayi istenir. MRB karari "Müşteri Sapma Onayi" oldugunda bu modüle yonlendirilir.</p>
+
+        <div class="flow">
+          <div class="flow-step active">MRB Karari</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Sapma Talebi Oluştur</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Müşteriye Gönder</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">Kabul / Red</div>
+        </div>
+      </section>
+
+      <section id="doküman-onay">
+        <h2>23. Doküman Onay Süreçi</h2>
+        <p><strong>Sayfa:</strong> <code>/quality/document-approval</code></p>
+        <p>Kalite dokümanlari (prosedur, talimat, form, sartname) için onay yasam dongusu.</p>
+
+        <div class="flow">
+          <div class="flow-step active">TASLAK</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">KONTROLDE</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">ONAY BEKLIYOR</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">ONAYLANDI</div>
+          <span class="flow-arrow">&#8594;</span>
+          <div class="flow-step">YAYINLANDI</div>
+        </div>
+
+        <p>Her doküman için hazırlayan, kontrol eden ve onaylayan roller tanımlanir. Revizyon geçmişi otomatik tutulur. Eski revizyonlar arsivlenir ve okunamaz olarak isaretlenir.</p>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- SORUN GIDERME & SSS -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section id="faq">
+        <h2>Sorun Giderme &amp; Sik Sorulan Sorular</h2>
+
+        <div class="card">
+          <h4>1. NCR kapatmak için ne gerekli?</h4>
+          <p>Kok neden tamamlanmis, düzeltici faaliyet uygulanmis ve doğrulama yapılmış olmalidir. CRITICAL NCR'lar için ek olarak yönetici onayi gerekir.</p>
+        </div>
+
+        <div class="card">
+          <h4>2. Kalibrasyon süresi gecen alet kullanilabilir mi?</h4>
+          <p>Hayir. Süresi geçmiş alet kirmizi uyarı ile isaretlenir ve SPC veri girişinde secilmez. Oncelikle kalibrasyon yaptirin.</p>
+        </div>
+
+        <div class="card">
+          <h4>3. SPC grafiklerinde kontrol disi nokta gorursem ne yaparim?</h4>
+          <p>Kirmizi noktaya tıklayin, detay paneli açılır. Kok neden arastirin. Gerekirse NCR olustürün. Proses parameterlerini kontrol edin.</p>
+        </div>
+
+        <div class="card">
+          <h4>4. PPAP hangi durumlarda zorunlu?</h4>
+          <p>Yeni ürün devreye alma, proses/malzeme/tedarikçi degisikligi veya 12 aydan uzun üretim arası sonrasinda. Müşteri talepleri belirleyicidir.</p>
+        </div>
+
+        <div class="card">
+          <h4>5. FAI formlari nasil doldurulur?</h4>
+          <p>Ürün ve cizim secildikten sonra Form 1 otomatik dolulur. Form 3'e ölçüm sonuclarini girin. Tüm karakteristikler dolduruldugunda onaya gonderin.</p>
+        </div>
+
+        <div class="card">
+          <h4>6. CAPA ne zaman gerekir?</h4>
+          <p>Her MAJOR/CRITICAL NCR'dan sonra, tekrarlayan minor sorunlarda, müşteri sikayetlerinde ve denetim bulgularinda CAPA acilmalidir.</p>
+        </div>
+
+        <div class="card">
+          <h4>7. Tedarikçi skoru nasil hesaplaniyor?</h4>
+          <p>Kalite (%40), teslimat (%30), fiyat (%15), iletisim (%15) ağırlıklı ortalama ile. Veriler giriş kontrol ve satin alma kayıtlarından otomatik cekilir.</p>
+        </div>
+
+        <div class="card">
+          <h4>8. Risk matrisinde kirmizi bolgeye dusen risk için ne yapmam gerekir?</h4>
+          <p>Zorunlu aksiyon plani olustururlsunuz. Sorumlu ve teslim tarihi atanır. Aksiyon tamamlanana kadar risk takip panelinde görüntülenir.</p>
+        </div>
+
+        <div class="card">
+          <h4>9. Giriş kontrolde "CONDITIONAL" ne demek?</h4>
+          <p>Malzemenin bir kismi kabul, bir kismi ret. Kabul edilen miktar stoga girer, ret edilen için NCR/MRB süreçi baslar.</p>
+        </div>
+
+        <div class="card">
+          <h4>10. İç denetim planini nasil olusturuyorum?</h4>
+          <p>Kalite &gt; İç Denetim &gt; "Yeni Denetim Planı". Denetlenecek proses/bolum secin, denetci atayin, tarih belirleyin. Plan takvimi gorunum ile yıllık plani goruntuleyin.</p>
+        </div>
+
+        <div class="card">
+          <h4>11. CoC otomatik mi olusur?</h4>
+          <p>Evet. Son muayene "Onayla" sonucu verildikten sonra CoC butonu aktif olur. Tikladiginizda ürün bilgileri, sipariş referansi ve muayene sonucu otomatik eklenir.</p>
+        </div>
+
+        <div class="card">
+          <h4>12. MRB kararini kim verebilir?</h4>
+          <p>MRB kararini kalite müdürü veya yetkilendirilmis MRB uyesi verebilir. Karar, NCR detay ekranindaki MRB sekmesinden girilir.</p>
+        </div>
+
+        <div class="card">
+          <h4>13. Kontrol planinda "Reaksiyon Planı" ne için var?</h4>
+          <p>Ölçüm sirasinda uygunsuzluk tespit edildiginde operatörün ne yapacagini tanımlar. Örnek: "Makineyi durdur, amirini bilgilendir, NCR ac."</p>
+        </div>
+
+        <div class="card">
+          <h4>14. Sahte parça suphem var, ne yapmaliyim?</h4>
+          <p>Malzemeyi hemen karantinaya alın. Kalite &gt; Sahte Parça Önleme'den suphe kaydı olustürün. Tedarikçi sertifikasini dogrulayin. Gerekirse bagimsiz test yaptirin.</p>
+        </div>
+
+        <div class="card">
+          <h4>15. Doküman onay süreçi ne kadar surer?</h4>
+          <p>Varsayılan: Hazirlama 3 gun, kontrol 2 gun, onay 2 gun. SLA asildiginda SignalR ile hatırlatma bildirimi gonderilir. Ayarlardan süre değiştirilebilir.</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="doc-footer">
+    Quvex ERP &mdash; Kullanıcı Kılavuzu &copy; 2026
+  </footer>
+
+</div>
+<script src="js/guide-enhancements.js"></script>
+</body>
+</html>

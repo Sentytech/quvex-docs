@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quvex ERP - Terimler Sözlüğü</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .glossary-search { width: 100%; padding: 0.85rem 1.2rem; border: 2px solid var(--border); border-radius: var(--radius-sm); font-size: 1rem; font-family: inherit; background: var(--white); transition: border-color 0.2s; margin-bottom: 1.5rem; }
+  .glossary-search:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(99,102,241,0.12); }
+  .glossary-category { margin-bottom: 0.5rem; }
+  .glossary-category-title { display: inline-block; padding: 3px 14px; border-radius: 999px; font-size: 0.76rem; font-weight: 600; letter-spaçıng: 0.2px; }
+  .cat-üretim { background: linear-gradient(135deg, #fff7ed, #ffedd5); color: #f97316; }
+  .cat-stok { background: linear-gradient(135deg, #ecfeff, #cffafe); color: #06b6d4; }
+  .cat-kalite { background: linear-gradient(135deg, #fdf2f8, #fce7f3); color: #ec4899; }
+  .cat-finans { background: linear-gradient(135deg, #f0fdfa, #ccfbf1); color: #14b8a6; }
+  .cat-bakım { background: linear-gradient(135deg, #fef2f2, #fee2e2); color: #ef4444; }
+  .cat-genel { background: linear-gradient(135deg, #f1f5f9, #e2e8f0); color: #64748b; }
+  .letter-anchor { font-size: 1.4rem; font-weight: 800; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin: 2rem 0 0.75rem; display: block; }
+  .letter-nav { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
+  .letter-nav a { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 8px; background: var(--white); border: 1px solid var(--border); font-weight: 600; font-size: 0.85rem; color: var(--text-secondary); transition: all 0.2s; }
+  .letter-nav a:hover { background: var(--gradient); color: white; border-color: transparent; text-decoration: none; -webkit-text-fill-color: white; }
+  .glossary-row { display: none; }
+  .glossary-row.visible { display: table-row; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="doc-header">
+    <div class="breadcrumb"><a href="index.html">Kullanıcı Kılavuzu</a> &raquo; Terimler Sözlüğü</div>
+    <span class="version-badge">v1.0 &mdash; Nisan 2026</span>
+    <h1>Terimler Sözlüğü &mdash; Bu Terim Nedir? Ne İşe Yarar?</h1>
+    <p>Her terimin ne olduğunu, ne işe yaradığını ve Quvex'te nerede bulacağınızı öğrenin. Arama kutusuna yazarak hızlıca bulun.</p>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-value">155+</div>
+      <div class="stat-label">Terim</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">6</div>
+      <div class="stat-label">Kategori</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">A-Z</div>
+      <div class="stat-label">Alfabe</div>
+    </div>
+  </div>
+
+  <!-- Kategori Açıklaması -->
+  <div class="card">
+    <h3>Kategori Renkleri</h3>
+    <p>Her terimin yanındaki renkli etiket, terimin hangi alana ait olduğunu gösterir:</p>
+    <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.5rem;">
+      <span class="glossary-category-title cat-üretim">Üretim</span>
+      <span class="glossary-category-title cat-stok">Stok</span>
+      <span class="glossary-category-title cat-kalite">Kalite</span>
+      <span class="glossary-category-title cat-finans">Finans</span>
+      <span class="glossary-category-title cat-bakım">Bakım</span>
+      <span class="glossary-category-title cat-genel">Genel</span>
+    </div>
+  </div>
+
+  <!-- Arama -->
+  <input type="text" class="glossary-search" id="glossarySearch" placeholder="Terim ara... (örnek: BOM, fason, NCR, stok)" oninput="filterGlossary()">
+
+  <!-- Alfabe Navigasyonu -->
+  <div class="letter-nav" id="letterNav">
+    <a href="#letter-A">A</a><a href="#letter-B">B</a><a href="#letter-C">C</a><a href="#letter-D">D</a><a href="#letter-E">E</a><a href="#letter-F">F</a><a href="#letter-G">G</a><a href="#letter-H">H</a><a href="#letter-I">I</a><a href="#letter-J">J</a><a href="#letter-K">K</a><a href="#letter-L">L</a><a href="#letter-M">M</a><a href="#letter-N">N</a><a href="#letter-O">O</a><a href="#letter-P">P</a><a href="#letter-R">R</a><a href="#letter-S">S</a><a href="#letter-T">T</a><a href="#letter-U">U</a><a href="#letter-V">V</a><a href="#letter-Y">Y</a><a href="#letter-S11" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;border-color:transparent;width:auto;padding:0 10px;-webkit-text-fill-color:white;">Sprint 11</a>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- A -->
+  <!-- ============================================================ -->
+  <span class="letter-anchor" id="letter-A">A</span>
+  <table id="glossaryTable">
+    <thead>
+      <tr><th>Türkçe Ad</th><th>Ingilizce</th><th>Kategori</th><th>Nedir? Ne İşe Yarar?</th><th>Quvex'te Nerede?</th></tr>
+    </thead>
+    <tbody>
+      <tr class="glossary-row visible" data-letter="A"><td><strong>ABC Analizi</strong></td><td>ABC Analysis</td><td><span class="glossary-category-title cat-stok">Stok</span></td><td>Stokları değerine gore A (en değerli), B (orta) ve C (düşük değer) olarak sınıflandırır. %20 ürün genellikle %80 değeri oluşturur.</td><td>Stok &gt; Stok Kartları &gt; ABC Sınıfı</td></tr>
+      <tr class="glossary-row visible" data-letter="A"><td><strong>Acil Durum Planı</strong></td><td>Emergency Plan</td><td><span class="glossary-category-title cat-genel">Genel</span></td><td>Beklenmedik olaylarda (yangin, deprem, makine arızası) uygulanacak adımları belirleyen plan.</td><td>Ayarlar &gt; Genel Yapılandırma</td></tr>
+      <tr class="glossary-row visible" data-letter="A"><td><strong>Ambar</strong></td><td>Warehouse</td><td><span class="glossary-category-title cat-stok">Stok</span></td><td>Malzemelerin fiziksel olarak depolandığı alan. Birden fazla ambar tanımlanabilir.</td><td>Stok &gt; Depo Lokasyonları</td></tr>
+      <tr class="glossary-row visible" data-letter="A"><td><strong>Arıza Kaydı</strong></td><td>Breakdown Record</td><td><span class="glossary-category-title cat-bakım">Bakım</span></td><td>Bir makinenin çalışmaz duruma gelmesi. Arıza nedeni, süresi ve yapılan işlem kaydedilir.</td><td>Bakım &gt; Arıza Kayıtları</td></tr>
+      <tr class="glossary-row visible" data-letter="A"><td><strong>AS9100</strong></td><td>AS9100</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>Havacilik ve savunma sanayi için kalite yönetim sistemi standardi. ISO 9001 uzerine ek gereksinimler icerir.</td><td>Kalite &gt; Standart &gt; AS9100</td></tr>
+      <tr class="glossary-row visible" data-letter="A"><td><strong>Audit (Denetim)</strong></td><td>Audit</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>Süreçlerin standartlara uygunlugunu doğrulamak için yapılan sistematik inceleme.</td><td>Kalite &gt; Doküman &gt; Denetim Kayıtları</td></tr>
+
+      <!-- B -->
+      <tr class="glossary-row visible" data-letter="B"><td colspan="5"><span class="letter-anchor" id="letter-B">B</span></td></tr>
+      <tr class="glossary-row visible" data-letter="B"><td><strong>Bakiye</strong></td><td>Balance</td><td><span class="glossary-category-title cat-finans">Finans</span></td><td>Bir hesaptaki toplam alacak ve borc farki. Pozitif bakiye alacak, negatif bakiye borc anlamina gelir.</td><td>Finans &gt; Cari Bakiye</td></tr>
+      <tr class="glossary-row visible" data-letter="B"><td><strong>Banka Mutabakati</strong></td><td>Bank Reconciliation</td><td><span class="glossary-category-title cat-finans">Finans</span></td><td>Sirketin kendi kayıtları ile banka ekstre kayıtlarınin karsilastirilmasi.</td><td>Finans &gt; Banka Mutabakat</td></tr>
+      <tr class="glossary-row visible" data-letter="B"><td><strong>Barkod</strong></td><td>Barcode</td><td><span class="glossary-category-title cat-stok">Stok</span></td><td>Ürün uzerindeki cizgi veya karekod. Tarayici ile okutarak hızlı stok işlemi yapılır.</td><td>Stok &gt; Stok Kartları &gt; Barkod Alani</td></tr>
+      <tr class="glossary-row visible" data-letter="B"><td><strong>BOM (Ürün Agaci)</strong></td><td>Bill of Materials</td><td><span class="glossary-category-title cat-üretim">Üretim</span></td><td>Bir ürünu uretmek için gereken tüm malzeme, miktar ve alt parcalarin listesi. "Recete" olarak da bilinir.</td><td>Üretim &gt; Receteler</td></tr>
+
+      <!-- C -->
+      <tr class="glossary-row visible" data-letter="C"><td colspan="5"><span class="letter-anchor" id="letter-C">C</span></td></tr>
+      <tr class="glossary-row visible" data-letter="C"><td><strong>CAPA</strong></td><td>Corrective &amp; Preventive Action</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>Düzeltici ve Onleyici Faaliyet. Bir sorunun kok nedenini bulup tekrarini onlemek için alınan aksiyonlar.</td><td>Kalite &gt; Temel &gt; CAPA</td></tr>
+      <tr class="glossary-row visible" data-letter="C"><td><strong>Cari Hesap</strong></td><td>Current Account</td><td><span class="glossary-category-title cat-finans">Finans</span></td><td>Müşteri ve tedarikçi ile olan alacak-borc iliskisinin takip edildigi hesap.</td><td>Satış &gt; Cari Hesap Ekstre</td></tr>
+      <tr class="glossary-row visible" data-letter="C"><td><strong>CoC (Uygünlük Belgesi)</strong></td><td>Certificate of Conformance</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>Ürünun belirtilen sartnamelere uygun olduğunu gosteren resmi belge. Özellikle havacilikta zorunludur.</td><td>Kalite &gt; Standart &gt; CoC</td></tr>
+      <tr class="glossary-row visible" data-letter="C"><td><strong>CNC</strong></td><td>Computer Numerical Control</td><td><span class="glossary-category-title cat-üretim">Üretim</span></td><td>Bilgisayar kontrollu tezgah. G-kodu ile programlanir, yüksek hassasiyetli imalat saglar.</td><td>Üretim &gt; Makineler</td></tr>
+
+      <!-- D -->
+      <tr class="glossary-row visible" data-letter="D"><td colspan="5"><span class="letter-anchor" id="letter-D">D</span></td></tr>
+      <tr class="glossary-row visible" data-letter="D"><td><strong>Darbogaz</strong></td><td>Bottleneck</td><td><span class="glossary-category-title cat-üretim">Üretim</span></td><td>Üretim hattinda en yavas calisan, tüm hatti yavaslatan istasyon veya proses.</td><td>Üretim &gt; Kapasite Planlama</td></tr>
+      <tr class="glossary-row visible" data-letter="D"><td><strong>Data Pack</strong></td><td>Data Pack</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>Bir ürünun tüm üretim ve kalite kayıtlarıni iceren dosya paketi. İzlenebilirlik için kullanilir.</td><td>Kalite &gt; Standart &gt; Data Pack</td></tr>
+      <tr class="glossary-row visible" data-letter="D"><td><strong>Depo Lokasyonu</strong></td><td>Warehouse Location</td><td><span class="glossary-category-title cat-stok">Stok</span></td><td>Malzemenin depoda tam olarak nerede durdugunu gosteren adres (raf, koridor, kat).</td><td>Stok &gt; Depo Lokasyonları</td></tr>
+      <tr class="glossary-row visible" data-letter="D"><td><strong>Döviz Kuru</strong></td><td>Exchange Rate</td><td><span class="glossary-category-title cat-finans">Finans</span></td><td>Yabanci paralarin TL karsisindaki değeri. Sistem TCMB'den günlük otomatik ceker.</td><td>Finans &gt; Döviz Kurlari</td></tr>
+      <tr class="glossary-row visible" data-letter="D"><td><strong>Durus</strong></td><td>Downtime</td><td><span class="glossary-category-title cat-üretim">Üretim</span></td><td>Makinenin veya üretim hattinin planli ya da plansiz olarak çalışmadigi süre.</td><td>Üretim &gt; ShopFloor &gt; Durus Sebebi</td></tr>
+
+      <!-- E -->
+      <tr class="glossary-row visible" data-letter="E"><td colspan="5"><span class="letter-anchor" id="letter-E">E</span></td></tr>
+      <tr class="glossary-row visible" data-letter="E"><td><strong>E-Fatura</strong></td><td>E-Invoice</td><td><span class="glossary-category-title cat-finans">Finans</span></td><td>Elektronik ortamda düzenlenen ve GIB'e iletilen resmi fatura.</td><td>Finans &gt; Faturalar &gt; E-Fatura</td></tr>
+      <tr class="glossary-row visible" data-letter="E"><td><strong>Ekstre</strong></td><td>Statement</td><td><span class="glossary-category-title cat-finans">Finans</span></td><td>Bir cari hesaptaki tüm işlemlerin (fatura, ödeme, iade) kronolojik dokumu.</td><td>Satış &gt; Cari Hesap Ekstre</td></tr>
+      <tr class="glossary-row visible" data-letter="E"><td><strong>Emniyet Stoku</strong></td><td>Safety Stock</td><td><span class="glossary-category-title cat-stok">Stok</span></td><td>Tedarik gecikmelerine karsi tutulan minimum stok miktari. Üretimin durmasini onler.</td><td>Stok &gt; Stok Kartları &gt; Min. Stok</td></tr>
+      <tr class="glossary-row visible" data-letter="E"><td><strong>ERP</strong></td><td>Enterprise Resource Planning</td><td><span class="glossary-category-title cat-genel">Genel</span></td><td>Kurumsal Kaynak Planlama. Fabrikanin tüm süreçlerini (üretim, stok, finans, kalite) tek bir yazilimda toplayan sistem.</td><td>Tüm Quvex Platformu</td></tr>
+
+      <!-- F -->
+      <tr class="glossary-row visible" data-letter="F"><td colspan="5"><span class="letter-anchor" id="letter-F">F</span></td></tr>
+      <tr class="glossary-row visible" data-letter="F"><td><strong>FAI (İlk Ürün Muayenesi)</strong></td><td>First Article Inspection</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>Yeni bir ürünun ilk üretim partisinden alınan orneklerin detayli ölçüm ve kontrolü.</td><td>Kalite &gt; Standart &gt; FAI</td></tr>
+      <tr class="glossary-row visible" data-letter="F"><td><strong>Fason</strong></td><td>Subcontract</td><td><span class="glossary-category-title cat-üretim">Üretim</span></td><td>Üretimin bir kismini (ornegin yuzey işleme, isil işlem) dis bir firmaya yaptirma.</td><td>Satınalma &gt; Fason Is Emirleri</td></tr>
+      <tr class="glossary-row visible" data-letter="F"><td><strong>Fatura</strong></td><td>Invoice</td><td><span class="glossary-category-title cat-finans">Finans</span></td><td>Satış veya alis işleminin resmi belgesi. Alis faturasi ve satış faturasi olarak iki cesittir.</td><td>Finans &gt; Faturalar</td></tr>
+      <tr class="glossary-row visible" data-letter="F"><td><strong>FIFO</strong></td><td>First In, First Out</td><td><span class="glossary-category-title cat-stok">Stok</span></td><td>İlk giren ilk cikar. Depoya ilk giren malzeme oncelikle kullanilir. Raf omru olan ürünler için önemli.</td><td>Stok &gt; Stok Fişleri</td></tr>
+      <tr class="glossary-row visible" data-letter="F"><td><strong>Fire</strong></td><td>Scrap</td><td><span class="glossary-category-title cat-üretim">Üretim</span></td><td>Üretim süreçinde kullanim disi kalan malzeme veya ürün. Hurda olarak da bilinir.</td><td>Üretim &gt; Is Emri &gt; Fire Miktari</td></tr>
+      <tr class="glossary-row visible" data-letter="F"><td><strong>FMEA</strong></td><td>Failure Mode &amp; Effects Analysis</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>Hata Turu ve Etkileri Analizi. Olasi hatalari, etkilerini ve önlem onceliklerini belirler.</td><td>Kalite &gt; İstatistik &gt; FMEA</td></tr>
+      <tr class="glossary-row visible" data-letter="F"><td><strong>FOD</strong></td><td>Foreign Object Debris/Damage</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>Yabanci cisim hasari. Özellikle havacilikta üretime yabanci cisim karismamasi kritik onem tasir.</td><td>Kalite &gt; Standart &gt; FOD Kontrol</td></tr>
+
+      <!-- G -->
+      <tr class="glossary-row visible" data-letter="G"><td colspan="5"><span class="letter-anchor" id="letter-G">G</span></td></tr>
+      <tr class="glossary-row visible" data-letter="G"><td><strong>Gantt (Grafiği)</strong></td><td>Gantt Chart</td><td><span class="glossary-category-title cat-üretim">Üretim</span></td><td>Is emirlerini ve operasyonlari zaman cizelgesinde görsel olarak gosteren cubuk grafik.</td><td>Üretim &gt; Gantt</td></tr>
+      <tr class="glossary-row visible" data-letter="G"><td><strong>Gecikme Süresi</strong></td><td>Lead Time</td><td><span class="glossary-category-title cat-üretim">Üretim</span></td><td>Siparişin alınmasindan ürünun teslimine kadar gecen toplam süre.</td><td>Üretim &gt; Is Emri &gt; Planlanan Tarihler</td></tr>
+      <tr class="glossary-row visible" data-letter="G"><td><strong>Giriş Kontrol</strong></td><td>Incoming Inspection</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>Tedarikciden gelen malzemenin kabul edilmeden once kalite kontrolden gecirilmesi.</td><td>Kalite &gt; Temel &gt; Giriş Kontrol</td></tr>
+
+      <!-- H -->
+      <tr class="glossary-row visible" data-letter="H"><td colspan="5"><span class="letter-anchor" id="letter-H">H</span></td></tr>
+      <tr class="glossary-row visible" data-letter="H"><td><strong>HACCP</strong></td><td>Hazard Analysis Critical Control Points</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>Gida guvenliginde tehlike analizi ve kritik kontrol noktalari sistemi.</td><td>Kalite &gt; Standart &gt; HACCP</td></tr>
+      <tr class="glossary-row visible" data-letter="H"><td><strong>Hammadde</strong></td><td>Raw Material</td><td><span class="glossary-category-title cat-stok">Stok</span></td><td>Üretimde kullanilacak islenmemis malzeme. Örnek: celik levha, aluminyum cubuk, plastik granul.</td><td>Stok &gt; Stok Kartları &gt; Kategori: Hammadde</td></tr>
+      <tr class="glossary-row visible" data-letter="H"><td><strong>Hurda</strong></td><td>Scrap</td><td><span class="glossary-category-title cat-üretim">Üretim</span></td><td>Üretim sirasinda kullanilmaz hale gelen malzeme. Fire ile ayni anlamda kullanilir.</td><td>Üretim &gt; Is Emri &gt; Fire Miktari</td></tr>
+
+      <!-- I -->
+      <tr class="glossary-row visible" data-letter="I"><td colspan="5"><span class="letter-anchor" id="letter-I">I</span></td></tr>
+      <tr class="glossary-row visible" data-letter="I"><td><strong>İrsaliye</strong></td><td>Delivery Note / Waybill</td><td><span class="glossary-category-title cat-stok">Stok</span></td><td>Malzemenin bir yerden baska bir yere tasindigini gosteren resmi belge.</td><td>Stok &gt; Stok Fişleri &gt; Sevkiyat</td></tr>
+      <tr class="glossary-row visible" data-letter="I"><td><strong>Is Emri</strong></td><td>Work Order</td><td><span class="glossary-category-title cat-üretim">Üretim</span></td><td>Belirli bir ürünun, belirli miktarda, belirli tarihlerde uretilmesi için verilen resmi talimat.</td><td>Üretim &gt; Üretim Listesi</td></tr>
+      <tr class="glossary-row visible" data-letter="I"><td><strong>Isil İşlem</strong></td><td>Heat Treatment</td><td><span class="glossary-category-title cat-üretim">Üretim</span></td><td>Metallerin mekanik özelliklerini değiştirmek için uygulanan isitma ve sogutma işlemi.</td><td>Üretim &gt; Operasyonlar</td></tr>
+      <tr class="glossary-row visible" data-letter="I"><td><strong>İzlenebilirlik</strong></td><td>Traceability</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>Ürünun hammaddeden son kullanıcıya kadar tüm aşamalarinin takip edilebilmesi.</td><td>Kalite &gt; Standart &gt; Seri Numara / Data Pack</td></tr>
+
+      <!-- J -->
+      <tr class="glossary-row visible" data-letter="J"><td colspan="5"><span class="letter-anchor" id="letter-J">J</span></td></tr>
+      <tr class="glossary-row visible" data-letter="J"><td><strong>JIT (Tam Zamaninda)</strong></td><td>Just In Time</td><td><span class="glossary-category-title cat-üretim">Üretim</span></td><td>Malzemenin tam ihtiyaç aninda temin edildigi, stoku minimumda tutan üretim felsefesi.</td><td>Üretim &gt; Kapasite Planlama</td></tr>
+
+      <!-- K -->
+      <tr class="glossary-row visible" data-letter="K"><td colspan="5"><span class="letter-anchor" id="letter-K">K</span></td></tr>
+      <tr class="glossary-row visible" data-letter="K"><td><strong>Kalibrasyon</strong></td><td>Calibration</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>Ölçüm aletlerinin dogrulugunu kontrol etme ve ayarlama işlemi. Periyodik olarak yapilmalidir.</td><td>Kalite &gt; Temel &gt; Kalibrasyon</td></tr>
+      <tr class="glossary-row visible" data-letter="K"><td><strong>Kapasite</strong></td><td>Capacity</td><td><span class="glossary-category-title cat-üretim">Üretim</span></td><td>Bir makinenin veya üretim hattinin belirli bir zaman diliminde maksimum uretebilecegi miktar.</td><td>Üretim &gt; Kapasite Planlama</td></tr>
+      <tr class="glossary-row visible" data-letter="K"><td><strong>Kasa</strong></td><td>Cash Register</td><td><span class="glossary-category-title cat-finans">Finans</span></td><td>Nakit paralarin takip edildigi hesap. Fiziksel kasayi temsil eder.</td><td>Finans &gt; Kasa/Banka</td></tr>
+      <tr class="glossary-row visible" data-letter="K"><td><strong>KDV</strong></td><td>VAT (Value Added Tax)</td><td><span class="glossary-category-title cat-finans">Finans</span></td><td>Katma Değer Vergisi. Turkiye'de %1, %10, %20 oranlari uygulanir.</td><td>Finans &gt; Faturalar &gt; KDV Orani</td></tr>
+      <tr class="glossary-row visible" data-letter="K"><td><strong>Kontrol Planı</strong></td><td>Control Plan</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>Üretim süreçinin her aşamasında hangi özelliklerin, nasil ve ne siklikla kontrol edilecegini belirleyen doküman.</td><td>Kalite &gt; Standart &gt; Kontrol Planları</td></tr>
+      <tr class="glossary-row visible" data-letter="K"><td><strong>KPI</strong></td><td>Key Performance Indicator</td><td><span class="glossary-category-title cat-genel">Genel</span></td><td>Anahtar Performans Gostergesi. Fabrikanin başarısini olcmek için kullanılan metrikler (OEE, zamaninda teslim orani vb.).</td><td>Dashboard &gt; KPI Kartları</td></tr>
+
+      <!-- L -->
+      <tr class="glossary-row visible" data-letter="L"><td colspan="5"><span class="letter-anchor" id="letter-L">L</span></td></tr>
+      <tr class="glossary-row visible" data-letter="L"><td><strong>LIFO</strong></td><td>Last In, First Out</td><td><span class="glossary-category-title cat-stok">Stok</span></td><td>Son giren ilk cikar. Depoya en son konan malzeme oncelikle kullanilir.</td><td>Stok &gt; Stok Fişleri</td></tr>
+      <tr class="glossary-row visible" data-letter="L"><td><strong>Lot (Parti)</strong></td><td>Lot / Batch</td><td><span class="glossary-category-title cat-stok">Stok</span></td><td>Ayni kosullarda, ayni zamanda uretilen veya tedarik edilen malzeme grubu. İzlenebilirlik için kullanilir.</td><td>Stok &gt; Stok Kartları &gt; Lot Takibi</td></tr>
+
+      <!-- M -->
+      <tr class="glossary-row visible" data-letter="M"><td colspan="5"><span class="letter-anchor" id="letter-M">M</span></td></tr>
+      <tr class="glossary-row visible" data-letter="M"><td><strong>Makine</strong></td><td>Machine</td><td><span class="glossary-category-title cat-üretim">Üretim</span></td><td>Üretimde kullanılan ekipman. Her makine Adi (Name) ve Kodu (Code) ile tanımlanir.</td><td>Ayarlar &gt; Makineler</td></tr>
+      <tr class="glossary-row visible" data-letter="M"><td><strong>Mal Kabul</strong></td><td>Goods Receipt</td><td><span class="glossary-category-title cat-stok">Stok</span></td><td>Tedarikciden gelen malzemenin depoya girişi. Miktar ve kalite kontrolü yapılır.</td><td>Satınalma &gt; Mal Kabul</td></tr>
+      <tr class="glossary-row visible" data-letter="M"><td><strong>Mamul</strong></td><td>Finished Good</td><td><span class="glossary-category-title cat-stok">Stok</span></td><td>Üretimi tamamlanmis, satisa veya sevkiyata hazır ürün.</td><td>Stok &gt; Stok Kartları &gt; Kategori: Mamul</td></tr>
+      <tr class="glossary-row visible" data-letter="M"><td><strong>MRB</strong></td><td>Material Review Board</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>Uygunsuz malzemenin kabul, red veya yeniden işleme kararini veren kurul.</td><td>Kalite &gt; Standart &gt; MRB</td></tr>
+      <tr class="glossary-row visible" data-letter="M"><td><strong>MRP</strong></td><td>Material Requirements Planning</td><td><span class="glossary-category-title cat-üretim">Üretim</span></td><td>Malzeme İhtiyaç Planlama. Is emirlerine gore hangi malzemeden ne kadar, ne zaman gerektigini hesaplar.</td><td>Bakım &gt; MRP Hesaplama</td></tr>
+      <tr class="glossary-row visible" data-letter="M"><td><strong>MTBF</strong></td><td>Mean Time Between Failures</td><td><span class="glossary-category-title cat-bakım">Bakım</span></td><td>Iki arıza arasındaki ortalama süre. Yüksek MTBF = daha guvenilir makine.</td><td>Bakım &gt; OEE / MTBF Raporu</td></tr>
+      <tr class="glossary-row visible" data-letter="M"><td><strong>MTTR</strong></td><td>Mean Time To Repair</td><td><span class="glossary-category-title cat-bakım">Bakım</span></td><td>Arızanin tamiri için gecen ortalama süre. Düşük MTTR = hızlı müdahale.</td><td>Bakım &gt; OEE / MTTR Raporu</td></tr>
+      <tr class="glossary-row visible" data-letter="M"><td><strong>Müşteri Tavizi</strong></td><td>Customer Concession</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>Uygunsuz ürünun müşterinin onayi ile kullanilmasina izin veren resmi belge.</td><td>Kalite &gt; Standart &gt; Müşteri Tavizi</td></tr>
+
+      <!-- N -->
+      <tr class="glossary-row visible" data-letter="N"><td colspan="5"><span class="letter-anchor" id="letter-N">N</span></td></tr>
+      <tr class="glossary-row visible" data-letter="N"><td><strong>NCR (Uygunsuzluk Raporu)</strong></td><td>Non-Conformance Report</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>Ürünun veya prosesin standart disina ciktigini belgeleyen rapor. Kok neden analizi ve düzeltici aksiyon gerektirir.</td><td>Kalite &gt; Temel &gt; NCR</td></tr>
+
+      <!-- O -->
+      <tr class="glossary-row visible" data-letter="O"><td colspan="5"><span class="letter-anchor" id="letter-O">O</span></td></tr>
+      <tr class="glossary-row visible" data-letter="O"><td><strong>OEE</strong></td><td>Overall Equipment Effectiveness</td><td><span class="glossary-category-title cat-bakım">Bakım</span></td><td>Genel Ekipman Verimlilik. Kullanilabilirlik x Performans x Kalite carpimyla hesaplanir. %85 ustu dunya sinifi kabul edilir.</td><td>Bakım &gt; OEE Raporu</td></tr>
+      <tr class="glossary-row visible" data-letter="O"><td><strong>Onay Akisi</strong></td><td>Approval Workflow</td><td><span class="glossary-category-title cat-genel">Genel</span></td><td>Belirli işlemlerin (satış teklifi, satin alma, NCR) yetkili kisiler tarafindan onaylanma süreçi.</td><td>Ilgili modül &gt; Onay Durumu</td></tr>
+      <tr class="glossary-row visible" data-letter="O"><td><strong>Operasyon</strong></td><td>Operation</td><td><span class="glossary-category-title cat-üretim">Üretim</span></td><td>Is emrindeki tek bir üretim adimi. Örnek: Kesim, Bukum, Kaynak, Boya, Montaj.</td><td>Üretim &gt; Is Emri &gt; Operasyonlar</td></tr>
+
+      <!-- P -->
+      <tr class="glossary-row visible" data-letter="P"><td colspan="5"><span class="letter-anchor" id="letter-P">P</span></td></tr>
+      <tr class="glossary-row visible" data-letter="P"><td><strong>Parti (Lot)</strong></td><td>Batch / Lot</td><td><span class="glossary-category-title cat-stok">Stok</span></td><td>Ayni kosullarda uretilen ürün grubu. Lot ile es anlamli.</td><td>Stok &gt; Stok Kartları &gt; Lot Takibi</td></tr>
+      <tr class="glossary-row visible" data-letter="P"><td><strong>Planlanan Bakım</strong></td><td>Planned Maintenance</td><td><span class="glossary-category-title cat-bakım">Bakım</span></td><td>Onceden belirlenmis takvime gore yapılan bakım. Arızalari onlemek için uygulanir.</td><td>Bakım &gt; Preventif Bakım</td></tr>
+      <tr class="glossary-row visible" data-letter="P"><td><strong>PPAP</strong></td><td>Production Part Approval Process</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>Üretim Parçası Onay Prosesi. Tedarikçinin üretim yetkinligini kanitladigi doküman seti.</td><td>Kalite &gt; Tedarik &gt; PPAP</td></tr>
+      <tr class="glossary-row visible" data-letter="P"><td><strong>Preventif Bakım</strong></td><td>Preventive Maintenance</td><td><span class="glossary-category-title cat-bakım">Bakım</span></td><td>Arızayi onlemek için periyodik olarak yapılan bakım (yag degisimi, filtre temizligi vb.).</td><td>Bakım &gt; Preventif Bakım</td></tr>
+      <tr class="glossary-row visible" data-letter="P"><td><strong>Proses</strong></td><td>Process</td><td><span class="glossary-category-title cat-üretim">Üretim</span></td><td>Hammaddeyi ürüne dönüştürmek için uygulanan işlemler dizisi.</td><td>Üretim &gt; Operasyonlar</td></tr>
+      <tr class="glossary-row visible" data-letter="P"><td><strong>PWA</strong></td><td>Progressive Web App</td><td><span class="glossary-category-title cat-genel">Genel</span></td><td>Web sitesini telefona uygulama gibi yükleyebilme teknolojisi. Cevrimdisi çalışma destegi sunar.</td><td>Tarayici &gt; Ana Ekrana Ekle</td></tr>
+
+      <!-- R -->
+      <tr class="glossary-row visible" data-letter="R"><td colspan="5"><span class="letter-anchor" id="letter-R">R</span></td></tr>
+      <tr class="glossary-row visible" data-letter="R"><td><strong>Recete (BOM)</strong></td><td>Recipe / Bill of Materials</td><td><span class="glossary-category-title cat-üretim">Üretim</span></td><td>Bir ürünu olusturan malzeme listesi ve miktarlari. Yemek tarifi gibi dusunun: hangi malzemeden ne kadar lazim.</td><td>Üretim &gt; Receteler</td></tr>
+      <tr class="glossary-row visible" data-letter="R"><td><strong>Red</strong></td><td>Reject</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>Kalite kontrolde standartlari karsilamayan ürünun reddedilmesi.</td><td>Kalite &gt; Giriş Kontrol &gt; Red</td></tr>
+      <tr class="glossary-row visible" data-letter="R"><td><strong>Revizyon</strong></td><td>Revision</td><td><span class="glossary-category-title cat-genel">Genel</span></td><td>Bir dokunmanin veya teklifin güncellenmis surumu. Her değişiklikte revizyon numarası artar.</td><td>Satış &gt; Teklifler &gt; Revizyon</td></tr>
+      <tr class="glossary-row visible" data-letter="R"><td><strong>Rework (Yeniden İşleme)</strong></td><td>Rework</td><td><span class="glossary-category-title cat-üretim">Üretim</span></td><td>Hatali ürünun tekrar islenerek standartlara uygun hale getirilmesi.</td><td>Üretim &gt; Is Emri &gt; Yeniden İşleme</td></tr>
+
+      <!-- S -->
+      <tr class="glossary-row visible" data-letter="S"><td colspan="5"><span class="letter-anchor" id="letter-S">S</span></td></tr>
+      <tr class="glossary-row visible" data-letter="S"><td><strong>Sarf Malzeme</strong></td><td>Consumable</td><td><span class="glossary-category-title cat-stok">Stok</span></td><td>Üretimde tuketilen ancak ürüne dogrudan dahil olmayan malzeme (zimpara, kaynak teli, eldiven).</td><td>Stok &gt; Stok Kartları &gt; Kategori: Sarf</td></tr>
+      <tr class="glossary-row visible" data-letter="S"><td><strong>Sayım</strong></td><td>Stock Count / Inventory</td><td><span class="glossary-category-title cat-stok">Stok</span></td><td>Depodaki malzemelerin fiziksel olarak sayilmasi ve sistemdeki miktarlarla karsilastirilmasi.</td><td>Stok &gt; Stok Sayım</td></tr>
+      <tr class="glossary-row visible" data-letter="S"><td><strong>Seri Numara</strong></td><td>Serial Number</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>Her bir ürüne verilen benzersiz kimlik numarası. İzlenebilirlik için kullanilir.</td><td>Kalite &gt; Standart &gt; Seri Numaralari</td></tr>
+      <tr class="glossary-row visible" data-letter="S"><td><strong>Sevkiyat</strong></td><td>Shipment</td><td><span class="glossary-category-title cat-stok">Stok</span></td><td>Ürünlerin müşteriye veya baska bir lokasyona gonderilmesi.</td><td>Üretim &gt; Sevkiyat</td></tr>
+      <tr class="glossary-row visible" data-letter="S"><td><strong>ShopFloor Terminal</strong></td><td>Shop Floor Terminal</td><td><span class="glossary-category-title cat-üretim">Üretim</span></td><td>Atölyede kullanılan dokunmatik ekranli veri giriş terminali. Operator is emri ilerletme, durus kaydı yapar.</td><td>Üretim &gt; ShopFloor Terminal</td></tr>
+      <tr class="glossary-row visible" data-letter="S"><td><strong>Sipariş</strong></td><td>Order</td><td><span class="glossary-category-title cat-üretim">Üretim</span></td><td>Müşterinin ürün talebi. Satış siparişi (müşteri) ve satınalma siparişi (tedarikçi) olarak ikiye ayrilir.</td><td>Satış &gt; Siparişler / Satınalma &gt; Siparişler</td></tr>
+      <tr class="glossary-row visible" data-letter="S"><td><strong>SPC</strong></td><td>Statistical Process Control</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>Istatistiksel Proses Kontrol. Üretim süreçinin kararliligini kontrol kartlarıyla izler.</td><td>Kalite &gt; İstatistik &gt; SPC</td></tr>
+      <tr class="glossary-row visible" data-letter="S"><td><strong>Stok Fisi</strong></td><td>Stock Voucher</td><td><span class="glossary-category-title cat-stok">Stok</span></td><td>Stok giriş, çıkış veya transfer işlemlerini belgeleyen kayıt.</td><td>Stok &gt; Stok Fişleri</td></tr>
+      <tr class="glossary-row visible" data-letter="S"><td><strong>Stok Karti</strong></td><td>Stock Card / Item Master</td><td><span class="glossary-category-title cat-stok">Stok</span></td><td>Her malzemenin tüm özelliklerini (kod, ad, birim, kategori, min/max, barkod) iceren tanim karti.</td><td>Stok &gt; Stok Kartları</td></tr>
+
+      <!-- T -->
+      <tr class="glossary-row visible" data-letter="T"><td colspan="5"><span class="letter-anchor" id="letter-T">T</span></td></tr>
+      <tr class="glossary-row visible" data-letter="T"><td><strong>Tahsilat</strong></td><td>Collection / Receipt</td><td><span class="glossary-category-title cat-finans">Finans</span></td><td>Müşteriden alınan ödeme. Nakit, havale/EFT, cek veya kredi karti ile yapilabilir.</td><td>Finans &gt; Odemeler</td></tr>
+      <tr class="glossary-row visible" data-letter="T"><td><strong>Tedarikçi</strong></td><td>Supplier / Vendor</td><td><span class="glossary-category-title cat-stok">Stok</span></td><td>Fabrikaniza hammadde, malzeme veya hizmet saglayan firma.</td><td>Satınalma &gt; Tedarikciler</td></tr>
+      <tr class="glossary-row visible" data-letter="T"><td><strong>Tedarikçi Değerlendirme</strong></td><td>Supplier Evaluation</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>Tedarikcilerin kalite, teslimat, fiyat gibi kriterlere gore puanlanmasi.</td><td>Kalite &gt; Tedarik &gt; Değerlendirme</td></tr>
+      <tr class="glossary-row visible" data-letter="T"><td><strong>Teklif</strong></td><td>Quotation / Offer</td><td><span class="glossary-category-title cat-finans">Finans</span></td><td>Müşteriye sunulan fiyat ve kosul teklifi. Kabul edilirse siparişe donusur.</td><td>Satış &gt; Teklifler</td></tr>
+      <tr class="glossary-row visible" data-letter="T"><td><strong>Tevkifat</strong></td><td>Withholding Tax</td><td><span class="glossary-category-title cat-finans">Finans</span></td><td>Bazi hizmet alimlarinda KDV'nin bir kisminin alici tarafindan vergi dairesine odenmesi.</td><td>Finans &gt; Faturalar &gt; Tevkifat Orani</td></tr>
+      <tr class="glossary-row visible" data-letter="T"><td><strong>Tolerans</strong></td><td>Tolerance</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>Bir olcunun kabul edilebilir sapma araligi. Örnek: 10mm +/- 0.05mm.</td><td>Kalite &gt; Kontrol Planları &gt; Tolerans</td></tr>
+      <tr class="glossary-row visible" data-letter="T"><td><strong>Transfer</strong></td><td>Stock Transfer</td><td><span class="glossary-category-title cat-stok">Stok</span></td><td>Malzemenin bir depodan/lokasyondan digerine tasinmasi işlemi.</td><td>Stok &gt; Stok Fişleri &gt; Transfer</td></tr>
+
+      <!-- U -->
+      <tr class="glossary-row visible" data-letter="U"><td colspan="5"><span class="letter-anchor" id="letter-U">U</span></td></tr>
+      <tr class="glossary-row visible" data-letter="U"><td><strong>Uygunsuzluk</strong></td><td>Non-Conformance</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>Ürünun veya prosesin belirlenmis standartlara uymamasi durumu. NCR ile belgelenir.</td><td>Kalite &gt; Temel &gt; NCR</td></tr>
+      <tr class="glossary-row visible" data-letter="U"><td><strong>Üretim Planlama</strong></td><td>Production Planning</td><td><span class="glossary-category-title cat-üretim">Üretim</span></td><td>Hangi ürünun, hangi makinede, ne zaman uretilecegini belirleme süreçi.</td><td>Üretim &gt; Gantt / Kapasite Planlama</td></tr>
+
+      <!-- V -->
+      <tr class="glossary-row visible" data-letter="V"><td colspan="5"><span class="letter-anchor" id="letter-V">V</span></td></tr>
+      <tr class="glossary-row visible" data-letter="V"><td><strong>Vardiya</strong></td><td>Shift</td><td><span class="glossary-category-title cat-üretim">Üretim</span></td><td>Calisanlarin belirli saat dilimlerinde nobetlese calistigi sistem. Örnek: sabah 08-16, aksam 16-00.</td><td>IK &gt; Vardiya Planlama</td></tr>
+      <tr class="glossary-row visible" data-letter="V"><td><strong>Varyans</strong></td><td>Variance</td><td><span class="glossary-category-title cat-finans">Finans</span></td><td>Planlanan ile gerceklesen değer arasındaki fark. Bütçe sapmasi olarak da bilinir.</td><td>Raporlar &gt; Maliyet Raporu</td></tr>
+      <tr class="glossary-row visible" data-letter="V"><td><strong>Verimlilik</strong></td><td>Efficiency</td><td><span class="glossary-category-title cat-üretim">Üretim</span></td><td>Üretim kaynaginin ne oranda etkin kullanildigini gosteren oran. OEE ile olculur.</td><td>Bakım &gt; OEE Raporu</td></tr>
+      <tr class="glossary-row visible" data-letter="V"><td><strong>Virman</strong></td><td>Internal Transfer</td><td><span class="glossary-category-title cat-finans">Finans</span></td><td>Sirketin kendi hesapları arasındaki para transferi (kasadan bankaya, bankadan bankaya).</td><td>Finans &gt; Kasa/Banka &gt; Transfer</td></tr>
+
+      <!-- Y -->
+      <tr class="glossary-row visible" data-letter="Y"><td colspan="5"><span class="letter-anchor" id="letter-Y">Y</span></td></tr>
+      <tr class="glossary-row visible" data-letter="Y"><td><strong>Yari Mamul</strong></td><td>Semi-Finished Good / WIP</td><td><span class="glossary-category-title cat-stok">Stok</span></td><td>Üretimi henuz tamamlanmamis, ara aşamadaki ürün.</td><td>Stok &gt; Stok Kartları &gt; Kategori: Yari Mamul</td></tr>
+      <tr class="glossary-row visible" data-letter="Y"><td><strong>Yedek Parça</strong></td><td>Spare Part</td><td><span class="glossary-category-title cat-bakım">Bakım</span></td><td>Makine arizalarinda kullanilmak uzere stokta tutulan degisim parcalari.</td><td>Bakım &gt; Yedek Parça Stoku</td></tr>
+      <tr class="glossary-row visible" data-letter="Y"><td><strong>Yetki</strong></td><td>Permission</td><td><span class="glossary-category-title cat-genel">Genel</span></td><td>Kullanıcınin sistemde hangi işlemleri yapabilecegini belirleyen izin. Görüntüle, Kaydet, Sil olarak uc seviyedir.</td><td>Ayarlar &gt; Rol Yönetimi &gt; Yetkiler</td></tr>
+
+      <!-- ============================================================ -->
+      <!-- Sprint 11 Yeni Terimler (Nisan 2026) -->
+      <!-- ============================================================ -->
+      <tr class="glossary-row visible" data-letter="S11"><td colspan="5"><span class="letter-anchor" id="letter-S11">Sprint 11 &mdash; Yeni Terimler (Nisan 2026)</span></td></tr>
+
+      <!-- Gida Guvenligi / HACCP -->
+      <tr class="glossary-row visible" data-letter="S11"><td><strong>HACCP</strong></td><td>Hazard Analysis Critical Control Points</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>Gıda güvenliği için tehlike analizi ve kritik kontrol noktaları yöntemi. Üretimdeki fiziksel, kimyasal ve biyolojik tehlikeleri önceden belirleyip izler. Örnek: Süt pastörizasyonunda sıcaklık ve süre.</td><td>Kalite &gt; HACCP &gt; Plan</td></tr>
+      <tr class="glossary-row visible" data-letter="S11"><td><strong>CCP (Kritik Kontrol Noktası)</strong></td><td>Critical Control Point</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>HACCP planında kontrol altında tutulması zorunlu adım. Sapma olursa ürün güvenliği riske girer. Örnek: Fırın sıcaklığı 75&deg;C altına düşerse CCP sapması oluşur.</td><td>Kalite &gt; HACCP &gt; CCP İzleme</td></tr>
+      <tr class="glossary-row visible" data-letter="S11"><td><strong>OPRP</strong></td><td>Operational Prerequisite Program</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>Operasyonel ön gereksinim programı. CCP kadar kritik olmayan ama kontrol altında tutulması gereken süreçler. Örnek: Yabancı madde dedektörü çalışma kontrolü.</td><td>Kalite &gt; HACCP &gt; OPRP</td></tr>
+      <tr class="glossary-row visible" data-letter="S11"><td><strong>PRP (Ön Gereksinim Programı)</strong></td><td>Prerequisite Program</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>Hijyen, temizlik, haşere kontrolü gibi HACCP öncesi temel gereksinimler. Örnek: Günlük tezgah dezenfeksiyonu, personel el yıkama takibi.</td><td>Kalite &gt; HACCP &gt; PRP</td></tr>
+      <tr class="glossary-row visible" data-letter="S11"><td><strong>Recall (Geri Çağırma)</strong></td><td>Product Recall</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>Pazara çıkmış hatalı veya güvenliksiz ürünün geri toplanması süreci. Lot izlenebilirliği ile hangi müşteriye hangi seri gittiği bulunur. Örnek: Bozuk süt partisinin marketlerden geri toplanması.</td><td>Kalite &gt; Recall &gt; Başlat</td></tr>
+      <tr class="glossary-row visible" data-letter="S11"><td><strong>FSCA</strong></td><td>Field Safety Corrective Action</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>Saha güvenlik düzeltici faaliyeti. Medikal cihaz veya güvenlik kritik ürünlerde uygulanır. Kullanıcıya güvenlik bildirimi gönderilir, ürün toplatılır veya servis yapılır.</td><td>Kalite &gt; Recall &gt; FSCA</td></tr>
+
+      <!-- Kaynak / Welding -->
+      <tr class="glossary-row visible" data-letter="S11"><td><strong>WPS</strong></td><td>Welding Procedure Specification</td><td><span class="glossary-category-title cat-üretim">Üretim</span></td><td>Kaynak prosedür şartnamesi. Belirli bir kaynak işlemi için parametreleri (akım, voltaj, hız, pozisyon, malzeme) tanımlayan doküman. EN ISO 15609 standardına göre hazırlanır.</td><td>Üretim &gt; Kaynak &gt; WPS</td></tr>
+      <tr class="glossary-row visible" data-letter="S11"><td><strong>WPQR / PQR</strong></td><td>Welding Procedure Qualification Record</td><td><span class="glossary-category-title cat-üretim">Üretim</span></td><td>Kaynak prosedür yeterlilik kaydı. WPS'te yazılan parametrelerin test kaynağı ile kanıtlandığı belge. Numune çekme, eğme ve tahribatlı testleri içerir.</td><td>Üretim &gt; Kaynak &gt; WPQR</td></tr>
+      <tr class="glossary-row visible" data-letter="S11"><td><strong>GTAW (TIG)</strong></td><td>Gas Tungsten Arc Welding</td><td><span class="glossary-category-title cat-üretim">Üretim</span></td><td>Tungsten elektrot ve koruyucu gaz (genelde argon) ile yapılan hassas kaynak yöntemi. Paslanmaz çelik, alüminyum ve ince malzemelerde kullanılır. Havacılıkta yaygın.</td><td>Üretim &gt; Kaynak &gt; WPS &gt; Yöntem</td></tr>
+      <tr class="glossary-row visible" data-letter="S11"><td><strong>NDT (Tahribatsız Muayene)</strong></td><td>Non-Destructive Testing</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>Malzeme veya kaynağa zarar vermeden yapılan muayene (radyografik, ultrasonik, sıvı penetrant, manyetik parçacık). Örnek: Kaynak dikişinde çatlak tespiti.</td><td>Kalite &gt; Muayene &gt; NDT</td></tr>
+      <tr class="glossary-row visible" data-letter="S11"><td><strong>Heat Input (Isı Girdisi)</strong></td><td>Heat Input</td><td><span class="glossary-category-title cat-üretim">Üretim</span></td><td>Kaynak sırasında birim uzunluğa verilen enerji (kJ/mm). Akım x voltaj / kaynak hızı formülü ile hesaplanır. Malzemenin mekanik özelliklerini doğrudan etkiler.</td><td>Üretim &gt; Kaynak &gt; WPS &gt; Isı Girdisi</td></tr>
+
+      <!-- Kalip / Mold -->
+      <tr class="glossary-row visible" data-letter="S11"><td><strong>Mold (Kalıp)</strong></td><td>Mold / Die</td><td><span class="glossary-category-title cat-üretim">Üretim</span></td><td>Plastik enjeksiyon, döküm veya sac şekillendirme için kullanılan form. Her kalıbın ömür limiti (shot sayısı) vardır. Örnek: 1 milyon atım ömürlü plastik enjeksiyon kalıbı.</td><td>Bakım &gt; Kalıp Envanteri</td></tr>
+      <tr class="glossary-row visible" data-letter="S11"><td><strong>Cavity (Göz)</strong></td><td>Cavity</td><td><span class="glossary-category-title cat-üretim">Üretim</span></td><td>Bir kalıpta aynı anda üretilen parça sayısı. 4 cavity kalıp her atımda 4 parça üretir. Üretim hızını doğrudan belirler.</td><td>Bakım &gt; Kalıp Envanteri &gt; Cavity</td></tr>
+      <tr class="glossary-row visible" data-letter="S11"><td><strong>Cycle Time (Çevrim Süresi)</strong></td><td>Cycle Time</td><td><span class="glossary-category-title cat-üretim">Üretim</span></td><td>Bir atımın (shot) toplam süresi: dolum + soğutma + kalıp açma. Örnek: 30 saniyelik çevrim + 4 cavity = 480 parça/saat.</td><td>Üretim &gt; Operasyon &gt; Çevrim</td></tr>
+      <tr class="glossary-row visible" data-letter="S11"><td><strong>Shot Counter (Atım Sayacı)</strong></td><td>Shot Counter</td><td><span class="glossary-category-title cat-üretim">Üretim</span></td><td>Kalıbın ömrünü takip eden sayaç. Her atım +1 artar. Belirli eşikte (örnek: 500 bin atım) preventif bakım veya yenileme tetiklenir.</td><td>Bakım &gt; Kalıp Envanteri &gt; Shot Counter</td></tr>
+
+      <!-- Medikal / CE -->
+      <tr class="glossary-row visible" data-letter="S11"><td><strong>CE İşareti</strong></td><td>Conformit&eacute; Europ&eacute;enne</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>Avrupa Birliği pazarına sunulan ürünün ilgili direktiflere uygun olduğunu gösteren işaret. Üreticinin teknik dosya ve uygunluk beyanı tutması zorunludur.</td><td>Kalite &gt; CE Teknik Dosya</td></tr>
+      <tr class="glossary-row visible" data-letter="S11"><td><strong>MDR</strong></td><td>Medical Device Regulation (EU 2017/745)</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>AB Tıbbi Cihaz Tüzüğü. 2021'de yürürlüğe girdi, MDD'yi değiştirdi. Risk sınıfına göre (I-IIa-IIb-III) daha sıkı dokümantasyon ve gözetim gerektirir.</td><td>Kalite &gt; CE Teknik Dosya &gt; MDR</td></tr>
+      <tr class="glossary-row visible" data-letter="S11"><td><strong>UDI</strong></td><td>Unique Device Identification</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>Tıbbi cihazlar için benzersiz kimlik kodu. UDI-DI (cihaz kimliği) + UDI-PI (üretim bilgisi: lot, seri, son kullanma) olarak iki bölümden oluşur.</td><td>Kalite &gt; CE Teknik Dosya &gt; UDI</td></tr>
+      <tr class="glossary-row visible" data-letter="S11"><td><strong>ISO 14971</strong></td><td>ISO 14971 Risk Management</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>Tıbbi cihazlar için risk yönetimi standardı. Tehlike tanımlama, risk değerlendirme, azaltma ve artık risk kabulü süreçlerini tanımlar.</td><td>Kalite &gt; CE Teknik Dosya &gt; Risk Analizi</td></tr>
+
+      <!-- Urun Varyant / Satis -->
+      <tr class="glossary-row visible" data-letter="S11"><td><strong>ProductVariant (Ürün Varyantı)</strong></td><td>Product Variant</td><td><span class="glossary-category-title cat-stok">Stok</span></td><td>Aynı ürünün farklı öznitelik kombinasyonları (beden, renk, model). Örnek: "Tişört - L - Kırmızı" ve "Tişört - M - Mavi" aynı ana ürünün varyantlarıdır.</td><td>Stok &gt; Ürün &gt; Varyantlar</td></tr>
+      <tr class="glossary-row visible" data-letter="S11"><td><strong>SKU</strong></td><td>Stock Keeping Unit</td><td><span class="glossary-category-title cat-stok">Stok</span></td><td>Stok tutma birimi. Her varyantın benzersiz kodudur. Örnek: TSH-L-KRM (Tişört, L beden, Kırmızı). Barkod ile eşleşir.</td><td>Stok &gt; Ürün &gt; Varyant &gt; SKU</td></tr>
+      <tr class="glossary-row visible" data-letter="S11"><td><strong>BOM Matrisi</strong></td><td>Bill of Materials Matrix</td><td><span class="glossary-category-title cat-üretim">Üretim</span></td><td>Varyantlı ürünlerin beden/renk kombinasyonlarını tek ekranda gösteren tablo. Her hücre bir SKU ve stok miktarını taşır.</td><td>Stok &gt; Ürün &gt; Varyant Matrisi</td></tr>
+
+      <!-- Teknoloji / Altyapi -->
+      <tr class="glossary-row visible" data-letter="S11"><td><strong>SignalR</strong></td><td>SignalR Real-Time Hub</td><td><span class="glossary-category-title cat-genel">Genel</span></td><td>Sunucudan tarayıcıya anlık veri itme (push) teknolojisi. Pano, bildirim ve canlı gösterge güncellemelerinde kullanılır. Sayfa yenilemeden veriyi günceller.</td><td>Raporlar &gt; Canlı Pano</td></tr>
+      <tr class="glossary-row visible" data-letter="S11"><td><strong>WhatsApp Business API</strong></td><td>WhatsApp Business API</td><td><span class="glossary-category-title cat-genel">Genel</span></td><td>Meta'nın kurumsal WhatsApp entegrasyonu. Sistem üzerinden müşterilere sipariş bildirimi, kritik uyarı ve pazarlama mesajı gönderir. Şablon onayı gereklidir.</td><td>Ayarlar &gt; Entegrasyonlar &gt; WhatsApp</td></tr>
+      <tr class="glossary-row visible" data-letter="S11"><td><strong>Polly Circuit Breaker</strong></td><td>Polly Circuit Breaker</td><td><span class="glossary-category-title cat-genel">Genel</span></td><td>Dış servis erişiminde (e-fatura, WhatsApp, SMS) hata arttığında otomatik devreyi açıp geçici olarak çağrıları durduran kütüphane. Sistem çökmesini engeller.</td><td>Teknik altyapı (arka plan)</td></tr>
+
+      <!-- Kalite Metodolojileri -->
+      <tr class="glossary-row visible" data-letter="S11"><td><strong>8D</strong></td><td>Eight Disciplines Problem Solving</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>8 adımlı problem çözme yöntemi (ekip kurma, problem tanımı, geçici önlem, kök neden, kalıcı çözüm, doğrulama, önleme, takdir). Otomotiv sektöründe yaygındır.</td><td>Kalite &gt; CAPA &gt; 8D Raporu</td></tr>
+      <tr class="glossary-row visible" data-letter="S11"><td><strong>FMEA</strong></td><td>Failure Mode and Effects Analysis</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>Hata türleri ve etkileri analizi. Olası hataları önceden tespit edip risk önceliği (RPN = Şiddet x Olasılık x Tespit) ile sıralar. PFMEA (süreç), DFMEA (tasarım) türleri vardır.</td><td>Kalite &gt; FMEA</td></tr>
+      <tr class="glossary-row visible" data-letter="S11"><td><strong>PPAP</strong></td><td>Production Part Approval Process</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>Üretim parça onay süreci. Otomotiv tedarikçilerinin müşteriye numune ve doküman paketi (18 element) sunarak seri üretim onayı alması. Level 1-5 arasında değişir.</td><td>Kalite &gt; PPAP Paketi</td></tr>
+      <tr class="glossary-row visible" data-letter="S11"><td><strong>IATF 16949</strong></td><td>IATF 16949 Automotive QMS</td><td><span class="glossary-category-title cat-kalite">Kalite</span></td><td>Otomotiv sektörü için kalite yönetim sistemi standardı. ISO 9001 üzerine ek gereksinimler (PPAP, FMEA, MSA, SPC, kontrol planı) içerir.</td><td>Kalite &gt; Standart &gt; IATF 16949</td></tr>
+    </tbody>
+  </table>
+
+  <!-- Toplam Bilgi -->
+  <div class="card" style="margin-top:2rem;">
+    <div class="tip info">
+      <div class="tip-title">Bilgi: Yeni Terim Önerisi</div>
+      <p>Bu sozlukte olmayan bir terim mi ariyorsunuz? Sistem yönetiçinize bildirin, bir sonraki surumde ekleyelim.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="doc-footer">
+    <a href="index.html" class="nav-back">&larr; Ana Sayfaya Don</a><br><br>
+    &copy; 2026 Quvex &mdash; Üretim Yönetim Platformu<br>
+    Bu kılavuz son kullanıcılar için hazırlanmıştır. &middot; v1.0
+  </div>
+
+</div>
+
+<script>
+function filterGlossary() {
+  var input = document.getElementById('glossarySearch').value.toLowerCase().replace(/[ığüşöçİĞÜŞÖÇ]/g, function(c) {
+    return {ı:'i',ğ:'g',ü:'u',ş:'s',ö:'o',ç:'c','İ':'i','Ğ':'g','Ü':'u','Ş':'s','Ö':'o','Ç':'c'}[c]||c;
+  });
+  var rows = document.querySelectorAll('.glossary-row');
+  rows.forEach(function(row) {
+    var text = row.textContent.toLowerCase().replace(/[ığüşöçİĞÜŞÖÇ]/g, function(c) {
+      return {ı:'i',ğ:'g',ü:'u',ş:'s',ö:'o',ç:'c','İ':'i','Ğ':'g','Ü':'u','Ş':'s','Ö':'o','Ç':'c'}[c]||c;
+    });
+    if (input === '' || text.indexOf(input) > -1) {
+      row.classList.add('visible');
+    } else {
+      row.classList.remove('visible');
+    }
+  });
+}
+</script>
+<script src="js/guide-enhancements.js"></script>
+</body>
+</html>

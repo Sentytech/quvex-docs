@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raporlama - Quvex ERP Kullanıcı Kılavuzu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+
+  <a href="index.html" class="nav-back">&#8592; Ana Sayfa</a>
+
+  <div class="doc-header">
+    <span class="version-badge">v2.0</span>
+    <div class="breadcrumb"><a href="index.html">Kullanıcı Kılavuzu</a> / Raporlama</div>
+    <h1>Raporlama Modülü</h1>
+    <p>13 standart rapor, dinamik rapor oluşturucu, dashboard KPI'ları ve Excel export</p>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-value">13</div>
+      <div class="stat-label">Standart Rapor</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">Dinamik</div>
+      <div class="stat-label">Rapor Oluşturucu</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">5</div>
+      <div class="stat-label">Export Format</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+
+    <aside>
+      <nav class="nav-sidebar">
+        <a href="#tanitim">Tanıtım</a>
+        <a href="#dashboard">Dashboard KPI</a>
+        <a href="#üretim">Üretim Raporları</a>
+        <a href="#stok">Stok Raporları</a>
+        <a href="#satış">Satış Raporları</a>
+        <a href="#kalite">Kalite Raporları</a>
+        <a href="#maliyet">Maliyet Raporları</a>
+        <a href="#dinamik">Dinamik Rapor</a>
+        <a href="#export">Excel Export</a>
+        <a href="#faq">SSS</a>
+      </nav>
+    </aside>
+
+    <main>
+
+      <!-- ======================================== -->
+      <!-- 1. TANITIM                               -->
+      <!-- ======================================== -->
+      <section id="tanitim">
+        <h2>1. Tanıtım</h2>
+        <p>Raporlama modülü, fabrikanızın tüm verilerini anlamlı bilgiye dönüştürür. 13 standart rapor ve sınırsız dinamik rapor oluşturma imkanı sunar.</p>
+
+        <h3>Rapor Kategorileri</h3>
+        <table>
+          <thead><tr><th>Kategori</th><th>Rapor Sayısı</th><th>Açıklama</th></tr></thead>
+          <tbody>
+            <tr><td>Üretim</td><td>4</td><td>Tamamlanma, verimlilik, fire, OEE</td></tr>
+            <tr><td>Stok</td><td>3</td><td>Stok durum, hareket, devir hızı</td></tr>
+            <tr><td>Satış</td><td>2</td><td>Teklif dönüşüm, sipariş analizi</td></tr>
+            <tr><td>Kalite</td><td>2</td><td>NCR trend, CAPA etkinlik</td></tr>
+            <tr><td>Maliyet</td><td>2</td><td>İş emri maliyet, karşılaştırma</td></tr>
+          </tbody>
+        </table>
+
+        <div class="tip">
+          <div class="tip-title">İpucu</div>
+          Tüm raporlara sol menüdeki <strong>Raporlar</strong> bölümünden veya Dashboard'daki kısayollardan ulaşabilirsiniz.
+        </div>
+      </section>
+
+      <!-- ======================================== -->
+      <!-- 2. DASHBOARD KPI                         -->
+      <!-- ======================================== -->
+      <section id="dashboard">
+        <h2>2. Dashboard KPI'ları</h2>
+        <p>Ana sayfa dashboard'unda temel performans göstergeleri (KPI) widget'lar halınde gösterilir.</p>
+
+        <h3>Widget Açıklamaları</h3>
+        <table>
+          <thead><tr><th>Widget</th><th>Gösterdiği Değer</th><th>Güncelleme</th></tr></thead>
+          <tbody>
+            <tr><td>Günlük Üretim</td><td>Bugün tamamlanan iş emri sayısı ve adet</td><td>Anlık (SignalR)</td></tr>
+            <tr><td>Açık İş Emirleri</td><td>Henüz tamamlanmamış iş emri sayısı</td><td>Anlık</td></tr>
+            <tr><td>Stok Uyarıları</td><td>Minimum stok altındaki ürün sayısı</td><td>Anlık</td></tr>
+            <tr><td>Teslim Performansı</td><td>Zamanında teslim edilen sipariş oranı (%)</td><td>Günlük</td></tr>
+            <tr><td>OEE Ortalaması</td><td>Tüm makinelerin ortalama OEE değeri</td><td>Günlük</td></tr>
+            <tr><td>Kalite Oranı</td><td>Sağlam üretim / Toplam üretim (%)</td><td>Günlük</td></tr>
+            <tr><td>Aktif Alarm</td><td>Çözülmemiş alarm ve uyarı sayısı</td><td>Anlık</td></tr>
+            <tr><td>Aylık Ciro</td><td>Bu ay kesilen fatura toplamı</td><td>Günlük</td></tr>
+          </tbody>
+        </table>
+
+        <div class="info tip">
+          <div class="tip-title">Bilgi</div>
+          Widget'ların üzerine tıklayarak ilgili detay raporuna gidebilirsiniz. Ör. "Stok Uyarıları" widget'ına tıklayınca minimum stok altındaki ürün listesi açılır.
+        </div>
+      </section>
+
+      <!-- ======================================== -->
+      <!-- 3. ÜRETİM RAPORLARI                      -->
+      <!-- ======================================== -->
+      <section id="üretim">
+        <h2>3. Üretim Raporları</h2>
+
+        <div class="card">
+          <h4>3.1 Üretim Tamamlanma Raporu</h4>
+          <p>Belirli tarih aralığında tamamlanan iş emirlerini, ürün bazlı üretim miktarlarını ve tamamlanma sürelerini gösterir.</p>
+          <p><strong>Filtreler:</strong> Tarih aralığı, ürün, iş emri durumu, hat/makine</p>
+        </div>
+
+        <div class="card">
+          <h4>3.2 Üretim Verimlilik Raporu</h4>
+          <p>Planlanan süre ile gerçekleşen süreyi karşılaştırır. Makine, operatör ve ürün bazında verimlilik oranı hesaplar.</p>
+          <p><strong>Formül:</strong> Verimlilik = (Planlanan Süre / Gerçekleşen Süre) x 100</p>
+        </div>
+
+        <div class="card">
+          <h4>3.3 Fire Raporu</h4>
+          <p>Üretim sırasında oluşan fire miktarını ürün, operasyon ve makine bazında raporlar. Fire nedenleri ve maliyeti dahildir.</p>
+          <p><strong>Filtreler:</strong> Tarih aralığı, ürün, fire nedeni, makine</p>
+        </div>
+
+        <div class="card">
+          <h4>3.4 OEE Raporu</h4>
+          <p>Makine bazlı OEE (Kullanılabilirlik x Performans x Kalite) değerlerini günlük, haftalık ve aylık olarak gösterir.</p>
+          <p>Detay için: <a href="bakim.html#oee">Bakım Modülü -- OEE Dashboard</a></p>
+        </div>
+      </section>
+
+      <!-- ======================================== -->
+      <!-- 4. STOK RAPORLARI                         -->
+      <!-- ======================================== -->
+      <section id="stok">
+        <h2>4. Stok Raporları</h2>
+
+        <div class="card">
+          <h4>4.1 Stok Durum Raporu</h4>
+          <p>Tüm ürünlerin anlık stok miktarı, minimum stok seviyesi ve depo/lokasyon bilgisini listeler. Minimum altındakiler kırmızı vurgulanır.</p>
+        </div>
+
+        <div class="card">
+          <h4>4.2 Stok Hareket Raporu</h4>
+          <p>Belirli bir ürün veya tarih aralığı için tüm giriş/çıkış hareketlerini kronolojik sırayla gösterir.</p>
+          <p><strong>Hareket Türleri:</strong> Satınalma Girişi, Üretim Çıkışı, Sayım Farkı, Transfer, Fire, İade</p>
+        </div>
+
+        <div class="card">
+          <h4>4.3 ABC Analizi ve Devir Hızı</h4>
+          <p>Ürünleri değerine göre A (yüksek), B (orta), C (düşük) olarak sınıflandırır. Devir hızı = Yıllık Tüketim / Ortalama Stok.</p>
+          <table>
+            <thead><tr><th>Sınıf</th><th>Değer Payı</th><th>Ürün Payı</th><th>Kontrol</th></tr></thead>
+            <tbody>
+              <tr><td><span class="badge badge-danger">A</span></td><td>%70-80</td><td>%10-20</td><td>Sıkı kontrol, düşük stok</td></tr>
+              <tr><td><span class="badge badge-warning">B</span></td><td>%15-25</td><td>%30-40</td><td>Orta düzey kontrol</td></tr>
+              <tr><td><span class="badge badge-success">C</span></td><td>%5-10</td><td>%40-60</td><td>Basit kontrol, toplu sipariş</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ======================================== -->
+      <!-- 5. SATIŞ RAPORLARI                        -->
+      <!-- ======================================== -->
+      <section id="satış">
+        <h2>5. Satış Raporları</h2>
+
+        <div class="card">
+          <h4>5.1 Teklif Dönüşüm Raporu</h4>
+          <p>Verilen tekliflerin ne kadarının siparişe dönüştüğünü gösterir.</p>
+          <p><strong>Formül:</strong> Dönüşüm Oranı = (Siparişe Dönen Teklif / Toplam Teklif) x 100</p>
+          <p>Müşteri bazlı, satış temsilcisi bazlı ve ürün bazlı kırılımlar mevcuttur.</p>
+        </div>
+
+        <div class="card">
+          <h4>5.2 Sipariş ve Fatura Raporu</h4>
+          <p>Belirli dönemde oluşturulan siparişleri, faturaları ve tahsilatları özetler. Müşteri, ürün ve dönem bazlı gruplama yapılabilir.</p>
+        </div>
+      </section>
+
+      <!-- ======================================== -->
+      <!-- 6. KALİTE RAPORLARI                       -->
+      <!-- ======================================== -->
+      <section id="kalite">
+        <h2>6. Kalite Raporları</h2>
+
+        <div class="card">
+          <h4>6.1 NCR Trend Raporu</h4>
+          <p>Uygunsuzluk kayıtlarını (Non-Conformance Report) zaman serisi olarak gösterir. Aylık NCR sayısı, kategori dağılımı ve tekrar eden sorunlar analiz edilir.</p>
+        </div>
+
+        <div class="card">
+          <h4>6.2 CAPA Etkinlik Raporu</h4>
+          <p>Düzeltici ve Önleyici Faaliyetlerin (CAPA) zamanında kapatılma oranını gösterir.</p>
+          <table>
+            <thead><tr><th>Metrik</th><th>Hedef</th><th>Açıklama</th></tr></thead>
+            <tbody>
+              <tr><td>Kapatma Oranı</td><td>&gt; %90</td><td>Süresi içinde kapatılan CAPA yüzdesi</td></tr>
+              <tr><td>Ortalama Kapatma Süresi</td><td>&lt; 30 gün</td><td>CAPA açılma-kapatma arası gün</td></tr>
+              <tr><td>Etkinlik Oranı</td><td>&gt; %85</td><td>Kapatılan CAPA'lardan tekrar açılmayan yüzde</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h4>6.3 SPC (İstatistiksel Proses Kontrol)</h4>
+          <p>Ölçüm verilerini kontrol kartları (X-bar, R, p) üzerinde gösterir. Kontrol limitleri dışına çıkan noktalar otomatik işaretlenir.</p>
+        </div>
+
+        <div class="tip">
+          <div class="tip-title">İpucu</div>
+          Kalite raporları AS9100 iç denetim ve yönetimin gözden geçirme (Management Review) toplantıları için hazır formattadır.
+        </div>
+      </section>
+
+      <!-- ======================================== -->
+      <!-- 7. MALİYET RAPORLARI                      -->
+      <!-- ======================================== -->
+      <section id="maliyet">
+        <h2>7. Maliyet Raporları</h2>
+
+        <div class="card">
+          <h4>7.1 İş Emri Maliyet Raporu</h4>
+          <p>Her iş emrinin toplam maliyetini bileşenleriyle birlikte gösterir:</p>
+          <table>
+            <thead><tr><th>Maliyet Kalemi</th><th>Açıklama</th></tr></thead>
+            <tbody>
+              <tr><td>Malzeme</td><td>Kullanılan hammadde ve yarı mamul maliyeti</td></tr>
+              <tr><td>İşçilik</td><td>Harcanan süre x birim işçilik ücreti</td></tr>
+              <tr><td>Fason</td><td>Dış tedarikçiye ödenen işlem bedeli</td></tr>
+              <tr><td>Genel Gider</td><td>Makine amortisman, enerji payı</td></tr>
+              <tr><td><strong>Toplam</strong></td><td>Tüm kalemlerin toplamı</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h4>7.2 Maliyet Karşılaştırma Raporu</h4>
+          <p>Planlanan maliyet ile gerçekleşen maliyeti karşılaştırır. Sapma oranı ve tutarı gösterilir.</p>
+          <p><strong>Sapma Formülü:</strong> Sapma (%) = ((Gerçekleşen - Planlanan) / Planlanan) x 100</p>
+        </div>
+      </section>
+
+      <!-- ======================================== -->
+      <!-- 8. DİNAMİK RAPOR OLUŞTURUCU               -->
+      <!-- ======================================== -->
+      <section id="dinamik">
+        <h2>8. Dinamik Rapor Oluşturucu</h2>
+        <p>Standart raporlar ihtiyacınızı karşılamıyorsa, kendi raporunuzu sıfırdan oluşturabilirsiniz.</p>
+
+        <h3>Nasıl Kullanılır?</h3>
+        <div class="card">
+          <h4>Adım 1: Veri Kaynağı Seçin</h4>
+          <p>Hangi tablodan rapor alacağınızı seçin: İş Emirleri, Stok, Siparişler, Faturalar, Müşteriler, Ürünler vb.</p>
+        </div>
+        <div class="card">
+          <h4>Adım 2: Sütunları Belirleyin</h4>
+          <p>Raporda görmek istediğiniz alanları seçin. Sütunları sürükleyerek sıralayabilirsiniz.</p>
+        </div>
+        <div class="card">
+          <h4>Adım 3: Filtre Ekleyin</h4>
+          <p>Tarih aralığı, durum, kategori gibi filtreler ekleyin. Birden fazla filtre "VE" mantığıyla çalışır.</p>
+        </div>
+        <div class="card">
+          <h4>Adım 4: Gruplama ve Toplam</h4>
+          <p>Verileri gruplamak istediğiniz alanı seçin (ör. Müşteriye göre grupla). Toplam, ortalama, minimum, maksimum hesaplamaları ekleyin.</p>
+        </div>
+        <div class="card">
+          <h4>Adım 5: Kaydet ve Paylaş</h4>
+          <p>Oluşturduğunuz rapor şablonunu kaydedin. Diğer kullanıcılarla paylaşabilirsiniz.</p>
+        </div>
+
+        <div class="tip">
+          <div class="tip-title">İpucu</div>
+          Kaydedilen raporlar <strong>Raporlar &gt; Özel Raporlarım</strong> altında listelenir ve tekrar tekrar çalıştırılabilir.
+        </div>
+      </section>
+
+      <!-- ======================================== -->
+      <!-- 9. EXCEL EXPORT                           -->
+      <!-- ======================================== -->
+      <section id="export">
+        <h2>9. Excel Export Formatları</h2>
+        <p>Tüm raporlar aşağıdaki formatlarda dışa aktarılabilir:</p>
+
+        <table>
+          <thead><tr><th>Format</th><th>Uzantı</th><th>Açıklama</th></tr></thead>
+          <tbody>
+            <tr><td>Excel Standart</td><td>.xlsx</td><td>Tüm veriler, filtreler uygulanmış halde</td></tr>
+            <tr><td>Excel Özet</td><td>.xlsx</td><td>Yalnızca toplam ve özet satırlar</td></tr>
+            <tr><td>CSV</td><td>.csv</td><td>Düz metin, diğer sistemlere aktarım için</td></tr>
+            <tr><td>PDF</td><td>.pdf</td><td>Yazdırmaya hazır, şirket logosu dahil</td></tr>
+            <tr><td>Grafik (PNG)</td><td>.png</td><td>Dashboard grafiklerini resim olarak indirme</td></tr>
+          </tbody>
+        </table>
+
+        <div class="info tip">
+          <div class="tip-title">Bilgi</div>
+          Excel export butonları her rapor sayfasının sağ üst köşesinde bulunur. Uygulanan filtreler export'a da yansır.
+        </div>
+      </section>
+
+      <!-- ======================================== -->
+      <!-- 10. SSS                                   -->
+      <!-- ======================================== -->
+      <section id="faq">
+        <h2>10. Sık Sorulan Sorular</h2>
+
+        <div class="card">
+          <h4>1. Dashboard'daki veriler ne sıklıkta güncellenir?</h4>
+          <p>SignalR bağlantılı widget'lar anlık güncellenir. Diğerleri günde bir kez (gece) hesaplanır.</p>
+        </div>
+
+        <div class="card">
+          <h4>2. Geçmiş döneme ait rapor alabilir miyim?</h4>
+          <p>Evet. Tarih filtresi ile istediğiniz dönemi seçebilirsiniz. Sistem ilk kurulumdan itibaren tüm verileri saklar.</p>
+        </div>
+
+        <div class="card">
+          <h4>3. Dinamik rapor oluşturma yetkisi kime ait?</h4>
+          <p>Raporlama modülünde "Kaydet" iznine sahip kullanıcılar dinamik rapor oluşturabilir. "Görüntüle" iznine sahip olanlar yalnızca paylaşılan raporları çalıştırabilir.</p>
+        </div>
+
+        <div class="card">
+          <h4>4. Excel export çok yavaş, ne yapabilirim?</h4>
+          <p>Tarih aralığını daraltın veya filtre ekleyin. 10.000 satırın üzerindeki exportlarda bekleme süresi artabilir.</p>
+        </div>
+
+        <div class="card">
+          <h4>5. Raporları otomatik e-posta ile gönderebilir miyim?</h4>
+          <p>Evet. Rapor detay sayfasında <strong>Zamanlı Gönderim</strong> butonuyla günlük, haftalık veya aylık otomatik gönderim ayarlayabilirsiniz.</p>
+        </div>
+
+        <div class="card">
+          <h4>6. SPC kontrol kartı hangi ölçüm verilerini kullanır?</h4>
+          <p>Kalite kontrol formlarına girilen ölçüm değerlerini kullanır. Ölçüm girilmemişse SPC raporu boş görünür.</p>
+        </div>
+
+        <div class="card">
+          <h4>7. ABC analizi ne sıklıkla güncellenir?</h4>
+          <p>Ayda bir otomatik güncellenir. İsterseniz <strong>Yeniden Hesapla</strong> butonu ile anlık güncelleme yapabilirsiniz.</p>
+        </div>
+
+        <div class="card">
+          <h4>8. Rapor grafiklerini sunuma ekleyebilir miyim?</h4>
+          <p>Evet. Grafik üzerindeki indirme simgesine tıklayarak PNG formatında indirebilirsiniz. Ayrıca PDF export şirket logosu dahil yazdırmaya hazır rapor sunar.</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="doc-footer">
+    Quvex ERP &copy; 2026 &mdash; Raporlama Modülü Kullanıcı Kılavuzu v2.0
+  </div>
+
+</div>
+<script src="js/guide-enhancements.js"></script>
+</body>
+</html>
