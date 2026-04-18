@@ -1,0 +1,13 @@
+{
+  "name": "quvex-dokum-tests",
+  "version": "1.0.0",
+  "description": "Hassas Dokum E2E Tests",
+  "scripts": {
+    "test:auth": "playwright test --config=playwright.config.js --project=auth-setup",
+    "test:dokum": "playwright test --config=playwright.config.js --project=dokum",
+    "test:all": "playwright test --config=playwright.config.js"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.59.1"
+  }
+}
