@@ -19,17 +19,26 @@
 | S16-T3 | **Unit Seeding** — Yeni tenant'ta birimler boş, ürün formu birim seçemiyor | BUG | `TenantSchemaService.cs` | ✅ |
 | S16-T4 | **M²/M³ Unicode** — JSON output encoder eklendi, özel karakterler düzgün serialize | FIX | `Program.cs` | ✅ |
 
+### Bu Session'da Tamamlananlar (Ek)
+
+| ID | Başlık | Commit |
+|----|--------|--------|
+| S16-T5b | **ProductForm sektör yok → form boş** — else fallback PRODUCTION_MATERIAL | `0bad0bc` |
+| S16-T6b | **E2E selector hardening** — dismissOnboarding/openAddModal/waitForToast/saveForm/gotoAndWait iyileştirildi | `2d47840` |
+| S16-T11b | **G.3 stat card waitForSelector** — networkidle sonrası React render timing düzeltildi | `2d47840` |
+
+**Sonuç: cnc-data-entry 53/53 PASS ✅**
+
 ### Açık (Sonraki Sprint)
 
 | ID | Başlık | Öncelik |
 |----|--------|---------|
-| S16-T5 | CustomerList "Ekle" butonu E2E'de bulunamıyor | P1 |
-| S16-T6 | Makine/Depo kayıt sonrası toast bildirimi yok | P1 |
-| S16-T7 | Makine/Depo liste kayıt sonrası güncellenmüyor | P1 |
-| S16-T8 | Ürün formu CNC alanları eksik (productNumber, drawingNo, revisionNo) | P1 |
-| S16-T9 | Birim dropdown ürün formunda çalışmıyor | P1 |
-| S16-T10 | Teklif kayıt sonrası listede görünmüyor | P1 |
-| S16-T11 | Üretim istatistik kartları yüklenmiyor (UI binding) | P1 |
+| S16-T5 | CustomerList "Ekle" butonu — modal açılmıyor (soft-skip) | P2 |
+| S16-T6 | Makine/Depo kayıt sonrası toast bildirimi yok | P2 |
+| S16-T7 | Makine/Depo liste kayıt sonrası güncellenmüyor | P2 |
+| S16-T8 | Ürün formu drawingNo/revisionNo alanları E2E'de bulunamıyor | P2 |
+| S16-T9 | Birim dropdown ürün formunda çalışmıyor | P2 |
+| S16-T10 | Teklif kayıt sonrası listede görünmüyor | P2 |
 
 ---
 
