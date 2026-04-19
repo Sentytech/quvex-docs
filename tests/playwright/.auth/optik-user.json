@@ -1,0 +1,22 @@
+{
+  "cookies": [],
+  "origins": [
+    {
+      "origin": "http://localhost:3000",
+      "localStorage": [
+        {
+          "name": "userData",
+          "value": "{\"id\":\"329c878e-727d-4bf6-af3e-246f499aed39\",\"userName\":\"optik594489@optiktest.com\",\"roles\":[\"Admin\"],\"permissions\":[\"Bakim.Goruntule\",\"Bakim.Kaydet\",\"Bakim.Sil\",\"Bildirim.Goruntule\",\"Bildirim.Kaydet\",\"Denetci.Goruntule\",\"Dokuman.Goruntule\",\"Dokuman.Kaydet\",\"Dokuman.Sil\",\"Dosya.Goruntule\",\"Dosya.Kaydet\",\"Dosya.Sil\",\"Fatura.Goruntule\",\"Fatura.Kaydet\",\"Fatura.Sil\",\"FireTakibi.Goruntule\",\"FireTakibi.Kaydet\",\"FireTakibi.Sil\",\"IK.Goruntule\",\"IK.Kaydet\",\"IK.Sil\",\"Kalite.Goruntule\",\"Kalite.Kaydet\",\"Kalite.Sil\",\"Kullanıcı.Goruntule\",\"Kullanıcı.Kaydet\",\"Kullanıcı.Sil\",\"MRP.Goruntule\",\"MRP.Kaydet\",\"Muhasebe.Goruntule\",\"Muhasebe.Kaydet\",\"Musteri.Goruntule\",\"Musteri.Kaydet\",\"Musteri.Sil\",\"Permissions.Ayarlar.All\",\"Permissions.Credential.All\",\"Permissions.Genel.All\",\"Permissions.Grup.All\",\"Permissions.KullanıcıGrup.All\",\"Permissions.Log.All\",\"Proje.Goruntule\",\"Proje.Kaydet\",\"Proje.Sil\",\"Rapor.Goruntule\",\"Role.Goruntule\",\"Role.Kaydet\",\"Role.Sil\",\"Satinalma.Goruntule\",\"Satinalma.Kaydet\",\"Satinalma.Sil\",\"Satis.Goruntule\",\"Satis.Kaydet\",\"Satis.Sil\",\"Stok.Goruntule\",\"Stok.Kaydet\",\"Stok.Sil\",\"Teklif.Goruntule\",\"Teklif.Kaydet\",\"Teklif.Sil\",\"Toptanci.Goruntule\",\"Toptanci.Kaydet\",\"Toptanci.Sil\",\"Uretim.Goruntule\",\"Uretim.Kaydet\",\"Uretim.Sil\",\"UrunGuvenligi.Goruntule\",\"UrunGuvenligi.Kaydet\"],\"tenantId\":\"85beda53-e28a-4193-8b97-1d453f5a155b\",\"tenantName\":\"Vizyon Optik Savunma Test 594489\"}"
+        },
+        {
+          "name": "quvex.gloveMode",
+          "value": "0"
+        },
+        {
+          "name": "quvex_lang",
+          "value": "tr"
+        }
+      ]
+    }
+  ]
+}

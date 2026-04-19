@@ -1,0 +1,22 @@
+{
+  "cookies": [],
+  "origins": [
+    {
+      "origin": "http://localhost:3000",
+      "localStorage": [
+        {
+          "name": "userData",
+          "value": "{\"id\":\"5588de60-a0c4-4ad1-b7d0-ddb3b88d636c\",\"userName\":\"ndt473377@ndttest.com\",\"roles\":[\"Admin\"],\"permissions\":[\"Bakim.Goruntule\",\"Bakim.Kaydet\",\"Bakim.Sil\",\"Bildirim.Goruntule\",\"Bildirim.Kaydet\",\"Denetci.Goruntule\",\"Dokuman.Goruntule\",\"Dokuman.Kaydet\",\"Dokuman.Sil\",\"Dosya.Goruntule\",\"Dosya.Kaydet\",\"Dosya.Sil\",\"Fatura.Goruntule\",\"Fatura.Kaydet\",\"Fatura.Sil\",\"FireTakibi.Goruntule\",\"FireTakibi.Kaydet\",\"FireTakibi.Sil\",\"IK.Goruntule\",\"IK.Kaydet\",\"IK.Sil\",\"Kalite.Goruntule\",\"Kalite.Kaydet\",\"Kalite.Sil\",\"Kullanıcı.Goruntule\",\"Kullanıcı.Kaydet\",\"Kullanıcı.Sil\",\"MRP.Goruntule\",\"MRP.Kaydet\",\"Muhasebe.Goruntule\",\"Muhasebe.Kaydet\",\"Musteri.Goruntule\",\"Musteri.Kaydet\",\"Musteri.Sil\",\"Permissions.Ayarlar.All\",\"Permissions.Credential.All\",\"Permissions.Genel.All\",\"Permissions.Grup.All\",\"Permissions.KullanıcıGrup.All\",\"Permissions.Log.All\",\"Proje.Goruntule\",\"Proje.Kaydet\",\"Proje.Sil\",\"Rapor.Goruntule\",\"Role.Goruntule\",\"Role.Kaydet\",\"Role.Sil\",\"Satinalma.Goruntule\",\"Satinalma.Kaydet\",\"Satinalma.Sil\",\"Satis.Goruntule\",\"Satis.Kaydet\",\"Satis.Sil\",\"Stok.Goruntule\",\"Stok.Kaydet\",\"Stok.Sil\",\"Teklif.Goruntule\",\"Teklif.Kaydet\",\"Teklif.Sil\",\"Toptanci.Goruntule\",\"Toptanci.Kaydet\",\"Toptanci.Sil\",\"Uretim.Goruntule\",\"Uretim.Kaydet\",\"Uretim.Sil\",\"UrunGuvenligi.Goruntule\",\"UrunGuvenligi.Kaydet\"],\"tenantId\":\"afa5d470-07a4-43c8-ab5a-76a39cbbedb5\",\"tenantName\":\"Guventest NDT Test 473377\"}"
+        },
+        {
+          "name": "quvex.gloveMode",
+          "value": "0"
+        },
+        {
+          "name": "quvex_lang",
+          "value": "tr"
+        }
+      ]
+    }
+  ]
+}
