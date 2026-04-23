@@ -18,10 +18,10 @@ saha gorusmeleri sonucu tespit edilen eksikler.
 ## Diger Dashboard'larda Eksikler
 
 ### 1. ShopFloor Terminal (Operator)
-| Eksik | Aciklama | Oncelik |
-|-------|---------|---------|
-| Onceki adim ozeti | Operator tornaya gelen parcayi bilmiyor — kesimden nasil geldi? | P1 |
-| Inline 3D/teknik cizim | Drawer'da var ama direkt gorunmuyor, butona basmak lazim | P2 |
+| Eksik | Aciklama | Oncelik | Durum |
+|-------|---------|---------|-------|
+| Onceki adim ozeti | Operator tornaya gelen parcayi bilmiyor | P1 | DONE (dd85080) |
+| Inline 3D/teknik cizim | Drawer'da var ama direkt gorunmuyor | P2 | BEKLIYOR |
 
 ### 2. Quality Dashboard (Kalite Muduru)
 | Eksik | Aciklama | Oncelik |
@@ -38,9 +38,9 @@ saha gorusmeleri sonucu tespit edilen eksikler.
 ### 4. Executive Dashboard (Patron)
 | Eksik | Aciklama | Oncelik |
 |-------|---------|---------|
-| Geciken siparis listesi | Sadece genel KPI var, detay yok | P0 |
-| Risk skoru / isi haritasi | Hangi uretimler riskli? | P1 |
-| OTD (On-Time Delivery) % | Zamaninda teslim orani net degil | P2 |
+| Geciken siparis listesi | Sadece genel KPI var, detay yok | P0 | DONE (ee0f5d6) |
+| Risk skoru / isi haritasi | Hangi uretimler riskli? | P1 | DONE (dd85080) |
+| OTD (On-Time Delivery) % | Zamaninda teslim orani net degil | P2 | BEKLIYOR |
 
 ### 5. Financial Dashboard (Muhasebe)
 | Eksik | Aciklama | Oncelik |
